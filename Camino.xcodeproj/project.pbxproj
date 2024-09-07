@@ -11,6 +11,16 @@
 		F11640132C8A8A2F0040C95D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640122C8A8A2F0040C95D /* ContentView.swift */; };
 		F11640152C8A8A300040C95D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F11640142C8A8A300040C95D /* Assets.xcassets */; };
 		F11640182C8A8A300040C95D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F11640172C8A8A300040C95D /* Preview Assets.xcassets */; };
+		F11640202C8AAA610040C95D /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F116401F2C8AAA610040C95D /* ExploreView.swift */; };
+		F11640222C8BA8270040C95D /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640212C8BA8270040C95D /* TripsView.swift */; };
+		F11640242C8BAD140040C95D /* ExplorePills.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640232C8BAD140040C95D /* ExplorePills.swift */; };
+		F11640262C8BB4F00040C95D /* SuggestedPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640252C8BB4F00040C95D /* SuggestedPlaces.swift */; };
+		F11640282C8BEABD0040C95D /* CustomClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640272C8BEABD0040C95D /* CustomClasses.swift */; };
+		F116402A2C8BFA7E0040C95D /* FlightDeals.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640292C8BFA7E0040C95D /* FlightDeals.swift */; };
+		F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F116402B2C8C274E0040C95D /* ExploreHeader.swift */; };
+		F116402E2C8C2F3E0040C95D /* PlaceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F116402D2C8C2F3E0040C95D /* PlaceCard.swift */; };
+		F11640302C8C31E70040C95D /* PopularSports.swift in Sources */ = {isa = PBXBuildFile; fileRef = F116402F2C8C31E70040C95D /* PopularSports.swift */; };
+		F11640322C8C32270040C95D /* GameCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640312C8C32270040C95D /* GameCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +29,16 @@
 		F11640122C8A8A2F0040C95D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F11640142C8A8A300040C95D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F11640172C8A8A300040C95D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F116401F2C8AAA610040C95D /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
+		F11640212C8BA8270040C95D /* TripsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
+		F11640232C8BAD140040C95D /* ExplorePills.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePills.swift; sourceTree = "<group>"; };
+		F11640252C8BB4F00040C95D /* SuggestedPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedPlaces.swift; sourceTree = "<group>"; };
+		F11640272C8BEABD0040C95D /* CustomClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomClasses.swift; sourceTree = "<group>"; };
+		F11640292C8BFA7E0040C95D /* FlightDeals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDeals.swift; sourceTree = "<group>"; };
+		F116402B2C8C274E0040C95D /* ExploreHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreHeader.swift; sourceTree = "<group>"; };
+		F116402D2C8C2F3E0040C95D /* PlaceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCard.swift; sourceTree = "<group>"; };
+		F116402F2C8C31E70040C95D /* PopularSports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularSports.swift; sourceTree = "<group>"; };
+		F11640312C8C32270040C95D /* GameCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +71,19 @@
 		F116400F2C8A8A2F0040C95D /* Camino */ = {
 			isa = PBXGroup;
 			children = (
+				F116401E2C8AAA2C0040C95D /* BottomTabs */,
 				F11640102C8A8A2F0040C95D /* CaminoApp.swift */,
 				F11640122C8A8A2F0040C95D /* ContentView.swift */,
 				F11640142C8A8A300040C95D /* Assets.xcassets */,
 				F11640162C8A8A300040C95D /* Preview Content */,
+				F11640232C8BAD140040C95D /* ExplorePills.swift */,
+				F116402B2C8C274E0040C95D /* ExploreHeader.swift */,
+				F11640252C8BB4F00040C95D /* SuggestedPlaces.swift */,
+				F116402F2C8C31E70040C95D /* PopularSports.swift */,
+				F11640312C8C32270040C95D /* GameCard.swift */,
+				F116402D2C8C2F3E0040C95D /* PlaceCard.swift */,
+				F11640292C8BFA7E0040C95D /* FlightDeals.swift */,
+				F11640272C8BEABD0040C95D /* CustomClasses.swift */,
 			);
 			path = Camino;
 			sourceTree = "<group>";
@@ -65,6 +94,15 @@
 				F11640172C8A8A300040C95D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F116401E2C8AAA2C0040C95D /* BottomTabs */ = {
+			isa = PBXGroup;
+			children = (
+				F116401F2C8AAA610040C95D /* ExploreView.swift */,
+				F11640212C8BA8270040C95D /* TripsView.swift */,
+			);
+			path = BottomTabs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +175,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
+				F11640322C8C32270040C95D /* GameCard.swift in Sources */,
 				F11640132C8A8A2F0040C95D /* ContentView.swift in Sources */,
+				F11640302C8C31E70040C95D /* PopularSports.swift in Sources */,
+				F116402A2C8BFA7E0040C95D /* FlightDeals.swift in Sources */,
+				F11640202C8AAA610040C95D /* ExploreView.swift in Sources */,
+				F11640282C8BEABD0040C95D /* CustomClasses.swift in Sources */,
+				F11640262C8BB4F00040C95D /* SuggestedPlaces.swift in Sources */,
+				F11640242C8BAD140040C95D /* ExplorePills.swift in Sources */,
+				F116402E2C8C2F3E0040C95D /* PlaceCard.swift in Sources */,
 				F11640112C8A8A2F0040C95D /* CaminoApp.swift in Sources */,
+				F11640222C8BA8270040C95D /* TripsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +320,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Camino/Preview Content\"";
+				DEVELOPMENT_TEAM = GLA5VE8QGB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -300,6 +349,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Camino/Preview Content\"";
+				DEVELOPMENT_TEAM = GLA5VE8QGB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
