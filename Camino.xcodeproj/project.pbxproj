@@ -21,6 +21,29 @@
 		F116402E2C8C2F3E0040C95D /* PlaceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F116402D2C8C2F3E0040C95D /* PlaceCard.swift */; };
 		F11640302C8C31E70040C95D /* PopularSports.swift in Sources */ = {isa = PBXBuildFile; fileRef = F116402F2C8C31E70040C95D /* PopularSports.swift */; };
 		F11640322C8C32270040C95D /* GameCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640312C8C32270040C95D /* GameCard.swift */; };
+		F181551A2C8CEA0200E25003 /* TrendingConcerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18155192C8CEA0200E25003 /* TrendingConcerts.swift */; };
+		F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551B2C8CEA2800E25003 /* ConcertCard.swift */; };
+		F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551E2C8D5D1F00E25003 /* ConcertView.swift */; };
+		F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18155202C8EB35A00E25003 /* ConcertsResponse.swift */; };
+		F199FFE32CAA3A5F00EE005F /* Barlow-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD92CAA3A5E00EE005F /* Barlow-LightItalic.ttf */; };
+		F199FFE42CAA3A5F00EE005F /* Barlow-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD62CAA3A5E00EE005F /* Barlow-ExtraLightItalic.ttf */; };
+		F199FFE52CAA3A5F00EE005F /* Barlow-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD42CAA3A5E00EE005F /* Barlow-ExtraBoldItalic.ttf */; };
+		F199FFE62CAA3A5F00EE005F /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = F199FFE12CAA3A5E00EE005F /* OFL.txt */; };
+		F199FFE72CAA3A5F00EE005F /* Barlow-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD82CAA3A5E00EE005F /* Barlow-Light.ttf */; };
+		F199FFE82CAA3A5F00EE005F /* Barlow-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD72CAA3A5E00EE005F /* Barlow-Italic.ttf */; };
+		F199FFE92CAA3A5F00EE005F /* Barlow-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD12CAA3A5E00EE005F /* Barlow-Bold.ttf */; };
+		F199FFEA2CAA3A5F00EE005F /* Barlow-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFDF2CAA3A5E00EE005F /* Barlow-Thin.ttf */; };
+		F199FFEB2CAA3A5F00EE005F /* Barlow-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFDB2CAA3A5E00EE005F /* Barlow-MediumItalic.ttf */; };
+		F199FFEC2CAA3A5F00EE005F /* Barlow-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFE02CAA3A5E00EE005F /* Barlow-ThinItalic.ttf */; };
+		F199FFED2CAA3A5F00EE005F /* Barlow-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFDA2CAA3A5E00EE005F /* Barlow-Medium.ttf */; };
+		F199FFEE2CAA3A5F00EE005F /* Barlow-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFCF2CAA3A5E00EE005F /* Barlow-Black.ttf */; };
+		F199FFEF2CAA3A5F00EE005F /* Barlow-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD52CAA3A5E00EE005F /* Barlow-ExtraLight.ttf */; };
+		F199FFF02CAA3A5F00EE005F /* Barlow-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFDE2CAA3A5E00EE005F /* Barlow-SemiBoldItalic.ttf */; };
+		F199FFF12CAA3A5F00EE005F /* Barlow-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFDC2CAA3A5E00EE005F /* Barlow-Regular.ttf */; };
+		F199FFF22CAA3A5F00EE005F /* Barlow-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD22CAA3A5E00EE005F /* Barlow-BoldItalic.ttf */; };
+		F199FFF32CAA3A5F00EE005F /* Barlow-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD02CAA3A5E00EE005F /* Barlow-BlackItalic.ttf */; };
+		F199FFF42CAA3A5F00EE005F /* Barlow-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFDD2CAA3A5E00EE005F /* Barlow-SemiBold.ttf */; };
+		F199FFF52CAA3A5F00EE005F /* Barlow-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD32CAA3A5E00EE005F /* Barlow-ExtraBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +62,30 @@
 		F116402D2C8C2F3E0040C95D /* PlaceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCard.swift; sourceTree = "<group>"; };
 		F116402F2C8C31E70040C95D /* PopularSports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularSports.swift; sourceTree = "<group>"; };
 		F11640312C8C32270040C95D /* GameCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCard.swift; sourceTree = "<group>"; };
+		F18155192C8CEA0200E25003 /* TrendingConcerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingConcerts.swift; sourceTree = "<group>"; };
+		F181551B2C8CEA2800E25003 /* ConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertCard.swift; sourceTree = "<group>"; };
+		F181551E2C8D5D1F00E25003 /* ConcertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertView.swift; sourceTree = "<group>"; };
+		F18155202C8EB35A00E25003 /* ConcertsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertsResponse.swift; sourceTree = "<group>"; };
+		F199FFCF2CAA3A5E00EE005F /* Barlow-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Black.ttf"; sourceTree = "<group>"; };
+		F199FFD02CAA3A5E00EE005F /* Barlow-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-BlackItalic.ttf"; sourceTree = "<group>"; };
+		F199FFD12CAA3A5E00EE005F /* Barlow-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Bold.ttf"; sourceTree = "<group>"; };
+		F199FFD22CAA3A5E00EE005F /* Barlow-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-BoldItalic.ttf"; sourceTree = "<group>"; };
+		F199FFD32CAA3A5E00EE005F /* Barlow-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-ExtraBold.ttf"; sourceTree = "<group>"; };
+		F199FFD42CAA3A5E00EE005F /* Barlow-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		F199FFD52CAA3A5E00EE005F /* Barlow-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-ExtraLight.ttf"; sourceTree = "<group>"; };
+		F199FFD62CAA3A5E00EE005F /* Barlow-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
+		F199FFD72CAA3A5E00EE005F /* Barlow-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Italic.ttf"; sourceTree = "<group>"; };
+		F199FFD82CAA3A5E00EE005F /* Barlow-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Light.ttf"; sourceTree = "<group>"; };
+		F199FFD92CAA3A5E00EE005F /* Barlow-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-LightItalic.ttf"; sourceTree = "<group>"; };
+		F199FFDA2CAA3A5E00EE005F /* Barlow-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Medium.ttf"; sourceTree = "<group>"; };
+		F199FFDB2CAA3A5E00EE005F /* Barlow-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-MediumItalic.ttf"; sourceTree = "<group>"; };
+		F199FFDC2CAA3A5E00EE005F /* Barlow-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Regular.ttf"; sourceTree = "<group>"; };
+		F199FFDD2CAA3A5E00EE005F /* Barlow-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-SemiBold.ttf"; sourceTree = "<group>"; };
+		F199FFDE2CAA3A5E00EE005F /* Barlow-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		F199FFDF2CAA3A5E00EE005F /* Barlow-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Thin.ttf"; sourceTree = "<group>"; };
+		F199FFE02CAA3A5E00EE005F /* Barlow-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-ThinItalic.ttf"; sourceTree = "<group>"; };
+		F199FFE12CAA3A5E00EE005F /* OFL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
+		F199FFF62CAA3A6E00EE005F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,19 +118,20 @@
 		F116400F2C8A8A2F0040C95D /* Camino */ = {
 			isa = PBXGroup;
 			children = (
+				F199FFF62CAA3A6E00EE005F /* Info.plist */,
 				F116401E2C8AAA2C0040C95D /* BottomTabs */,
 				F11640102C8A8A2F0040C95D /* CaminoApp.swift */,
 				F11640122C8A8A2F0040C95D /* ContentView.swift */,
+				F181551D2C8D5CE300E25003 /* Explore */,
 				F11640142C8A8A300040C95D /* Assets.xcassets */,
 				F11640162C8A8A300040C95D /* Preview Content */,
-				F11640232C8BAD140040C95D /* ExplorePills.swift */,
-				F116402B2C8C274E0040C95D /* ExploreHeader.swift */,
-				F11640252C8BB4F00040C95D /* SuggestedPlaces.swift */,
-				F116402F2C8C31E70040C95D /* PopularSports.swift */,
 				F11640312C8C32270040C95D /* GameCard.swift */,
 				F116402D2C8C2F3E0040C95D /* PlaceCard.swift */,
-				F11640292C8BFA7E0040C95D /* FlightDeals.swift */,
+				F181551B2C8CEA2800E25003 /* ConcertCard.swift */,
+				F18155202C8EB35A00E25003 /* ConcertsResponse.swift */,
 				F11640272C8BEABD0040C95D /* CustomClasses.swift */,
+				F181551E2C8D5D1F00E25003 /* ConcertView.swift */,
+				F199FFE22CAA3A5E00EE005F /* Barlow */,
 			);
 			path = Camino;
 			sourceTree = "<group>";
@@ -103,6 +151,45 @@
 				F11640212C8BA8270040C95D /* TripsView.swift */,
 			);
 			path = BottomTabs;
+			sourceTree = "<group>";
+		};
+		F181551D2C8D5CE300E25003 /* Explore */ = {
+			isa = PBXGroup;
+			children = (
+				F116402B2C8C274E0040C95D /* ExploreHeader.swift */,
+				F11640232C8BAD140040C95D /* ExplorePills.swift */,
+				F11640252C8BB4F00040C95D /* SuggestedPlaces.swift */,
+				F11640292C8BFA7E0040C95D /* FlightDeals.swift */,
+				F116402F2C8C31E70040C95D /* PopularSports.swift */,
+				F18155192C8CEA0200E25003 /* TrendingConcerts.swift */,
+			);
+			path = Explore;
+			sourceTree = "<group>";
+		};
+		F199FFE22CAA3A5E00EE005F /* Barlow */ = {
+			isa = PBXGroup;
+			children = (
+				F199FFCF2CAA3A5E00EE005F /* Barlow-Black.ttf */,
+				F199FFD02CAA3A5E00EE005F /* Barlow-BlackItalic.ttf */,
+				F199FFD12CAA3A5E00EE005F /* Barlow-Bold.ttf */,
+				F199FFD22CAA3A5E00EE005F /* Barlow-BoldItalic.ttf */,
+				F199FFD32CAA3A5E00EE005F /* Barlow-ExtraBold.ttf */,
+				F199FFD42CAA3A5E00EE005F /* Barlow-ExtraBoldItalic.ttf */,
+				F199FFD52CAA3A5E00EE005F /* Barlow-ExtraLight.ttf */,
+				F199FFD62CAA3A5E00EE005F /* Barlow-ExtraLightItalic.ttf */,
+				F199FFD72CAA3A5E00EE005F /* Barlow-Italic.ttf */,
+				F199FFD82CAA3A5E00EE005F /* Barlow-Light.ttf */,
+				F199FFD92CAA3A5E00EE005F /* Barlow-LightItalic.ttf */,
+				F199FFDA2CAA3A5E00EE005F /* Barlow-Medium.ttf */,
+				F199FFDB2CAA3A5E00EE005F /* Barlow-MediumItalic.ttf */,
+				F199FFDC2CAA3A5E00EE005F /* Barlow-Regular.ttf */,
+				F199FFDD2CAA3A5E00EE005F /* Barlow-SemiBold.ttf */,
+				F199FFDE2CAA3A5E00EE005F /* Barlow-SemiBoldItalic.ttf */,
+				F199FFDF2CAA3A5E00EE005F /* Barlow-Thin.ttf */,
+				F199FFE02CAA3A5E00EE005F /* Barlow-ThinItalic.ttf */,
+				F199FFE12CAA3A5E00EE005F /* OFL.txt */,
+			);
+			path = Barlow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,6 +252,25 @@
 			files = (
 				F11640182C8A8A300040C95D /* Preview Assets.xcassets in Resources */,
 				F11640152C8A8A300040C95D /* Assets.xcassets in Resources */,
+				F199FFE32CAA3A5F00EE005F /* Barlow-LightItalic.ttf in Resources */,
+				F199FFE42CAA3A5F00EE005F /* Barlow-ExtraLightItalic.ttf in Resources */,
+				F199FFE52CAA3A5F00EE005F /* Barlow-ExtraBoldItalic.ttf in Resources */,
+				F199FFE62CAA3A5F00EE005F /* OFL.txt in Resources */,
+				F199FFE72CAA3A5F00EE005F /* Barlow-Light.ttf in Resources */,
+				F199FFE82CAA3A5F00EE005F /* Barlow-Italic.ttf in Resources */,
+				F199FFE92CAA3A5F00EE005F /* Barlow-Bold.ttf in Resources */,
+				F199FFEA2CAA3A5F00EE005F /* Barlow-Thin.ttf in Resources */,
+				F199FFEB2CAA3A5F00EE005F /* Barlow-MediumItalic.ttf in Resources */,
+				F199FFEC2CAA3A5F00EE005F /* Barlow-ThinItalic.ttf in Resources */,
+				F199FFED2CAA3A5F00EE005F /* Barlow-Medium.ttf in Resources */,
+				F199FFEE2CAA3A5F00EE005F /* Barlow-Black.ttf in Resources */,
+				F199FFEF2CAA3A5F00EE005F /* Barlow-ExtraLight.ttf in Resources */,
+				F199FFF02CAA3A5F00EE005F /* Barlow-SemiBoldItalic.ttf in Resources */,
+				F199FFF12CAA3A5F00EE005F /* Barlow-Regular.ttf in Resources */,
+				F199FFF22CAA3A5F00EE005F /* Barlow-BoldItalic.ttf in Resources */,
+				F199FFF32CAA3A5F00EE005F /* Barlow-BlackItalic.ttf in Resources */,
+				F199FFF42CAA3A5F00EE005F /* Barlow-SemiBold.ttf in Resources */,
+				F199FFF52CAA3A5F00EE005F /* Barlow-ExtraBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,8 +282,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
+				F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */,
+				F181551A2C8CEA0200E25003 /* TrendingConcerts.swift in Sources */,
 				F11640322C8C32270040C95D /* GameCard.swift in Sources */,
 				F11640132C8A8A2F0040C95D /* ContentView.swift in Sources */,
+				F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */,
+				F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */,
 				F11640302C8C31E70040C95D /* PopularSports.swift in Sources */,
 				F116402A2C8BFA7E0040C95D /* FlightDeals.swift in Sources */,
 				F11640202C8AAA610040C95D /* ExploreView.swift in Sources */,
@@ -323,6 +433,7 @@
 				DEVELOPMENT_TEAM = GLA5VE8QGB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Camino/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -352,6 +463,7 @@
 				DEVELOPMENT_TEAM = GLA5VE8QGB;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Camino/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

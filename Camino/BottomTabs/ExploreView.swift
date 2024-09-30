@@ -1,10 +1,3 @@
-//
-//  ExploreView.swift
-//  Camino
-//
-//  Created by Owen Evey on 9/5/24.
-//
-
 import SwiftUI
 
 struct ExploreView: View {
@@ -14,33 +7,17 @@ struct ExploreView: View {
     var body: some View {
         NavigationStack{
             ScrollView(showsIndicators: false) {
-                VStack(spacing: 0) {
+                VStack(spacing: 15) {
                     ExploreHeader()
                     ExplorePills()
                     SuggestedPlaces()
-                    FlightDeals()
-                    PopularSports()
+                    TrendingConcerts()
+                    SuggestedPlaces()
+                    TrendingConcerts()
+                    TrendingConcerts()
                     Spacer()
                 }.padding(.bottom, 100)
             }
-            .ignoresSafeArea()
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        print("Notification button was tapped")
-                    } label: {
-                        ZStack{
-                            Circle()
-                                .fill(.green)
-                                .frame(width: 35, height: 35)
-                            Image(systemName: "bell.fill")
-                                .foregroundStyle(.white)
-                                .font(.system(size: 15))
-                        }
-                    }
-                }
-            }
-            .toolbarBackground(.hidden)
         }
     }
 }

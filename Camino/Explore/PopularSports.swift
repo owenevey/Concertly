@@ -1,10 +1,3 @@
-//
-//  PopularSports.swift
-//  Camino
-//
-//  Created by Owen Evey on 9/7/24.
-//
-
 import SwiftUI
 
 struct PopularSports: View {
@@ -15,14 +8,23 @@ struct PopularSports: View {
                     .font(.title2)
                     .fontWeight(.bold)
                 Spacer()
+                
+                NavigationLink{ Text("More sports")} label: {
+                    HStack {
+                        Text("See More")
+                            .font(.system(size: 16))
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 16))
+                    }
+                }.buttonStyle(PlainButtonStyle())
             }
             .padding([.leading, .top, .trailing], 15)
             
             ScrollView(.horizontal, showsIndicators: false){
                 HStack(spacing: 15){
                     
-                    ForEach(suggestedPlaces.reversed(), id: \.id) { place in
-                        GameCard()
+                    ForEach(popularGames, id: \.id) { game in
+                        GameCard(game: game)
                     }
                     
                 }

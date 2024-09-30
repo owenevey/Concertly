@@ -1,41 +1,40 @@
 import SwiftUI
 
-struct PlaceCard: View {
+struct ConcertCard: View {
     
-    var place: Place
+    var concert: ogConcert
     
     var body: some View {
         
         NavigationLink{
-            Text(place.name)
+            Text(concert.artist)
         }
         label: {
             VStack(alignment: .leading, spacing: 0) {
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(place.name)
-                        .font(Font.custom("Barlow-Bold", size: 20))
-                        .lineLimit(1)
-                    
-                    Text("\(place.countryFlag) \(place.country)")
-                        .font(Font.custom("Barlow-SemiBold", size: 16))
-                        .foregroundStyle(.gray)
-                        .minimumScaleFactor(0.5)
-                        .lineLimit(1)
-                    
-                    Text(place.description)
-                        .font(Font.custom("Barlow-SemiBold", size: 16))
-                        .foregroundStyle(.gray)
-                        .lineLimit(2, reservesSpace: true)
-                }
-                .padding(10)
-                
-                Image(place.imageString)
+                Image(concert.artistPhoto)
                     .resizable()
                     .scaledToFill()
                     .frame(width: 234, height: 150)
                     .cornerRadius(17)
                     .clipped()
                 
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(concert.artist)
+                        .font(Font.custom("Barlow-Bold", size: 20))
+                        .lineLimit(1)
+                    
+                    Text("\(concert.location), \(concert.country)")
+                        .font(Font.custom("Barlow-SemiBold", size: 16))
+                        .foregroundStyle(.gray)
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
+                    
+                    Text(concert.date)
+                        .font(Font.custom("Barlow-SemiBold", size: 16))
+                        .foregroundStyle(.gray)
+                    
+                }
+                .padding(10)
             }
             .padding(8)
             .frame(width: 250)
@@ -49,5 +48,5 @@ struct PlaceCard: View {
 }
 
 #Preview {
-    PlaceCard(place: suggestedPlaces[0])
+    ConcertCard(concert: trendingConcerts[0])
 }

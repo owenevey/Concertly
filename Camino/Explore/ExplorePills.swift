@@ -11,7 +11,8 @@ struct ExplorePills: View {
                 TransportButton(title: "🚍 Busses")
 
             }
-            .padding(15)
+            .padding(.horizontal, 15)
+            .padding(.vertical, 2)
         }
     }
 }
@@ -27,7 +28,7 @@ struct TransportButton: View {
             print("Pressed \(title)")
         } label: {
             Text(title)
-                .font(.subheadline)
+                .font(Font.custom("Barlow-SemiBold", size: 15))
                 .padding(.vertical, 10)
                 .padding(.horizontal, 15)
                 .foregroundColor(.black)

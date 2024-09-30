@@ -1,20 +1,28 @@
 import SwiftUI
 
-struct SuggestedPlaces: View {
+struct FlightDeals: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("Places you might like")
+                Text("Flight Deals")
                     .font(.title2)
                     .fontWeight(.bold)
                 Spacer()
+                NavigationLink{ Text("More deals")} label: {
+                    HStack {
+                        Text("See More")
+                            .font(.system(size: 16))
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 16))
+                    }
+                }.buttonStyle(PlainButtonStyle())
             }
             .padding([.leading, .top, .trailing], 15)
             
             ScrollView(.horizontal, showsIndicators: false){
                 HStack(spacing: 15){
                     
-                    ForEach(suggestedPlaces, id: \.id) { place in
+                    ForEach(suggestedPlaces.reversed(), id: \.id) { place in
                         PlaceCard(place: place)
                     }
                     
@@ -26,5 +34,5 @@ struct SuggestedPlaces: View {
 }
 
 #Preview {
-    SuggestedPlaces()
+    FlightDeals()
 }

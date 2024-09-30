@@ -15,16 +15,12 @@ struct ExploreHeader: View {
         Image(.goldenGate)
             .resizable()
             .scaledToFill()
-            .frame(height: 350)
+            .frame(height: 300)
             .containerRelativeFrame(.horizontal) { size, axis in
-                size
+                size - 20
             }
+            .cornerRadius(25)
             .clipped()
-            .padding(.top, -50)
-            .overlay(
-                LinearGradient(colors: [Color.white.opacity(1), .clear], startPoint: .top, endPoint: UnitPoint(x: 0.5, y: 0.4))
-                    .padding(.top, -50)
-            )
             .overlay(
                 VStack{
                     Spacer()
@@ -32,16 +28,15 @@ struct ExploreHeader: View {
                     VStack {
                         HStack {
                             Text("What adventures\nawait?")
-                                .font(.title)
-                                .fontWeight(.bold)
+                                .font(Font.custom("Barlow-ExtraBold", size: 30))
                                 .foregroundStyle(.white)
                                 .frame(alignment: .topLeading)
                                 .shadow(radius: 5)
                             Spacer()
                         }
                         
-                        RoundedRectangle(cornerRadius: 25)
-                            .fill(.white)
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(.card)
                             .frame(maxWidth: .infinity)
                             .frame(height: 50)
                             .overlay(
@@ -51,7 +46,8 @@ struct ExploreHeader: View {
                                         .padding(.trailing)
                                 }.padding()
                             )
-                    }.padding(20)
+                    }
+                    .padding(20)
                     
                     
                 }

@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  Camino
-//
-//  Created by Owen Evey on 9/5/24.
-//
-
 import SwiftUI
 
 struct ContentView: View {
