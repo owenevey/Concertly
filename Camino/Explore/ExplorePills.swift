@@ -31,11 +31,11 @@ struct TransportButton: View {
                 .font(Font.custom("Barlow-SemiBold", size: 15))
                 .padding(.vertical, 10)
                 .padding(.horizontal, 15)
-                .foregroundColor(.black)
-                .overlay(
+                .background(
                     Capsule(style: .continuous)
                         .stroke(Color(UIColor.lightGray), style: StrokeStyle(lineWidth: 1))
+                        .fill(.card)
                 )
-        }
+        }.buttonStyle(PlainButtonStyle())
     }
 }

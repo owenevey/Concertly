@@ -67,5 +67,5 @@ struct GameCard: View {
 }
 
 #Preview {
-    GameCard(game: popularGames[0])
+    GameCard(game: upcomingGames[0])
 }

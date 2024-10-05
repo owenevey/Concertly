@@ -1,10 +1,3 @@
-//
-//  ExploreHeader.swift
-//  Camino
-//
-//  Created by Owen Evey on 9/7/24.
-//
-
 import SwiftUI
 
 struct ExploreHeader: View {
@@ -17,21 +10,32 @@ struct ExploreHeader: View {
             .scaledToFill()
             .frame(height: 300)
             .containerRelativeFrame(.horizontal) { size, axis in
-                size - 20
+                size
             }
-            .cornerRadius(25)
             .clipped()
             .overlay(
                 VStack{
-                    Spacer()
+                    HStack{
+                        Spacer()
+                        Circle()
+                            .fill(.card)
+                            .frame(width: 40, height: 40)
+                            .overlay(
+                                Image(systemName: "bell.fill")
+                                    .foregroundStyle(.accent)
+                            )
+                            .padding(.trailing, 20)
+                            .padding(.top, 50)
+                    }
+//                    Spacer()
                     
                     VStack {
                         HStack {
                             Text("What adventures\nawait?")
-                                .font(Font.custom("Barlow-ExtraBold", size: 30))
+                                .font(Font.custom("Barlow-Bold", size: 30))
                                 .foregroundStyle(.white)
                                 .frame(alignment: .topLeading)
-                                .shadow(radius: 5)
+                                .shadow(color: .black.opacity(0.5), radius: 3)
                             Spacer()
                         }
                         
@@ -43,11 +47,13 @@ struct ExploreHeader: View {
                                 HStack {
                                     Image(systemName: "magnifyingglass")
                                     TextField("Search Destination", text: $textInput)
+                                        .font(Font.custom("Barlow-Regular", size: 18))
                                         .padding(.trailing)
                                 }.padding()
                             )
                     }
                     .padding(20)
+//                    .padding(.bottom, 30)
                     
                     
                 }

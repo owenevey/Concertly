@@ -1,10 +1,10 @@
 import SwiftUI
 
-struct SuggestedPlaces: View {
+struct UpcomingGames: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("Suggested Places")
+                Text("Upcoming Games")
                     .font(Font.custom("Barlow-Bold", size: 23))
                 Spacer()
                 NavigationLink{ Text("View More")} label: {
@@ -20,8 +20,8 @@ struct SuggestedPlaces: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 15){
-                    ForEach(suggestedPlaces, id: \.id) { place in
-                        PlaceCard(place: place)
+                    ForEach(upcomingGames, id: \.id) { game in
+                        SportCard(game: game)
                     }
                 }
                 .scrollTargetLayout()
@@ -34,5 +34,5 @@ struct SuggestedPlaces: View {
 }
 
 #Preview {
-    SuggestedPlaces()
+    UpcomingGames()
 }

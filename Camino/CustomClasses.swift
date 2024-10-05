@@ -1,43 +1,25 @@
 import Foundation
 
 
-class Place {
+struct Place {
     let id = UUID()
     var name: String
     var country: String
     var countryFlag: String
     var imageString: String
     var description: String
-    
-    
-    init(name: String, country: String, countryFlag: String, imageString: String, description: String) {
-        self.name = name
-        self.country = country
-        self.countryFlag = countryFlag
-        self.imageString = imageString
-        self.description = description
-    }
 }
 
-class Game {
+struct Game {
     let id = UUID()
     var homeTeamName: String
     var awayTeamName: String
     var homeTeamLogo: String
     var awayTeamLogo: String
+    var leagueLogo: String
     var date: String
     var location: String
     var country: String
-    
-    init(homeTeamName: String, awayTeamName: String, homeTeamLogo: String, awayTeamLogo: String, date: String, location: String, country: String) {
-        self.homeTeamName = homeTeamName
-        self.awayTeamName = awayTeamName
-        self.homeTeamLogo = homeTeamLogo
-        self.awayTeamLogo = awayTeamLogo
-        self.date = date
-        self.location = location
-        self.country = country
-    }
 }
 
 class ogConcert {
@@ -70,11 +52,11 @@ var suggestedPlaces = [
 ]
 
 
-var popularGames = [
-    Game(homeTeamName: "CHE", awayTeamName: "ARS", homeTeamLogo: "chelsea", awayTeamLogo: "arsenal", date: "September 16", location: "Stamford Bridge", country: "England"),
-    Game(homeTeamName: "NAP", awayTeamName: "INT", homeTeamLogo: "napoli", awayTeamLogo: "interMilan", date: "September 21", location: "Maradona Stadium", country: "Italy"),
-    Game(homeTeamName: "MSU", awayTeamName: "USC", homeTeamLogo: "michiganState", awayTeamLogo: "usc", date: "October 7", location: "Spartan Stadium", country: "USA"),
-    Game(homeTeamName: "MUN", awayTeamName: "FUL", homeTeamLogo: "manUtd", awayTeamLogo: "fulham", date: "September 29", location: "Old Trafford", country: "England")
+var upcomingGames = [
+    Game(homeTeamName: "CHE", awayTeamName: "ARS", homeTeamLogo: "chelsea", awayTeamLogo: "arsenal", leagueLogo: "premierLeague", date: "Mon Sept 30", location: "Stamford Bridge", country: "England"),
+    Game(homeTeamName: "NAP", awayTeamName: "INT", homeTeamLogo: "napoli", awayTeamLogo: "interMilan", leagueLogo: "serieA", date: "Tue Oct 21", location: "Maradona Stadium", country: "Italy"),
+    Game(homeTeamName: "MSU", awayTeamName: "USC", homeTeamLogo: "michiganState", awayTeamLogo: "usc", leagueLogo: "bigTen", date: "Sat Oct 5", location: "Spartan Stadium", country: "USA"),
+    Game(homeTeamName: "MUN", awayTeamName: "FUL", homeTeamLogo: "manUtd", awayTeamLogo: "fulham", leagueLogo: "premierLeague", date: "Sat Oct 21", location: "Old Trafford", country: "England")
 ]
 
 
@@ -89,4 +71,4 @@ var trendingConcerts = [
 ]
 
 var hotConcerts = [
-Concert(name: "Charli XCX", id: "G5diZbFRelxnG", url: "https://www.ticketmaster.com/charli-xcx-troye-sivan-present-sweat-new-york-new-york-09-23-2024/event/3B00608BC2AE2A8C", imageUrl: "https://s1.ticketm.net/dam/a/f2b/220a2ab5-5dc4-4c55-b39b-f61564286f2b_SOURCE", dateTime: "2024-09-23T23:30:00Z", minPrice: 49.5, maxPrice: 179.5, seatmapImageUrl: "https://mapsapi.tmol.io/maps/geometry/3/event/3B00608BC2AE2A8C/staticImage?type=png&systemId=HOST", venue: Venue(name: "Madison Square Garden", id: "KovZpZA7AAEA", url: "https://www.ticketmaster.com/madison-square-garden-tickets-new-york/venue/483329", imageUrl: "https://s1.ticketm.net/dbimages/23135v.jpg", latitude: "40.7497062", longitude: "-73.9916006"))]
+    Concert(name: "Charli XCX", id: "G5diZbFRelxnG", url: "https://www.ticketmaster.com/charli-xcx-troye-sivan-present-sweat-new-york-new-york-09-23-2024/event/3B00608BC2AE2A8C", imageUrl: "https://s1.ticketm.net/dam/a/f2b/220a2ab5-5dc4-4c55-b39b-f61564286f2b_SOURCE", dateTime: Date.now, minPrice: 49.5, maxPrice: 179.5, venue: Venue(name: "Madison Square Garden", country: "United States of America", latitude: "40.7497062", longitude: "-73.9916006"))]

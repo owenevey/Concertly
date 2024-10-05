@@ -2,34 +2,42 @@ import SwiftUI
 
 struct ConcertCard: View {
     
-    var concert: ogConcert
     
-    var body: some View {
+    var concert: Concert
         
+    var body: some View {
         NavigationLink{
-            Text(concert.artist)
+            ConcertView(concert: concert)
+                .navigationBarHidden(true)
+                .toolbar(.hidden, for: .tabBar)
         }
         label: {
             VStack(alignment: .leading, spacing: 0) {
-                Image(concert.artistPhoto)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 234, height: 150)
-                    .cornerRadius(17)
-                    .clipped()
+                AsyncImage(url: URL(string: concert.imageUrl)) { image in
+                    image
+                        .resizable()
+                } placeholder: {
+                    Image(systemName: "photo.fill")
+                }
+                .scaledToFill()
+                .frame(width: 234, height: 150)
+                .cornerRadius(17)
+                .clipped()
+                
+                
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(concert.artist)
+                    Text(concert.name)
                         .font(Font.custom("Barlow-Bold", size: 20))
                         .lineLimit(1)
                     
-                    Text("\(concert.location), \(concert.country)")
+                    Text("\(concert.venue.country)")
                         .font(Font.custom("Barlow-SemiBold", size: 16))
                         .foregroundStyle(.gray)
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
                     
-                    Text(concert.date)
+                    Text(concert.dateTime.formatted(date: .abbreviated, time: .omitted))
                         .font(Font.custom("Barlow-SemiBold", size: 16))
                         .foregroundStyle(.gray)
                     
@@ -48,5 +56,5 @@ struct ConcertCard: View {
 }
 
 #Preview {
-    ConcertCard(concert: trendingConcerts[0])
+    ConcertCard(concert: hotConcerts[0])
 }

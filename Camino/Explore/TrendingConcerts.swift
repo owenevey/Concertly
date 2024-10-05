@@ -1,11 +1,14 @@
 import SwiftUI
 
 struct TrendingConcerts: View {
+    
+    let concerts: [Concert]
+    
     var body: some View {
         VStack(spacing: 0) {
             HStack {
                 Text("Trending Concerts")
-                    .font(Font.custom("Barlow-ExtraBold", size: 23))
+                    .font(Font.custom("Barlow-Bold", size: 23))
                 Spacer()
                 NavigationLink{ Text("View More")} label: {
                     HStack {
@@ -20,7 +23,7 @@ struct TrendingConcerts: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 15){
-                    ForEach(trendingConcerts, id: \.id) { concert in
+                    ForEach(concerts, id: \.id) { concert in
                         ConcertCard(concert: concert)
                     }
                 }
@@ -34,5 +37,5 @@ struct TrendingConcerts: View {
 }
 
 #Preview {
-    TrendingConcerts()
+    TrendingConcerts(concerts: hotConcerts)
 }
