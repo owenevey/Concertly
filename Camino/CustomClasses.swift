@@ -22,24 +22,6 @@ struct Game {
     var country: String
 }
 
-class ogConcert {
-    let id = UUID()
-    var artist: String
-    var artistPhoto: String
-    var date: String
-    var location: String
-    var country: String
-    var countryFlag: String
-    
-    init(artist: String, artistPhoto: String, date: String, location: String, country: String, countryFlag: String) {
-        self.artist = artist
-        self.artistPhoto = artistPhoto
-        self.date = date
-        self.location = location
-        self.country = country
-        self.countryFlag = countryFlag
-    }
-}
 
 var suggestedPlaces = [
     Place(name: "Rio De Janeiro", country: "Brazil", countryFlag: "🇧🇷", imageString: "rio", description: "Where vibrant culture meets breathtaking beaches"),
@@ -59,16 +41,6 @@ var upcomingGames = [
     Game(homeTeamName: "MUN", awayTeamName: "FUL", homeTeamLogo: "manUtd", awayTeamLogo: "fulham", leagueLogo: "premierLeague", date: "Sat Oct 21", location: "Old Trafford", country: "England")
 ]
 
-
-var trendingConcerts = [
-    ogConcert(artist: "Blink 182", artistPhoto: "blink182", date: "Fri Oct 12", location: "Zilker Park", country: "USA", countryFlag: "🇺🇸"),
-    ogConcert(artist: "Morgan Wallen", artistPhoto: "morganWallen", date: "Thu Nov 10", location: "Neyland Stadium", country: "USA", countryFlag: "🇺🇸"),
-    ogConcert(artist: "U2", artistPhoto: "u2", date: "Fri Oct 21", location: "Anfield", country: "England", countryFlag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿"),
-    ogConcert(artist: "Dua Lipa", artistPhoto: "duaLipa", date: "Sat November 2", location: "Johan Cruijff ArenA", country: "Netherlands", countryFlag: "🇳🇱"),
-    ogConcert(artist: "Coldplay", artistPhoto: "coldplay", date: "Sat Sep 29", location: "Estadio River Plate", country: "Argentina", countryFlag: "🇦🇷"),
-    ogConcert(artist: "Drake", artistPhoto: "drake", date: "Wed Dec 4", location: "Mercedes Benz Stadium", country: "USA", countryFlag: "🇺🇸"),
-    ogConcert(artist: "Maroon 5", artistPhoto: "maroon5", date: "Fri Oct 30", location: "Petco Park", country: "USA", countryFlag: "🇺🇸")
-]
 
 var hotConcerts = [
     Concert(name: "Charli XCX", id: "G5diZbFRelxnG", url: "https://www.ticketmaster.com/charli-xcx-troye-sivan-present-sweat-new-york-new-york-09-23-2024/event/3B00608BC2AE2A8C", imageUrl: "https://s1.ticketm.net/dam/a/f2b/220a2ab5-5dc4-4c55-b39b-f61564286f2b_SOURCE", dateTime: Date.now, minPrice: 49.5, maxPrice: 179.5, venue: Venue(name: "Madison Square Garden", country: "United States of America", latitude: "40.7497062", longitude: "-73.9916006"))]

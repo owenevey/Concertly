@@ -6,7 +6,7 @@ struct PlaceCard: View {
     
     var body: some View {
         
-        NavigationLink{
+        NavigationLink {
             Text(place.name)
         }
         label: {
@@ -14,9 +14,10 @@ struct PlaceCard: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text(place.name)
                         .font(Font.custom("Barlow-Bold", size: 20))
+                        .minimumScaleFactor(0.5)
                         .lineLimit(1)
                     
-                    Text("\(place.countryFlag) \(place.country)")
+                    Text(place.country)
                         .font(Font.custom("Barlow-SemiBold", size: 16))
                         .foregroundStyle(.gray)
                         .minimumScaleFactor(0.5)
@@ -25,6 +26,7 @@ struct PlaceCard: View {
                     Text(place.description)
                         .font(Font.custom("Barlow-SemiBold", size: 16))
                         .foregroundStyle(.gray)
+                        .minimumScaleFactor(0.5)
                         .lineLimit(2, reservesSpace: true)
                 }
                 .padding(10)
@@ -39,12 +41,12 @@ struct PlaceCard: View {
             }
             .padding(8)
             .frame(width: 250)
-            
             .background(
                 RoundedRectangle(cornerRadius: 25)
-                    .fill(Color("Card"))
+                    .fill(.card)
             )
-        }.buttonStyle(PlainButtonStyle())
+        }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 

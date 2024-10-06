@@ -4,12 +4,11 @@ struct ConcertCard: View {
     
     
     var concert: Concert
-        
+    
     var body: some View {
         NavigationLink{
             ConcertView(concert: concert)
                 .navigationBarHidden(true)
-                .toolbar(.hidden, for: .tabBar)
         }
         label: {
             VStack(alignment: .leading, spacing: 0) {
@@ -24,14 +23,13 @@ struct ConcertCard: View {
                 .cornerRadius(17)
                 .clipped()
                 
-                
-                
                 VStack(alignment: .leading, spacing: 5) {
                     Text(concert.name)
                         .font(Font.custom("Barlow-Bold", size: 20))
+                        .minimumScaleFactor(0.5)
                         .lineLimit(1)
                     
-                    Text("\(concert.venue.country)")
+                    Text(concert.venue.country)
                         .font(Font.custom("Barlow-SemiBold", size: 16))
                         .foregroundStyle(.gray)
                         .minimumScaleFactor(0.5)
@@ -40,18 +38,20 @@ struct ConcertCard: View {
                     Text(concert.dateTime.formatted(date: .abbreviated, time: .omitted))
                         .font(Font.custom("Barlow-SemiBold", size: 16))
                         .foregroundStyle(.gray)
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
                     
                 }
                 .padding(10)
             }
             .padding(8)
             .frame(width: 250)
-            
-            .background(
+            .background (
                 RoundedRectangle(cornerRadius: 25)
                     .fill(Color("Card"))
             )
-        }.buttonStyle(PlainButtonStyle())
+        }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 

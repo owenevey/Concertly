@@ -14,16 +14,14 @@
 		F11640202C8AAA610040C95D /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F116401F2C8AAA610040C95D /* ExploreView.swift */; };
 		F11640222C8BA8270040C95D /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640212C8BA8270040C95D /* TripsView.swift */; };
 		F11640242C8BAD140040C95D /* ExplorePills.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640232C8BAD140040C95D /* ExplorePills.swift */; };
-		F11640262C8BB4F00040C95D /* SuggestedPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640252C8BB4F00040C95D /* SuggestedPlaces.swift */; };
+		F11640262C8BB4F00040C95D /* ExploreRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640252C8BB4F00040C95D /* ExploreRow.swift */; };
 		F11640282C8BEABD0040C95D /* CustomClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640272C8BEABD0040C95D /* CustomClasses.swift */; };
 		F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F116402B2C8C274E0040C95D /* ExploreHeader.swift */; };
 		F116402E2C8C2F3E0040C95D /* PlaceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F116402D2C8C2F3E0040C95D /* PlaceCard.swift */; };
-		F11640322C8C32270040C95D /* GameCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640312C8C32270040C95D /* GameCard.swift */; };
-		F181551A2C8CEA0200E25003 /* TrendingConcerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18155192C8CEA0200E25003 /* TrendingConcerts.swift */; };
+		F13186292CB1EBD9003DBCC5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13186282CB1EBD9003DBCC5 /* ProfileView.swift */; };
 		F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551B2C8CEA2800E25003 /* ConcertCard.swift */; };
 		F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551E2C8D5D1F00E25003 /* ConcertView.swift */; };
 		F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18155202C8EB35A00E25003 /* ConcertsResponse.swift */; };
-		F19900362CAB5C6100EE005F /* UpcomingGames.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19900352CAB5C6100EE005F /* UpcomingGames.swift */; };
 		F19900382CAB5C8300EE005F /* SportCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19900372CAB5C8300EE005F /* SportCard.swift */; };
 		F199FFE32CAA3A5F00EE005F /* Barlow-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD92CAA3A5E00EE005F /* Barlow-LightItalic.ttf */; };
 		F199FFE42CAA3A5F00EE005F /* Barlow-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD62CAA3A5E00EE005F /* Barlow-ExtraLightItalic.ttf */; };
@@ -44,7 +42,7 @@
 		F199FFF42CAA3A5F00EE005F /* Barlow-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFDD2CAA3A5E00EE005F /* Barlow-SemiBold.ttf */; };
 		F199FFF52CAA3A5F00EE005F /* Barlow-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD32CAA3A5E00EE005F /* Barlow-ExtraBold.ttf */; };
 		F1CCE0D22CB0B96600D15696 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCE0D12CB0B96600D15696 /* Extensions.swift */; };
-		F1CCE0D42CB0E92A00D15696 /* CustomTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCE0D32CB0E92A00D15696 /* CustomTabView.swift */; };
+		F1CCE0D42CB0E92A00D15696 /* CustomTabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCE0D32CB0E92A00D15696 /* CustomTabItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,16 +54,14 @@
 		F116401F2C8AAA610040C95D /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		F11640212C8BA8270040C95D /* TripsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
 		F11640232C8BAD140040C95D /* ExplorePills.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorePills.swift; sourceTree = "<group>"; };
-		F11640252C8BB4F00040C95D /* SuggestedPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedPlaces.swift; sourceTree = "<group>"; };
+		F11640252C8BB4F00040C95D /* ExploreRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreRow.swift; sourceTree = "<group>"; };
 		F11640272C8BEABD0040C95D /* CustomClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomClasses.swift; sourceTree = "<group>"; };
 		F116402B2C8C274E0040C95D /* ExploreHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreHeader.swift; sourceTree = "<group>"; };
 		F116402D2C8C2F3E0040C95D /* PlaceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCard.swift; sourceTree = "<group>"; };
-		F11640312C8C32270040C95D /* GameCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCard.swift; sourceTree = "<group>"; };
-		F18155192C8CEA0200E25003 /* TrendingConcerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingConcerts.swift; sourceTree = "<group>"; };
+		F13186282CB1EBD9003DBCC5 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		F181551B2C8CEA2800E25003 /* ConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertCard.swift; sourceTree = "<group>"; };
 		F181551E2C8D5D1F00E25003 /* ConcertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertView.swift; sourceTree = "<group>"; };
 		F18155202C8EB35A00E25003 /* ConcertsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertsResponse.swift; sourceTree = "<group>"; };
-		F19900352CAB5C6100EE005F /* UpcomingGames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingGames.swift; sourceTree = "<group>"; };
 		F19900372CAB5C8300EE005F /* SportCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportCard.swift; sourceTree = "<group>"; };
 		F199FFCF2CAA3A5E00EE005F /* Barlow-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Black.ttf"; sourceTree = "<group>"; };
 		F199FFD02CAA3A5E00EE005F /* Barlow-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-BlackItalic.ttf"; sourceTree = "<group>"; };
@@ -87,7 +83,7 @@
 		F199FFE02CAA3A5E00EE005F /* Barlow-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-ThinItalic.ttf"; sourceTree = "<group>"; };
 		F199FFF62CAA3A6E00EE005F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F1CCE0D12CB0B96600D15696 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		F1CCE0D32CB0E92A00D15696 /* CustomTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabView.swift; sourceTree = "<group>"; };
+		F1CCE0D32CB0E92A00D15696 /* CustomTabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,21 +117,18 @@
 			isa = PBXGroup;
 			children = (
 				F199FFF62CAA3A6E00EE005F /* Info.plist */,
-				F116401E2C8AAA2C0040C95D /* BottomTabs */,
+				F11640142C8A8A300040C95D /* Assets.xcassets */,
 				F11640102C8A8A2F0040C95D /* CaminoApp.swift */,
 				F11640122C8A8A2F0040C95D /* ContentView.swift */,
-				F1CCE0D32CB0E92A00D15696 /* CustomTabView.swift */,
+				F1CCE0D32CB0E92A00D15696 /* CustomTabItem.swift */,
+				F116401E2C8AAA2C0040C95D /* BottomTabs */,
 				F181551D2C8D5CE300E25003 /* Explore */,
-				F11640142C8A8A300040C95D /* Assets.xcassets */,
-				F11640162C8A8A300040C95D /* Preview Content */,
-				F11640312C8C32270040C95D /* GameCard.swift */,
-				F19900372CAB5C8300EE005F /* SportCard.swift */,
+				F131862C2CB26255003DBCC5 /* Cards */,
 				F1CCE0D12CB0B96600D15696 /* Extensions.swift */,
-				F116402D2C8C2F3E0040C95D /* PlaceCard.swift */,
-				F181551B2C8CEA2800E25003 /* ConcertCard.swift */,
 				F18155202C8EB35A00E25003 /* ConcertsResponse.swift */,
 				F11640272C8BEABD0040C95D /* CustomClasses.swift */,
 				F181551E2C8D5D1F00E25003 /* ConcertView.swift */,
+				F11640162C8A8A300040C95D /* Preview Content */,
 				F199FFE22CAA3A5E00EE005F /* Barlow */,
 			);
 			path = Camino;
@@ -154,8 +147,19 @@
 			children = (
 				F116401F2C8AAA610040C95D /* ExploreView.swift */,
 				F11640212C8BA8270040C95D /* TripsView.swift */,
+				F13186282CB1EBD9003DBCC5 /* ProfileView.swift */,
 			);
 			path = BottomTabs;
+			sourceTree = "<group>";
+		};
+		F131862C2CB26255003DBCC5 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				F116402D2C8C2F3E0040C95D /* PlaceCard.swift */,
+				F181551B2C8CEA2800E25003 /* ConcertCard.swift */,
+				F19900372CAB5C8300EE005F /* SportCard.swift */,
+			);
+			path = Cards;
 			sourceTree = "<group>";
 		};
 		F181551D2C8D5CE300E25003 /* Explore */ = {
@@ -163,9 +167,7 @@
 			children = (
 				F116402B2C8C274E0040C95D /* ExploreHeader.swift */,
 				F11640232C8BAD140040C95D /* ExplorePills.swift */,
-				F11640252C8BB4F00040C95D /* SuggestedPlaces.swift */,
-				F18155192C8CEA0200E25003 /* TrendingConcerts.swift */,
-				F19900352CAB5C6100EE005F /* UpcomingGames.swift */,
+				F11640252C8BB4F00040C95D /* ExploreRow.swift */,
 			);
 			path = Explore;
 			sourceTree = "<group>";
@@ -285,20 +287,18 @@
 			files = (
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
 				F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */,
-				F181551A2C8CEA0200E25003 /* TrendingConcerts.swift in Sources */,
-				F19900362CAB5C6100EE005F /* UpcomingGames.swift in Sources */,
-				F11640322C8C32270040C95D /* GameCard.swift in Sources */,
 				F11640132C8A8A2F0040C95D /* ContentView.swift in Sources */,
 				F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */,
 				F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */,
 				F11640202C8AAA610040C95D /* ExploreView.swift in Sources */,
 				F11640282C8BEABD0040C95D /* CustomClasses.swift in Sources */,
-				F11640262C8BB4F00040C95D /* SuggestedPlaces.swift in Sources */,
+				F11640262C8BB4F00040C95D /* ExploreRow.swift in Sources */,
 				F11640242C8BAD140040C95D /* ExplorePills.swift in Sources */,
 				F19900382CAB5C8300EE005F /* SportCard.swift in Sources */,
 				F116402E2C8C2F3E0040C95D /* PlaceCard.swift in Sources */,
 				F1CCE0D22CB0B96600D15696 /* Extensions.swift in Sources */,
-				F1CCE0D42CB0E92A00D15696 /* CustomTabView.swift in Sources */,
+				F1CCE0D42CB0E92A00D15696 /* CustomTabItem.swift in Sources */,
+				F13186292CB1EBD9003DBCC5 /* ProfileView.swift in Sources */,
 				F11640112C8A8A2F0040C95D /* CaminoApp.swift in Sources */,
 				F11640222C8BA8270040C95D /* TripsView.swift in Sources */,
 			);

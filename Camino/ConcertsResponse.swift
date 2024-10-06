@@ -4,7 +4,7 @@ struct ConcertsResponse: Decodable {
     let concerts: [Concert]
 }
 
-struct Concert: Decodable {
+struct Concert: Decodable, Identifiable {
     let name: String
     let id: String
     let url: String
@@ -13,19 +13,7 @@ struct Concert: Decodable {
     let minPrice: Double
     let maxPrice: Double
     let venue: Venue
-    
-//    init(name: String, id: String, url: String, imageUrl: String, dateTime: Date, minPrice: Double, maxPrice: Double, venue: Venue) {
-//        self.name = name
-//        self.id = id
-//        self.url = url
-//        self.imageUrl = imageUrl
-//        self.dateTime = dateTime
-//        self.minPrice = minPrice
-//        self.maxPrice = maxPrice
-//        self.venue = venue
-//    }
 }
-
 
 struct Venue: Decodable {
     let name: String

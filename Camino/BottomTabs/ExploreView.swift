@@ -2,35 +2,28 @@ import SwiftUI
 
 struct ExploreView: View {
     
-    
     @State private var concerts: [Concert] = []
     
     var body: some View {
-        ZStack {
-            NavigationStack{
-                ScrollView(showsIndicators: false) {
-                    VStack(spacing: 15) {
-                        ExploreHeader()
-                        ExplorePills()
-                        SuggestedPlaces()
-                        TrendingConcerts(concerts: concerts)
-                        UpcomingGames()
-                        
-                    }
-                    .padding(.bottom, 90)
-                }
-                .background(Color("Background"))
-                .ignoresSafeArea(edges: .top)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 15) {
+                ExploreHeader()
+                ExplorePills()
+                ExploreRow(title: "Suggested Places", data: suggestedPlaces)
+                ExploreRow(title: "Trending Concerts", data: concerts)
+                ExploreRow(title: "Upcoming Games", data: upcomingGames)
             }
-            .task {
-                do {
-                    concerts = try await fetchConcertsFromAPI()
-                } catch {
-                    
-                }
+            .padding(.bottom, 90)
+        }
+        .background(Color("Background"))
+        .ignoresSafeArea(edges: .top)
+        .task {
+            do {
+                concerts = try await fetchConcertsFromAPI()
+            } catch {
+                print("Error fetching concerts")
             }
         }
-        
     }
 }
 

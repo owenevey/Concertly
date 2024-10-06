@@ -14,8 +14,8 @@ struct ExploreHeader: View {
             }
             .clipped()
             .overlay(
-                VStack{
-                    HStack{
+                VStack {
+                    HStack {
                         Spacer()
                         Circle()
                             .fill(.card)
@@ -27,35 +27,33 @@ struct ExploreHeader: View {
                             .padding(.trailing, 20)
                             .padding(.top, 50)
                     }
-//                    Spacer()
+                    
+                    Spacer()
                     
                     VStack {
                         HStack {
                             Text("What adventures\nawait?")
                                 .font(Font.custom("Barlow-Bold", size: 30))
                                 .foregroundStyle(.white)
-                                .frame(alignment: .topLeading)
-                                .shadow(color: .black.opacity(0.5), radius: 3)
+                                .frame(alignment: .leading)
+                                .shadow(color: .black.opacity(0.6), radius: 3)
                             Spacer()
                         }
                         
-                        RoundedRectangle(cornerRadius: 20)
+                        RoundedRectangle(cornerRadius: 25)
                             .fill(.card)
                             .frame(maxWidth: .infinity)
                             .frame(height: 50)
                             .overlay(
                                 HStack {
                                     Image(systemName: "magnifyingglass")
-                                    TextField("Search Destination", text: $textInput)
+                                    TextField("Search", text: $textInput)
                                         .font(Font.custom("Barlow-Regular", size: 18))
                                         .padding(.trailing)
                                 }.padding()
                             )
                     }
                     .padding(20)
-//                    .padding(.bottom, 30)
-                    
-                    
                 }
             )
     }

@@ -2,28 +2,28 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var selectedTab = 0
-    
     init() {
         UITabBar.appearance().isHidden = true
     }
     
+    @State private var selectedTab = 0
+    
     var body: some View {
-        ZStack(alignment: .bottom){
-            TabView(selection: $selectedTab) {
-                ExploreView()
-                    .tag(0)
+        NavigationStack {
+            ZStack(alignment: .bottom) {
+                TabView(selection: $selectedTab) {
+                    ExploreView()
+                        .tag(0)
+                    
+                    TripsView()
+                        .tag(1)
+                    
+                    ProfileView()
+                        .tag(2)
+                }
                 
-                TripsView()
-                    .tag(1)
-                
-                Text("Profile!")
-                    .tag(2)
-            }
-            
-            ZStack{
-                HStack{
-                    ForEach((TabbedItems.allCases), id: \.self){ item in
+                HStack (spacing: 5) {
+                    ForEach((TabbedItems.allCases), id: \.self) { item in
                         Button{
                             selectedTab = item.rawValue
                         } label: {
@@ -31,14 +31,14 @@ struct ContentView: View {
                         }
                     }
                 }
-                .padding(6)
+                .padding(5)
+                .frame(height: 60)
+                .background(.tabBar)
+                .cornerRadius(30)
+                .shadow(radius: 5)
             }
-            .frame(height: 70)
-            .background(Color("TabBar"))
-            .cornerRadius(35)
-            .padding(.horizontal, 26)
-            .shadow(radius: 5)
         }
+        
     }
 }
 
