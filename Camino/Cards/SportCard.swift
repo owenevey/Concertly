@@ -50,8 +50,8 @@ struct SportCard: View {
             .frame(width: 250)
             
             .background(
-                RoundedRectangle(cornerRadius: 25)
-                    .fill(Color("Card"))
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(.card)
             )
         }.buttonStyle(PlainButtonStyle())
     }

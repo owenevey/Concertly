@@ -35,14 +35,14 @@ struct PlaceCard: View {
                     .resizable()
                     .scaledToFill()
                     .frame(width: 234, height: 150)
-                    .cornerRadius(17)
+                    .cornerRadius(12)
                     .clipped()
                 
             }
             .padding(8)
             .frame(width: 250)
             .background(
-                RoundedRectangle(cornerRadius: 25)
+                RoundedRectangle(cornerRadius: 20)
                     .fill(.card)
             )
         }

@@ -8,9 +8,9 @@ struct CustomTabItem: View {
     var body: some View{
         Image(systemName: isActive ? "\(imageName).fill" : imageName)
             .resizable()
+            .frame(width: 25, height: 25)
             .foregroundColor(isActive ? .white : .accentColor)
-            .frame(width: 23, height: 23)
-            .frame(width: 80, height: 50)
+            .frame(width: 80, height: 60)
             .background(isActive ? .accent : .clear)
             .cornerRadius(25)
     }

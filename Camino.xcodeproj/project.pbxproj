@@ -19,6 +19,9 @@
 		F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F116402B2C8C274E0040C95D /* ExploreHeader.swift */; };
 		F116402E2C8C2F3E0040C95D /* PlaceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F116402D2C8C2F3E0040C95D /* PlaceCard.swift */; };
 		F13186292CB1EBD9003DBCC5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13186282CB1EBD9003DBCC5 /* ProfileView.swift */; };
+		F131862E2CB2E5D5003DBCC5 /* MapCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131862D2CB2E5D5003DBCC5 /* MapCard.swift */; };
+		F13186302CB2F03E003DBCC5 /* FlightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131862F2CB2F03E003DBCC5 /* FlightsView.swift */; };
+		F13186322CB2F198003DBCC5 /* LineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13186312CB2F198003DBCC5 /* LineItem.swift */; };
 		F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551B2C8CEA2800E25003 /* ConcertCard.swift */; };
 		F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551E2C8D5D1F00E25003 /* ConcertView.swift */; };
 		F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18155202C8EB35A00E25003 /* ConcertsResponse.swift */; };
@@ -43,6 +46,8 @@
 		F199FFF52CAA3A5F00EE005F /* Barlow-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD32CAA3A5E00EE005F /* Barlow-ExtraBold.ttf */; };
 		F1CCE0D22CB0B96600D15696 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCE0D12CB0B96600D15696 /* Extensions.swift */; };
 		F1CCE0D42CB0E92A00D15696 /* CustomTabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCE0D32CB0E92A00D15696 /* CustomTabItem.swift */; };
+		F1E786272CB300A200F4E462 /* HotelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E786262CB300A200F4E462 /* HotelsView.swift */; };
+		F1E786292CB36CAB00F4E462 /* SFSafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E786282CB36CAB00F4E462 /* SFSafariView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +64,9 @@
 		F116402B2C8C274E0040C95D /* ExploreHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreHeader.swift; sourceTree = "<group>"; };
 		F116402D2C8C2F3E0040C95D /* PlaceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCard.swift; sourceTree = "<group>"; };
 		F13186282CB1EBD9003DBCC5 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		F131862D2CB2E5D5003DBCC5 /* MapCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCard.swift; sourceTree = "<group>"; };
+		F131862F2CB2F03E003DBCC5 /* FlightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsView.swift; sourceTree = "<group>"; };
+		F13186312CB2F198003DBCC5 /* LineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineItem.swift; sourceTree = "<group>"; };
 		F181551B2C8CEA2800E25003 /* ConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertCard.swift; sourceTree = "<group>"; };
 		F181551E2C8D5D1F00E25003 /* ConcertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertView.swift; sourceTree = "<group>"; };
 		F18155202C8EB35A00E25003 /* ConcertsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertsResponse.swift; sourceTree = "<group>"; };
@@ -84,6 +92,8 @@
 		F199FFF62CAA3A6E00EE005F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F1CCE0D12CB0B96600D15696 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F1CCE0D32CB0E92A00D15696 /* CustomTabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabItem.swift; sourceTree = "<group>"; };
+		F1E786262CB300A200F4E462 /* HotelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsView.swift; sourceTree = "<group>"; };
+		F1E786282CB36CAB00F4E462 /* SFSafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSafariView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,9 +135,13 @@
 				F181551D2C8D5CE300E25003 /* Explore */,
 				F131862C2CB26255003DBCC5 /* Cards */,
 				F1CCE0D12CB0B96600D15696 /* Extensions.swift */,
+				F131862F2CB2F03E003DBCC5 /* FlightsView.swift */,
+				F1E786262CB300A200F4E462 /* HotelsView.swift */,
 				F18155202C8EB35A00E25003 /* ConcertsResponse.swift */,
 				F11640272C8BEABD0040C95D /* CustomClasses.swift */,
 				F181551E2C8D5D1F00E25003 /* ConcertView.swift */,
+				F1E786282CB36CAB00F4E462 /* SFSafariView.swift */,
+				F13186312CB2F198003DBCC5 /* LineItem.swift */,
 				F11640162C8A8A300040C95D /* Preview Content */,
 				F199FFE22CAA3A5E00EE005F /* Barlow */,
 			);
@@ -158,6 +172,7 @@
 				F116402D2C8C2F3E0040C95D /* PlaceCard.swift */,
 				F181551B2C8CEA2800E25003 /* ConcertCard.swift */,
 				F19900372CAB5C8300EE005F /* SportCard.swift */,
+				F131862D2CB2E5D5003DBCC5 /* MapCard.swift */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -288,8 +303,10 @@
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
 				F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */,
 				F11640132C8A8A2F0040C95D /* ContentView.swift in Sources */,
+				F131862E2CB2E5D5003DBCC5 /* MapCard.swift in Sources */,
 				F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */,
 				F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */,
+				F1E786292CB36CAB00F4E462 /* SFSafariView.swift in Sources */,
 				F11640202C8AAA610040C95D /* ExploreView.swift in Sources */,
 				F11640282C8BEABD0040C95D /* CustomClasses.swift in Sources */,
 				F11640262C8BB4F00040C95D /* ExploreRow.swift in Sources */,
@@ -297,7 +314,10 @@
 				F19900382CAB5C8300EE005F /* SportCard.swift in Sources */,
 				F116402E2C8C2F3E0040C95D /* PlaceCard.swift in Sources */,
 				F1CCE0D22CB0B96600D15696 /* Extensions.swift in Sources */,
+				F1E786272CB300A200F4E462 /* HotelsView.swift in Sources */,
 				F1CCE0D42CB0E92A00D15696 /* CustomTabItem.swift in Sources */,
+				F13186302CB2F03E003DBCC5 /* FlightsView.swift in Sources */,
+				F13186322CB2F198003DBCC5 /* LineItem.swift in Sources */,
 				F13186292CB1EBD9003DBCC5 /* ProfileView.swift in Sources */,
 				F11640112C8A8A2F0040C95D /* CaminoApp.swift in Sources */,
 				F11640222C8BA8270040C95D /* TripsView.swift in Sources */,

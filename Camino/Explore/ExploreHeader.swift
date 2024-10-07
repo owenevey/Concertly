@@ -40,7 +40,7 @@ struct ExploreHeader: View {
                             Spacer()
                         }
                         
-                        RoundedRectangle(cornerRadius: 25)
+                        RoundedRectangle(cornerRadius: 20)
                             .fill(.card)
                             .frame(maxWidth: .infinity)
                             .frame(height: 50)

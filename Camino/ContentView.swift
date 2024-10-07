@@ -32,8 +32,8 @@ struct ContentView: View {
                     }
                 }
                 .padding(5)
-                .frame(height: 60)
-                .background(.tabBar)
+                .frame(height: 70)
+                .background(Color("Background"))
                 .cornerRadius(30)
                 .shadow(radius: 5)
             }

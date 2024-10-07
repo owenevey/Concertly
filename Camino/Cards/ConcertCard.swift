@@ -20,7 +20,7 @@ struct ConcertCard: View {
                 }
                 .scaledToFill()
                 .frame(width: 234, height: 150)
-                .cornerRadius(17)
+                .cornerRadius(12)
                 .clipped()
                 
                 VStack(alignment: .leading, spacing: 5) {
@@ -29,7 +29,7 @@ struct ConcertCard: View {
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
                     
-                    Text(concert.venue.country)
+                    Text(concert.generalLocation)
                         .font(Font.custom("Barlow-SemiBold", size: 16))
                         .foregroundStyle(.gray)
                         .minimumScaleFactor(0.5)
@@ -47,8 +47,8 @@ struct ConcertCard: View {
             .padding(8)
             .frame(width: 250)
             .background (
-                RoundedRectangle(cornerRadius: 25)
-                    .fill(Color("Card"))
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(.card)
             )
         }
         .buttonStyle(PlainButtonStyle())

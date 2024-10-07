@@ -6,32 +6,38 @@ struct ConcertView: View {
     var concert: Concert
     
     @Environment(\.dismiss) var dismiss
+    @State private var hasAppeared: Bool = false
+    @State private var offset: CGFloat = 0
+    
+    @State private var tripStartDate: Date? = nil
+    @State private var tripEndDate: Date? = nil
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 10) {
-                    AsyncImage(url: URL(string: concert.imageUrl)) { image in
-                        image
-                            .resizable()
-                    } placeholder: {
-                        Image(systemName: "photo.fill")
-                    }
-                    .scaledToFill()
-                    .frame(height: 320)
-                    .containerRelativeFrame(.horizontal) { size, axis in
-                        size
-                    }
-//                    .overlay(
-//
-//                    )
-//                    
-                    ZStack(alignment: .top) {
-                        LinearGradient(colors: [.clear, .black], startPoint: .top, endPoint: .bottom)
-                            .frame(height: 60)
-                            .opacity(0.7)
-                            .padding(.top, -60)
-                        VStack {
+        ZStack(alignment: .top) {
+            
+            AsyncImage(url: URL(string: concert.imageUrl)) { image in
+                image
+                    .resizable()
+            } placeholder: {
+                Color.gray
+                    .frame(height: 300 + max(0, -offset))
+            }
+            .scaledToFill()
+            .frame(height: 300 + max(0, -offset))
+            .containerRelativeFrame(.horizontal) { size, axis in
+                size
+            }
+            .transformEffect(.init(translationX: 0, y: -max(0, offset)))
+            
+            
+            if #available(iOS 18.0, *) {
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        Rectangle()
+                            .fill(Color.clear)
+                            .frame(height: 300)
+                        
+                        VStack(spacing: 15) {
                             VStack(alignment: .leading, spacing: 5) {
                                 Text(concert.name)
                                     .font(Font.custom("Barlow-Bold", size: 30))
@@ -40,146 +46,130 @@ struct ConcertView: View {
                                     .font(Font.custom("Barlow-SemiBold", size: 17))
                                     .foregroundStyle(.gray)
                             }
-                            .padding([.top, .horizontal], 20)
+                            .padding(.top, 15)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            VStack(alignment: .leading, spacing: 10) {
+                            VStack(alignment: .leading, spacing: 5) {
                                 Text("Minimum Price Summary")
                                     .font(Font.custom("Barlow-SemiBold", size: 20))
-                                    .padding(.bottom, 4)
                                 
-                                HStack {
-                                    Text("✈️ Flight:")
+                                if let startDate = tripStartDate, let endDate = tripEndDate {
+                                    Text("\(shortFormat(startDate)) - \(shortFormat(endDate))")
                                         .font(Font.custom("Barlow-SemiBold", size: 17))
                                         .foregroundStyle(.gray)
-                                    Spacer()
-                                    Text("$330")
-                                        .font(Font.custom("Barlow-SemiBold", size: 17))
-                                        .foregroundStyle(.gray)
-                                }
-                                
-                                HStack {
-                                    Text("🏨 Hotel:")
-                                        .font(Font.custom("Barlow-SemiBold", size: 17))
-                                        .foregroundStyle(.gray)
-                                    Spacer()
-                                    Text("$250")
-                                        .font(Font.custom("Barlow-SemiBold", size: 17))
-                                        .foregroundStyle(.gray)
-                                }
-                                
-                                HStack {
-                                    Text("🎟️ Ticket:")
-                                        .font(Font.custom("Barlow-SemiBold", size: 17))
-                                        .foregroundStyle(.gray)
-                                    Spacer()
-                                    Text("$\(String(format: "%.0f", concert.minPrice))")
-                                        .font(Font.custom("Barlow-SemiBold", size: 17))
-                                        .foregroundStyle(.gray)
-                                }
-                                
-                                Divider()
-                                
-                                HStack {
-                                    Text("Total:")
-                                        .font(Font.custom("Barlow-SemiBold", size: 17))
-                                    Spacer()
-                                    Text("$780")
-                                        .font(Font.custom("Barlow-SemiBold", size: 17))
                                 }
                             }
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 15)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            VStack(alignment: .leading, spacing: 0) {
-                                Map(initialPosition: MapCameraPosition.region( MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: Double(concert.venue.latitude)!, longitude: Double(concert.venue.longitude)!), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))), interactionModes: [])
-                                    .frame(height: 175)
-                                    .cornerRadius(17)
-                                    .clipped()
-                                
-                                VStack(alignment: .leading, spacing: 5) {
-                                    Text(concert.venue.name)
-                                        .font(Font.custom("Barlow-Bold", size: 20))
-                                        .lineLimit(1)
-                                    
-                                    Text(concert.venue.country)
-                                        .font(Font.custom("Barlow-SemiBold", size: 17))
-                                        .foregroundStyle(.gray)
-                                    
+                            VStack(spacing: 15) {
+                                ForEach((LineItemType.allCases(fromDate: tripStartDate, toDate: tripEndDate, link: concert.url)), id: \.title) { item in
+                                    LineItem(item: item, price: concert.minPrice)
                                 }
-                                .padding(10)
-                            }
-                            .padding(8)
-                            .containerRelativeFrame(.horizontal) { size, axis in
-                                size - 20
                             }
                             
-                            .background(
-                                RoundedRectangle(cornerRadius: 25)
-                                    .fill(Color("Card"))
-                            )
+                            Divider()
+                                .frame(height: 2)
+                                .background(.card)
                             
+                            HStack {
+                                Text("Total:")
+                                    .font(Font.custom("Barlow-SemiBold", size: 17))
+                                Spacer()
+                                Text("$780")
+                                    .font(Font.custom("Barlow-SemiBold", size: 17))
+                            }
+                            .padding(.horizontal, 10)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            Spacer()
+                            MapCard(concert: concert)
                         }
+                        .padding(.horizontal, 15)
                         .background(Color("Background"))
-                        .cornerRadius(25, corners: [.topLeft, .topRight])
-                        .padding(.top, -45)
                     }
+                    .containerRelativeFrame(.horizontal) { size, axis in
+                        size
+                    }
+                    .padding(.bottom, 90)
                 }
-                .containerRelativeFrame(.horizontal) { size, axis in
-                    size
+                .ignoresSafeArea(edges: .top)
+                .onScrollGeometryChange(for: CGFloat.self) { geo in
+                    return geo.contentOffset.y
+                } action: { oldValue, newValue in
+                    offset = newValue
                 }
-                .padding(.bottom, 90)
-                
-                
+            } else {
+                // Fallback on earlier versions
             }
-            .background(Color("Background"))
-            .ignoresSafeArea(edges: .top)
+
             
-            VStack {
-                HStack{
-                    Button(action: {dismiss()}) {
-                        RoundedRectangle(cornerRadius: 20, style: .continuous)
-                            .fill(.ultraThinMaterial)
-                            .frame(width: 50, height: 50)
-                            .overlay(
-                                Image(systemName: "arrow.backward")
-                                    .font(.system(size: 20))
-                            )
-                            .padding(.leading, 20)
-                    }.buttonStyle(PlainButtonStyle())
-                    Spacer()
+            HStack{
+                Button(action: {dismiss()}) {
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .fill(.ultraThinMaterial)
+                        .frame(width: 50, height: 50)
+                        .overlay(
+                            Image(systemName: "arrow.backward")
+                                .font(.system(size: 20))
+                        )
+                        .padding(.top, 60)
+                        .padding(.leading, 20)
                 }
+                .buttonStyle(PlainButtonStyle())
                 Spacer()
             }
             
-            ZStack{
-                    Button{
-                        print("Tapped plan trip")
-                    } label: {
-                        HStack {
-                            Text("Plan Trip")
-                                .font(Font.custom("Barlow-SemiBold", size: 20))
-                                .foregroundStyle(.white)
-                            Image(systemName: "arrow.forward")
-                                .foregroundStyle(.white)
-                                .fontWeight(.bold)
-                        }
+            VStack {
+                Spacer()
+                Button{
+                    print("Tapped plan trip")
+                    let calendar = Calendar.current
+                    if let startDate = tripStartDate {
+                        tripStartDate = calendar.date(byAdding: .day, value: -1, to: startDate)!
                     }
+                    
+                } label: {
+                    HStack {
+                        Text("Plan Trip")
+                            .font(Font.custom("Barlow-SemiBold", size: 20))
+                            .foregroundStyle(.white)
+                        Image(systemName: "arrow.forward")
+                            .foregroundStyle(.white)
+                            .fontWeight(.bold)
+                    }
+                }
                 
                 .padding(6)
+                .frame(width: 260, height: 60)
+                .background(Color("AccentColor"))
+                .cornerRadius(35)
+                .padding(.horizontal, 26)
+                .shadow(radius: 5)
             }
-            .frame(width: 260, height: 60)
-            .background(Color("AccentColor"))
-            .cornerRadius(35)
-            .padding(.horizontal, 26)
-            .shadow(radius: 5)
         }
+        .background(Color("Background"))
+        .ignoresSafeArea(edges: .top)
+        .onAppear {
+            if !hasAppeared {
+                let calendar = Calendar.current
+                tripStartDate = calendar.date(byAdding: .day, value: -1, to: concert.dateTime)!
+                tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.dateTime)!
+                hasAppeared = true
+            }
+        }
+    }
+    
+    func shortFormat(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "E, MMM d"
+        
+        return formatter.string(from: date)
     }
 }
 
 #Preview {
-    ConcertView(concert: hotConcerts[0])
+    NavigationStack {
+        ConcertView(concert: hotConcerts[0])
+            .navigationBarHidden(true)
+    }
 }
+
