@@ -22,8 +22,9 @@ struct LineItem: View {
                 }
                 .buttonStyle(PlainButtonStyle())
             } else {
-                NavigationLink(destination: item.destinationView) {
+                NavigationLink(destination: item.destinationView.navigationBarHidden(true)) {
                     lineItemContent
+                    
                 }
                 .buttonStyle(PlainButtonStyle())
             }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F113E9582CB4986A0057CF90 /* FlightItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F113E9572CB4986A0057CF90 /* FlightItem.swift */; };
 		F11640112C8A8A2F0040C95D /* CaminoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640102C8A8A2F0040C95D /* CaminoApp.swift */; };
 		F11640132C8A8A2F0040C95D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640122C8A8A2F0040C95D /* ContentView.swift */; };
 		F11640152C8A8A300040C95D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F11640142C8A8A300040C95D /* Assets.xcassets */; };
@@ -51,6 +52,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F113E9572CB4986A0057CF90 /* FlightItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightItem.swift; sourceTree = "<group>"; };
 		F116400D2C8A8A2F0040C95D /* Camino.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Camino.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F11640102C8A8A2F0040C95D /* CaminoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaminoApp.swift; sourceTree = "<group>"; };
 		F11640122C8A8A2F0040C95D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				F131862C2CB26255003DBCC5 /* Cards */,
 				F1CCE0D12CB0B96600D15696 /* Extensions.swift */,
 				F131862F2CB2F03E003DBCC5 /* FlightsView.swift */,
+				F113E9572CB4986A0057CF90 /* FlightItem.swift */,
 				F1E786262CB300A200F4E462 /* HotelsView.swift */,
 				F18155202C8EB35A00E25003 /* ConcertsResponse.swift */,
 				F11640272C8BEABD0040C95D /* CustomClasses.swift */,
@@ -312,6 +315,7 @@
 				F11640262C8BB4F00040C95D /* ExploreRow.swift in Sources */,
 				F11640242C8BAD140040C95D /* ExplorePills.swift in Sources */,
 				F19900382CAB5C8300EE005F /* SportCard.swift in Sources */,
+				F113E9582CB4986A0057CF90 /* FlightItem.swift in Sources */,
 				F116402E2C8C2F3E0040C95D /* PlaceCard.swift in Sources */,
 				F1CCE0D22CB0B96600D15696 /* Extensions.swift in Sources */,
 				F1E786272CB300A200F4E462 /* HotelsView.swift in Sources */,
