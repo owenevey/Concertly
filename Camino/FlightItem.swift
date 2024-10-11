@@ -13,7 +13,7 @@ struct FlightItem: View {
                 HStack {
                     Circle()
                         .fill(.white)
-                        .frame(width: 50, height: 50)
+                        .frame(width: 40, height: 40)
                         .overlay(
                     AsyncImage(url: URL(string: airlineLogo)) { image in
                         image
@@ -22,7 +22,7 @@ struct FlightItem: View {
                         Image(systemName: "photo.fill")
                     }
                     .scaledToFit()
-                    .frame(width: 30, height: 30)
+                    .frame(width: 20, height: 20)
                     )
                     
                     

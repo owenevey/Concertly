@@ -89,7 +89,7 @@ struct ConcertView: View {
                     .containerRelativeFrame(.horizontal) { size, axis in
                         size
                     }
-                    .padding(.bottom, 90)
+                    .padding(.bottom, 15)
                 }
                 .ignoresSafeArea(edges: .top)
                 .onScrollGeometryChange(for: CGFloat.self) { geo in
@@ -118,33 +118,33 @@ struct ConcertView: View {
                 Spacer()
             }
             
-            VStack {
-                Spacer()
-                Button{
-                    print("Tapped plan trip")
-                    let calendar = Calendar.current
-                    if let startDate = tripStartDate {
-                        tripStartDate = calendar.date(byAdding: .day, value: -1, to: startDate)!
-                    }
-                    
-                } label: {
-                    HStack {
-                        Text("Plan Trip")
-                            .font(Font.custom("Barlow-SemiBold", size: 20))
-                            .foregroundStyle(.white)
-                        Image(systemName: "arrow.forward")
-                            .foregroundStyle(.white)
-                            .fontWeight(.bold)
-                    }
-                }
-                
-                .padding(6)
-                .frame(width: 260, height: 60)
-                .background(Color("AccentColor"))
-                .cornerRadius(35)
-                .padding(.horizontal, 26)
-                .shadow(radius: 5)
-            }
+//            VStack {
+//                Spacer()
+//                Button{
+//                    print("Tapped plan trip")
+//                    let calendar = Calendar.current
+//                    if let startDate = tripStartDate {
+//                        tripStartDate = calendar.date(byAdding: .day, value: -1, to: startDate)!
+//                    }
+//                    
+//                } label: {
+//                    HStack {
+//                        Text("Plan Trip")
+//                            .font(Font.custom("Barlow-SemiBold", size: 20))
+//                            .foregroundStyle(.white)
+//                        Image(systemName: "arrow.forward")
+//                            .foregroundStyle(.white)
+//                            .fontWeight(.bold)
+//                    }
+//                }
+//                
+//                .padding(6)
+//                .frame(width: 260, height: 60)
+//                .background(Color("AccentColor"))
+//                .cornerRadius(35)
+//                .padding(.horizontal, 26)
+//                .shadow(radius: 5)
+//            }
         }
         .background(Color("Background"))
         .ignoresSafeArea(edges: .top)

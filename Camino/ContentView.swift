@@ -1,44 +1,33 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    init() {
-        UITabBar.appearance().isHidden = true
-    }
-    
-    @State private var selectedTab = 0
-    
     var body: some View {
-        NavigationStack {
-            ZStack(alignment: .bottom) {
-                TabView(selection: $selectedTab) {
+        TabView {
+            Group{
+                NavigationStack {
                     ExploreView()
-                        .tag(0)
-                    
-                    TripsView()
-                        .tag(1)
-                    
-                    ProfileView()
-                        .tag(2)
+                }
+                .tabItem {
+                    Label("Explore", systemImage: "globe.americas")
                 }
                 
-                HStack (spacing: 5) {
-                    ForEach((TabbedItems.allCases), id: \.self) { item in
-                        Button{
-                            selectedTab = item.rawValue
-                        } label: {
-                            CustomTabItem(imageName: item.iconName, isActive: (selectedTab == item.rawValue))
-                        }
-                    }
+                
+                NavigationStack {
+                    TripsView()
                 }
-                .padding(5)
-                .frame(height: 70)
-                .background(Color("Background"))
-                .cornerRadius(30)
-                .shadow(radius: 5)
+                .tabItem {
+                    Label("Trips", systemImage: "map")
+                }
+                
+                NavigationStack {
+                    ProfileView()
+                }
+                .tabItem {
+                    Label("Profile", systemImage: "person")
+                }
             }
+            .toolbarBackground(Color("Background"), for: .tabBar)
         }
-        
     }
 }
 
