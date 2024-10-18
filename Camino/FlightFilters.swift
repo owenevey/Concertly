@@ -1,14 +1,26 @@
 import Foundation
 import SwiftUI
 
-enum FlightFilter: CaseIterable {
+enum FlightFilter: Equatable {
     case sort
     case stops
     case time
-    case airlines
+    case airlines(AirlinesFilterParams)
     case duration
     case price
     case cabin
+    
+    static func allCases(airlines: Binding<[String: Bool]>) -> [FlightFilter] {
+            return [
+                .sort,
+                .stops,
+                .time,
+                .airlines(AirlinesFilterParams(airlines: airlines)),
+                .duration,
+                .price,
+                .cabin
+            ]
+        }
     
     var title: String {
         switch self {
@@ -25,13 +37,35 @@ enum FlightFilter: CaseIterable {
     @ViewBuilder
     var destinationView: some View {
         switch self {
-            case .sort: Text("Sort")
+        case .sort: Text("Sort")
         case .stops: Text("Stops")
         case .time: Text("Time")
-        case .airlines: Text("Airlines")
+        case .airlines(let params):
+            FilterAirlines(airlines: params.airlines)
         case .duration: Text("Duration")
         case .price: Text("Price")
         case .cabin: Text("Cabin")
         }
     }
+    
+    static func == (lhs: FlightFilter, rhs: FlightFilter) -> Bool {
+            switch (lhs, rhs) {
+            case (.sort, .sort),
+                 (.stops, .stops),
+                 (.time, .time),
+                 (.duration, .duration),
+                 (.price, .price),
+                 (.cabin, .cabin):
+                return true
+            case (.airlines(let lhsParams), .airlines(let rhsParams)):
+                return lhsParams.airlines.wrappedValue == rhsParams.airlines.wrappedValue
+            default:
+                return false
+            }
+        }
+}
+
+
+struct AirlinesFilterParams {
+    var airlines: Binding<[String: Bool]>
 }

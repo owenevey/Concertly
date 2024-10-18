@@ -31,8 +31,8 @@ struct CategoryPill: View {
             .padding(.horizontal, 15)
             .background(
                 Capsule(style: .continuous)
-                    .fill(.card)
-                    .stroke(Color(UIColor.lightGray), style: StrokeStyle(lineWidth: 1))
+                    .fill(Color("NewBackground"))
+                    .stroke(.customGray, style: StrokeStyle(lineWidth: 1))
                     .padding(1)
             )
     }

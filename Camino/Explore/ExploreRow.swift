@@ -6,7 +6,7 @@ struct ExploreRow<Data: RandomAccessCollection>: View {
     let data : Data
     
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: 5) {
             HStack {
                 Text(title)
                     .font(Font.custom("Barlow-Bold", size: 23))
@@ -30,6 +30,7 @@ struct ExploreRow<Data: RandomAccessCollection>: View {
                         }
                     }
                 }
+                .padding(.vertical, 15)
                 .scrollTargetLayout()
             }
             .scrollTargetBehavior(.viewAligned)

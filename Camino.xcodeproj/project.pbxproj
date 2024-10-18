@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F113E9582CB4986A0057CF90 /* FlightItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F113E9572CB4986A0057CF90 /* FlightItem.swift */; };
+		F113E9582CB4986A0057CF90 /* FlightCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F113E9572CB4986A0057CF90 /* FlightCard.swift */; };
 		F11640112C8A8A2F0040C95D /* CaminoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640102C8A8A2F0040C95D /* CaminoApp.swift */; };
 		F11640132C8A8A2F0040C95D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640122C8A8A2F0040C95D /* ContentView.swift */; };
 		F11640152C8A8A300040C95D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F11640142C8A8A300040C95D /* Assets.xcassets */; };
@@ -23,6 +23,9 @@
 		F131862E2CB2E5D5003DBCC5 /* MapCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131862D2CB2E5D5003DBCC5 /* MapCard.swift */; };
 		F13186302CB2F03E003DBCC5 /* FlightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131862F2CB2F03E003DBCC5 /* FlightsView.swift */; };
 		F13186322CB2F198003DBCC5 /* LineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13186312CB2F198003DBCC5 /* LineItem.swift */; };
+		F1659C012CBF252400586212 /* FilterAirlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C002CBF252400586212 /* FilterAirlines.swift */; };
+		F1659C052CC1E99800586212 /* FlightInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C042CC1E99800586212 /* FlightInfo.swift */; };
+		F1659C072CC1ECF200586212 /* testFlightsResponse.txt in Resources */ = {isa = PBXBuildFile; fileRef = F1659C062CC1ECF200586212 /* testFlightsResponse.txt */; };
 		F176C9262CB5E7F9006BAE35 /* FlightFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F176C9252CB5E7F9006BAE35 /* FlightFilters.swift */; };
 		F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551B2C8CEA2800E25003 /* ConcertCard.swift */; };
 		F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551E2C8D5D1F00E25003 /* ConcertView.swift */; };
@@ -53,7 +56,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F113E9572CB4986A0057CF90 /* FlightItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightItem.swift; sourceTree = "<group>"; };
+		F113E9572CB4986A0057CF90 /* FlightCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightCard.swift; sourceTree = "<group>"; };
 		F116400D2C8A8A2F0040C95D /* Camino.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Camino.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F11640102C8A8A2F0040C95D /* CaminoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaminoApp.swift; sourceTree = "<group>"; };
 		F11640122C8A8A2F0040C95D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -70,6 +73,9 @@
 		F131862D2CB2E5D5003DBCC5 /* MapCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCard.swift; sourceTree = "<group>"; };
 		F131862F2CB2F03E003DBCC5 /* FlightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsView.swift; sourceTree = "<group>"; };
 		F13186312CB2F198003DBCC5 /* LineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineItem.swift; sourceTree = "<group>"; };
+		F1659C002CBF252400586212 /* FilterAirlines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAirlines.swift; sourceTree = "<group>"; };
+		F1659C042CC1E99800586212 /* FlightInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightInfo.swift; sourceTree = "<group>"; };
+		F1659C062CC1ECF200586212 /* testFlightsResponse.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = testFlightsResponse.txt; sourceTree = "<group>"; };
 		F176C9252CB5E7F9006BAE35 /* FlightFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightFilters.swift; sourceTree = "<group>"; };
 		F181551B2C8CEA2800E25003 /* ConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertCard.swift; sourceTree = "<group>"; };
 		F181551E2C8D5D1F00E25003 /* ConcertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertView.swift; sourceTree = "<group>"; };
@@ -140,14 +146,16 @@
 				F131862C2CB26255003DBCC5 /* Cards */,
 				F1CCE0D12CB0B96600D15696 /* Extensions.swift */,
 				F131862F2CB2F03E003DBCC5 /* FlightsView.swift */,
-				F113E9572CB4986A0057CF90 /* FlightItem.swift */,
+				F1659C002CBF252400586212 /* FilterAirlines.swift */,
 				F1E786262CB300A200F4E462 /* HotelsView.swift */,
 				F18155202C8EB35A00E25003 /* ConcertsResponse.swift */,
 				F11640272C8BEABD0040C95D /* CustomClasses.swift */,
+				F1659C042CC1E99800586212 /* FlightInfo.swift */,
 				F181551E2C8D5D1F00E25003 /* ConcertView.swift */,
 				F1E786282CB36CAB00F4E462 /* SFSafariView.swift */,
 				F13186312CB2F198003DBCC5 /* LineItem.swift */,
 				F176C9252CB5E7F9006BAE35 /* FlightFilters.swift */,
+				F1659C062CC1ECF200586212 /* testFlightsResponse.txt */,
 				F11640162C8A8A300040C95D /* Preview Content */,
 				F199FFE22CAA3A5E00EE005F /* Barlow */,
 			);
@@ -179,6 +187,7 @@
 				F181551B2C8CEA2800E25003 /* ConcertCard.swift */,
 				F19900372CAB5C8300EE005F /* SportCard.swift */,
 				F131862D2CB2E5D5003DBCC5 /* MapCard.swift */,
+				F113E9572CB4986A0057CF90 /* FlightCard.swift */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -286,6 +295,7 @@
 				F199FFE92CAA3A5F00EE005F /* Barlow-Bold.ttf in Resources */,
 				F199FFEA2CAA3A5F00EE005F /* Barlow-Thin.ttf in Resources */,
 				F199FFEB2CAA3A5F00EE005F /* Barlow-MediumItalic.ttf in Resources */,
+				F1659C072CC1ECF200586212 /* testFlightsResponse.txt in Resources */,
 				F199FFEC2CAA3A5F00EE005F /* Barlow-ThinItalic.ttf in Resources */,
 				F199FFED2CAA3A5F00EE005F /* Barlow-Medium.ttf in Resources */,
 				F199FFEE2CAA3A5F00EE005F /* Barlow-Black.ttf in Resources */,
@@ -308,6 +318,7 @@
 			files = (
 				F176C9262CB5E7F9006BAE35 /* FlightFilters.swift in Sources */,
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
+				F1659C052CC1E99800586212 /* FlightInfo.swift in Sources */,
 				F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */,
 				F11640132C8A8A2F0040C95D /* ContentView.swift in Sources */,
 				F131862E2CB2E5D5003DBCC5 /* MapCard.swift in Sources */,
@@ -318,8 +329,9 @@
 				F11640282C8BEABD0040C95D /* CustomClasses.swift in Sources */,
 				F11640262C8BB4F00040C95D /* ExploreRow.swift in Sources */,
 				F11640242C8BAD140040C95D /* ExplorePills.swift in Sources */,
+				F1659C012CBF252400586212 /* FilterAirlines.swift in Sources */,
 				F19900382CAB5C8300EE005F /* SportCard.swift in Sources */,
-				F113E9582CB4986A0057CF90 /* FlightItem.swift in Sources */,
+				F113E9582CB4986A0057CF90 /* FlightCard.swift in Sources */,
 				F116402E2C8C2F3E0040C95D /* PlaceCard.swift in Sources */,
 				F1CCE0D22CB0B96600D15696 /* Extensions.swift in Sources */,
 				F1E786272CB300A200F4E462 /* HotelsView.swift in Sources */,

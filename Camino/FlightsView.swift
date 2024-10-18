@@ -2,11 +2,23 @@ import SwiftUI
 
 struct FlightsView: View {
     
-    
+    @State var flightData: FlightInfo
     let fromDate: Date?
     let toDate: Date?
     
-    @State var presentSheet = false
+    @State var flights: [FlightItem] = []
+    
+    @State var selectedAirlines: [String: Bool] = [
+        "American": true,
+        "Delta": false,
+        "Frontier": true,
+        "JetBlue": false
+    ]
+    
+    var filteredFlights: [FlightItem] {
+        return flightData.bestFlights + flightData.otherFlights
+    }
+    
     
     @State private var naturalScrollOffset: CGFloat = 0
     @State private var lastNaturalOffset: CGFloat = 0
@@ -21,42 +33,25 @@ struct FlightsView: View {
             
             if #available(iOS 18.0, *) {
                 ScrollView {
-                    VStack(spacing: 10) {
-                        FlightItem(airline: "American", airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/AA.png", startTime: "9:15", endTime: "6:00")
-                        FlightItem(airline: "Delta", airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/DL.png", startTime: "12:10", endTime: "6:40")
-                        FlightItem(airline: "Frontier", airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/F9.png", startTime: "9:15", endTime: "11:11")
-                        FlightItem(airline: "JetBlue", airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/B6.png", startTime: "10:15", endTime: "6:00")
-                        FlightItem(airline: "American", airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/AA.png", startTime: "9:15", endTime: "6:00")
-                        FlightItem(airline: "Delta", airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/DL.png", startTime: "12:10", endTime: "6:40")
-                        FlightItem(airline: "Frontier", airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/F9.png", startTime: "9:15", endTime: "11:11")
-                        FlightItem(airline: "JetBlue", airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/B6.png", startTime: "10:15", endTime: "6:00")
-                        FlightItem(airline: "American", airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/AA.png", startTime: "9:15", endTime: "6:00")
-                        FlightItem(airline: "Delta", airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/DL.png", startTime: "12:10", endTime: "6:40")
-                        FlightItem(airline: "Frontier", airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/F9.png", startTime: "9:15", endTime: "11:11")
-                        FlightItem(airline: "JetBlue", airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/B6.png", startTime: "10:15", endTime: "6:00")
-                        FlightItem(airline: "American", airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/AA.png", startTime: "9:15", endTime: "6:00")
-                        FlightItem(airline: "Delta", airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/DL.png", startTime: "12:10", endTime: "6:40")
-                        FlightItem(airline: "Frontier", airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/F9.png", startTime: "9:15", endTime: "11:11")
-                        FlightItem(airline: "JetBlue", airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/B6.png", startTime: "10:15", endTime: "6:00")
+                    VStack(spacing: 15) {
+                        ForEach(filteredFlights) { flightItem in
+                            FlightCard(flightItem: flightItem)
+                        }
                     }
-                    .padding(10)
+                    .padding(15)
                 }
-                .overlay(content: {
-                    Text("\(naturalScrollOffset)")
-                })
                 .background(Color("Background"))
                 .safeAreaInset(edge: .top, spacing: 0) {
                     VStack(spacing: 0) {
                         TopNavBar()
                             .zIndex(1)
-                        FiltersBar()
+                        FiltersBar(selectedAirlines: $selectedAirlines)
                             .offset(y: -headerOffset)
                     }
-                    
                 }
                 .onScrollGeometryChange(for: CGFloat.self) { proxy in
                     let maxHeight = proxy.contentSize.height - proxy.containerSize.height
-                    return max(min(proxy.contentOffset.y + (safeArea.top + 75) + headerHeight, maxHeight), 0)
+                    return max(min(proxy.contentOffset.y + (safeArea.top + 56) + headerHeight, maxHeight), 0)
                 } action: { oldValue, newValue in
                     self.isScrollingUp = oldValue < newValue
                     headerOffset = min(max(newValue - lastNaturalOffset, 0), headerHeight)
@@ -77,78 +72,71 @@ struct FlightsView: View {
                 })
                 .onChange(of: isScrollingUp, { oldValue, newValue in
                     lastNaturalOffset = naturalScrollOffset - headerOffset
-                    print("last natural offset: \(lastNaturalOffset)")
                 })
-                
-                
-                
-                
-            } else {
+            }
+            
+            else {
                 // Fallback on earlier versions
             }
-            
-            
-            
-            
-            
-            
         }
-        
     }
+}
+
+
+struct FiltersBar: View {
     
+    @Binding var selectedAirlines: [String: Bool]
+    @State var presentSheet = false
+    @State var selectedFilter: FlightFilter = FlightFilter.sort
     
-    
-    struct FiltersBar: View {
-        var body: some View {
-            VStack(spacing: 0) {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(FlightFilter.allCases, id: \.self) { filter in
-                            Button {
-                                print("\(filter.title) tapped!")
-                                //                            presentSheet = true
-                            } label: {
-                                
-                                HStack {
-                                    if filter.title == "Sort" {
-                                        Image(systemName: "pencil")
-                                    }
-                                    Text(filter.title)
-                                        .font(Font.custom("Barlow-Regular", size: 15))
-                                    
+    var body: some View {
+        VStack(spacing: 0) {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(FlightFilter.allCases(airlines: $selectedAirlines), id: \.title) { filter in
+                        Button {
+                            selectedFilter = filter
+                            presentSheet = true
+                        } label: {
+                            
+                            HStack {
+                                if filter.title == "Sort" {
+                                    Image(systemName: "line.3.horizontal.decrease")
                                 }
-                                .padding(13)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(.gray.opacity(0.6), style: StrokeStyle(lineWidth: 2))
-                                        .padding(1)
-                                )
+                                Text(filter.title)
+                                    .font(Font.custom("Barlow-Regular", size: 15))
+                                
                             }
-                            //                        .sheet(isPresented: $presentSheet) {
-                            //                            Text(filter.title)
-                            //                                .presentationDetents([.medium])
-                            //                        }
-                            .buttonStyle(PlainButtonStyle())
+                            .padding(13)
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(.customGray, style: StrokeStyle(lineWidth: 2))
+                                    .padding(2)
+                            )
                         }
+                        
+                        .buttonStyle(PlainButtonStyle())
                     }
-                    .padding(10)
-                }.frame(height: 66)
-                
-                Divider()
-                    .frame(height: 1)
-                    .background(.gray)
-                
-            }
-            .frame(height: 67)
-            .background(Color("Background"))
+                    .onChange(of: selectedFilter) {
+                        presentSheet = true
+                    }
+                    .sheet(isPresented: $presentSheet) {
+                        selectedFilter.destinationView
+                            .presentationDetents([.medium])
+                    }
+                }
+                .padding(10)
+            }.frame(height: 66)
+            
+            Divider()
+                .frame(height: 1)
+                .overlay(.customGray)
+            
         }
+        .frame(height: 69)
+        .background(Color("Card"))
     }
 }
-
-#Preview {
-    FlightsView(fromDate: Date.now, toDate: Date.now)
-}
-
 
 
 struct TopNavBar: View {
@@ -177,18 +165,57 @@ struct TopNavBar: View {
                 HStack {
                     Text("SYD - LAX")
                         .font(Font.custom("Barlow-Bold", size: 20))
-                    Image(systemName: "pencil")
-                        .font(.system(size: 16))
+                    
                 }
                 Text("Oct 9 - Oct 17")
                     .font(Font.custom("Barlow-SemiBold", size: 15))
             }
             Spacer()
-            VStack{}
-                .frame(maxWidth: .infinity)
+            HStack {
+                Spacer()
+                HStack {
+                    Text("Edit")
+                        .font(Font.custom("Barlow-SemiBold", size: 16))
+                    
+                    Image(systemName: "pencil")
+                        .font(.system(size: 20))
+                        .padding(.trailing, 20)
+                }
+            }
+            .frame(maxWidth: .infinity)
         }
-        .frame(height: 70)
+        //        .frame(height: 70)
         .padding(.bottom, 5)
-        .background(Color("Background"))
+        .background(Color("Card"))
     }
+}
+
+let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd HH:mm" // Adjust this format to match your JSON date format
+    return formatter
+}()
+
+func loadFlightData(fileName: String) -> FlightInfo {
+    guard let fileURL = Bundle.main.url(forResource: fileName, withExtension: "txt") else {
+        fatalError("File not found")
+    }
+    
+    do {
+        let data = try Data(contentsOf: fileURL)
+        let decoder = JSONDecoder()
+        
+        // Set the date decoding strategy
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        
+        let flightData = try decoder.decode(FlightInfo.self, from: data)
+        return flightData
+    } catch {
+        fatalError("Failed to load data: \(error.localizedDescription)")
+    }
+}
+
+#Preview {
+    let mockFlightData = loadFlightData(fileName: "testFlightsResponse")
+    return FlightsView(flightData: mockFlightData, fromDate: Date.now, toDate: Date.now)
 }

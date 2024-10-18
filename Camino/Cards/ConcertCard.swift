@@ -19,8 +19,7 @@ struct ConcertCard: View {
                     Image(systemName: "photo.fill")
                 }
                 .scaledToFill()
-                .frame(width: 234, height: 150)
-                .cornerRadius(12)
+                .frame(width: 250, height: 150)
                 .clipped()
                 
                 VStack(alignment: .leading, spacing: 5) {
@@ -42,13 +41,14 @@ struct ConcertCard: View {
                         .lineLimit(1)
                     
                 }
-                .padding(10)
+                .padding(15)
             }
-            .padding(8)
             .frame(width: 250)
-            .background (
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .background(
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.card)
+                    .shadow(color: .black.opacity(0.2), radius: 5)
             )
         }
         .buttonStyle(PlainButtonStyle())
@@ -56,5 +56,7 @@ struct ConcertCard: View {
 }
 
 #Preview {
-    ConcertCard(concert: hotConcerts[0])
+    NavigationStack {
+        ConcertCard(concert: hotConcerts[0])
+    }
 }

@@ -37,7 +37,7 @@ struct ConcertView: View {
                             .fill(Color.clear)
                             .frame(height: 300)
                         
-                        VStack(spacing: 15) {
+                        VStack(spacing: 20) {
                             VStack(alignment: .leading, spacing: 5) {
                                 Text(concert.name)
                                     .font(Font.custom("Barlow-Bold", size: 30))
@@ -58,30 +58,52 @@ struct ConcertView: View {
                                         .font(Font.custom("Barlow-SemiBold", size: 17))
                                         .foregroundStyle(.gray)
                                 }
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                            VStack(spacing: 15) {
-                                ForEach((LineItemType.allCases(fromDate: tripStartDate, toDate: tripEndDate, link: concert.url)), id: \.title) { item in
-                                    LineItem(item: item, price: concert.minPrice)
+                                
+                                VStack(spacing: 15) {
+                                    ForEach((LineItemType.allCases(fromDate: tripStartDate, toDate: tripEndDate, link: concert.url)), id: \.title) { item in
+                                        LineItem(item: item, price: concert.minPrice)
+                                    }
                                 }
+                                .padding(.vertical, 10)
+                                
+                                Divider()
+                                    .frame(height: 2)
+                                    .overlay(.customGray)
+                                
+                                HStack {
+                                    Text("Total:")
+                                        .font(Font.custom("Barlow-SemiBold", size: 17))
+                                    Spacer()
+                                    Text("$780")
+                                        .font(Font.custom("Barlow-SemiBold", size: 17))
+                                }
+                                .padding(.horizontal, 10)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             }
-                            
-                            Divider()
-                                .frame(height: 2)
-                                .background(.card)
-                            
-                            HStack {
-                                Text("Total:")
-                                    .font(Font.custom("Barlow-SemiBold", size: 17))
-                                Spacer()
-                                Text("$780")
-                                    .font(Font.custom("Barlow-SemiBold", size: 17))
-                            }
-                            .padding(.horizontal, 10)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            
                             
                             MapCard(concert: concert)
+                                .padding(.vertical, 10)
+                            
+                            Button {
+                                print("Plan trip tapped")
+                            } label: {
+                                Text("Plan Trip")
+                                    .font(Font.custom("Barlow-SemiBold", size: 18))
+                                    .padding()
+                                
+                                    .containerRelativeFrame(.horizontal) { size, axis in
+                                        size - 100
+                                    }
+                                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .fill(.accent)
+                                    )
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
                         .padding(.horizontal, 15)
                         .background(Color("Background"))
@@ -117,34 +139,6 @@ struct ConcertView: View {
                 .buttonStyle(PlainButtonStyle())
                 Spacer()
             }
-            
-//            VStack {
-//                Spacer()
-//                Button{
-//                    print("Tapped plan trip")
-//                    let calendar = Calendar.current
-//                    if let startDate = tripStartDate {
-//                        tripStartDate = calendar.date(byAdding: .day, value: -1, to: startDate)!
-//                    }
-//                    
-//                } label: {
-//                    HStack {
-//                        Text("Plan Trip")
-//                            .font(Font.custom("Barlow-SemiBold", size: 20))
-//                            .foregroundStyle(.white)
-//                        Image(systemName: "arrow.forward")
-//                            .foregroundStyle(.white)
-//                            .fontWeight(.bold)
-//                    }
-//                }
-//                
-//                .padding(6)
-//                .frame(width: 260, height: 60)
-//                .background(Color("AccentColor"))
-//                .cornerRadius(35)
-//                .padding(.horizontal, 26)
-//                .shadow(radius: 5)
-//            }
         }
         .background(Color("Background"))
         .ignoresSafeArea(edges: .top)

@@ -12,7 +12,6 @@ struct MapCard: View {
             VStack(alignment: .leading, spacing: 0) {
                 Map(initialPosition: MapCameraPosition.region( MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: concert.latitude, longitude: concert.longitude), span: MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3))), interactionModes: [])
                     .frame(height: 175)
-                    .cornerRadius(12)
                     .clipped()
                 
                 VStack(alignment: .leading, spacing: 5) {
@@ -28,16 +27,16 @@ struct MapCard: View {
                         .lineLimit(1)
                     
                 }
-                .padding(10)
+                .padding(15)
             }
-            .padding(8)
             .containerRelativeFrame(.horizontal) { size, axis in
                 size - 30
             }
-            
+            .clipShape(RoundedRectangle(cornerRadius: 20))
             .background(
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.card)
+                    .shadow(color: .black.opacity(0.2), radius: 5)
             )
         }
         .buttonStyle(PlainButtonStyle())
@@ -54,5 +53,7 @@ struct MapCard: View {
 }
 
 #Preview {
-    MapCard(concert: hotConcerts[0])
+    NavigationStack {
+        MapCard(concert: hotConcerts[0])
+    }
 }

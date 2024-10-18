@@ -29,27 +29,31 @@ struct PlaceCard: View {
                         .minimumScaleFactor(0.5)
                         .lineLimit(2, reservesSpace: true)
                 }
-                .padding(10)
+                .padding(15)
                 
                 Image(place.imageString)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 234, height: 150)
-                    .cornerRadius(12)
+                    .frame(width: 250, height: 150)
                     .clipped()
                 
             }
-            .padding(8)
             .frame(width: 250)
+            .clipShape(RoundedRectangle(cornerRadius: 20))
             .background(
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.card)
+                    .shadow(color: .black.opacity(0.2), radius: 5)
             )
+            
         }
         .buttonStyle(PlainButtonStyle())
     }
 }
 
 #Preview {
-    PlaceCard(place: suggestedPlaces[0])
+    NavigationStack {
+        PlaceCard(place: suggestedPlaces[6])
+    }
+    
 }

@@ -52,7 +52,7 @@ struct LineItem: View {
         .contentShape(RoundedRectangle(cornerRadius: 20))
         .overlay(
             RoundedRectangle(cornerRadius: 20)
-                .stroke(.card, lineWidth: 2)
+                .stroke(.customGray, lineWidth: 2)
         )
     }
 }
@@ -95,9 +95,10 @@ enum LineItemType {
     
     @ViewBuilder
     var destinationView: some View {
+        let mockFlightData = loadFlightData(fileName: "testFlightsResponse")
         switch self {
         case let .flights(fromDate, toDate):
-            FlightsView(fromDate: fromDate, toDate: toDate)
+            FlightsView(flightData: mockFlightData, fromDate: fromDate, toDate: toDate)
         case let .hotel(fromDate, toDate):
             HotelsView(fromDate: fromDate, toDate: toDate)
         case let .ticket(link):

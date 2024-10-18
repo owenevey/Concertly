@@ -48,15 +48,18 @@ struct SportCard: View {
             }
             .padding(15)
             .frame(width: 250)
-            
+            .clipShape(RoundedRectangle(cornerRadius: 20))
             .background(
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.card)
+                    .shadow(color: .black.opacity(0.2), radius: 5)
             )
         }.buttonStyle(PlainButtonStyle())
     }
 }
 
 #Preview {
-    SportCard(game: upcomingGames[0])
+    NavigationStack {
+        SportCard(game: upcomingGames[0])
+    }
 }
