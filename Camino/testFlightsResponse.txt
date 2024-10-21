@@ -35,7 +35,7 @@
                 "typical_for_this_route": 225000,
                 "difference_percent": 11
             },
-            "price": 559,
+            "price": 5589,
             "type": "Round trip",
             "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
             "extensions": [

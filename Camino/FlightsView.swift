@@ -2,21 +2,20 @@ import SwiftUI
 
 struct FlightsView: View {
     
-    @State var flightData: FlightInfo
-    let fromDate: Date?
-    let toDate: Date?
+    @Binding var flightData: FlightInfo
+    @Binding var fromAirport: String
+    @Binding var toAirport: String
+    @Binding var fromDate: Date
+    @Binding var toDate: Date
     
-    @State var flights: [FlightItem] = []
     
-    @State var selectedAirlines: [String: Bool] = [
-        "American": true,
-        "Delta": false,
-        "Frontier": true,
-        "JetBlue": false
-    ]
+    @State var allAirlines: [String: (imageURL: String, isEnabled: Bool)] = [:]
     
     var filteredFlights: [FlightItem] {
-        return flightData.bestFlights + flightData.otherFlights
+        return (flightData.bestFlights + flightData.otherFlights).filter { flightItem in
+                    guard let firstFlight = flightItem.flights.first else { return false }
+                    return allAirlines[firstFlight.airline]?.isEnabled ?? false
+                }
     }
     
     
@@ -43,9 +42,9 @@ struct FlightsView: View {
                 .background(Color("Background"))
                 .safeAreaInset(edge: .top, spacing: 0) {
                     VStack(spacing: 0) {
-                        TopNavBar()
+                        TopNavBar(flightData: $flightData, fromDate: $fromDate, toDate: $toDate, fromAirport: $fromAirport, toAirport: $toAirport)
                             .zIndex(1)
-                        FiltersBar(selectedAirlines: $selectedAirlines)
+                        FiltersBar(allAirlines: $allAirlines)
                             .offset(y: -headerOffset)
                     }
                 }
@@ -73,6 +72,10 @@ struct FlightsView: View {
                 .onChange(of: isScrollingUp, { oldValue, newValue in
                     lastNaturalOffset = naturalScrollOffset - headerOffset
                 })
+                .onAppear {
+                                    // Populate selectedAirlines when the view appears
+                    allAirlines = extractAirlineData(from: flightData)
+                                }
             }
             
             else {
@@ -80,12 +83,111 @@ struct FlightsView: View {
             }
         }
     }
+    
+    func extractAirlineData(from flightData: FlightInfo) -> [String: (imageURL: String, isEnabled: Bool)] {
+        var airlineDict: [String: (imageURL: String, isEnabled: Bool)] = [:]
+        
+        // Loop through all the best flights
+        for flightItem in flightData.bestFlights {
+            // Loop through the individual flights in each item
+            for flight in flightItem.flights {
+                let airlineName = flight.airline
+                let airlineLogo = flight.airlineLogo
+                
+                // If the airline doesn't already exist in the dictionary, add it
+                if airlineDict[airlineName] == nil {
+                    airlineDict[airlineName] = (imageURL: airlineLogo, isEnabled: true)
+                }
+            }
+        }
+        
+        for flightItem in flightData.otherFlights {
+            // Loop through the individual flights in each item
+            for flight in flightItem.flights {
+                let airlineName = flight.airline
+                let airlineLogo = flight.airlineLogo
+                
+                // If the airline doesn't already exist in the dictionary, add it
+                if airlineDict[airlineName] == nil {
+                    airlineDict[airlineName] = (imageURL: airlineLogo, isEnabled: true)
+                }
+            }
+        }
+        
+        return airlineDict
+    }
+
+    
+    
+    
+    struct TopNavBar: View {
+        
+        @Environment(\.dismiss) var dismiss
+        
+        @Binding var flightData: FlightInfo
+        @Binding var fromDate: Date
+        @Binding var toDate: Date
+        @Binding var fromAirport: String
+        @Binding var toAirport: String
+        
+        let calendar = Calendar.current
+        
+        var body: some View {
+            HStack {
+                HStack {
+                    Button(action: {dismiss()}) {
+                        RoundedRectangle(cornerRadius: 20, style: .continuous)
+                            .fill(.ultraThinMaterial)
+                            .frame(width: 50, height: 50)
+                            .overlay(
+                                Image(systemName: "arrow.backward")
+                                    .font(.system(size: 20))
+                            )
+                            .padding(.leading, 20)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity)
+                Spacer()
+                VStack {
+                    HStack {
+                        Text("\(fromAirport) - \(toAirport)")
+                            .font(Font.custom("Barlow-Bold", size: 20))
+                        
+                    }
+                    Text("\(shorterFormat(fromDate)) - \(shorterFormat(toDate))")
+                        .font(Font.custom("Barlow-SemiBold", size: 15))
+                }
+                Spacer()
+                HStack {
+                    Spacer()
+                    Button {
+                        fromDate = calendar.date(byAdding: .day, value: -1, to: fromDate)!
+                    } label: {
+                        HStack(spacing: 5) {
+                            Text("Edit")
+                                .font(Font.custom("Barlow-SemiBold", size: 16))
+                            
+                            Image(systemName: "pencil")
+                                .font(.system(size: 16))
+                                .padding(.trailing, 20)
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity)
+            }
+            .padding(.bottom, 5)
+            .background(Color("Card"))
+        }
+    }
+    
 }
 
 
 struct FiltersBar: View {
     
-    @Binding var selectedAirlines: [String: Bool]
+    @Binding var allAirlines: [String: (imageURL: String, isEnabled: Bool)]
     @State var presentSheet = false
     @State var selectedFilter: FlightFilter = FlightFilter.sort
     
@@ -93,7 +195,7 @@ struct FiltersBar: View {
         VStack(spacing: 0) {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(FlightFilter.allCases(airlines: $selectedAirlines), id: \.title) { filter in
+                    ForEach(FlightFilter.allCases(airlines: $allAirlines), id: \.title) { filter in
                         Button {
                             selectedFilter = filter
                             presentSheet = true
@@ -138,57 +240,13 @@ struct FiltersBar: View {
     }
 }
 
-
-struct TopNavBar: View {
+func shorterFormat(_ date: Date) -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "MMM d"
     
-    @Environment(\.dismiss) var dismiss
-    
-    var body: some View {
-        HStack {
-            HStack {
-                Button(action: {dismiss()}) {
-                    RoundedRectangle(cornerRadius: 20, style: .continuous)
-                        .fill(.ultraThinMaterial)
-                        .frame(width: 50, height: 50)
-                        .overlay(
-                            Image(systemName: "arrow.backward")
-                                .font(.system(size: 20))
-                        )
-                        .padding(.leading, 20)
-                }
-                .buttonStyle(PlainButtonStyle())
-                Spacer()
-            }
-            .frame(maxWidth: .infinity)
-            Spacer()
-            VStack {
-                HStack {
-                    Text("SYD - LAX")
-                        .font(Font.custom("Barlow-Bold", size: 20))
-                    
-                }
-                Text("Oct 9 - Oct 17")
-                    .font(Font.custom("Barlow-SemiBold", size: 15))
-            }
-            Spacer()
-            HStack {
-                Spacer()
-                HStack {
-                    Text("Edit")
-                        .font(Font.custom("Barlow-SemiBold", size: 16))
-                    
-                    Image(systemName: "pencil")
-                        .font(.system(size: 20))
-                        .padding(.trailing, 20)
-                }
-            }
-            .frame(maxWidth: .infinity)
-        }
-        //        .frame(height: 70)
-        .padding(.bottom, 5)
-        .background(Color("Card"))
-    }
+    return formatter.string(from: date)
 }
+
 
 let dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
@@ -216,6 +274,12 @@ func loadFlightData(fileName: String) -> FlightInfo {
 }
 
 #Preview {
-    let mockFlightData = loadFlightData(fileName: "testFlightsResponse")
-    return FlightsView(flightData: mockFlightData, fromDate: Date.now, toDate: Date.now)
+    
+    @Previewable @State var flightData: FlightInfo = loadFlightData(fileName: "testFlightsResponse")
+    @Previewable @State var fromAirport: String = "AUS"
+    @Previewable @State var toAirport: String = "JFK"
+    @Previewable @State var fromDate: Date = Date.now
+    @Previewable @State var toDate: Date = Date.now
+    
+    return FlightsView(flightData: $flightData, fromAirport: $fromAirport, toAirport: $toAirport, fromDate: $fromDate, toDate: $toDate)
 }

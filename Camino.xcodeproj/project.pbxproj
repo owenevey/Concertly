@@ -30,6 +30,7 @@
 		F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551B2C8CEA2800E25003 /* ConcertCard.swift */; };
 		F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551E2C8D5D1F00E25003 /* ConcertView.swift */; };
 		F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18155202C8EB35A00E25003 /* ConcertsResponse.swift */; };
+		F18C460E2CC5B30D00756472 /* TimeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18C460D2CC5B30D00756472 /* TimeUtil.swift */; };
 		F19900382CAB5C8300EE005F /* SportCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19900372CAB5C8300EE005F /* SportCard.swift */; };
 		F199FFE32CAA3A5F00EE005F /* Barlow-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD92CAA3A5E00EE005F /* Barlow-LightItalic.ttf */; };
 		F199FFE42CAA3A5F00EE005F /* Barlow-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD62CAA3A5E00EE005F /* Barlow-ExtraLightItalic.ttf */; };
@@ -51,6 +52,11 @@
 		F199FFF52CAA3A5F00EE005F /* Barlow-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD32CAA3A5E00EE005F /* Barlow-ExtraBold.ttf */; };
 		F1CCE0D22CB0B96600D15696 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCE0D12CB0B96600D15696 /* Extensions.swift */; };
 		F1CCE0D42CB0E92A00D15696 /* CustomTabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCE0D32CB0E92A00D15696 /* CustomTabItem.swift */; };
+		F1DAE69A2CC34D4700901914 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE6992CC34D4700901914 /* ApiResponse.swift */; };
+		F1DAE69E2CC37F7F00901914 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE69D2CC37F7F00901914 /* DateExtension.swift */; };
+		F1DAE6A02CC3849D00901914 /* ImageHeaderScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE69F2CC3849D00901914 /* ImageHeaderScrollView.swift */; };
+		F1DAE6A22CC42EA500901914 /* ApiCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE6A12CC42EA500901914 /* ApiCalls.swift */; };
+		F1DAE6A42CC42FCA00901914 /* ClosestAirportCodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE6A32CC42FCA00901914 /* ClosestAirportCodeResponse.swift */; };
 		F1E786272CB300A200F4E462 /* HotelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E786262CB300A200F4E462 /* HotelsView.swift */; };
 		F1E786292CB36CAB00F4E462 /* SFSafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E786282CB36CAB00F4E462 /* SFSafariView.swift */; };
 /* End PBXBuildFile section */
@@ -80,6 +86,7 @@
 		F181551B2C8CEA2800E25003 /* ConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertCard.swift; sourceTree = "<group>"; };
 		F181551E2C8D5D1F00E25003 /* ConcertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertView.swift; sourceTree = "<group>"; };
 		F18155202C8EB35A00E25003 /* ConcertsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertsResponse.swift; sourceTree = "<group>"; };
+		F18C460D2CC5B30D00756472 /* TimeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUtil.swift; sourceTree = "<group>"; };
 		F19900372CAB5C8300EE005F /* SportCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportCard.swift; sourceTree = "<group>"; };
 		F199FFCF2CAA3A5E00EE005F /* Barlow-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Black.ttf"; sourceTree = "<group>"; };
 		F199FFD02CAA3A5E00EE005F /* Barlow-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-BlackItalic.ttf"; sourceTree = "<group>"; };
@@ -102,6 +109,11 @@
 		F199FFF62CAA3A6E00EE005F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F1CCE0D12CB0B96600D15696 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F1CCE0D32CB0E92A00D15696 /* CustomTabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabItem.swift; sourceTree = "<group>"; };
+		F1DAE6992CC34D4700901914 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
+		F1DAE69D2CC37F7F00901914 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		F1DAE69F2CC3849D00901914 /* ImageHeaderScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHeaderScrollView.swift; sourceTree = "<group>"; };
+		F1DAE6A12CC42EA500901914 /* ApiCalls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCalls.swift; sourceTree = "<group>"; };
+		F1DAE6A32CC42FCA00901914 /* ClosestAirportCodeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosestAirportCodeResponse.swift; sourceTree = "<group>"; };
 		F1E786262CB300A200F4E462 /* HotelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsView.swift; sourceTree = "<group>"; };
 		F1E786282CB36CAB00F4E462 /* SFSafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSafariView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,13 +157,19 @@
 				F181551D2C8D5CE300E25003 /* Explore */,
 				F131862C2CB26255003DBCC5 /* Cards */,
 				F1CCE0D12CB0B96600D15696 /* Extensions.swift */,
+				F18C460D2CC5B30D00756472 /* TimeUtil.swift */,
 				F131862F2CB2F03E003DBCC5 /* FlightsView.swift */,
 				F1659C002CBF252400586212 /* FilterAirlines.swift */,
 				F1E786262CB300A200F4E462 /* HotelsView.swift */,
 				F18155202C8EB35A00E25003 /* ConcertsResponse.swift */,
+				F1DAE6A12CC42EA500901914 /* ApiCalls.swift */,
+				F1DAE69D2CC37F7F00901914 /* DateExtension.swift */,
 				F11640272C8BEABD0040C95D /* CustomClasses.swift */,
 				F1659C042CC1E99800586212 /* FlightInfo.swift */,
+				F1DAE6A32CC42FCA00901914 /* ClosestAirportCodeResponse.swift */,
 				F181551E2C8D5D1F00E25003 /* ConcertView.swift */,
+				F1DAE69F2CC3849D00901914 /* ImageHeaderScrollView.swift */,
+				F1DAE6992CC34D4700901914 /* ApiResponse.swift */,
 				F1E786282CB36CAB00F4E462 /* SFSafariView.swift */,
 				F13186312CB2F198003DBCC5 /* LineItem.swift */,
 				F176C9252CB5E7F9006BAE35 /* FlightFilters.swift */,
@@ -316,14 +334,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1DAE69E2CC37F7F00901914 /* DateExtension.swift in Sources */,
 				F176C9262CB5E7F9006BAE35 /* FlightFilters.swift in Sources */,
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
 				F1659C052CC1E99800586212 /* FlightInfo.swift in Sources */,
 				F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */,
 				F11640132C8A8A2F0040C95D /* ContentView.swift in Sources */,
+				F1DAE69A2CC34D4700901914 /* ApiResponse.swift in Sources */,
+				F1DAE6A22CC42EA500901914 /* ApiCalls.swift in Sources */,
 				F131862E2CB2E5D5003DBCC5 /* MapCard.swift in Sources */,
+				F1DAE6A02CC3849D00901914 /* ImageHeaderScrollView.swift in Sources */,
 				F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */,
 				F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */,
+				F1DAE6A42CC42FCA00901914 /* ClosestAirportCodeResponse.swift in Sources */,
+				F18C460E2CC5B30D00756472 /* TimeUtil.swift in Sources */,
 				F1E786292CB36CAB00F4E462 /* SFSafariView.swift in Sources */,
 				F11640202C8AAA610040C95D /* ExploreView.swift in Sources */,
 				F11640282C8BEABD0040C95D /* CustomClasses.swift in Sources */,

@@ -12,6 +12,16 @@ struct FlightInfo: Codable {
         case priceInsights = "price_insights"
         case airports
     }
+    
+    init(bestFlights: [FlightItem] = [],
+             otherFlights: [FlightItem] = [],
+             priceInsights: PriceInsights = PriceInsights(),
+             airports: [AirportInfo] = []) {
+            self.bestFlights = bestFlights
+            self.otherFlights = otherFlights
+            self.priceInsights = priceInsights
+            self.airports = airports
+        }
 }
 
 struct FlightItem: Codable, Identifiable {
@@ -104,6 +114,16 @@ struct PriceInsights: Codable {
         case typicalPriceRange = "typical_price_range"
         case priceHistory = "price_history"
     }
+    
+    init(lowestPrice: Int = 0,
+             priceLevel: String = "",
+             typicalPriceRange: [Int] = [],
+             priceHistory: [[Int]] = []) {
+            self.lowestPrice = lowestPrice
+            self.priceLevel = priceLevel
+            self.typicalPriceRange = typicalPriceRange
+            self.priceHistory = priceHistory
+        }
 }
 
 struct AirportInfo: Codable {

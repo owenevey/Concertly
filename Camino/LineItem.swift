@@ -3,7 +3,7 @@ import SwiftUI
 struct LineItem: View {
     
     let item: LineItemType
-    let price: Double
+    let price: Int
     
     @State private var showSafariView = false
     
@@ -44,13 +44,13 @@ struct LineItem: View {
             Text("\(item.title):")
                 .font(Font.custom("Barlow-SemiBold", size: 17))
             Spacer()
-            Text("$\(String(format: "%.0f", price))")
+            Text("$\(price)")
                 .font(Font.custom("Barlow-SemiBold", size: 17))
-                .foregroundStyle(.gray)
+            //                .foregroundStyle(.gray)
         }
         .padding(15)
         .contentShape(RoundedRectangle(cornerRadius: 20))
-        .overlay(
+        .background(
             RoundedRectangle(cornerRadius: 20)
                 .stroke(.customGray, lineWidth: 2)
         )
@@ -59,13 +59,13 @@ struct LineItem: View {
 
 enum LineItemType {
     
-    case flights(fromDate: Date?, toDate: Date?)
-    case hotel(fromDate: Date?, toDate: Date?)
+    case flights(fromDate: Binding<Date>, toDate: Binding<Date>, fromAirport: Binding<String>, toAirport: Binding<String>, flightInfo: Binding<FlightInfo>)
+    case hotel(fromDate:Binding<Date>, toDate: Binding<Date>)
     case ticket(link: String)
     
-    static func allCases(fromDate: Date?, toDate: Date?, link: String) -> [LineItemType] {
+    static func allCases(fromDate: Binding<Date>, toDate: Binding<Date>, fromAirport: Binding<String>, toAirport: Binding<String>, flightInfo: Binding<FlightInfo>, link: String) -> [LineItemType] {
         return [
-            .flights(fromDate: fromDate, toDate: toDate),
+            .flights(fromDate: fromDate, toDate: toDate, fromAirport: fromAirport, toAirport: toAirport, flightInfo: flightInfo),
             .hotel(fromDate: fromDate, toDate: toDate),
             .ticket(link: link)
         ]
@@ -95,10 +95,9 @@ enum LineItemType {
     
     @ViewBuilder
     var destinationView: some View {
-        let mockFlightData = loadFlightData(fileName: "testFlightsResponse")
         switch self {
-        case let .flights(fromDate, toDate):
-            FlightsView(flightData: mockFlightData, fromDate: fromDate, toDate: toDate)
+        case let .flights(fromDate, toDate, fromAirport, toAirport, flightInfo):
+            FlightsView(flightData: flightInfo, fromAirport: fromAirport, toAirport: toAirport, fromDate: fromDate, toDate: toDate)
         case let .hotel(fromDate, toDate):
             HotelsView(fromDate: fromDate, toDate: toDate)
         case let .ticket(link):
@@ -109,8 +108,16 @@ enum LineItemType {
 
 
 #Preview {
-    LineItem(item: LineItemType.flights(fromDate: nil, toDate: nil), price: 55)
+    let fromDate = Binding.constant(Date.now)
+    let toDate = Binding.constant(Date.now)
+    let fromAirport = Binding.constant("AUS")
+    let toAirport = Binding.constant("SYD")
+    let flightInfo = Binding.constant(FlightInfo())
     
+    return NavigationStack {
+        LineItem(item: LineItemType.flights(fromDate: fromDate, toDate: toDate, fromAirport: fromAirport, toAirport: toAirport, flightInfo: flightInfo), price: 55)
+            .padding()
+    }
 }
 
 

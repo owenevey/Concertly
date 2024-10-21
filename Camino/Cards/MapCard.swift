@@ -37,6 +37,7 @@ struct MapCard: View {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(.card)
                     .shadow(color: .black.opacity(0.2), radius: 5)
+                    
             )
         }
         .buttonStyle(PlainButtonStyle())

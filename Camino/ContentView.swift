@@ -11,7 +11,6 @@ struct ContentView: View {
                     Label("Explore", systemImage: "globe.americas")
                 }
                 
-                
                 NavigationStack {
                     TripsView()
                 }

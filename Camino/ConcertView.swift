@@ -3,142 +3,127 @@ import MapKit
 
 struct ConcertView: View {
     
+    
+    
     var concert: Concert
     
-    @Environment(\.dismiss) var dismiss
-    @State private var hasAppeared: Bool = false
-    @State private var offset: CGFloat = 0
+    @State var flights: FlightInfo = FlightInfo()
+    @State var hasAppeared: Bool = false
+    @State var tripStartDate: Date
+    @State var tripEndDate: Date
+    @State var fromAirport: String = "AUS"
+    @State var toAirport: String = "SYD"
     
-    @State private var tripStartDate: Date? = nil
-    @State private var tripEndDate: Date? = nil
+    
+    var flightsPrice: Int {
+        flights.bestFlights.first?.price ?? 0
+    }
+    
+    var hotelPrice: Int {
+        270
+    }
+    
+    var ticketPrice: Int {
+        Int(concert.minPrice)
+    }
+    
+    var totalPrice: Int {
+        ticketPrice + hotelPrice + flightsPrice
+    }
+    
+    init(concert: Concert) {
+        self.concert = concert
+        
+        let calendar = Calendar.current
+        self.tripStartDate = calendar.date(byAdding: .day, value: -1, to: concert.dateTime)!
+        self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.dateTime)!
+    }
     
     var body: some View {
         ZStack(alignment: .top) {
-            
-            AsyncImage(url: URL(string: concert.imageUrl)) { image in
-                image
-                    .resizable()
-            } placeholder: {
-                Color.gray
-                    .frame(height: 300 + max(0, -offset))
-            }
-            .scaledToFill()
-            .frame(height: 300 + max(0, -offset))
-            .containerRelativeFrame(.horizontal) { size, axis in
-                size
-            }
-            .transformEffect(.init(translationX: 0, y: -max(0, offset)))
-            
-            
-            if #available(iOS 18.0, *) {
-                ScrollView(showsIndicators: false) {
-                    VStack(spacing: 0) {
-                        Rectangle()
-                            .fill(Color.clear)
-                            .frame(height: 300)
+            ImageHeaderScrollView(imageUrl: concert.imageUrl) {
+                VStack(spacing: 20) {
+                    
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(concert.name)
+                            .font(Font.custom("Barlow-Bold", size: 30))
                         
-                        VStack(spacing: 20) {
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(concert.name)
-                                    .font(Font.custom("Barlow-Bold", size: 30))
+                        Text(concert.dateTime.formatted(date: .complete, time: .omitted))
+                            .font(Font.custom("Barlow-SemiBold", size: 17))
+                            .foregroundStyle(.gray)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text("Minimum Price Summary")
+                            .font(Font.custom("Barlow-SemiBold", size: 20))
+                        
+                        Text("\(tripStartDate.mediumFormat()) - \(tripEndDate.mediumFormat())")
+                            .font(Font.custom("Barlow-SemiBold", size: 17))
+                            .foregroundStyle(.gray)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    
+                    VStack(spacing: 15) {
+                        ForEach((LineItemType.allCases(fromDate: $tripStartDate, toDate: $tripEndDate, fromAirport: $fromAirport, toAirport: $toAirport, flightInfo: $flights, link: concert.url)), id: \.title) { item in
+                            switch item {
+                            case .flights:
+                                LineItem(item: item, price: flightsPrice)
+                            case .hotel:
+                                LineItem(item: item, price: hotelPrice)
                                 
-                                Text(concert.dateTime.formatted(date: .complete, time: .omitted))
-                                    .font(Font.custom("Barlow-SemiBold", size: 17))
-                                    .foregroundStyle(.gray)
+                            case .ticket:
+                                LineItem(item: item, price: ticketPrice)
                             }
-                            .padding(.top, 15)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text("Minimum Price Summary")
-                                    .font(Font.custom("Barlow-SemiBold", size: 20))
-                                
-                                if let startDate = tripStartDate, let endDate = tripEndDate {
-                                    Text("\(shortFormat(startDate)) - \(shortFormat(endDate))")
-                                        .font(Font.custom("Barlow-SemiBold", size: 17))
-                                        .foregroundStyle(.gray)
-                                }
-                                
-                                VStack(spacing: 15) {
-                                    ForEach((LineItemType.allCases(fromDate: tripStartDate, toDate: tripEndDate, link: concert.url)), id: \.title) { item in
-                                        LineItem(item: item, price: concert.minPrice)
-                                    }
-                                }
-                                .padding(.vertical, 10)
-                                
-                                Divider()
-                                    .frame(height: 2)
-                                    .overlay(.customGray)
-                                
-                                HStack {
-                                    Text("Total:")
-                                        .font(Font.custom("Barlow-SemiBold", size: 17))
-                                    Spacer()
-                                    Text("$780")
-                                        .font(Font.custom("Barlow-SemiBold", size: 17))
-                                }
-                                .padding(.horizontal, 10)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                            
-                            
-                            MapCard(concert: concert)
-                                .padding(.vertical, 10)
-                            
-                            Button {
-                                print("Plan trip tapped")
-                            } label: {
-                                Text("Plan Trip")
-                                    .font(Font.custom("Barlow-SemiBold", size: 18))
-                                    .padding()
-                                
-                                    .containerRelativeFrame(.horizontal) { size, axis in
-                                        size - 100
-                                    }
-                                    .clipShape(RoundedRectangle(cornerRadius: 20))
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .fill(.accent)
-                                    )
-                            }
-                            .buttonStyle(PlainButtonStyle())
                         }
-                        .padding(.horizontal, 15)
-                        .background(Color("Background"))
+                        
+                        Divider()
+                            .frame(height: 2)
+                            .overlay(.customGray)
+                        
+                        HStack {
+                            Text("Total:")
+                                .font(Font.custom("Barlow-SemiBold", size: 17))
+                            Spacer()
+                            Text("$\(totalPrice)")
+                                .font(Font.custom("Barlow-SemiBold", size: 17))
+                        }
+                        .padding(.horizontal, 10)
+                        
                     }
-                    .containerRelativeFrame(.horizontal) { size, axis in
-                        size
+                    
+                    MapCard(concert: concert)
+                        .padding(.vertical, 10)
+                    
+                    Button {
+                        print("Plan trip tapped")
+                    } label: {
+                        Text("Plan Trip")
+                            .font(Font.custom("Barlow-SemiBold", size: 18))
+                            .padding()
+                        
+                            .containerRelativeFrame(.horizontal) { size, axis in
+                                size - 100
+                            }
+                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                            .background(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(.accent)
+                            )
                     }
-                    .padding(.bottom, 15)
+                    .buttonStyle(PlainButtonStyle())
                 }
-                .ignoresSafeArea(edges: .top)
-                .onScrollGeometryChange(for: CGFloat.self) { geo in
-                    return geo.contentOffset.y
-                } action: { oldValue, newValue in
-                    offset = newValue
+                .padding(15)
+                .background(Color("Background"))
+                
+                .containerRelativeFrame(.horizontal) { size, axis in
+                    size
                 }
-            } else {
-                // Fallback on earlier versions
             }
-
             
-            HStack{
-                Button(action: {dismiss()}) {
-                    RoundedRectangle(cornerRadius: 20, style: .continuous)
-                        .fill(.ultraThinMaterial)
-                        .frame(width: 50, height: 50)
-                        .overlay(
-                            Image(systemName: "arrow.backward")
-                                .font(.system(size: 20))
-                        )
-                        .padding(.top, 60)
-                        .padding(.leading, 20)
-                }
-                .buttonStyle(PlainButtonStyle())
-                Spacer()
-            }
+            
         }
         .background(Color("Background"))
         .ignoresSafeArea(edges: .top)
@@ -147,17 +132,35 @@ struct ConcertView: View {
                 let calendar = Calendar.current
                 tripStartDate = calendar.date(byAdding: .day, value: -1, to: concert.dateTime)!
                 tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.dateTime)!
+                
+                Task {
+                    do {
+                        flights = try await getFlights(lat: concert.latitude, long: concert.longitude, fromAirport: "AUS", fromDate: tripStartDate.traditionalFormat(), toDate: tripEndDate.traditionalFormat())
+                    } catch {
+                        print("Error fetching flights: \(error)")
+                    }
+                }
+                
                 hasAppeared = true
             }
         }
     }
     
-    func shortFormat(_ date: Date) -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "E, MMM d"
-        
-        return formatter.string(from: date)
+    
+    private func headerView() -> some View {
+        AsyncImage(url: URL(string: concert.imageUrl)) { image in
+            image
+                .resizable()
+                .scaledToFill()
+                .frame(height: 300) // Adjust height as needed
+                .clipped()
+        } placeholder: {
+            Color.gray
+                .frame(height: 300) // Placeholder height
+        }
     }
+    
+    
 }
 
 #Preview {

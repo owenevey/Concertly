@@ -4,128 +4,128 @@ struct FlightCard: View {
     
     let flightItem: FlightItem
     
+    var layoverText: String {
+        if flightItem.flights.count == 1 {
+            return "Nonstop"
+        } else if flightItem.flights.count == 2 {
+            return "1 Layover"
+        } else {
+            return "\(flightItem.flights.count) Layovers"
+        }
+    }
+    
     var body: some View {
         VStack(spacing: 10) {
-            
-            HStack {
-                VStack {
-                    HStack {
-                        AsyncImage(url: URL(string: flightItem.airlineLogo)) { image in
-                            image
-                                .resizable()
-                        } placeholder: {
-                            Image(systemName: "photo.fill")
-                        }
-                        .scaledToFit()
-                        .frame(width: 20, height: 20)
-                        
-                        VStack(spacing: 2) {
-                            HStack {
-                                Text(timeFormat(flightItem.flights[0].arrivalAirport.time))
-                                    .font(Font.custom("Barlow-SemiBold", size: 18))
-                                    .frame(width: 60)
-                                
-                                Divider()
-                                    .frame(height: 1)
-                                    .frame(maxWidth: .infinity)
-                                    .overlay(.gray)
-                                
-                                Text(timeFormat(flightItem.flights[0].departureAirport.time))
-                                    .font(Font.custom("Barlow-SemiBold", size: 18))
-                                    .frame(width: 60)
+            HStack(alignment: .top) {
+                HStack {
+                    Circle()
+                        .fill(.white)
+                        .frame(width: 40, height: 40)
+                        .overlay(
+                            AsyncImage(url: URL(string: flightItem.flights.first!.airlineLogo)) { image in
+                                image
+                                    .resizable()
+                            } placeholder: {
+                                Image(systemName: "photo.fill")
                             }
-                            .frame(maxWidth: .infinity)
-                            
-                            HStack {
-                                Text("SAN")
-                                    .font(Font.custom("Barlow-Regular", size: 14))
-                                    .frame(width: 60)
-                                
-                                Spacer()
-                                Text("3h 45m")
-                                    .font(Font.custom("Barlow-Regular", size: 14))
-                                    .foregroundStyle(.gray)
-                                Spacer()
-                                
-                                Text("SAN")
-                                    .font(Font.custom("Barlow-Regular", size: 14))
-                                    .frame(width: 60)
-                            }
-                            .frame(maxWidth: .infinity)
-                        }
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
+                        )
+                    
+                    
+                    VStack(alignment: .leading) {
+                        Text(flightItem.flights.first!.airline)
+                            .font(Font.custom("Barlow-SemiBold", size: 18))
+                        Text(flightItem.flights.first!.airplane)
+                            .font(Font.custom("Barlow-SemiBold", size: 15))
+                            .foregroundStyle(.gray)
                     }
-                    
-                    
-                    //                    HStack {
-                    //                        AsyncImage(url: URL(string: airlineLogo)) { image in
-                    //                            image
-                    //                                .resizable()
-                    //                        } placeholder: {
-                    //                            Image(systemName: "photo.fill")
-                    //                        }
-                    //                        .scaledToFit()
-                    //                        .frame(width: 20, height: 20)
-                    //
-                    //                        VStack(spacing: 2) {
-                    //                            HStack {
-                    //                                Text(startTime+"a")
-                    //                                    .font(Font.custom("Barlow-SemiBold", size: 18))
-                    //                                    .frame(width: 60)
-                    //
-                    //                                Divider()
-                    //                                    .frame(height: 1)
-                    //                                    .frame(maxWidth: .infinity)
-                    //                                    .overlay(.gray)
-                    //
-                    //                                Text(startTime+"p")
-                    //                                    .font(Font.custom("Barlow-SemiBold", size: 18))
-                    //                                    .frame(width: 60)
-                    //                            }
-                    //                            .frame(maxWidth: .infinity)
-                    //
-                    //                            HStack {
-                    //                                Text("SAN")
-                    //                                    .font(Font.custom("Barlow-Regular", size: 14))
-                    //                                    .frame(width: 60)
-                    //
-                    //                                Spacer()
-                    //                                Text("3h 45m")
-                    //                                    .font(Font.custom("Barlow-Regular", size: 14))
-                    //                                    .foregroundStyle(.gray)
-                    //                                Spacer()
-                    //
-                    //                                Text("SAN")
-                    //                                    .font(Font.custom("Barlow-Regular", size: 14))
-                    //                                    .frame(width: 60)
-                    //                            }
-                    //                            .frame(maxWidth: .infinity)
-                    //                        }
-                    //                    }
                 }
                 
-                Text("$\(flightItem.price)")
-                    .font(Font.custom("Barlow-SemiBold", size: 25))
-                    .frame(width: 100)
+                Spacer()
+                
+                HStack(spacing: 5) {
+                    Image(systemName: "clock.fill")
+                        .font(.system(size: 14))
+                        .foregroundStyle(.gray)
+                    
+                    Text(minsToHrMins(minutes: flightItem.totalDuration))
+                        .font(Font.custom("Barlow-SemiBold", size: 14))
+                        .foregroundStyle(.gray)
+                }
             }
+            
+            //////////
+            
+            HStack {
+                VStack(alignment: .leading) {
+                    HStack(alignment: .bottom, spacing: 0) {
+                        Text(flightItem.flights.first!.departureAirport.time.timeFormat())
+                            .font(Font.custom("Barlow-SemiBold", size: 30))
+                        Text(flightItem.flights.first!.departureAirport.time.meridiemFormat())
+                            .font(Font.custom("Barlow-SemiBold", size: 20))
+                            .padding(.bottom, 2)
+                    }
+                    HStack(spacing: 5) {
+                        Image(systemName: "arrow.up.right.circle.fill")
+                            .font(.system(size: 14))
+                        Text(flightItem.flights.first!.departureAirport.id)
+                            .font(Font.custom("Barlow-SemiBold", size: 14))
+                            .minimumScaleFactor(0.5)
+                    }
+                    
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Spacer()
+                Image(systemName: "airplane")
+                Spacer()
+                
+                VStack(alignment: .trailing) {
+                    HStack(alignment: .bottom, spacing: 0) {
+                        Text(flightItem.flights.last!.arrivalAirport.time.timeFormat())
+                            .font(Font.custom("Barlow-SemiBold", size: 30))
+                        Text(flightItem.flights.last!.arrivalAirport.time.meridiemFormat())
+                            .font(Font.custom("Barlow-SemiBold", size: 20))
+                            .padding(.bottom, 2)
+                    }
+                    HStack(spacing: 5) {
+                        Image(systemName: "arrow.down.right.circle.fill")
+                            .font(.system(size: 14))
+                        Text(flightItem.flights.last!.arrivalAirport.id)
+                            .font(Font.custom("Barlow-SemiBold", size: 14))
+                            .minimumScaleFactor(0.5)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+            
             
             Divider()
                 .frame(height: 1)
-                .overlay(.customGray)
-                .padding(.horizontal, -14)
+                .overlay(.gray)
             
-            HStack{
-                Text(flightItem.flights[0].airline)
-                    .font(Font.custom("Barlow-Regular", size: 16))
-                    .foregroundStyle(.gray)
+            HStack {
+                HStack {
+                    Image(systemName: "calendar")
+                        .font(.system(size: 14))
+                        .foregroundStyle(.gray)
+                    Text("\(flightItem.flights.first!.arrivalAirport.time.shortFormat()) - \(layoverText)")
+                        .font(Font.custom("Barlow-SemiBold", size: 14))
+                        .foregroundStyle(.gray)
+                }
                 Spacer()
-                
-                
+                Text(flightItem.price, format: .currency(code: "USD").precision(.fractionLength(0)))
+                    .font(Font.custom("Barlow-SemiBold", size: 20))
             }
+            
+            
+            
             
             
         }
         .padding(15)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .contentShape(RoundedRectangle(cornerRadius: 20))
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(.card)

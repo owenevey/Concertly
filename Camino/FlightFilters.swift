@@ -10,17 +10,17 @@ enum FlightFilter: Equatable {
     case price
     case cabin
     
-    static func allCases(airlines: Binding<[String: Bool]>) -> [FlightFilter] {
-            return [
-                .sort,
-                .stops,
-                .time,
-                .airlines(AirlinesFilterParams(airlines: airlines)),
-                .duration,
-                .price,
-                .cabin
-            ]
-        }
+    static func allCases(airlines: Binding<[String: (imageURL: String, isEnabled: Bool)]>) -> [FlightFilter] {
+        return [
+            .sort,
+            .stops,
+            .time,
+            .airlines(AirlinesFilterParams(airlines: airlines)),
+            .duration,
+            .price,
+            .cabin
+        ]
+    }
     
     var title: String {
         switch self {
@@ -49,23 +49,26 @@ enum FlightFilter: Equatable {
     }
     
     static func == (lhs: FlightFilter, rhs: FlightFilter) -> Bool {
-            switch (lhs, rhs) {
-            case (.sort, .sort),
-                 (.stops, .stops),
-                 (.time, .time),
-                 (.duration, .duration),
-                 (.price, .price),
-                 (.cabin, .cabin):
-                return true
-            case (.airlines(let lhsParams), .airlines(let rhsParams)):
-                return lhsParams.airlines.wrappedValue == rhsParams.airlines.wrappedValue
-            default:
-                return false
+        switch (lhs, rhs) {
+        case (.sort, .sort),
+            (.stops, .stops),
+            (.time, .time),
+            (.duration, .duration),
+            (.price, .price),
+            (.cabin, .cabin):
+            return true
+        case (.airlines(let lhsParams), .airlines(let rhsParams)):
+            // Compare the dictionaries themselves instead of `wrappedValue`
+            return lhsParams.airlines.wrappedValue.elementsEqual(rhsParams.airlines.wrappedValue) { (lhsElem, rhsElem) -> Bool in
+                return lhsElem.key == rhsElem.key && lhsElem.value == rhsElem.value
             }
+        default:
+            return false
         }
+    }
 }
 
 
 struct AirlinesFilterParams {
-    var airlines: Binding<[String: Bool]>
+    var airlines: Binding<[String: (imageURL: String, isEnabled: Bool)]>
 }
