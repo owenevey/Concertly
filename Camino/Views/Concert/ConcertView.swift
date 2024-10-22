@@ -3,41 +3,16 @@ import MapKit
 
 struct ConcertView: View {
     
-    
-    
     var concert: Concert
     
-    @State var flights: FlightInfo = FlightInfo()
-    @State var hasAppeared: Bool = false
-    @State var tripStartDate: Date
-    @State var tripEndDate: Date
-    @State var fromAirport: String = "AUS"
-    @State var toAirport: String = "SYD"
-    
-    
-    var flightsPrice: Int {
-        flights.bestFlights.first?.price ?? 0
-    }
-    
-    var hotelPrice: Int {
-        270
-    }
-    
-    var ticketPrice: Int {
-        Int(concert.minPrice)
-    }
-    
-    var totalPrice: Int {
-        ticketPrice + hotelPrice + flightsPrice
-    }
+    @StateObject private var viewModel: ConcertViewModel
     
     init(concert: Concert) {
         self.concert = concert
-        
-        let calendar = Calendar.current
-        self.tripStartDate = calendar.date(byAdding: .day, value: -1, to: concert.dateTime)!
-        self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.dateTime)!
+        _viewModel = StateObject(wrappedValue: ConcertViewModel(concert: concert))
     }
+    
+    @State var hasAppeared: Bool = false
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -59,7 +34,7 @@ struct ConcertView: View {
                         Text("Minimum Price Summary")
                             .font(Font.custom("Barlow-SemiBold", size: 20))
                         
-                        Text("\(tripStartDate.mediumFormat()) - \(tripEndDate.mediumFormat())")
+                        Text("\(viewModel.tripStartDate.mediumFormat()) - \(viewModel.tripEndDate.mediumFormat())")
                             .font(Font.custom("Barlow-SemiBold", size: 17))
                             .foregroundStyle(.gray)
                     }
@@ -67,15 +42,15 @@ struct ConcertView: View {
                     
                     
                     VStack(spacing: 15) {
-                        ForEach((LineItemType.allCases(fromDate: $tripStartDate, toDate: $tripEndDate, fromAirport: $fromAirport, toAirport: $toAirport, flightInfo: $flights, link: concert.url)), id: \.title) { item in
+                        ForEach((LineItemType.allCases(fromDate: $viewModel.tripStartDate, toDate: $viewModel.tripEndDate, fromAirport: $viewModel.fromAirport, toAirport: $viewModel.toAirport, flightInfo: $viewModel.flightsResponse.data, link: concert.url)), id: \.title) { item in
                             switch item {
                             case .flights:
-                                LineItem(item: item, price: flightsPrice)
+                                LineItem(item: item, price: viewModel.flightsPrice)
                             case .hotel:
-                                LineItem(item: item, price: hotelPrice)
+                                LineItem(item: item, price: viewModel.hotelPrice)
                                 
                             case .ticket:
-                                LineItem(item: item, price: ticketPrice)
+                                LineItem(item: item, price: viewModel.ticketPrice)
                             }
                         }
                         
@@ -87,7 +62,7 @@ struct ConcertView: View {
                             Text("Total:")
                                 .font(Font.custom("Barlow-SemiBold", size: 17))
                             Spacer()
-                            Text("$\(totalPrice)")
+                            Text("$\(viewModel.totalPrice)")
                                 .font(Font.custom("Barlow-SemiBold", size: 17))
                         }
                         .padding(.horizontal, 10)
@@ -129,18 +104,9 @@ struct ConcertView: View {
         .ignoresSafeArea(edges: .top)
         .onAppear {
             if !hasAppeared {
-                let calendar = Calendar.current
-                tripStartDate = calendar.date(byAdding: .day, value: -1, to: concert.dateTime)!
-                tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.dateTime)!
-                
                 Task {
-                    do {
-                        flights = try await getFlights(lat: concert.latitude, long: concert.longitude, fromAirport: "AUS", fromDate: tripStartDate.traditionalFormat(), toDate: tripEndDate.traditionalFormat())
-                    } catch {
-                        print("Error fetching flights: \(error)")
-                    }
+                    await viewModel.getFlights()
                 }
-                
                 hasAppeared = true
             }
         }
@@ -152,11 +118,11 @@ struct ConcertView: View {
             image
                 .resizable()
                 .scaledToFill()
-                .frame(height: 300) // Adjust height as needed
+                .frame(height: 300)
                 .clipped()
         } placeholder: {
             Color.gray
-                .frame(height: 300) // Placeholder height
+                .frame(height: 300)
         }
     }
     

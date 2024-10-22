@@ -63,7 +63,7 @@ enum LineItemType {
     case hotel(fromDate:Binding<Date>, toDate: Binding<Date>)
     case ticket(link: String)
     
-    static func allCases(fromDate: Binding<Date>, toDate: Binding<Date>, fromAirport: Binding<String>, toAirport: Binding<String>, flightInfo: Binding<FlightInfo>, link: String) -> [LineItemType] {
+    static func allCases(fromDate: Binding<Date>, toDate: Binding<Date>, fromAirport: Binding<String>, toAirport: Binding<String>, flightInfo: Binding<FlightInfo?>, link: String) -> [LineItemType] {
         return [
             .flights(fromDate: fromDate, toDate: toDate, fromAirport: fromAirport, toAirport: toAirport, flightInfo: flightInfo),
             .hotel(fromDate: fromDate, toDate: toDate),
@@ -97,7 +97,7 @@ enum LineItemType {
     var destinationView: some View {
         switch self {
         case let .flights(fromDate, toDate, fromAirport, toAirport, flightInfo):
-            FlightsView(flightData: flightInfo, fromAirport: fromAirport, toAirport: toAirport, fromDate: fromDate, toDate: toDate)
+            FlightsView(flightData: we)
         case let .hotel(fromDate, toDate):
             HotelsView(fromDate: fromDate, toDate: toDate)
         case let .ticket(link):

@@ -35,7 +35,7 @@ func fetchConcertsFromAPI() async throws -> [Concert] {
     }
 }
 
-func getFlights(lat: Double, long: Double, fromAirport: String, fromDate: String, toDate: String) async throws -> FlightInfo {
+func fetchFlights(lat: Double, long: Double, fromAirport: String, fromDate: String, toDate: String) async throws -> ApiResponse<FlightInfo> {
     let url = URL(string: "https://d9hepdo8p4.execute-api.us-east-1.amazonaws.com/dev/flights?lat=\(lat)&long=\(long)&fromAirport=\(fromAirport)&fromDate=\(fromDate)&toDate=\(toDate)")!
     
     do {
@@ -52,9 +52,9 @@ func getFlights(lat: Double, long: Double, fromAirport: String, fromDate: String
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         
-        let decoded = try decoder.decode(APIResponse<FlightInfo>.self, from: data)
+        let decoded = try decoder.decode(ApiResponse<FlightInfo>.self, from: data)
         
-        return decoded.body
+        return decoded
     } catch let urlError as URLError {
         // Handle URL or network related errors
         print("URL Error: \(urlError.localizedDescription)")

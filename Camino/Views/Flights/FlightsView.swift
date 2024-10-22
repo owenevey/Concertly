@@ -2,22 +2,22 @@ import SwiftUI
 
 struct FlightsView: View {
     
-    @Binding var flightData: FlightInfo
-    @Binding var fromAirport: String
-    @Binding var toAirport: String
-    @Binding var fromDate: Date
-    @Binding var toDate: Date
+    @StateObject private var viewModel: FlightsViewModel
+    @ObservedObject var concertViewModel: ConcertViewModel
     
-    
-    @State var allAirlines: [String: (imageURL: String, isEnabled: Bool)] = [:]
-    
-    var filteredFlights: [FlightItem] {
-        return (flightData.bestFlights + flightData.otherFlights).filter { flightItem in
-                    guard let firstFlight = flightItem.flights.first else { return false }
-                    return allAirlines[firstFlight.airline]?.isEnabled ?? false
-                }
+    init(concertViewModel: ConcertViewModel) {
+        self.concertViewModel = concertViewModel
+        _viewModel = StateObject(wrappedValue: FlightsViewModel(
+            flightData: Binding<FlightInfo>(
+                get: { concertViewModel.flightsResponse.data ?? FlightInfo() },
+                set: { concertViewModel.flightsResponse.data = $0 }
+            ),
+            fromAirport: $concertViewModel.fromAirport,
+            toAirport: $concertViewModel.toAirport,
+            fromDate: $concertViewModel.tripStartDate,
+            toDate: $concertViewModel.tripEndDate
+        ))
     }
-    
     
     @State private var naturalScrollOffset: CGFloat = 0
     @State private var lastNaturalOffset: CGFloat = 0
@@ -33,7 +33,7 @@ struct FlightsView: View {
             if #available(iOS 18.0, *) {
                 ScrollView {
                     VStack(spacing: 15) {
-                        ForEach(filteredFlights) { flightItem in
+                        ForEach(viewModel.filteredFlights) { flightItem in
                             FlightCard(flightItem: flightItem)
                         }
                     }
@@ -42,9 +42,9 @@ struct FlightsView: View {
                 .background(Color("Background"))
                 .safeAreaInset(edge: .top, spacing: 0) {
                     VStack(spacing: 0) {
-                        TopNavBar(flightData: $flightData, fromDate: $fromDate, toDate: $toDate, fromAirport: $fromAirport, toAirport: $toAirport)
+                        TopNavBar(flightData: $viewModel.flightData, fromDate: $viewModel.fromDate, toDate: $viewModel.toDate, fromAirport: $viewModel.fromAirport, toAirport: $viewModel.toAirport)
                             .zIndex(1)
-                        FiltersBar(allAirlines: $allAirlines)
+                        FiltersBar(allAirlines: $viewModel.airlineFilter)
                             .offset(y: -headerOffset)
                     }
                 }
@@ -73,9 +73,9 @@ struct FlightsView: View {
                     lastNaturalOffset = naturalScrollOffset - headerOffset
                 })
                 .onAppear {
-                                    // Populate selectedAirlines when the view appears
-                    allAirlines = extractAirlineData(from: flightData)
-                                }
+                    // Populate selectedAirlines when the view appears
+                    viewModel.airlineFilter = extractAirlineData(from: viewModel.flightData)
+                }
             }
             
             else {
@@ -116,7 +116,7 @@ struct FlightsView: View {
         
         return airlineDict
     }
-
+    
     
     
     
@@ -273,13 +273,13 @@ func loadFlightData(fileName: String) -> FlightInfo {
     }
 }
 
-#Preview {
-    
-    @Previewable @State var flightData: FlightInfo = loadFlightData(fileName: "testFlightsResponse")
-    @Previewable @State var fromAirport: String = "AUS"
-    @Previewable @State var toAirport: String = "JFK"
-    @Previewable @State var fromDate: Date = Date.now
-    @Previewable @State var toDate: Date = Date.now
-    
-    return FlightsView(flightData: $flightData, fromAirport: $fromAirport, toAirport: $toAirport, fromDate: $fromDate, toDate: $toDate)
-}
+//#Preview {
+//
+//    @Previewable @State var flightData: FlightInfo = loadFlightData(fileName: "testFlightsResponse")
+//    @Previewable @State var fromAirport: String = "AUS"
+//    @Previewable @State var toAirport: String = "JFK"
+//    @Previewable @State var fromDate: Date = Date.now
+//    @Previewable @State var toDate: Date = Date.now
+//
+//    return FlightsView(flightData: <#T##FlightInfo#>, fromAirport: <#T##String#>, toAirport: <#T##String#>, fromDate: <#T##Date#>, toDate: <#T##Date#>, viewModel: <#T##arg#>, naturalScrollOffset: <#T##CGFloat#>, lastNaturalOffset: <#T##CGFloat#>, headerOffset: <#T##CGFloat#>, isScrollingUp: <#T##Bool#>)
+//}
