@@ -1,1009 +1,1009 @@
 {
-    "best_flights": [
-        {
-            "flights": [
-                {
-                    "departure_airport": {
-                        "name": "Austin-Bergstrom International Airport",
-                        "id": "AUS",
-                        "time": "2024-10-20 05:21"
-                    },
-                    "arrival_airport": {
-                        "name": "John F. Kennedy International Airport",
-                        "id": "JFK",
-                        "time": "2024-10-20 10:05"
-                    },
-                    "duration": 224,
-                    "airplane": "Airbus A319",
-                    "airline": "American",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
-                    "travel_class": "Economy",
-                    "flight_number": "AA 2287",
-                    "legroom": "30 in",
-                    "extensions": [
-                        "Average legroom (30 in)",
-                        "Wi-Fi for a fee",
-                        "In-seat power outlet",
-                        "Stream media to your device",
-                        "Carbon emissions estimate: 249 kg"
-                    ]
-                }
-            ],
-            "total_duration": 224,
-            "carbon_emissions": {
-                "this_flight": 249000,
-                "typical_for_this_route": 225000,
-                "difference_percent": 11
+        "best_flights": [
+            {
+                "flights": [
+                    {
+                        "departure_airport": {
+                            "name": "Austin-Bergstrom International Airport",
+                            "id": "AUS",
+                            "time": "2024-10-20 05:21"
+                        },
+                        "arrival_airport": {
+                            "name": "John F. Kennedy International Airport",
+                            "id": "JFK",
+                            "time": "2024-10-20 10:05"
+                        },
+                        "duration": 224,
+                        "airplane": "Airbus A319",
+                        "airline": "American",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                        "travel_class": "Economy",
+                        "flight_number": "AA 2287",
+                        "legroom": "30 in",
+                        "extensions": [
+                            "Average legroom (30 in)",
+                            "Wi-Fi for a fee",
+                            "In-seat power outlet",
+                            "Stream media to your device",
+                            "Carbon emissions estimate: 249 kg"
+                        ]
+                    }
+                ],
+                "total_duration": 224,
+                "carbon_emissions": {
+                    "this_flight": 249000,
+                    "typical_for_this_route": 225000,
+                    "difference_percent": 11
+                },
+                "price": 559,
+                "type": "Round trip",
+                "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                "extensions": [
+                    "Checked baggage for a fee",
+                    "Bag and fare conditions depend on the return flight"
+                ],
+                "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ1pCUVRJeU9EY2FDd2pjdEFNUUFob0RWVk5FT0J4dzNMUUQiLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkFBIiwiMjI4NyJdXV0="
             },
-            "price": 5589,
-            "type": "Round trip",
-            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
-            "extensions": [
-                "Checked baggage for a fee",
-                "Bag and fare conditions depend on the return flight"
-            ],
-            "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ1pCUVRJeU9EY2FDd2pjdEFNUUFob0RWVk5FT0J4dzNMUUQiLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkFBIiwiMjI4NyJdXV0="
-        },
-        {
-            "flights": [
-                {
-                    "departure_airport": {
-                        "name": "Austin-Bergstrom International Airport",
-                        "id": "AUS",
-                        "time": "2024-10-20 06:39"
+            {
+                "flights": [
+                    {
+                        "departure_airport": {
+                            "name": "Austin-Bergstrom International Airport",
+                            "id": "AUS",
+                            "time": "2024-10-20 06:39"
+                        },
+                        "arrival_airport": {
+                            "name": "Charlotte Douglas International Airport",
+                            "id": "CLT",
+                            "time": "2024-10-20 10:18"
+                        },
+                        "duration": 159,
+                        "airplane": "Boeing 737",
+                        "airline": "American",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                        "travel_class": "Economy",
+                        "flight_number": "AA 2549",
+                        "legroom": "30 in",
+                        "extensions": [
+                            "Average legroom (30 in)",
+                            "Wi-Fi for a fee",
+                            "In-seat power & USB outlets",
+                            "Stream media to your device",
+                            "Carbon emissions estimate: 151 kg"
+                        ]
                     },
-                    "arrival_airport": {
+                    {
+                        "departure_airport": {
+                            "name": "Charlotte Douglas International Airport",
+                            "id": "CLT",
+                            "time": "2024-10-20 11:10"
+                        },
+                        "arrival_airport": {
+                            "name": "John F. Kennedy International Airport",
+                            "id": "JFK",
+                            "time": "2024-10-20 13:23"
+                        },
+                        "duration": 133,
+                        "airplane": "Boeing 737",
+                        "airline": "American",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                        "travel_class": "Economy",
+                        "flight_number": "AA 2908",
+                        "legroom": "30 in",
+                        "extensions": [
+                            "Average legroom (30 in)",
+                            "Wi-Fi for a fee",
+                            "In-seat power & USB outlets",
+                            "Stream media to your device",
+                            "Carbon emissions estimate: 101 kg"
+                        ]
+                    }
+                ],
+                "layovers": [
+                    {
+                        "duration": 52,
                         "name": "Charlotte Douglas International Airport",
-                        "id": "CLT",
-                        "time": "2024-10-20 10:18"
-                    },
-                    "duration": 159,
-                    "airplane": "Boeing 737",
-                    "airline": "American",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
-                    "travel_class": "Economy",
-                    "flight_number": "AA 2549",
-                    "legroom": "30 in",
-                    "extensions": [
-                        "Average legroom (30 in)",
-                        "Wi-Fi for a fee",
-                        "In-seat power & USB outlets",
-                        "Stream media to your device",
-                        "Carbon emissions estimate: 151 kg"
-                    ]
+                        "id": "CLT"
+                    }
+                ],
+                "total_duration": 344,
+                "carbon_emissions": {
+                    "this_flight": 253000,
+                    "typical_for_this_route": 225000,
+                    "difference_percent": 12
                 },
-                {
-                    "departure_airport": {
-                        "name": "Charlotte Douglas International Airport",
-                        "id": "CLT",
-                        "time": "2024-10-20 11:10"
-                    },
-                    "arrival_airport": {
-                        "name": "John F. Kennedy International Airport",
-                        "id": "JFK",
-                        "time": "2024-10-20 13:23"
-                    },
-                    "duration": 133,
-                    "airplane": "Boeing 737",
-                    "airline": "American",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
-                    "travel_class": "Economy",
-                    "flight_number": "AA 2908",
-                    "legroom": "30 in",
-                    "extensions": [
-                        "Average legroom (30 in)",
-                        "Wi-Fi for a fee",
-                        "In-seat power & USB outlets",
-                        "Stream media to your device",
-                        "Carbon emissions estimate: 101 kg"
-                    ]
-                }
-            ],
-            "layovers": [
-                {
-                    "duration": 52,
-                    "name": "Charlotte Douglas International Airport",
-                    "id": "CLT"
-                }
-            ],
-            "total_duration": 344,
-            "carbon_emissions": {
-                "this_flight": 253000,
-                "typical_for_this_route": 225000,
-                "difference_percent": 12
+                "price": 630,
+                "type": "Round trip",
+                "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                "extensions": [
+                    "Checked baggage for a fee",
+                    "Bag and fare conditions depend on the return flight"
+                ],
+                "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZzFCUVRJMU5EbDhRVUV5T1RBNEdnc0k0dXNERUFJYUExVlRSRGdjY09MckF3PT0iLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJDTFQiLG51bGwsIkFBIiwiMjU0OSJdLFsiQ0xUIiwiMjAyNC0xMC0yMCIsIkpGSyIsbnVsbCwiQUEiLCIyOTA4Il1dXQ=="
             },
-            "price": 630,
-            "type": "Round trip",
-            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
-            "extensions": [
-                "Checked baggage for a fee",
-                "Bag and fare conditions depend on the return flight"
-            ],
-            "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZzFCUVRJMU5EbDhRVUV5T1RBNEdnc0k0dXNERUFJYUExVlRSRGdjY09MckF3PT0iLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJDTFQiLG51bGwsIkFBIiwiMjU0OSJdLFsiQ0xUIiwiMjAyNC0xMC0yMCIsIkpGSyIsbnVsbCwiQUEiLCIyOTA4Il1dXQ=="
-        },
-        {
-            "flights": [
-                {
-                    "departure_airport": {
-                        "name": "Austin-Bergstrom International Airport",
-                        "id": "AUS",
-                        "time": "2024-10-20 14:45"
-                    },
-                    "arrival_airport": {
-                        "name": "John F. Kennedy International Airport",
-                        "id": "JFK",
-                        "time": "2024-10-20 19:30"
-                    },
-                    "duration": 225,
-                    "airplane": "Boeing 737",
-                    "airline": "American",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
-                    "travel_class": "Economy",
-                    "flight_number": "AA 842",
-                    "legroom": "30 in",
-                    "extensions": [
-                        "Average legroom (30 in)",
-                        "Wi-Fi for a fee",
-                        "In-seat power & USB outlets",
-                        "Stream media to your device",
-                        "Carbon emissions estimate: 211 kg"
-                    ]
-                }
-            ],
-            "total_duration": 225,
-            "carbon_emissions": {
-                "this_flight": 211000,
-                "typical_for_this_route": 225000,
-                "difference_percent": -6
-            },
-            "price": 851,
-            "type": "Round trip",
-            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
-            "extensions": [
-                "Checked baggage for a fee",
-                "Bag and fare conditions depend on the return flight"
-            ],
-            "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ1ZCUVRnME1ob0xDT3lZQlJBQ0dnTlZVMFE0SEhEc21BVT0iLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkFBIiwiODQyIl1dXQ=="
-        },
-        {
-            "flights": [
-                {
-                    "departure_airport": {
-                        "name": "Austin-Bergstrom International Airport",
-                        "id": "AUS",
-                        "time": "2024-10-20 12:25"
-                    },
-                    "arrival_airport": {
-                        "name": "John F. Kennedy International Airport",
-                        "id": "JFK",
-                        "time": "2024-10-20 17:14"
-                    },
-                    "duration": 229,
-                    "airplane": "Airbus A320",
-                    "airline": "JetBlue",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/B6.png",
-                    "travel_class": "Economy",
-                    "flight_number": "B6 694",
-                    "legroom": "32 in",
-                    "extensions": [
-                        "Above average legroom (32 in)",
-                        "Free Wi-Fi",
-                        "In-seat power & USB outlets",
-                        "Live TV",
-                        "Carbon emissions estimate: 224 kg"
-                    ],
-                    "often_delayed_by_over_30_min": true
-                }
-            ],
-            "total_duration": 229,
-            "carbon_emissions": {
-                "this_flight": 225000,
-                "typical_for_this_route": 225000,
-                "difference_percent": 0
-            },
-            "price": 859,
-            "type": "Round trip",
-            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/B6.png",
-            "extensions": [
-                "Checked baggage for a fee",
-                "Bag and fare conditions depend on the return flight"
-            ],
-            "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ1ZDTmpZNU5Cb0xDSXlmQlJBQ0dnTlZVMFE0SEhDTW53VT0iLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkI2IiwiNjk0Il1dXQ=="
-        },
-        {
-            "flights": [
-                {
-                    "departure_airport": {
-                        "name": "Austin-Bergstrom International Airport",
-                        "id": "AUS",
-                        "time": "2024-10-20 07:20"
-                    },
-                    "arrival_airport": {
-                        "name": "John F. Kennedy International Airport",
-                        "id": "JFK",
-                        "time": "2024-10-20 12:08"
-                    },
-                    "duration": 228,
-                    "airplane": "Airbus A320",
-                    "airline": "Delta",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/DL.png",
-                    "travel_class": "Economy",
-                    "flight_number": "DL 1411",
-                    "legroom": "31 in",
-                    "extensions": [
-                        "Average legroom (31 in)",
-                        "Free Wi-Fi",
-                        "In-seat power & USB outlets",
-                        "Live TV",
-                        "Carbon emissions estimate: 204 kg"
-                    ]
-                }
-            ],
-            "total_duration": 228,
-            "carbon_emissions": {
-                "this_flight": 204000,
-                "typical_for_this_route": 225000,
-                "difference_percent": -9
-            },
-            "price": 1003,
-            "type": "Round trip",
-            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/DL.png",
-            "extensions": [
-                "Checked baggage for a fee",
-                "Bag and fare conditions depend on the return flight"
-            ],
-            "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ1pFVERFME1URWFDd2pJandZUUFob0RWVk5FT0J4d3lJOEciLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkRMIiwiMTQxMSJdXV0="
-        }
-    ],
-    "other_flights": [
-        {
-            "flights": [
-                {
-                    "departure_airport": {
-                        "name": "Austin-Bergstrom International Airport",
-                        "id": "AUS",
-                        "time": "2024-10-20 22:59"
-                    },
-                    "arrival_airport": {
-                        "name": "Harry Reid International Airport",
-                        "id": "LAS",
-                        "time": "2024-10-21 00:05"
-                    },
-                    "duration": 186,
-                    "airplane": "Airbus A320neo",
-                    "airline": "Frontier",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/F9.png",
-                    "travel_class": "Economy",
-                    "flight_number": "F9 4631",
-                    "legroom": "28 in",
-                    "extensions": [
-                        "Below average legroom (28 in)",
-                        "Carbon emissions estimate: 130 kg"
-                    ]
+            {
+                "flights": [
+                    {
+                        "departure_airport": {
+                            "name": "Austin-Bergstrom International Airport",
+                            "id": "AUS",
+                            "time": "2024-10-20 14:45"
+                        },
+                        "arrival_airport": {
+                            "name": "John F. Kennedy International Airport",
+                            "id": "JFK",
+                            "time": "2024-10-20 19:30"
+                        },
+                        "duration": 225,
+                        "airplane": "Boeing 737",
+                        "airline": "American",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                        "travel_class": "Economy",
+                        "flight_number": "AA 842",
+                        "legroom": "30 in",
+                        "extensions": [
+                            "Average legroom (30 in)",
+                            "Wi-Fi for a fee",
+                            "In-seat power & USB outlets",
+                            "Stream media to your device",
+                            "Carbon emissions estimate: 211 kg"
+                        ]
+                    }
+                ],
+                "total_duration": 225,
+                "carbon_emissions": {
+                    "this_flight": 211000,
+                    "typical_for_this_route": 225000,
+                    "difference_percent": -6
                 },
-                {
-                    "departure_airport": {
-                        "name": "Harry Reid International Airport",
-                        "id": "LAS",
-                        "time": "2024-10-21 21:29"
-                    },
-                    "arrival_airport": {
-                        "name": "John F. Kennedy International Airport",
-                        "id": "JFK",
-                        "time": "2024-10-22 05:34"
-                    },
-                    "duration": 305,
-                    "airplane": "Airbus A321neo",
-                    "airline": "Frontier",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/F9.png",
-                    "travel_class": "Economy",
-                    "flight_number": "F9 3238",
-                    "legroom": "28 in",
-                    "extensions": [
-                        "Below average legroom (28 in)",
-                        "Carbon emissions estimate: 225 kg"
-                    ],
-                    "overnight": true
-                }
-            ],
-            "layovers": [
-                {
-                    "duration": 1284,
-                    "name": "Harry Reid International Airport",
-                    "id": "LAS",
-                    "overnight": true
-                }
-            ],
-            "total_duration": 1775,
-            "carbon_emissions": {
-                "this_flight": 356000,
-                "typical_for_this_route": 225000,
-                "difference_percent": 58
+                "price": 851,
+                "type": "Round trip",
+                "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                "extensions": [
+                    "Checked baggage for a fee",
+                    "Bag and fare conditions depend on the return flight"
+                ],
+                "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ1ZCUVRnME1ob0xDT3lZQlJBQ0dnTlZVMFE0SEhEc21BVT0iLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkFBIiwiODQyIl1dXQ=="
             },
-            "price": 470,
-            "type": "Round trip",
-            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/F9.png",
-            "extensions": [
-                "Checked baggage for a fee",
-                "Bag and fare conditions depend on the return flight"
-            ],
-            "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZzFHT1RRMk16RjhSamt6TWpNNEdnc0ltTzhDRUFJYUExVlRSRGdjY0pqdkFnPT0iLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJMQVMiLG51bGwsIkY5IiwiNDYzMSJdLFsiTEFTIiwiMjAyNC0xMC0yMSIsIkpGSyIsbnVsbCwiRjkiLCIzMjM4Il1dXQ=="
-        },
-        {
-            "flights": [
-                {
-                    "departure_airport": {
-                        "name": "Austin-Bergstrom International Airport",
-                        "id": "AUS",
-                        "time": "2024-10-20 08:01"
-                    },
-                    "arrival_airport": {
-                        "name": "Chicago O'Hare International Airport",
-                        "id": "ORD",
-                        "time": "2024-10-20 10:45"
-                    },
-                    "duration": 164,
-                    "airplane": "Boeing 737",
-                    "airline": "American",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
-                    "travel_class": "Economy",
-                    "flight_number": "AA 1726",
-                    "legroom": "30 in",
-                    "extensions": [
-                        "Average legroom (30 in)",
-                        "Wi-Fi for a fee",
-                        "In-seat power & USB outlets",
-                        "Stream media to your device",
-                        "Carbon emissions estimate: 152 kg"
-                    ]
+            {
+                "flights": [
+                    {
+                        "departure_airport": {
+                            "name": "Austin-Bergstrom International Airport",
+                            "id": "AUS",
+                            "time": "2024-10-20 12:25"
+                        },
+                        "arrival_airport": {
+                            "name": "John F. Kennedy International Airport",
+                            "id": "JFK",
+                            "time": "2024-10-20 17:14"
+                        },
+                        "duration": 229,
+                        "airplane": "Airbus A320",
+                        "airline": "JetBlue",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/B6.png",
+                        "travel_class": "Economy",
+                        "flight_number": "B6 694",
+                        "legroom": "32 in",
+                        "extensions": [
+                            "Above average legroom (32 in)",
+                            "Free Wi-Fi",
+                            "In-seat power & USB outlets",
+                            "Live TV",
+                            "Carbon emissions estimate: 224 kg"
+                        ],
+                        "often_delayed_by_over_30_min": true
+                    }
+                ],
+                "total_duration": 229,
+                "carbon_emissions": {
+                    "this_flight": 225000,
+                    "typical_for_this_route": 225000,
+                    "difference_percent": 0
                 },
-                {
-                    "departure_airport": {
-                        "name": "Chicago O'Hare International Airport",
-                        "id": "ORD",
-                        "time": "2024-10-20 11:41"
-                    },
-                    "arrival_airport": {
-                        "name": "John F. Kennedy International Airport",
-                        "id": "JFK",
-                        "time": "2024-10-20 14:59"
-                    },
-                    "duration": 138,
-                    "airplane": "Boeing 737MAX 8 Passenger",
-                    "airline": "American",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
-                    "travel_class": "Economy",
-                    "flight_number": "AA 332",
-                    "legroom": "30 in",
-                    "extensions": [
-                        "Average legroom (30 in)",
-                        "Wi-Fi for a fee",
-                        "In-seat power & USB outlets",
-                        "Stream media to your device",
-                        "Carbon emissions estimate: 97 kg"
-                    ]
-                }
-            ],
-            "layovers": [
-                {
-                    "duration": 56,
-                    "name": "Chicago O'Hare International Airport",
-                    "id": "ORD"
-                }
-            ],
-            "total_duration": 358,
-            "carbon_emissions": {
-                "this_flight": 249000,
-                "typical_for_this_route": 225000,
-                "difference_percent": 11
+                "price": 859,
+                "type": "Round trip",
+                "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/B6.png",
+                "extensions": [
+                    "Checked baggage for a fee",
+                    "Bag and fare conditions depend on the return flight"
+                ],
+                "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ1ZDTmpZNU5Cb0xDSXlmQlJBQ0dnTlZVMFE0SEhDTW53VT0iLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkI2IiwiNjk0Il1dXQ=="
             },
-            "price": 630,
-            "type": "Round trip",
-            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
-            "extensions": [
-                "Checked baggage for a fee",
-                "Bag and fare conditions depend on the return flight"
-            ],
-            "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ3hCUVRFM01qWjhRVUV6TXpJYUN3amk2d01RQWhvRFZWTkVPQnh3NHVzRCIsW1siQVVTIiwiMjAyNC0xMC0yMCIsIk9SRCIsbnVsbCwiQUEiLCIxNzI2Il0sWyJPUkQiLCIyMDI0LTEwLTIwIiwiSkZLIixudWxsLCJBQSIsIjMzMiJdXV0="
-        },
-        {
-            "flights": [
-                {
-                    "departure_airport": {
-                        "name": "Austin-Bergstrom International Airport",
-                        "id": "AUS",
-                        "time": "2024-10-20 10:25"
-                    },
-                    "arrival_airport": {
-                        "name": "Dallas Fort Worth International Airport",
-                        "id": "DFW",
-                        "time": "2024-10-20 11:36"
-                    },
-                    "duration": 71,
-                    "airplane": "Boeing 737",
-                    "airline": "American",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
-                    "travel_class": "Economy",
-                    "flight_number": "AA 794",
-                    "legroom": "30 in",
-                    "extensions": [
-                        "Average legroom (30 in)",
-                        "Wi-Fi for a fee",
-                        "In-seat power & USB outlets",
-                        "Stream media to your device",
-                        "Carbon emissions estimate: 56 kg"
-                    ]
+            {
+                "flights": [
+                    {
+                        "departure_airport": {
+                            "name": "Austin-Bergstrom International Airport",
+                            "id": "AUS",
+                            "time": "2024-10-20 07:20"
+                        },
+                        "arrival_airport": {
+                            "name": "John F. Kennedy International Airport",
+                            "id": "JFK",
+                            "time": "2024-10-20 12:08"
+                        },
+                        "duration": 228,
+                        "airplane": "Airbus A320",
+                        "airline": "Delta",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/DL.png",
+                        "travel_class": "Economy",
+                        "flight_number": "DL 1411",
+                        "legroom": "31 in",
+                        "extensions": [
+                            "Average legroom (31 in)",
+                            "Free Wi-Fi",
+                            "In-seat power & USB outlets",
+                            "Live TV",
+                            "Carbon emissions estimate: 204 kg"
+                        ]
+                    }
+                ],
+                "total_duration": 228,
+                "carbon_emissions": {
+                    "this_flight": 204000,
+                    "typical_for_this_route": 225000,
+                    "difference_percent": -9
                 },
-                {
-                    "departure_airport": {
-                        "name": "Dallas Fort Worth International Airport",
-                        "id": "DFW",
-                        "time": "2024-10-20 12:25"
-                    },
-                    "arrival_airport": {
-                        "name": "John F. Kennedy International Airport",
-                        "id": "JFK",
-                        "time": "2024-10-20 17:05"
-                    },
-                    "duration": 220,
-                    "airplane": "Boeing 737MAX 8 Passenger",
-                    "airline": "American",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
-                    "travel_class": "Economy",
-                    "flight_number": "AA 2246",
-                    "legroom": "30 in",
-                    "extensions": [
-                        "Average legroom (30 in)",
-                        "Wi-Fi for a fee",
-                        "In-seat power & USB outlets",
-                        "Stream media to your device",
-                        "Carbon emissions estimate: 156 kg"
-                    ]
-                }
-            ],
-            "layovers": [
-                {
-                    "duration": 49,
-                    "name": "Dallas Fort Worth International Airport",
-                    "id": "DFW"
-                }
-            ],
-            "total_duration": 340,
-            "carbon_emissions": {
-                "this_flight": 214000,
-                "typical_for_this_route": 225000,
-                "difference_percent": -5
-            },
-            "price": 740,
-            "type": "Round trip",
-            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
-            "extensions": [
-                "Checked baggage for a fee",
-                "Bag and fare conditions depend on the return flight"
-            ],
-            "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ3hCUVRjNU5IeEJRVEl5TkRZYUN3alp3UVFRQWhvRFZWTkVPQnh3MmNFRSIsW1siQVVTIiwiMjAyNC0xMC0yMCIsIkRGVyIsbnVsbCwiQUEiLCI3OTQiXSxbIkRGVyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkFBIiwiMjI0NiJdXV0="
-        },
-        {
-            "flights": [
-                {
-                    "departure_airport": {
-                        "name": "Austin-Bergstrom International Airport",
-                        "id": "AUS",
-                        "time": "2024-10-20 15:58"
-                    },
-                    "arrival_airport": {
-                        "name": "Charlotte Douglas International Airport",
-                        "id": "CLT",
-                        "time": "2024-10-20 19:35"
-                    },
-                    "duration": 157,
-                    "airplane": "Airbus A319",
-                    "airline": "American",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
-                    "travel_class": "Economy",
-                    "flight_number": "AA 2471",
-                    "legroom": "30 in",
-                    "extensions": [
-                        "Average legroom (30 in)",
-                        "Wi-Fi for a fee",
-                        "In-seat power outlet",
-                        "Stream media to your device",
-                        "Carbon emissions estimate: 179 kg"
-                    ]
-                },
-                {
-                    "departure_airport": {
-                        "name": "Charlotte Douglas International Airport",
-                        "id": "CLT",
-                        "time": "2024-10-20 20:28"
-                    },
-                    "arrival_airport": {
-                        "name": "John F. Kennedy International Airport",
-                        "id": "JFK",
-                        "time": "2024-10-20 22:20"
-                    },
-                    "duration": 112,
-                    "airplane": "Airbus A321",
-                    "airline": "American",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
-                    "travel_class": "Economy",
-                    "flight_number": "AA 1727",
-                    "legroom": "30 in",
-                    "extensions": [
-                        "Average legroom (30 in)",
-                        "Wi-Fi for a fee",
-                        "In-seat power & USB outlets",
-                        "Stream media to your device",
-                        "Carbon emissions estimate: 106 kg"
-                    ],
-                    "often_delayed_by_over_30_min": true
-                }
-            ],
-            "layovers": [
-                {
-                    "duration": 53,
-                    "name": "Charlotte Douglas International Airport",
-                    "id": "CLT"
-                }
-            ],
-            "total_duration": 322,
-            "carbon_emissions": {
-                "this_flight": 285000,
-                "typical_for_this_route": 225000,
-                "difference_percent": 27
-            },
-            "price": 967,
-            "type": "Round trip",
-            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
-            "extensions": [
-                "Checked baggage for a fee",
-                "Bag and fare conditions depend on the return flight"
-            ],
-            "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZzFCUVRJME56RjhRVUV4TnpJM0dnc0loZk1GRUFJYUExVlRSRGdjY0lYekJRPT0iLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJDTFQiLG51bGwsIkFBIiwiMjQ3MSJdLFsiQ0xUIiwiMjAyNC0xMC0yMCIsIkpGSyIsbnVsbCwiQUEiLCIxNzI3Il1dXQ=="
-        },
-        {
-            "flights": [
-                {
-                    "departure_airport": {
-                        "name": "Austin-Bergstrom International Airport",
-                        "id": "AUS",
-                        "time": "2024-10-20 16:10"
-                    },
-                    "arrival_airport": {
-                        "name": "John F. Kennedy International Airport",
-                        "id": "JFK",
-                        "time": "2024-10-20 21:06"
-                    },
-                    "duration": 236,
-                    "airplane": "Airbus A320",
-                    "airline": "Delta",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/DL.png",
-                    "travel_class": "Economy",
-                    "flight_number": "DL 1250",
-                    "legroom": "31 in",
-                    "extensions": [
-                        "Average legroom (31 in)",
-                        "Free Wi-Fi",
-                        "In-seat power & USB outlets",
-                        "Live TV",
-                        "Carbon emissions estimate: 204 kg"
-                    ]
-                }
-            ],
-            "total_duration": 236,
-            "carbon_emissions": {
-                "this_flight": 204000,
-                "typical_for_this_route": 225000,
-                "difference_percent": -9
-            },
-            "price": 1003,
-            "type": "Round trip",
-            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/DL.png",
-            "extensions": [
-                "Checked baggage for a fee",
-                "Bag and fare conditions depend on the return flight"
-            ],
-            "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ1pFVERFeU5UQWFDd2pJandZUUFob0RWVk5FT0J4d3lJOEciLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkRMIiwiMTI1MCJdXV0="
-        },
-        {
-            "flights": [
-                {
-                    "departure_airport": {
-                        "name": "Austin-Bergstrom International Airport",
-                        "id": "AUS",
-                        "time": "2024-10-20 12:47"
-                    },
-                    "arrival_airport": {
-                        "name": "John F. Kennedy International Airport",
-                        "id": "JFK",
-                        "time": "2024-10-20 17:42"
-                    },
-                    "duration": 235,
-                    "airplane": "Airbus A320",
-                    "airline": "Delta",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/DL.png",
-                    "travel_class": "Economy",
-                    "flight_number": "DL 1406",
-                    "legroom": "31 in",
-                    "extensions": [
-                        "Average legroom (31 in)",
-                        "Free Wi-Fi",
-                        "In-seat power & USB outlets",
-                        "Live TV",
-                        "Carbon emissions estimate: 204 kg"
-                    ]
-                }
-            ],
-            "total_duration": 235,
-            "carbon_emissions": {
-                "this_flight": 204000,
-                "typical_for_this_route": 225000,
-                "difference_percent": -9
-            },
-            "price": 1513,
-            "type": "Round trip",
-            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/DL.png",
-            "extensions": [
-                "Checked baggage for a fee",
-                "Bag and fare conditions depend on the return flight"
-            ],
-            "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ1pFVERFME1EWWFDd2lBbmdrUUFob0RWVk5FT0J4d2dKNEoiLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkRMIiwiMTQwNiJdXV0="
-        },
-        {
-            "flights": [
-                {
-                    "departure_airport": {
-                        "name": "Austin-Bergstrom International Airport",
-                        "id": "AUS",
-                        "time": "2024-10-20 18:59"
-                    },
-                    "arrival_airport": {
-                        "name": "John F. Kennedy International Airport",
-                        "id": "JFK",
-                        "time": "2024-10-20 23:51"
-                    },
-                    "duration": 232,
-                    "airplane": "Airbus A320",
-                    "airline": "Delta",
-                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/DL.png",
-                    "travel_class": "Economy",
-                    "flight_number": "DL 2685",
-                    "legroom": "31 in",
-                    "extensions": [
-                        "Average legroom (31 in)",
-                        "Free Wi-Fi",
-                        "In-seat power & USB outlets",
-                        "Live TV",
-                        "Carbon emissions estimate: 204 kg"
-                    ]
-                }
-            ],
-            "total_duration": 232,
-            "carbon_emissions": {
-                "this_flight": 204000,
-                "typical_for_this_route": 225000,
-                "difference_percent": -9
-            },
-            "price": 1513,
-            "type": "Round trip",
-            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/DL.png",
-            "extensions": [
-                "Checked baggage for a fee",
-                "Bag and fare conditions depend on the return flight"
-            ],
-            "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ1pFVERJMk9EVWFDd2lBbmdrUUFob0RWVk5FT0J4d2dKNEoiLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkRMIiwiMjY4NSJdXV0="
-        }
-    ],
-    "price_insights": {
-        "lowest_price": 470,
-        "price_level": "high",
-        "typical_price_range": [
-            175,
-            390
+                "price": 1003,
+                "type": "Round trip",
+                "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/DL.png",
+                "extensions": [
+                    "Checked baggage for a fee",
+                    "Bag and fare conditions depend on the return flight"
+                ],
+                "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ1pFVERFME1URWFDd2pJandZUUFob0RWVk5FT0J4d3lJOEciLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkRMIiwiMTQxMSJdXV0="
+            }
         ],
-        "price_history": [
-            [
-                1723093200,
-                395
-            ],
-            [
-                1723179600,
-                395
-            ],
-            [
-                1723266000,
-                395
-            ],
-            [
-                1723352400,
-                395
-            ],
-            [
-                1723438800,
-                395
-            ],
-            [
-                1723525200,
-                442
-            ],
-            [
-                1723611600,
-                442
-            ],
-            [
-                1723698000,
-                442
-            ],
-            [
-                1723784400,
-                457
-            ],
-            [
-                1723870800,
-                457
-            ],
-            [
-                1723957200,
-                457
-            ],
-            [
-                1724043600,
-                442
-            ],
-            [
-                1724130000,
-                442
-            ],
-            [
-                1724216400,
-                437
-            ],
-            [
-                1724302800,
-                442
-            ],
-            [
-                1724389200,
-                442
-            ],
-            [
-                1724475600,
-                442
-            ],
-            [
-                1724562000,
-                442
-            ],
-            [
-                1724648400,
-                442
-            ],
-            [
-                1724734800,
-                457
-            ],
-            [
-                1724821200,
-                457
-            ],
-            [
-                1724907600,
-                457
-            ],
-            [
-                1724994000,
-                457
-            ],
-            [
-                1725080400,
-                477
-            ],
-            [
-                1725166800,
-                463
-            ],
-            [
-                1725253200,
-                462
-            ],
-            [
-                1725339600,
-                462
-            ],
-            [
-                1725426000,
-                472
-            ],
-            [
-                1725512400,
-                472
-            ],
-            [
-                1725598800,
-                468
-            ],
-            [
-                1725685200,
-                487
-            ],
-            [
-                1725771600,
-                498
-            ],
-            [
-                1725858000,
-                487
-            ],
-            [
-                1725944400,
-                487
-            ],
-            [
-                1726030800,
-                487
-            ],
-            [
-                1726117200,
-                487
-            ],
-            [
-                1726203600,
-                487
-            ],
-            [
-                1726290000,
-                487
-            ],
-            [
-                1726376400,
-                487
-            ],
-            [
-                1726462800,
-                497
-            ],
-            [
-                1726549200,
-                519
-            ],
-            [
-                1726635600,
-                519
-            ],
-            [
-                1726722000,
-                504
-            ],
-            [
-                1726808400,
-                519
-            ],
-            [
-                1726894800,
-                546
-            ],
-            [
-                1726981200,
-                546
-            ],
-            [
-                1727067600,
-                546
-            ],
-            [
-                1727154000,
-                520
-            ],
-            [
-                1727240400,
-                517
-            ],
-            [
-                1727326800,
-                502
-            ],
-            [
-                1727413200,
-                546
-            ],
-            [
-                1727499600,
-                546
-            ],
-            [
-                1727586000,
-                546
-            ],
-            [
-                1727672400,
-                522
-            ],
-            [
-                1727758800,
-                541
-            ],
-            [
-                1727845200,
-                444
-            ],
-            [
-                1727931600,
-                444
-            ],
-            [
-                1728018000,
-                517
-            ],
-            [
-                1728104400,
-                517
-            ],
-            [
-                1728190800,
-                429
-            ],
-            [
-                1728277200,
-                470
-            ]
-        ]
-    },
-    "airports": [
-        {
-            "departure": [
-                {
-                    "airport": {
-                        "id": "AUS",
-                        "name": "Austin-Bergstrom International Airport"
+        "other_flights": [
+            {
+                "flights": [
+                    {
+                        "departure_airport": {
+                            "name": "Austin-Bergstrom International Airport",
+                            "id": "AUS",
+                            "time": "2024-10-20 22:59"
+                        },
+                        "arrival_airport": {
+                            "name": "Harry Reid International Airport",
+                            "id": "LAS",
+                            "time": "2024-10-21 00:05"
+                        },
+                        "duration": 186,
+                        "airplane": "Airbus A320neo",
+                        "airline": "Frontier",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/F9.png",
+                        "travel_class": "Economy",
+                        "flight_number": "F9 4631",
+                        "legroom": "28 in",
+                        "extensions": [
+                            "Below average legroom (28 in)",
+                            "Carbon emissions estimate: 130 kg"
+                        ]
                     },
-                    "city": "Austin",
-                    "country": "United States",
-                    "country_code": "US",
-                    "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRKdjkMcBZuGRD1MjnuLQvdGtpTk0RyjdYs0Z8JsPtfIjer-6VvmfmMLxzvBkeyUrhf_focikfda4rVHg",
-                    "thumbnail": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSQ73FSj9E8pKaNvjWKyEDQGfLV-pky_onARvOY-zHWvQ-hOuPJSqyyXzvyg4-kGGAcZxdO6T5SYGWBzrX8x6MSPq7gBHsSLzX9MYjFJWA"
-                }
-            ],
-            "arrival": [
-                {
-                    "airport": {
-                        "id": "JFK",
-                        "name": "John F. Kennedy International Airport"
+                    {
+                        "departure_airport": {
+                            "name": "Harry Reid International Airport",
+                            "id": "LAS",
+                            "time": "2024-10-21 21:29"
+                        },
+                        "arrival_airport": {
+                            "name": "John F. Kennedy International Airport",
+                            "id": "JFK",
+                            "time": "2024-10-22 05:34"
+                        },
+                        "duration": 305,
+                        "airplane": "Airbus A321neo",
+                        "airline": "Frontier",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/F9.png",
+                        "travel_class": "Economy",
+                        "flight_number": "F9 3238",
+                        "legroom": "28 in",
+                        "extensions": [
+                            "Below average legroom (28 in)",
+                            "Carbon emissions estimate: 225 kg"
+                        ],
+                        "overnight": true
+                    }
+                ],
+                "layovers": [
+                    {
+                        "duration": 1284,
+                        "name": "Harry Reid International Airport",
+                        "id": "LAS",
+                        "overnight": true
+                    }
+                ],
+                "total_duration": 1775,
+                "carbon_emissions": {
+                    "this_flight": 356000,
+                    "typical_for_this_route": 225000,
+                    "difference_percent": 58
+                },
+                "price": 470,
+                "type": "Round trip",
+                "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/F9.png",
+                "extensions": [
+                    "Checked baggage for a fee",
+                    "Bag and fare conditions depend on the return flight"
+                ],
+                "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZzFHT1RRMk16RjhSamt6TWpNNEdnc0ltTzhDRUFJYUExVlRSRGdjY0pqdkFnPT0iLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJMQVMiLG51bGwsIkY5IiwiNDYzMSJdLFsiTEFTIiwiMjAyNC0xMC0yMSIsIkpGSyIsbnVsbCwiRjkiLCIzMjM4Il1dXQ=="
+            },
+            {
+                "flights": [
+                    {
+                        "departure_airport": {
+                            "name": "Austin-Bergstrom International Airport",
+                            "id": "AUS",
+                            "time": "2024-10-20 08:01"
+                        },
+                        "arrival_airport": {
+                            "name": "Chicago O'Hare International Airport",
+                            "id": "ORD",
+                            "time": "2024-10-20 10:45"
+                        },
+                        "duration": 164,
+                        "airplane": "Boeing 737",
+                        "airline": "American",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                        "travel_class": "Economy",
+                        "flight_number": "AA 1726",
+                        "legroom": "30 in",
+                        "extensions": [
+                            "Average legroom (30 in)",
+                            "Wi-Fi for a fee",
+                            "In-seat power & USB outlets",
+                            "Stream media to your device",
+                            "Carbon emissions estimate: 152 kg"
+                        ]
                     },
-                    "city": "New York",
-                    "country": "United States",
-                    "country_code": "US",
-                    "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRa1dwH1NZQk4dsbPiyA9Vrq2RX75jXSZ-OkHn7NkLHl-11HercqDXoZ4p2cDxJkH6vca2degawrCzHEQ",
-                    "thumbnail": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQEaUa9NsdPWGpAUGkTApkZDT_4M6_6V8wTcC0v1b1wJAJX-BuMSiipXbsoznGgcI1xLOc5QiTcR_xovexgjdOz0gqQe0tRQ9h0bUkZ07Q"
-                }
+                    {
+                        "departure_airport": {
+                            "name": "Chicago O'Hare International Airport",
+                            "id": "ORD",
+                            "time": "2024-10-20 11:41"
+                        },
+                        "arrival_airport": {
+                            "name": "John F. Kennedy International Airport",
+                            "id": "JFK",
+                            "time": "2024-10-20 14:59"
+                        },
+                        "duration": 138,
+                        "airplane": "Boeing 737MAX 8 Passenger",
+                        "airline": "American",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                        "travel_class": "Economy",
+                        "flight_number": "AA 332",
+                        "legroom": "30 in",
+                        "extensions": [
+                            "Average legroom (30 in)",
+                            "Wi-Fi for a fee",
+                            "In-seat power & USB outlets",
+                            "Stream media to your device",
+                            "Carbon emissions estimate: 97 kg"
+                        ]
+                    }
+                ],
+                "layovers": [
+                    {
+                        "duration": 56,
+                        "name": "Chicago O'Hare International Airport",
+                        "id": "ORD"
+                    }
+                ],
+                "total_duration": 358,
+                "carbon_emissions": {
+                    "this_flight": 249000,
+                    "typical_for_this_route": 225000,
+                    "difference_percent": 11
+                },
+                "price": 630,
+                "type": "Round trip",
+                "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                "extensions": [
+                    "Checked baggage for a fee",
+                    "Bag and fare conditions depend on the return flight"
+                ],
+                "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ3hCUVRFM01qWjhRVUV6TXpJYUN3amk2d01RQWhvRFZWTkVPQnh3NHVzRCIsW1siQVVTIiwiMjAyNC0xMC0yMCIsIk9SRCIsbnVsbCwiQUEiLCIxNzI2Il0sWyJPUkQiLCIyMDI0LTEwLTIwIiwiSkZLIixudWxsLCJBQSIsIjMzMiJdXV0="
+            },
+            {
+                "flights": [
+                    {
+                        "departure_airport": {
+                            "name": "Austin-Bergstrom International Airport",
+                            "id": "AUS",
+                            "time": "2024-10-20 10:25"
+                        },
+                        "arrival_airport": {
+                            "name": "Dallas Fort Worth International Airport",
+                            "id": "DFW",
+                            "time": "2024-10-20 11:36"
+                        },
+                        "duration": 71,
+                        "airplane": "Boeing 737",
+                        "airline": "American",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                        "travel_class": "Economy",
+                        "flight_number": "AA 794",
+                        "legroom": "30 in",
+                        "extensions": [
+                            "Average legroom (30 in)",
+                            "Wi-Fi for a fee",
+                            "In-seat power & USB outlets",
+                            "Stream media to your device",
+                            "Carbon emissions estimate: 56 kg"
+                        ]
+                    },
+                    {
+                        "departure_airport": {
+                            "name": "Dallas Fort Worth International Airport",
+                            "id": "DFW",
+                            "time": "2024-10-20 12:25"
+                        },
+                        "arrival_airport": {
+                            "name": "John F. Kennedy International Airport",
+                            "id": "JFK",
+                            "time": "2024-10-20 17:05"
+                        },
+                        "duration": 220,
+                        "airplane": "Boeing 737MAX 8 Passenger",
+                        "airline": "American",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                        "travel_class": "Economy",
+                        "flight_number": "AA 2246",
+                        "legroom": "30 in",
+                        "extensions": [
+                            "Average legroom (30 in)",
+                            "Wi-Fi for a fee",
+                            "In-seat power & USB outlets",
+                            "Stream media to your device",
+                            "Carbon emissions estimate: 156 kg"
+                        ]
+                    }
+                ],
+                "layovers": [
+                    {
+                        "duration": 49,
+                        "name": "Dallas Fort Worth International Airport",
+                        "id": "DFW"
+                    }
+                ],
+                "total_duration": 340,
+                "carbon_emissions": {
+                    "this_flight": 214000,
+                    "typical_for_this_route": 225000,
+                    "difference_percent": -5
+                },
+                "price": 740,
+                "type": "Round trip",
+                "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                "extensions": [
+                    "Checked baggage for a fee",
+                    "Bag and fare conditions depend on the return flight"
+                ],
+                "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ3hCUVRjNU5IeEJRVEl5TkRZYUN3alp3UVFRQWhvRFZWTkVPQnh3MmNFRSIsW1siQVVTIiwiMjAyNC0xMC0yMCIsIkRGVyIsbnVsbCwiQUEiLCI3OTQiXSxbIkRGVyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkFBIiwiMjI0NiJdXV0="
+            },
+            {
+                "flights": [
+                    {
+                        "departure_airport": {
+                            "name": "Austin-Bergstrom International Airport",
+                            "id": "AUS",
+                            "time": "2024-10-20 15:58"
+                        },
+                        "arrival_airport": {
+                            "name": "Charlotte Douglas International Airport",
+                            "id": "CLT",
+                            "time": "2024-10-20 19:35"
+                        },
+                        "duration": 157,
+                        "airplane": "Airbus A319",
+                        "airline": "American",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                        "travel_class": "Economy",
+                        "flight_number": "AA 2471",
+                        "legroom": "30 in",
+                        "extensions": [
+                            "Average legroom (30 in)",
+                            "Wi-Fi for a fee",
+                            "In-seat power outlet",
+                            "Stream media to your device",
+                            "Carbon emissions estimate: 179 kg"
+                        ]
+                    },
+                    {
+                        "departure_airport": {
+                            "name": "Charlotte Douglas International Airport",
+                            "id": "CLT",
+                            "time": "2024-10-20 20:28"
+                        },
+                        "arrival_airport": {
+                            "name": "John F. Kennedy International Airport",
+                            "id": "JFK",
+                            "time": "2024-10-20 22:20"
+                        },
+                        "duration": 112,
+                        "airplane": "Airbus A321",
+                        "airline": "American",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                        "travel_class": "Economy",
+                        "flight_number": "AA 1727",
+                        "legroom": "30 in",
+                        "extensions": [
+                            "Average legroom (30 in)",
+                            "Wi-Fi for a fee",
+                            "In-seat power & USB outlets",
+                            "Stream media to your device",
+                            "Carbon emissions estimate: 106 kg"
+                        ],
+                        "often_delayed_by_over_30_min": true
+                    }
+                ],
+                "layovers": [
+                    {
+                        "duration": 53,
+                        "name": "Charlotte Douglas International Airport",
+                        "id": "CLT"
+                    }
+                ],
+                "total_duration": 322,
+                "carbon_emissions": {
+                    "this_flight": 285000,
+                    "typical_for_this_route": 225000,
+                    "difference_percent": 27
+                },
+                "price": 967,
+                "type": "Round trip",
+                "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                "extensions": [
+                    "Checked baggage for a fee",
+                    "Bag and fare conditions depend on the return flight"
+                ],
+                "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZzFCUVRJME56RjhRVUV4TnpJM0dnc0loZk1GRUFJYUExVlRSRGdjY0lYekJRPT0iLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJDTFQiLG51bGwsIkFBIiwiMjQ3MSJdLFsiQ0xUIiwiMjAyNC0xMC0yMCIsIkpGSyIsbnVsbCwiQUEiLCIxNzI3Il1dXQ=="
+            },
+            {
+                "flights": [
+                    {
+                        "departure_airport": {
+                            "name": "Austin-Bergstrom International Airport",
+                            "id": "AUS",
+                            "time": "2024-10-20 16:10"
+                        },
+                        "arrival_airport": {
+                            "name": "John F. Kennedy International Airport",
+                            "id": "JFK",
+                            "time": "2024-10-20 21:06"
+                        },
+                        "duration": 236,
+                        "airplane": "Airbus A320",
+                        "airline": "Delta",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/DL.png",
+                        "travel_class": "Economy",
+                        "flight_number": "DL 1250",
+                        "legroom": "31 in",
+                        "extensions": [
+                            "Average legroom (31 in)",
+                            "Free Wi-Fi",
+                            "In-seat power & USB outlets",
+                            "Live TV",
+                            "Carbon emissions estimate: 204 kg"
+                        ]
+                    }
+                ],
+                "total_duration": 236,
+                "carbon_emissions": {
+                    "this_flight": 204000,
+                    "typical_for_this_route": 225000,
+                    "difference_percent": -9
+                },
+                "price": 1003,
+                "type": "Round trip",
+                "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/DL.png",
+                "extensions": [
+                    "Checked baggage for a fee",
+                    "Bag and fare conditions depend on the return flight"
+                ],
+                "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ1pFVERFeU5UQWFDd2pJandZUUFob0RWVk5FT0J4d3lJOEciLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkRMIiwiMTI1MCJdXV0="
+            },
+            {
+                "flights": [
+                    {
+                        "departure_airport": {
+                            "name": "Austin-Bergstrom International Airport",
+                            "id": "AUS",
+                            "time": "2024-10-20 12:47"
+                        },
+                        "arrival_airport": {
+                            "name": "John F. Kennedy International Airport",
+                            "id": "JFK",
+                            "time": "2024-10-20 17:42"
+                        },
+                        "duration": 235,
+                        "airplane": "Airbus A320",
+                        "airline": "Delta",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/DL.png",
+                        "travel_class": "Economy",
+                        "flight_number": "DL 1406",
+                        "legroom": "31 in",
+                        "extensions": [
+                            "Average legroom (31 in)",
+                            "Free Wi-Fi",
+                            "In-seat power & USB outlets",
+                            "Live TV",
+                            "Carbon emissions estimate: 204 kg"
+                        ]
+                    }
+                ],
+                "total_duration": 235,
+                "carbon_emissions": {
+                    "this_flight": 204000,
+                    "typical_for_this_route": 225000,
+                    "difference_percent": -9
+                },
+                "price": 1513,
+                "type": "Round trip",
+                "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/DL.png",
+                "extensions": [
+                    "Checked baggage for a fee",
+                    "Bag and fare conditions depend on the return flight"
+                ],
+                "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ1pFVERFME1EWWFDd2lBbmdrUUFob0RWVk5FT0J4d2dKNEoiLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkRMIiwiMTQwNiJdXV0="
+            },
+            {
+                "flights": [
+                    {
+                        "departure_airport": {
+                            "name": "Austin-Bergstrom International Airport",
+                            "id": "AUS",
+                            "time": "2024-10-20 18:59"
+                        },
+                        "arrival_airport": {
+                            "name": "John F. Kennedy International Airport",
+                            "id": "JFK",
+                            "time": "2024-10-20 23:51"
+                        },
+                        "duration": 232,
+                        "airplane": "Airbus A320",
+                        "airline": "Delta",
+                        "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/DL.png",
+                        "travel_class": "Economy",
+                        "flight_number": "DL 2685",
+                        "legroom": "31 in",
+                        "extensions": [
+                            "Average legroom (31 in)",
+                            "Free Wi-Fi",
+                            "In-seat power & USB outlets",
+                            "Live TV",
+                            "Carbon emissions estimate: 204 kg"
+                        ]
+                    }
+                ],
+                "total_duration": 232,
+                "carbon_emissions": {
+                    "this_flight": 204000,
+                    "typical_for_this_route": 225000,
+                    "difference_percent": -9
+                },
+                "price": 1513,
+                "type": "Round trip",
+                "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/DL.png",
+                "extensions": [
+                    "Checked baggage for a fee",
+                    "Bag and fare conditions depend on the return flight"
+                ],
+                "departure_token": "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ1pFVERJMk9EVWFDd2lBbmdrUUFob0RWVk5FT0J4d2dKNEoiLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkRMIiwiMjY4NSJdXV0="
+            }
+        ],
+        "price_insights": {
+            "lowest_price": 470,
+            "price_level": "high",
+            "typical_price_range": [
+                175,
+                390
+            ],
+            "price_history": [
+                [
+                    1723093200,
+                    395
+                ],
+                [
+                    1723179600,
+                    395
+                ],
+                [
+                    1723266000,
+                    395
+                ],
+                [
+                    1723352400,
+                    395
+                ],
+                [
+                    1723438800,
+                    395
+                ],
+                [
+                    1723525200,
+                    442
+                ],
+                [
+                    1723611600,
+                    442
+                ],
+                [
+                    1723698000,
+                    442
+                ],
+                [
+                    1723784400,
+                    457
+                ],
+                [
+                    1723870800,
+                    457
+                ],
+                [
+                    1723957200,
+                    457
+                ],
+                [
+                    1724043600,
+                    442
+                ],
+                [
+                    1724130000,
+                    442
+                ],
+                [
+                    1724216400,
+                    437
+                ],
+                [
+                    1724302800,
+                    442
+                ],
+                [
+                    1724389200,
+                    442
+                ],
+                [
+                    1724475600,
+                    442
+                ],
+                [
+                    1724562000,
+                    442
+                ],
+                [
+                    1724648400,
+                    442
+                ],
+                [
+                    1724734800,
+                    457
+                ],
+                [
+                    1724821200,
+                    457
+                ],
+                [
+                    1724907600,
+                    457
+                ],
+                [
+                    1724994000,
+                    457
+                ],
+                [
+                    1725080400,
+                    477
+                ],
+                [
+                    1725166800,
+                    463
+                ],
+                [
+                    1725253200,
+                    462
+                ],
+                [
+                    1725339600,
+                    462
+                ],
+                [
+                    1725426000,
+                    472
+                ],
+                [
+                    1725512400,
+                    472
+                ],
+                [
+                    1725598800,
+                    468
+                ],
+                [
+                    1725685200,
+                    487
+                ],
+                [
+                    1725771600,
+                    498
+                ],
+                [
+                    1725858000,
+                    487
+                ],
+                [
+                    1725944400,
+                    487
+                ],
+                [
+                    1726030800,
+                    487
+                ],
+                [
+                    1726117200,
+                    487
+                ],
+                [
+                    1726203600,
+                    487
+                ],
+                [
+                    1726290000,
+                    487
+                ],
+                [
+                    1726376400,
+                    487
+                ],
+                [
+                    1726462800,
+                    497
+                ],
+                [
+                    1726549200,
+                    519
+                ],
+                [
+                    1726635600,
+                    519
+                ],
+                [
+                    1726722000,
+                    504
+                ],
+                [
+                    1726808400,
+                    519
+                ],
+                [
+                    1726894800,
+                    546
+                ],
+                [
+                    1726981200,
+                    546
+                ],
+                [
+                    1727067600,
+                    546
+                ],
+                [
+                    1727154000,
+                    520
+                ],
+                [
+                    1727240400,
+                    517
+                ],
+                [
+                    1727326800,
+                    502
+                ],
+                [
+                    1727413200,
+                    546
+                ],
+                [
+                    1727499600,
+                    546
+                ],
+                [
+                    1727586000,
+                    546
+                ],
+                [
+                    1727672400,
+                    522
+                ],
+                [
+                    1727758800,
+                    541
+                ],
+                [
+                    1727845200,
+                    444
+                ],
+                [
+                    1727931600,
+                    444
+                ],
+                [
+                    1728018000,
+                    517
+                ],
+                [
+                    1728104400,
+                    517
+                ],
+                [
+                    1728190800,
+                    429
+                ],
+                [
+                    1728277200,
+                    470
+                ]
             ]
         },
-        {
-            "departure": [
-                {
-                    "airport": {
-                        "id": "JFK",
-                        "name": "John F. Kennedy International Airport"
-                    },
-                    "city": "New York",
-                    "country": "United States",
-                    "country_code": "US",
-                    "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRa1dwH1NZQk4dsbPiyA9Vrq2RX75jXSZ-OkHn7NkLHl-11HercqDXoZ4p2cDxJkH6vca2degawrCzHEQ",
-                    "thumbnail": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQEaUa9NsdPWGpAUGkTApkZDT_4M6_6V8wTcC0v1b1wJAJX-BuMSiipXbsoznGgcI1xLOc5QiTcR_xovexgjdOz0gqQe0tRQ9h0bUkZ07Q"
-                }
-            ],
-            "arrival": [
-                {
-                    "airport": {
-                        "id": "AUS",
-                        "name": "Austin-Bergstrom International Airport"
-                    },
-                    "city": "Austin",
-                    "country": "United States",
-                    "country_code": "US",
-                    "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRKdjkMcBZuGRD1MjnuLQvdGtpTk0RyjdYs0Z8JsPtfIjer-6VvmfmMLxzvBkeyUrhf_focikfda4rVHg",
-                    "thumbnail": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSQ73FSj9E8pKaNvjWKyEDQGfLV-pky_onARvOY-zHWvQ-hOuPJSqyyXzvyg4-kGGAcZxdO6T5SYGWBzrX8x6MSPq7gBHsSLzX9MYjFJWA"
-                }
-            ]
-        }
-    ]
-}
+        "airports": [
+            {
+                "departure": [
+                    {
+                        "airport": {
+                            "id": "AUS",
+                            "name": "Austin-Bergstrom International Airport"
+                        },
+                        "city": "Austin",
+                        "country": "United States",
+                        "country_code": "US",
+                        "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRKdjkMcBZuGRD1MjnuLQvdGtpTk0RyjdYs0Z8JsPtfIjer-6VvmfmMLxzvBkeyUrhf_focikfda4rVHg",
+                        "thumbnail": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSQ73FSj9E8pKaNvjWKyEDQGfLV-pky_onARvOY-zHWvQ-hOuPJSqyyXzvyg4-kGGAcZxdO6T5SYGWBzrX8x6MSPq7gBHsSLzX9MYjFJWA"
+                    }
+                ],
+                "arrival": [
+                    {
+                        "airport": {
+                            "id": "JFK",
+                            "name": "John F. Kennedy International Airport"
+                        },
+                        "city": "New York",
+                        "country": "United States",
+                        "country_code": "US",
+                        "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRa1dwH1NZQk4dsbPiyA9Vrq2RX75jXSZ-OkHn7NkLHl-11HercqDXoZ4p2cDxJkH6vca2degawrCzHEQ",
+                        "thumbnail": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQEaUa9NsdPWGpAUGkTApkZDT_4M6_6V8wTcC0v1b1wJAJX-BuMSiipXbsoznGgcI1xLOc5QiTcR_xovexgjdOz0gqQe0tRQ9h0bUkZ07Q"
+                    }
+                ]
+            },
+            {
+                "departure": [
+                    {
+                        "airport": {
+                            "id": "JFK",
+                            "name": "John F. Kennedy International Airport"
+                        },
+                        "city": "New York",
+                        "country": "United States",
+                        "country_code": "US",
+                        "image": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRa1dwH1NZQk4dsbPiyA9Vrq2RX75jXSZ-OkHn7NkLHl-11HercqDXoZ4p2cDxJkH6vca2degawrCzHEQ",
+                        "thumbnail": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQEaUa9NsdPWGpAUGkTApkZDT_4M6_6V8wTcC0v1b1wJAJX-BuMSiipXbsoznGgcI1xLOc5QiTcR_xovexgjdOz0gqQe0tRQ9h0bUkZ07Q"
+                    }
+                ],
+                "arrival": [
+                    {
+                        "airport": {
+                            "id": "AUS",
+                            "name": "Austin-Bergstrom International Airport"
+                        },
+                        "city": "Austin",
+                        "country": "United States",
+                        "country_code": "US",
+                        "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRKdjkMcBZuGRD1MjnuLQvdGtpTk0RyjdYs0Z8JsPtfIjer-6VvmfmMLxzvBkeyUrhf_focikfda4rVHg",
+                        "thumbnail": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSQ73FSj9E8pKaNvjWKyEDQGfLV-pky_onARvOY-zHWvQ-hOuPJSqyyXzvyg4-kGGAcZxdO6T5SYGWBzrX8x6MSPq7gBHsSLzX9MYjFJWA"
+                    }
+                ]
+            }
+        ]
+    }

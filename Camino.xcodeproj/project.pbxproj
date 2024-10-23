@@ -24,7 +24,7 @@
 		F13186302CB2F03E003DBCC5 /* FlightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131862F2CB2F03E003DBCC5 /* FlightsView.swift */; };
 		F13186322CB2F198003DBCC5 /* LineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13186312CB2F198003DBCC5 /* LineItem.swift */; };
 		F1659C012CBF252400586212 /* FilterAirlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C002CBF252400586212 /* FilterAirlines.swift */; };
-		F1659C052CC1E99800586212 /* FlightInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C042CC1E99800586212 /* FlightInfo.swift */; };
+		F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C042CC1E99800586212 /* FlightsResponse.swift */; };
 		F1659C072CC1ECF200586212 /* testFlightsResponse.txt in Resources */ = {isa = PBXBuildFile; fileRef = F1659C062CC1ECF200586212 /* testFlightsResponse.txt */; };
 		F176C9262CB5E7F9006BAE35 /* FlightFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F176C9252CB5E7F9006BAE35 /* FlightFilters.swift */; };
 		F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551B2C8CEA2800E25003 /* ConcertCard.swift */; };
@@ -83,7 +83,7 @@
 		F131862F2CB2F03E003DBCC5 /* FlightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsView.swift; sourceTree = "<group>"; };
 		F13186312CB2F198003DBCC5 /* LineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineItem.swift; sourceTree = "<group>"; };
 		F1659C002CBF252400586212 /* FilterAirlines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAirlines.swift; sourceTree = "<group>"; };
-		F1659C042CC1E99800586212 /* FlightInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightInfo.swift; sourceTree = "<group>"; };
+		F1659C042CC1E99800586212 /* FlightsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsResponse.swift; sourceTree = "<group>"; };
 		F1659C062CC1ECF200586212 /* testFlightsResponse.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = testFlightsResponse.txt; sourceTree = "<group>"; };
 		F176C9252CB5E7F9006BAE35 /* FlightFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightFilters.swift; sourceTree = "<group>"; };
 		F181551B2C8CEA2800E25003 /* ConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertCard.swift; sourceTree = "<group>"; };
@@ -278,7 +278,7 @@
 			children = (
 				F1DAE6992CC34D4700901914 /* ApiResponse.swift */,
 				F18155202C8EB35A00E25003 /* ConcertsResponse.swift */,
-				F1659C042CC1E99800586212 /* FlightInfo.swift */,
+				F1659C042CC1E99800586212 /* FlightsResponse.swift */,
 				F1DAE6A32CC42FCA00901914 /* ClosestAirportCodeResponse.swift */,
 			);
 			path = Models;
@@ -395,7 +395,7 @@
 				F1DAE69E2CC37F7F00901914 /* DateExtension.swift in Sources */,
 				F176C9262CB5E7F9006BAE35 /* FlightFilters.swift in Sources */,
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
-				F1659C052CC1E99800586212 /* FlightInfo.swift in Sources */,
+				F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */,
 				F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */,
 				F19C726B2CC726BD00390BD6 /* GlobalVars.swift in Sources */,
 				F11640132C8A8A2F0040C95D /* ContentView.swift in Sources */,

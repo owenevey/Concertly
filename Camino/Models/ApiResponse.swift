@@ -6,10 +6,10 @@ struct ApiResponse<T: Codable>: Codable {
     var error: String?
     
     init(status: Status = .empty, data: T? = nil, error: String? = nil) {
-            self.status = status
-            self.data = data
-            self.error = error
-        }
+        self.status = status
+        self.data = data
+        self.error = error
+    }
 }
 
 enum Status: String, Codable {
@@ -18,5 +18,4 @@ enum Status: String, Codable {
     case success = "success"
     case error = "error"
 }
-
 

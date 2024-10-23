@@ -52,21 +52,21 @@ struct LineItem: View {
         .contentShape(RoundedRectangle(cornerRadius: 20))
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .stroke(.customGray, lineWidth: 2)
+                .fill(.customGray.opacity(0.5))
         )
     }
 }
 
 enum LineItemType {
     
-    case flights(fromDate: Binding<Date>, toDate: Binding<Date>, fromAirport: Binding<String>, toAirport: Binding<String>, flightInfo: Binding<FlightInfo>)
-    case hotel(fromDate:Binding<Date>, toDate: Binding<Date>)
+    case flights(concertViewModel: ConcertViewModel)
+    case hotel(concertViewModel: ConcertViewModel)
     case ticket(link: String)
     
-    static func allCases(fromDate: Binding<Date>, toDate: Binding<Date>, fromAirport: Binding<String>, toAirport: Binding<String>, flightInfo: Binding<FlightInfo?>, link: String) -> [LineItemType] {
+    static func allCases(concertViewModel: ConcertViewModel, link: String) -> [LineItemType] {
         return [
-            .flights(fromDate: fromDate, toDate: toDate, fromAirport: fromAirport, toAirport: toAirport, flightInfo: flightInfo),
-            .hotel(fromDate: fromDate, toDate: toDate),
+            .flights(concertViewModel: concertViewModel),
+            .hotel(concertViewModel: concertViewModel),
             .ticket(link: link)
         ]
     }
@@ -96,10 +96,10 @@ enum LineItemType {
     @ViewBuilder
     var destinationView: some View {
         switch self {
-        case let .flights(fromDate, toDate, fromAirport, toAirport, flightInfo):
-            FlightsView(flightData: we)
-        case let .hotel(fromDate, toDate):
-            HotelsView(fromDate: fromDate, toDate: toDate)
+        case let .flights(concertViewModel):
+            FlightsView(concertViewModel: concertViewModel)
+        case let .hotel(concertViewModel):
+            HotelsView(concertViewModel: concertViewModel)
         case let .ticket(link):
             SFSafariView(url: URL(string: link)!)
         }
@@ -107,17 +107,23 @@ enum LineItemType {
 }
 
 
+import SwiftUI
+
 #Preview {
-    let fromDate = Binding.constant(Date.now)
-    let toDate = Binding.constant(Date.now)
-    let fromAirport = Binding.constant("AUS")
-    let toAirport = Binding.constant("SYD")
-    let flightInfo = Binding.constant(FlightInfo())
+    let concertViewModel = ConcertViewModel(concert: hotConcerts[0])
+    let link = "https://example.com" // Example link for ticket
     
-    return NavigationStack {
-        LineItem(item: LineItemType.flights(fromDate: fromDate, toDate: toDate, fromAirport: fromAirport, toAirport: toAirport, flightInfo: flightInfo), price: 55)
+    NavigationStack {
+        LineItem(item: LineItemType.flights(concertViewModel: concertViewModel), price: 55)
+            .padding()
+        
+        LineItem(item: LineItemType.hotel(concertViewModel: concertViewModel), price: 100)
+            .padding()
+        
+        LineItem(item: LineItemType.ticket(link: link), price: 25)
             .padding()
     }
 }
+
 
 

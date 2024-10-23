@@ -2,20 +2,16 @@ import SwiftUI
 
 struct FlightsView: View {
     
-    @StateObject private var viewModel: FlightsViewModel
     @ObservedObject var concertViewModel: ConcertViewModel
+    @StateObject var viewModel: FlightsViewModel
     
     init(concertViewModel: ConcertViewModel) {
         self.concertViewModel = concertViewModel
+        
         _viewModel = StateObject(wrappedValue: FlightsViewModel(
-            flightData: Binding<FlightInfo>(
-                get: { concertViewModel.flightsResponse.data ?? FlightInfo() },
-                set: { concertViewModel.flightsResponse.data = $0 }
-            ),
-            fromAirport: $concertViewModel.fromAirport,
-            toAirport: $concertViewModel.toAirport,
-            fromDate: $concertViewModel.tripStartDate,
-            toDate: $concertViewModel.tripEndDate
+            fromDate: concertViewModel.tripStartDate,
+            toDate: concertViewModel.tripEndDate,
+            flightsResponse: concertViewModel.flightsResponse
         ))
     }
     
@@ -42,7 +38,7 @@ struct FlightsView: View {
                 .background(Color("Background"))
                 .safeAreaInset(edge: .top, spacing: 0) {
                     VStack(spacing: 0) {
-                        TopNavBar(flightData: $viewModel.flightData, fromDate: $viewModel.fromDate, toDate: $viewModel.toDate, fromAirport: $viewModel.fromAirport, toAirport: $viewModel.toAirport)
+                        TopNavBar(viewModel: viewModel, fromDate: $viewModel.fromDate, toDate: $viewModel.toDate, fromAirport: $viewModel.fromAirport, toAirport: $viewModel.toAirport)
                             .zIndex(1)
                         FiltersBar(allAirlines: $viewModel.airlineFilter)
                             .offset(y: -headerOffset)
@@ -73,8 +69,7 @@ struct FlightsView: View {
                     lastNaturalOffset = naturalScrollOffset - headerOffset
                 })
                 .onAppear {
-                    // Populate selectedAirlines when the view appears
-                    viewModel.airlineFilter = extractAirlineData(from: viewModel.flightData)
+                    viewModel.airlineFilter = extractAirlineData(from: viewModel.flightsResponse.data)
                 }
             }
             
@@ -82,13 +77,24 @@ struct FlightsView: View {
                 // Fallback on earlier versions
             }
         }
+        .onChange(of: viewModel.fromDate) {
+            concertViewModel.tripStartDate = viewModel.fromDate
+        }
+        .onChange(of: viewModel.toDate) {
+            concertViewModel.tripEndDate = viewModel.toDate
+        }
+        
     }
     
-    func extractAirlineData(from flightData: FlightInfo) -> [String: (imageURL: String, isEnabled: Bool)] {
+    func extractAirlineData(from flightData: FlightsResponse?) -> [String: (imageURL: String, isEnabled: Bool)] {
         var airlineDict: [String: (imageURL: String, isEnabled: Bool)] = [:]
         
+        guard let flights = flightData else {
+            return airlineDict
+        }
+        
         // Loop through all the best flights
-        for flightItem in flightData.bestFlights {
+        for flightItem in flights.bestFlights {
             // Loop through the individual flights in each item
             for flight in flightItem.flights {
                 let airlineName = flight.airline
@@ -101,7 +107,7 @@ struct FlightsView: View {
             }
         }
         
-        for flightItem in flightData.otherFlights {
+        for flightItem in flights.otherFlights {
             // Loop through the individual flights in each item
             for flight in flightItem.flights {
                 let airlineName = flight.airline
@@ -118,13 +124,12 @@ struct FlightsView: View {
     }
     
     
-    
-    
     struct TopNavBar: View {
         
         @Environment(\.dismiss) var dismiss
         
-        @Binding var flightData: FlightInfo
+        let viewModel: FlightsViewModel
+        
         @Binding var fromDate: Date
         @Binding var toDate: Date
         @Binding var fromAirport: String
@@ -150,14 +155,20 @@ struct FlightsView: View {
                 }
                 .frame(maxWidth: .infinity)
                 Spacer()
-                VStack {
+                Button {
+                    // Call getFlights() here
+                    Task {
+                        await viewModel.getFlights() // This calls the method
+                    }
+                } label: {VStack {
                     HStack {
                         Text("\(fromAirport) - \(toAirport)")
                             .font(Font.custom("Barlow-Bold", size: 20))
                         
                     }
-                    Text("\(shorterFormat(fromDate)) - \(shorterFormat(toDate))")
+                    Text("\(fromDate.shortFormat()) - \(toDate.shortFormat())")
                         .font(Font.custom("Barlow-SemiBold", size: 15))
+                }
                 }
                 Spacer()
                 HStack {
@@ -240,46 +251,9 @@ struct FiltersBar: View {
     }
 }
 
-func shorterFormat(_ date: Date) -> String {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "MMM d"
+
+#Preview {
+    let concertViewModel = ConcertViewModel(concert: hotConcerts[0])
     
-    return formatter.string(from: date)
+    FlightsView(concertViewModel: concertViewModel)
 }
-
-
-let dateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd HH:mm" // Adjust this format to match your JSON date format
-    return formatter
-}()
-
-func loadFlightData(fileName: String) -> FlightInfo {
-    guard let fileURL = Bundle.main.url(forResource: fileName, withExtension: "txt") else {
-        fatalError("File not found")
-    }
-    
-    do {
-        let data = try Data(contentsOf: fileURL)
-        let decoder = JSONDecoder()
-        
-        // Set the date decoding strategy
-        decoder.dateDecodingStrategy = .formatted(dateFormatter)
-        
-        let flightData = try decoder.decode(FlightInfo.self, from: data)
-        return flightData
-    } catch {
-        fatalError("Failed to load data: \(error.localizedDescription)")
-    }
-}
-
-//#Preview {
-//
-//    @Previewable @State var flightData: FlightInfo = loadFlightData(fileName: "testFlightsResponse")
-//    @Previewable @State var fromAirport: String = "AUS"
-//    @Previewable @State var toAirport: String = "JFK"
-//    @Previewable @State var fromDate: Date = Date.now
-//    @Previewable @State var toDate: Date = Date.now
-//
-//    return FlightsView(flightData: <#T##FlightInfo#>, fromAirport: <#T##String#>, toAirport: <#T##String#>, fromDate: <#T##Date#>, toDate: <#T##Date#>, viewModel: <#T##arg#>, naturalScrollOffset: <#T##CGFloat#>, lastNaturalOffset: <#T##CGFloat#>, headerOffset: <#T##CGFloat#>, isScrollingUp: <#T##Bool#>)
-//}

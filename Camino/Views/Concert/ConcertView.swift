@@ -5,7 +5,7 @@ struct ConcertView: View {
     
     var concert: Concert
     
-    @StateObject private var viewModel: ConcertViewModel
+    @StateObject var viewModel: ConcertViewModel
     
     init(concert: Concert) {
         self.concert = concert
@@ -42,7 +42,7 @@ struct ConcertView: View {
                     
                     
                     VStack(spacing: 15) {
-                        ForEach((LineItemType.allCases(fromDate: $viewModel.tripStartDate, toDate: $viewModel.tripEndDate, fromAirport: $viewModel.fromAirport, toAirport: $viewModel.toAirport, flightInfo: $viewModel.flightsResponse.data, link: concert.url)), id: \.title) { item in
+                        ForEach((LineItemType.allCases(concertViewModel: viewModel, link: concert.url)), id: \.title) { item in
                             switch item {
                             case .flights:
                                 LineItem(item: item, price: viewModel.flightsPrice)
@@ -109,20 +109,6 @@ struct ConcertView: View {
                 }
                 hasAppeared = true
             }
-        }
-    }
-    
-    
-    private func headerView() -> some View {
-        AsyncImage(url: URL(string: concert.imageUrl)) { image in
-            image
-                .resizable()
-                .scaledToFill()
-                .frame(height: 300)
-                .clipped()
-        } placeholder: {
-            Color.gray
-                .frame(height: 300)
         }
     }
     

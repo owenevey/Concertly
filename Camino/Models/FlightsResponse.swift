@@ -1,6 +1,6 @@
 import Foundation
 
-struct FlightInfo: Codable {
+struct FlightsResponse: Codable {
     let bestFlights: [FlightItem]
     let otherFlights: [FlightItem]
     let priceInsights: PriceInsights

@@ -24,9 +24,18 @@ struct ExploreView: View {
                 print("Error fetching concerts")
             }
         }
+        .refreshable {
+            do {
+                concerts = try await fetchConcertsFromAPI()
+            } catch {
+                print("Error fetching concerts")
+            }
+        }
     }
 }
 
 #Preview {
-    ExploreView()
+    NavigationStack {
+        ExploreView()
+    }
 }

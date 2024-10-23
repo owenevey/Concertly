@@ -143,17 +143,7 @@ struct FlightCard: View {
 
 
 #Preview {
-    let mockFlightData = loadFlightData(fileName: "testFlightsResponse")
-    return NavigationStack {
-        ScrollView(showsIndicators: false) {
-            
-            VStack(spacing: 15) {
-                FlightCard(flightItem: mockFlightData.bestFlights[0])
-                FlightCard(flightItem: mockFlightData.bestFlights[1])
-                FlightCard(flightItem: mockFlightData.bestFlights[2])
-            }
-            .padding(.horizontal, 15)
-        }
-        .navigationTitle("Flights")
-    }
+    let concertViewModel = ConcertViewModel(concert: hotConcerts[0])
+    
+    FlightsView(concertViewModel: concertViewModel)
 }
