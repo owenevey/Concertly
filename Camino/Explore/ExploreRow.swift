@@ -19,14 +19,17 @@ struct ExploreRow<Data: RandomAccessCollection>: View {
                     if let places = data as? [Place] {
                         ForEach(places, id: \.id) { place in
                             PlaceCard(place: place)
+                                .shadow(color: .black.opacity(0.2), radius: 5)
                         }
                     } else if let concerts = data as? [Concert] {
                         ForEach(concerts, id: \.id) { concert in
                             ConcertCard(concert: concert)
+                                .shadow(color: .black.opacity(0.2), radius: 5)
                         }
                     } else if let games = data as? [Game] {
                         ForEach(games, id: \.id) { game in
                             SportCard(game: game)
+                                .shadow(color: .black.opacity(0.2), radius: 5)
                         }
                     }
                 }

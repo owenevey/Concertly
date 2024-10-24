@@ -32,7 +32,9 @@ class ConcertViewModel: ObservableObject {
     }
     
     func getFlights() async {
-        self.flightsResponse = ApiResponse(status: .loading)
+        DispatchQueue.main.async {
+            self.flightsResponse = ApiResponse(status: .loading)
+        }
         
         do {
             let fetchedFlights = try await fetchDepartureFlights(lat: concert.latitude,
