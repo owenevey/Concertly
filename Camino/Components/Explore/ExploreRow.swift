@@ -44,6 +44,6 @@ struct ExploreRow<Data: RandomAccessCollection>: View {
 
 #Preview {
     NavigationStack {
-        ExploreRow(title: "Suggested Places", data: hotConcerts)
+        ExploreRow(title: "Suggested Places", data: suggestedPlaces)
     }
 }

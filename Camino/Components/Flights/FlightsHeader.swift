@@ -1,0 +1,92 @@
+import SwiftUI
+
+struct FlightsHeader: View {
+    
+    @Environment(\.dismiss) var dismiss
+    
+    let viewModel: FlightsViewModel
+    
+    @Binding var fromDate: Date
+    @Binding var toDate: Date
+    @Binding var fromAirport: String
+    @Binding var toAirport: String
+    
+    let calendar = Calendar.current
+    
+    var body: some View {
+        HStack {
+            HStack {
+                Button(
+                    action: {
+                        dismiss()
+                    }
+                ) {
+                    RoundedRectangle(cornerRadius: 20, style: .continuous)
+                        .fill(.ultraThinMaterial)
+                        .frame(width: 50, height: 50)
+                        .overlay(
+                            Image(systemName: "arrow.backward")
+                                .font(.system(size: 20))
+                        )
+                        .padding(.leading, 20)
+                }
+                .buttonStyle(PlainButtonStyle())
+                Spacer()
+            }
+            .frame(maxWidth: .infinity)
+            
+            Spacer()
+            
+            VStack {
+                HStack {
+                    Text("\(fromAirport) - \(toAirport)")
+                        .font(Font.custom("Barlow-Bold", size: 20))
+                }
+                Text("\(fromDate.shortFormat()) - \(toDate.shortFormat())")
+                    .font(Font.custom("Barlow-SemiBold", size: 15))
+            }
+            
+            Spacer()
+            HStack {
+                Spacer()
+                Button {
+                    fromDate = calendar.date(byAdding: .day, value: -1, to: fromDate)!
+                } label: {
+                    HStack(spacing: 5) {
+                        Text("Edit")
+                            .font(Font.custom("Barlow-SemiBold", size: 16))
+                        
+                        Image(systemName: "pencil")
+                            .font(.system(size: 16))
+                            .padding(.trailing, 20)
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity)
+        }
+        .frame(height: 60)
+        .background(.card)
+    }
+}
+
+#Preview {
+    let fromDate = Date()
+    let toDate = Calendar.current.date(byAdding: .day, value: 7, to: Date())!
+    let fromAirport = "JFK"
+    let toAirport = "LAX"
+    
+    let flightsResponse = ApiResponse(status: .success, data: FlightsResponse(bestFlights: [], otherFlights: []))
+    
+    VStack {
+        Spacer()
+        FlightsHeader(
+            viewModel: FlightsViewModel(fromDate: fromDate, toDate: toDate, flightsResponse: flightsResponse),
+            fromDate: .constant(fromDate),
+            toDate: .constant(toDate),
+            fromAirport: .constant(fromAirport),
+            toAirport: .constant(toAirport)
+        )
+        Spacer()
+    }
+    .background(.gray)
+}

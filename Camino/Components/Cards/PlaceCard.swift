@@ -1,51 +1,47 @@
 import SwiftUI
 
-struct ConcertCard: View {
+struct PlaceCard: View {
     @Namespace private var namespace
     let id = "UIElement"
     
-    
-    var concert: Concert
+    var place: Place
     
     var body: some View {
+        
         if #available(iOS 18.0, *) {
-            NavigationLink{
-                ConcertView(concert: concert)
+            NavigationLink {
+                Text(place.name)
                     .navigationBarHidden(true)
                     .navigationTransition(.zoom(sourceID: id, in: namespace))
             }
             label: {
                 VStack(alignment: .leading, spacing: 0) {
-                    AsyncImage(url: URL(string: concert.imageUrl)) { image in
-                        image
-                            .resizable()
-                    } placeholder: {
-                        Image(systemName: "photo.fill")
-                    }
-                    .scaledToFill()
-                    .frame(width: 250, height: 150)
-                    .clipped()
-                    
                     VStack(alignment: .leading, spacing: 5) {
-                        Text(concert.name)
+                        Text(place.name)
                             .font(Font.custom("Barlow-Bold", size: 20))
                             .minimumScaleFactor(0.5)
                             .lineLimit(1)
                         
-                        Text(concert.generalLocation)
+                        Text(place.country)
                             .font(Font.custom("Barlow-SemiBold", size: 16))
                             .foregroundStyle(.gray)
                             .minimumScaleFactor(0.5)
                             .lineLimit(1)
                         
-                        Text(concert.dateTime.formatted(date: .abbreviated, time: .omitted))
+                        Text(place.description)
                             .font(Font.custom("Barlow-SemiBold", size: 16))
                             .foregroundStyle(.gray)
                             .minimumScaleFactor(0.5)
-                            .lineLimit(1)
-                        
+                            .lineLimit(2, reservesSpace: true)
                     }
                     .padding(15)
+                    
+                    Image(place.imageString)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 250, height: 150)
+                        .clipped()
+                    
                 }
                 .frame(width: 250)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -53,6 +49,7 @@ struct ConcertCard: View {
                     RoundedRectangle(cornerRadius: 20)
                         .fill(.card)
                 )
+                
             }
             .buttonStyle(PlainButtonStyle())
             .matchedTransitionSource(id: id, in: namespace)
@@ -64,6 +61,8 @@ struct ConcertCard: View {
 
 #Preview {
     NavigationStack {
-        ConcertCard(concert: hotConcerts[0])
+        PlaceCard(place: suggestedPlaces[6])
+            .shadow(color: .black.opacity(0.2), radius: 5)
     }
+    
 }

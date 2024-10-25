@@ -1,0 +1,76 @@
+import SwiftUI
+
+struct SportCard: View {
+    @Namespace private var namespace
+    let id = "UIElement"
+    
+    var game: Game
+    
+    var body: some View {
+        if #available(iOS 18.0, *) {
+            NavigationLink{
+                Text(game.homeTeamName)
+                    .navigationBarHidden(true)
+                    .navigationTransition(.zoom(sourceID: id, in: namespace))
+            }
+            label: {
+                VStack(alignment: .center, spacing: 10) {
+                    HStack(spacing: 25) {
+                        VStack {
+                            Image(game.homeTeamLogo)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 50, height: 50)
+                            Text(game.homeTeamName)
+                                .font(Font.custom("Barlow-Bold", size: 18))
+                                .frame(width: 50)
+                        }
+                        
+                        Image(game.leagueLogo)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40, height: 40)
+                        
+                        VStack {
+                            Image(game.awayTeamLogo)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 50, height: 50)
+                            Text(game.awayTeamName)
+                                .font(Font.custom("Barlow-Bold", size: 18))
+                                .frame(width: 50)
+                        }
+                    }
+                    
+                    VStack(alignment: .center, spacing: 5) {
+                        Text("\(game.location), \(game.country)")
+                            .font(Font.custom("Barlow-SemiBold", size: 14))
+                            .foregroundStyle(.gray)
+                        
+                        Text(game.date)
+                            .font(Font.custom("Barlow-SemiBold", size: 14))
+                            .foregroundStyle(.gray)
+                    }
+                    
+                }
+                .padding(15)
+                .frame(width: 250)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(.card)
+                )
+            }.buttonStyle(PlainButtonStyle())
+                .matchedTransitionSource(id: id, in: namespace)
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        SportCard(game: upcomingGames[0])
+            .shadow(color: .black.opacity(0.2), radius: 5)
+    }
+}

@@ -1,9 +1,14 @@
 import SwiftUI
 
 struct ImageHeaderScrollView<Content: View>: View {
+    
     @Environment(\.dismiss) var dismiss
+    
+    
     let imageUrl: String
     let content: () -> Content
+    let showBackButton: Bool = true
+    
     @State private var offset: CGFloat = 0
     
     var body: some View {
@@ -45,20 +50,22 @@ struct ImageHeaderScrollView<Content: View>: View {
                 // Fallback on earlier versions
             }
             
-            HStack{
-                Button(action: {dismiss()}) {
-                    RoundedRectangle(cornerRadius: 20, style: .continuous)
-                        .fill(.ultraThinMaterial)
-                        .frame(width: 50, height: 50)
-                        .overlay(
-                            Image(systemName: "arrow.backward")
-                                .font(.system(size: 20))
-                        )
-                        .padding(.top, 60)
-                        .padding(.leading, 20)
+            if showBackButton {
+                HStack {
+                    Button(action: {dismiss()}) {
+                        RoundedRectangle(cornerRadius: 20, style: .continuous)
+                            .fill(.ultraThinMaterial)
+                            .frame(width: 50, height: 50)
+                            .overlay(
+                                Image(systemName: "arrow.backward")
+                                    .font(.system(size: 20))
+                            )
+                            .padding(.top, 60)
+                            .padding(.leading, 20)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    Spacer()
                 }
-                .buttonStyle(PlainButtonStyle())
-                Spacer()
             }
         }
     }
