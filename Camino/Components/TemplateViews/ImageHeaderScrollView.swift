@@ -1,31 +1,50 @@
 import SwiftUI
 
-struct ImageHeaderScrollView<Content: View>: View {
+struct ImageHeaderScrollView<HeaderContent: View, Content: View>: View {
     
     @Environment(\.dismiss) var dismiss
     
     
-    let imageUrl: String
+    let imageUrl: String?
+    let headerContent: HeaderContent?
+    let showBackButton: Bool
     let content: () -> Content
-    let showBackButton: Bool = true
+    
+    init(
+        imageUrl: String? = nil,
+        headerContent: HeaderContent = Rectangle().foregroundColor(.clear),
+        showBackButton: Bool = true,
+        @ViewBuilder content: @escaping () -> Content
+    ) {
+        self.imageUrl = imageUrl
+        self.headerContent = headerContent
+        self.showBackButton = showBackButton
+        self.content = content
+    }
     
     @State private var offset: CGFloat = 0
     
     var body: some View {
         ZStack(alignment: .top) {
-            AsyncImage(url: URL(string: imageUrl)) { image in
-                image
-                    .resizable()
-            } placeholder: {
-                Color.gray
+            if let url = imageUrl {
+                AsyncImage(url: URL(string: url)) { image in
+                    image
+                        .resizable()
+                } placeholder: {
+                    Color.gray
+                        .frame(height: 300 + max(0, -offset))
+                }
+                .scaledToFill()
+                .frame(height: 300 + max(0, -offset))
+                .containerRelativeFrame(.horizontal) { size, axis in
+                    size
+                }
+                .transformEffect(.init(translationX: 0, y: -max(0, offset)))
+            } else if let customHeader = headerContent {
+                customHeader
                     .frame(height: 300 + max(0, -offset))
+                    .transformEffect(.init(translationX: 0, y: -max(0, offset)))
             }
-            .scaledToFill()
-            .frame(height: 300 + max(0, -offset))
-            .containerRelativeFrame(.horizontal) { size, axis in
-                size
-            }
-            .transformEffect(.init(translationX: 0, y: -max(0, offset)))
             
             if #available(iOS 18.0, *) {
                 ScrollView(showsIndicators: false) {

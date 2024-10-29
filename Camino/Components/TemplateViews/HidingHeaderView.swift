@@ -21,9 +21,8 @@ struct HidingHeaderView<Header: View, FiltersBar: View, ScrollContent: View>: Vi
             
             if #available(iOS 18.0, *) {
                 ScrollView {
-                    
                     scrollContent()
-                    
+                        .frame(maxWidth: .infinity)
                 }
                 .background(Color("Background"))
                 .safeAreaInset(edge: .top, spacing: 0) {

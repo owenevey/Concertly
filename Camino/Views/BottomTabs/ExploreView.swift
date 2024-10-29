@@ -5,9 +5,9 @@ struct ExploreView: View {
     @State private var concerts: [Concert] = []
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
+//        ScrollView(showsIndicators: false) {
+        ImageHeaderScrollView(headerContent: ExploreHeader(), showBackButton: false) {
             VStack(spacing: 15) {
-                ExploreHeader()
                 ExplorePills()
                 ExploreRow(title: "Suggested Places", data: suggestedPlaces)
                 ExploreRow(title: "Trending Concerts", data: concerts)

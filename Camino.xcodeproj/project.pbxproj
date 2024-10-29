@@ -56,6 +56,12 @@
 		F19C726F2CCB27D900390BD6 /* HidingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C726E2CCB27D900390BD6 /* HidingHeaderView.swift */; };
 		F19C72712CCB378700390BD6 /* FlightsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72702CCB378700390BD6 /* FlightsHeader.swift */; };
 		F19C72732CCB394300390BD6 /* FlightsFiltersBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72722CCB394300390BD6 /* FlightsFiltersBar.swift */; };
+		F19C72792CD0685300390BD6 /* SortFlights.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72782CD0685300390BD6 /* SortFlights.swift */; };
+		F19C727B2CD0691200390BD6 /* SortFlightsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C727A2CD0691200390BD6 /* SortFlightsEnum.swift */; };
+		F19C727D2CD0808B00390BD6 /* FilterStopsEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C727C2CD0808B00390BD6 /* FilterStopsEnum.swift */; };
+		F19C727F2CD0837700390BD6 /* FilterStops.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C727E2CD0837700390BD6 /* FilterStops.swift */; };
+		F19C72812CD089B800390BD6 /* FilterDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72802CD089B800390BD6 /* FilterDuration.swift */; };
+		F19C72832CD092AC00390BD6 /* DurationRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72822CD092A900390BD6 /* DurationRange.swift */; };
 		F1CCE0D22CB0B96600D15696 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCE0D12CB0B96600D15696 /* ViewExtensions.swift */; };
 		F1DAE69A2CC34D4700901914 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE6992CC34D4700901914 /* ApiResponse.swift */; };
 		F1DAE69E2CC37F7F00901914 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE69D2CC37F7F00901914 /* DateExtension.swift */; };
@@ -118,6 +124,12 @@
 		F19C726E2CCB27D900390BD6 /* HidingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HidingHeaderView.swift; sourceTree = "<group>"; };
 		F19C72702CCB378700390BD6 /* FlightsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsHeader.swift; sourceTree = "<group>"; };
 		F19C72722CCB394300390BD6 /* FlightsFiltersBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsFiltersBar.swift; sourceTree = "<group>"; };
+		F19C72782CD0685300390BD6 /* SortFlights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortFlights.swift; sourceTree = "<group>"; };
+		F19C727A2CD0691200390BD6 /* SortFlightsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortFlightsEnum.swift; sourceTree = "<group>"; };
+		F19C727C2CD0808B00390BD6 /* FilterStopsEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterStopsEnum.swift; sourceTree = "<group>"; };
+		F19C727E2CD0837700390BD6 /* FilterStops.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterStops.swift; sourceTree = "<group>"; };
+		F19C72802CD089B800390BD6 /* FilterDuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDuration.swift; sourceTree = "<group>"; };
+		F19C72822CD092A900390BD6 /* DurationRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationRange.swift; sourceTree = "<group>"; };
 		F1CCE0D12CB0B96600D15696 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		F1DAE6992CC34D4700901914 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		F1DAE69D2CC37F7F00901914 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
@@ -169,6 +181,8 @@
 				F19C72742CCB3F4400390BD6 /* Components */,
 				F19C726A2CC726B800390BD6 /* GlobalVars.swift */,
 				F1DAE6A12CC42EA500901914 /* ApiCalls.swift */,
+				F19C727A2CD0691200390BD6 /* SortFlightsEnum.swift */,
+				F19C727C2CD0808B00390BD6 /* FilterStopsEnum.swift */,
 				F11640272C8BEABD0040C95D /* CustomClasses.swift */,
 				F176C9252CB5E7F9006BAE35 /* FlightFilters.swift */,
 				F13186312CB2F198003DBCC5 /* LineItem.swift */,
@@ -276,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				F1DAE6992CC34D4700901914 /* ApiResponse.swift */,
+				F19C72822CD092A900390BD6 /* DurationRange.swift */,
 				F18155202C8EB35A00E25003 /* ConcertsResponse.swift */,
 				F1659C042CC1E99800586212 /* FlightsResponse.swift */,
 				F1DAE6A32CC42FCA00901914 /* ClosestAirportCodeResponse.swift */,
@@ -317,7 +332,10 @@
 			children = (
 				F19C72702CCB378700390BD6 /* FlightsHeader.swift */,
 				F19C72722CCB394300390BD6 /* FlightsFiltersBar.swift */,
+				F19C72782CD0685300390BD6 /* SortFlights.swift */,
+				F19C727E2CD0837700390BD6 /* FilterStops.swift */,
 				F1659C002CBF252400586212 /* FilterAirlines.swift */,
+				F19C72802CD089B800390BD6 /* FilterDuration.swift */,
 			);
 			path = Flights;
 			sourceTree = "<group>";
@@ -446,16 +464,22 @@
 				F11640262C8BB4F00040C95D /* ExploreRow.swift in Sources */,
 				F11640242C8BAD140040C95D /* ExplorePills.swift in Sources */,
 				F1659C012CBF252400586212 /* FilterAirlines.swift in Sources */,
+				F19C72832CD092AC00390BD6 /* DurationRange.swift in Sources */,
+				F19C72792CD0685300390BD6 /* SortFlights.swift in Sources */,
 				F19900382CAB5C8300EE005F /* SportCard.swift in Sources */,
+				F19C727F2CD0837700390BD6 /* FilterStops.swift in Sources */,
 				F113E9582CB4986A0057CF90 /* FlightCard.swift in Sources */,
 				F116402E2C8C2F3E0040C95D /* PlaceCard.swift in Sources */,
 				F1CCE0D22CB0B96600D15696 /* ViewExtensions.swift in Sources */,
+				F19C727D2CD0808B00390BD6 /* FilterStopsEnum.swift in Sources */,
 				F19C726F2CCB27D900390BD6 /* HidingHeaderView.swift in Sources */,
 				F1E786272CB300A200F4E462 /* HotelsView.swift in Sources */,
+				F19C72812CD089B800390BD6 /* FilterDuration.swift in Sources */,
 				F13186302CB2F03E003DBCC5 /* FlightsView.swift in Sources */,
 				F13186322CB2F198003DBCC5 /* LineItem.swift in Sources */,
 				F13186292CB1EBD9003DBCC5 /* ProfileView.swift in Sources */,
 				F11640112C8A8A2F0040C95D /* CaminoApp.swift in Sources */,
+				F19C727B2CD0691200390BD6 /* SortFlightsEnum.swift in Sources */,
 				F11640222C8BA8270040C95D /* TripsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
