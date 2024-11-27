@@ -1,0 +1,161 @@
+import SwiftUI
+
+struct SliderFilter: View {
+    
+    var values: [Int]
+    @Binding var filter: Int
+    
+    var body: some View {
+        let minValue = values.min() ?? 0
+        let maxValue = values.max() ?? 0
+                
+        GeometryReader { geometry in
+            ZStack(alignment: .center) {
+                FilterBarGraph(values: values)
+                    .padding(.bottom, 20)
+                
+                FilterSlider(filter: $filter, minValue: minValue, maxValue: maxValue)
+                    .position(x: geometry.size.width / 2.0, y: geometry.size.height)
+            }
+        }
+    }
+}
+
+
+struct FilterSlider: View {
+    @Binding var filter: Int
+
+    var minValue: Int
+    var maxValue: Int
+
+    var body: some View {
+        GeometryReader { geometry in
+            let totalRange = maxValue - minValue
+            let normalizedFilter = Double(filter - minValue) / Double(totalRange) // Normalize filter value for rendering
+
+            ZStack(alignment: .leading) {
+                Rectangle()
+                    .foregroundColor(Color("customGray"))
+                    .frame(height: 5)
+                    .cornerRadius(5)
+
+                Rectangle()
+                    .foregroundColor(Color.orange)
+                    .frame(width: geometry.size.width * CGFloat(normalizedFilter), height: 5)
+                    .cornerRadius(5)
+
+                Circle()
+                    .foregroundColor(.white)
+                    .shadow(color: .black.opacity(0.2), radius: 8)
+                    .frame(width: 25, height: 25)
+                    .position(x: geometry.size.width * CGFloat(normalizedFilter), y: geometry.size.height / 2.0)
+                    .gesture(
+                        DragGesture()
+                            .onChanged { value in
+                                // Update `filter` directly as an integer value within the range
+                                let newPos = value.location.x / geometry.size.width
+                                let newValue = minValue + Int(Double(totalRange) * Double(newPos))
+
+                                if newValue > maxValue { filter = maxValue }
+                                else if newValue < minValue { filter = minValue }
+                                else { filter = newValue }
+                            }
+                    )
+            }
+        }
+    }
+}
+
+
+
+
+struct FilterBarGraph: View {
+    var values: [Int]
+
+    var bins: [Int: Int] {
+        guard let minValue = values.min(), let maxValue = values.max() else { return [:] }
+        let totalBins = 10
+        let binSize = max(1, (maxValue - minValue) / totalBins) // Ensure at least 1 bin size
+
+        var bins: [Int: Int] = [:]
+        for lowerBound in stride(from: minValue, to: maxValue, by: binSize) {
+            bins[lowerBound] = 0
+        }
+        bins[maxValue] = 0 // Ensure the last bin is included
+
+        for value in values {
+            let binStart = ((value - minValue) / binSize) * binSize + minValue
+            bins[binStart, default: 0] += 1
+        }
+
+        return bins
+    }
+
+    var maxFrequency: Int {
+        bins.values.max() ?? 1 // Avoid division by zero
+    }
+
+    var body: some View {
+        GeometryReader { geometry in
+            let barWidth = geometry.size.width / CGFloat(bins.count) - 4 // Spacing between bars
+            let binKeys = bins.keys.sorted()
+
+            HStack(alignment: .bottom, spacing: 4) {
+                ForEach(binKeys, id: \.self) { binStart in
+                    let frequency = bins[binStart] ?? 0
+                    let heightRatio = Double(frequency) / Double(maxFrequency)
+
+                    RoundedRectangle(cornerRadius: 5)
+                        .frame(
+                            width: barWidth,
+                            height: geometry.size.height * CGFloat(heightRatio)
+                        )
+                        .foregroundColor(Color.orange)
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+#Preview {
+    @Previewable @State var filter = 165
+    
+    return SliderFilter(values: [
+        // Bin 130: Frequency 1
+        135,
+        
+        // Bin 150: Frequency 2
+        145, 155,
+        
+        // Bin 170: Frequency 3
+        165, 170, 175,
+        
+        // Bin 190: Frequency 4
+        185, 190, 195, 199,
+        
+        // Bin 210: Frequency 5
+        205, 210, 215, 217, 219,
+        
+        // Bin 230: Frequency 6
+//        225, 230, 235, 237, 239, 238,
+        
+        // Bin 250: Frequency 7
+//        245, 250, 255, 257, 258, 259, 252,
+        
+        // Bin 270: Frequency 8
+        265, 270, 275, 276, 277, 278, 279, 272,
+        
+        // Bin 290: Frequency 9
+        285, 290, 295, 296, 297, 298, 299, 293, 291,
+        
+        // Bin 310: Frequency 10
+        305, 310, 315, 316, 317, 318, 319, 312, 313, 311,
+        
+    ], filter: $filter)
+    .frame(width: nil, height: 100, alignment: .center)
+    .padding(.horizontal, 25)
+}

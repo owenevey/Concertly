@@ -1,19 +1,19 @@
 import SwiftUI
 
-struct FilterDuration: View {
+struct FilterPrice: View {
     
     @Environment(\.dismiss) var dismiss
     
-    @Binding var durationFilter: Int
-    var flightDurations: [Int]
+    @Binding var priceFilter: Int
+    var flightPrices: [Int]
     
-    var maxDuration: Int {
-        return flightDurations.max() ?? 0
+    var maxPrice: Int {
+        return flightPrices.max() ?? 0
     }
     
-    init(durationFilter: Binding<Int>, flightDurations: [Int]) {
-        self._durationFilter = durationFilter
-        self.flightDurations = flightDurations
+    init(priceFilter: Binding<Int>, flightPrices: [Int]) {
+        self._priceFilter = priceFilter
+        self.flightPrices = flightPrices
     }
     
     var body: some View {
@@ -26,12 +26,12 @@ struct FilterDuration: View {
             
             
             VStack(spacing: 20) {
-                SliderFilter(values: flightDurations, filter: $durationFilter)
+                SliderFilter(values: flightPrices, filter: $priceFilter)
                     .frame(width: nil, height: 100, alignment: .center)
                     .padding(.horizontal, 25)
                 
                 
-                Text("Max Duration: " + minsToHrMins(minutes: durationFilter))
+                Text("Max Price: \(priceFilter)")
                     .font(Font.custom("Barlow-SemiBold", size: 20))
                     .frame(maxWidth: .infinity, alignment: .center)
             }
@@ -60,9 +60,9 @@ struct FilterDuration: View {
 }
 
 #Preview {
-    @Previewable @State var duration = 50
+    @Previewable @State var price = 50
     return VStack {
-        FilterDuration(durationFilter: $duration, flightDurations: [10, 15, 30, 40, 55, 75, 85, 95])
+        FilterPrice(priceFilter: $price, flightPrices: [10, 15, 30, 40, 55, 75, 85, 95])
     }
     .background(Color("Background"))
     .border(Color.red)

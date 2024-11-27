@@ -21,7 +21,7 @@ struct FlightsView: View {
                 FlightsHeader(viewModel: viewModel, fromDate: $viewModel.fromDate, toDate: $viewModel.toDate, fromAirport: $viewModel.fromAirport, toAirport: $viewModel.toAirport)
             },
             filtersBar: {
-                FlightsFiltersBar(sortMethod: $viewModel.sortFlightsMethod, allAirlines: $viewModel.airlineFilter, stopsFilter: $viewModel.stopsFilter, durationFilter: $viewModel.durationFilter, durationRange: viewModel.durationRange)
+                FlightsFiltersBar(sortMethod: $viewModel.sortFlightsMethod, allAirlines: $viewModel.airlineFilter, stopsFilter: $viewModel.stopsFilter, durationFilter: $viewModel.durationFilter, flightDurations: viewModel.flightDurations, priceFilter: $viewModel.priceFilter, flightPrices: viewModel.flightPrices)
             },
             scrollContent: {
                 VStack(spacing: 15) {

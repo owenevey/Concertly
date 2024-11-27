@@ -6,17 +6,17 @@ enum FlightFilter: Equatable {
     case stops(Binding<FilterStopsEnum>)
     case time
     case airlines(Binding<[String: (imageURL: String, isEnabled: Bool)]>)
-    case duration(Binding<Int>, DurationRange)
-    case price
+    case duration(Binding<Int>, [Int])
+    case price(Binding<Int>, [Int])
     
-    static func allCases(airlines: Binding<[String: (imageURL: String, isEnabled: Bool)]>, sortMethod: Binding<SortFlightsEnum>, stopsFilter: Binding<FilterStopsEnum>, durationFilter: Binding<Int>, durationRange: DurationRange) -> [FlightFilter] {
+    static func allCases(airlines: Binding<[String: (imageURL: String, isEnabled: Bool)]>, sortMethod: Binding<SortFlightsEnum>, stopsFilter: Binding<FilterStopsEnum>, durationFilter: Binding<Int>, flightDurations: [Int], priceFilter: Binding<Int>, flightPrices: [Int]) -> [FlightFilter] {
         return [
             .sort(sortMethod),
             .stops(stopsFilter),
             .time,
             .airlines(airlines),
-            .duration(durationFilter, durationRange),
-            .price,
+            .duration(durationFilter, flightDurations),
+            .price(priceFilter, flightPrices),
         ]
     }
     
@@ -41,9 +41,10 @@ enum FlightFilter: Equatable {
         case .time: Text("Time")
         case .airlines(let airlines):
             FilterAirlines(airlines: airlines)
-        case .duration(let durationFilter, let durationRange):
-            FilterDuration(durationFilter: durationFilter, durationRange: durationRange)
-        case .price: Text("Price")
+        case .duration(let durationFilter, let flightDurations):
+            FilterDuration(durationFilter: durationFilter, flightDurations: flightDurations)
+        case .price(let priceFilter, let flightPrices):
+            FilterPrice(priceFilter: priceFilter, flightPrices: flightPrices)
         }
     }
     
