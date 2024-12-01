@@ -35,14 +35,17 @@ func fetchConcertsFromAPI() async throws -> [Concert] {
     }
 }
 
+
 func fetchDepartureFlights(lat: Double, long: Double, fromAirport: String, fromDate: String, toDate: String) async throws -> FlightsResponse {
     let endpoint = "https://d9hepdo8p4.execute-api.us-east-1.amazonaws.com/dev/flights?lat=\(lat)&long=\(long)&fromAirport=\(fromAirport)&fromDate=\(fromDate)&toDate=\(toDate)"
+    
     
     guard let url = URL(string: endpoint) else {
         throw CaminoError.invalidURL
     }
     
     let (data, response) = try await URLSession.shared.data(from: url)
+    
         
     guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
         throw CaminoError.invalidResponse
@@ -63,7 +66,36 @@ func fetchDepartureFlights(lat: Double, long: Double, fromAirport: String, fromD
 }
 
 func fetchDepartureFlights(fromAirport: String, toAirport: String, fromDate: String, toDate: String) async throws -> FlightsResponse {
-    let endpoint = "https://d9hepdo8p4.execute-api.us-east-1.amazonaws.com/dev/flights?lat=42&long=-122&fromAirport=\(fromAirport)&fromDate=\(fromDate)&toDate=\(toDate)"
+    let endpoint = "https://d9hepdo8p4.execute-api.us-east-1.amazonaws.com/dev/flights?fromAirport=\(fromAirport)&toAirport=\(toAirport)&fromDate=\(fromDate)&toDate=\(toDate)"
+    
+    guard let url = URL(string: endpoint) else {
+        throw CaminoError.invalidURL
+    }
+    
+    let (data, response) = try await URLSession.shared.data(from: url)
+    
+    guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+        throw CaminoError.invalidResponse
+    }
+    
+    do {
+        let decoder = JSONDecoder()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        
+        let decoded = try decoder.decode(FlightsResponse.self, from: data)
+        
+        return decoded
+    } catch {
+        throw CaminoError.invalidData
+    }
+}
+
+func fetchReturnFlights(fromAirport: String, toAirport: String, fromDate: String, toDate: String, departureToken: String) async throws -> FlightsResponse {
+    let endpoint = "https://d9hepdo8p4.execute-api.us-east-1.amazonaws.com/dev/flights?fromAirport=\(fromAirport)&toAirport=\(toAirport)&fromDate=\(fromDate)&toDate=\(toDate)&departureToken=\(departureToken)"
+    
+    print(endpoint)
     
     guard let url = URL(string: endpoint) else {
         throw CaminoError.invalidURL

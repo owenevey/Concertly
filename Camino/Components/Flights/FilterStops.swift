@@ -28,10 +28,6 @@ struct FilterStops: View {
                                 .font(Font.custom("Barlow-SemiBold", size: 16))
                             
                             Spacer()
-                            
-                            Text("$269")
-                                .font(Font.custom("Barlow-SemiBold", size: 16))
-                                .foregroundStyle(.gray)
                         }
                         .padding(.vertical, 2)
                         .contentShape(Rectangle())

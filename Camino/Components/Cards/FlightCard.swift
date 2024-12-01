@@ -36,7 +36,7 @@ struct FlightCard: View {
                     VStack(alignment: .leading) {
                         Text(flightItem.flights.first!.airline)
                             .font(Font.custom("Barlow-SemiBold", size: 18))
-                        Text(flightItem.flights.first!.airplane)
+                        Text(flightItem.flights.first!.airplane ?? "")
                             .font(Font.custom("Barlow-SemiBold", size: 15))
                             .foregroundStyle(.gray)
                     }

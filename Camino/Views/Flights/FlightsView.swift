@@ -28,26 +28,27 @@ struct FlightsView: View {
             },
             scrollContent: {
                 VStack(spacing: 15) {
-                    if let outboundFlight = viewModel.outboundFlight {
+                    if let departingFlight = viewModel.departingFlight {
                         HStack {
                             Text("Departing Flight")
                                 .font(Font.custom("Barlow-SemiBold", size: 18))
                             
                             Button {
-                                viewModel.outboundFlight = nil
+                                viewModel.departingFlight = nil
                             } label: {
                                 Text("Remove")
                                     .font(Font.custom("Barlow-SemiBold", size: 14))
                             }
-                            
                             Spacer()
-                            
                         }
-                        FlightCard(flightItem: outboundFlight)
+                        
+                        FlightCard(flightItem: departingFlight)
+                        
                         Text("Returning Flights")
                             .font(Font.custom("Barlow-SemiBold", size: 18))
                             .frame(maxWidth: .infinity, alignment: .leading)
-                    } else {
+                    }
+                    else {
                         Text("Departing Flights")
                             .font(Font.custom("Barlow-SemiBold", size: 18))
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -55,7 +56,8 @@ struct FlightsView: View {
                     
                     if viewModel.flightsResponse.status == Status.loading {
                         Text("Loading")
-                    } else if viewModel.flightsResponse.status == Status.success {
+                    }
+                    else if viewModel.flightsResponse.status == Status.success {
                         if viewModel.filteredFlights.isEmpty {
                             VStack(spacing: 10) {
                                 Image(systemName: "airplane.departure")
@@ -74,6 +76,8 @@ struct FlightsView: View {
                                     }
                             }
                         }
+                    } else if viewModel.flightsResponse.status == Status.error {
+                        Text("Error")
                     }
                     
                     
@@ -81,6 +85,13 @@ struct FlightsView: View {
                 .padding(15)
             }
         )
+        .onChange(of: viewModel.departingFlight) {
+            if viewModel.departingFlight != nil {
+                Task {
+                    await viewModel.getReturningFlights()
+                }
+            }
+        }
         .onChange(of: viewModel.fromDate) {
             concertViewModel.tripStartDate = viewModel.fromDate
         }
@@ -92,7 +103,7 @@ struct FlightsView: View {
             set: { isSheetPresented = $0 }
         )) {
             if let flight = selectedFlight {
-                FlightDetailsView(flightItem: flight, outboundFlight: $viewModel.outboundFlight)
+                FlightDetailsView(flightItem: flight, outboundFlight: $viewModel.departingFlight)
                     .presentationDetents([.large])
                     .presentationBackground(Color("Background"))
             }

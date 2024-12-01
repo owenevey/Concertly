@@ -26,7 +26,6 @@
 		F13186322CB2F198003DBCC5 /* LineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13186312CB2F198003DBCC5 /* LineItem.swift */; };
 		F1659C012CBF252400586212 /* FilterAirlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C002CBF252400586212 /* FilterAirlines.swift */; };
 		F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C042CC1E99800586212 /* FlightsResponse.swift */; };
-		F1659C072CC1ECF200586212 /* testFlightsResponse.txt in Resources */ = {isa = PBXBuildFile; fileRef = F1659C062CC1ECF200586212 /* testFlightsResponse.txt */; };
 		F176C9262CB5E7F9006BAE35 /* FlightFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F176C9252CB5E7F9006BAE35 /* FlightFilters.swift */; };
 		F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551B2C8CEA2800E25003 /* ConcertCard.swift */; };
 		F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551E2C8D5D1F00E25003 /* ConcertView.swift */; };
@@ -97,7 +96,6 @@
 		F13186312CB2F198003DBCC5 /* LineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineItem.swift; sourceTree = "<group>"; };
 		F1659C002CBF252400586212 /* FilterAirlines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAirlines.swift; sourceTree = "<group>"; };
 		F1659C042CC1E99800586212 /* FlightsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsResponse.swift; sourceTree = "<group>"; };
-		F1659C062CC1ECF200586212 /* testFlightsResponse.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = testFlightsResponse.txt; sourceTree = "<group>"; };
 		F176C9252CB5E7F9006BAE35 /* FlightFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightFilters.swift; sourceTree = "<group>"; };
 		F181551B2C8CEA2800E25003 /* ConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertCard.swift; sourceTree = "<group>"; };
 		F181551E2C8D5D1F00E25003 /* ConcertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertView.swift; sourceTree = "<group>"; };
@@ -194,7 +192,6 @@
 				F11640272C8BEABD0040C95D /* CustomClasses.swift */,
 				F176C9252CB5E7F9006BAE35 /* FlightFilters.swift */,
 				F13186312CB2F198003DBCC5 /* LineItem.swift */,
-				F1659C062CC1ECF200586212 /* testFlightsResponse.txt */,
 				F11640162C8A8A300040C95D /* Preview Content */,
 				F199FFE22CAA3A5E00EE005F /* Barlow */,
 			);
@@ -438,7 +435,6 @@
 				F199FFE92CAA3A5F00EE005F /* Barlow-Bold.ttf in Resources */,
 				F199FFEA2CAA3A5F00EE005F /* Barlow-Thin.ttf in Resources */,
 				F199FFEB2CAA3A5F00EE005F /* Barlow-MediumItalic.ttf in Resources */,
-				F1659C072CC1ECF200586212 /* testFlightsResponse.txt in Resources */,
 				F199FFEC2CAA3A5F00EE005F /* Barlow-ThinItalic.ttf in Resources */,
 				F199FFED2CAA3A5F00EE005F /* Barlow-Medium.ttf in Resources */,
 				F199FFEE2CAA3A5F00EE005F /* Barlow-Black.ttf in Resources */,

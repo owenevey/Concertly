@@ -44,13 +44,13 @@ struct FlightsFiltersBar: View {
         case .stops:
             return stopsFilter != FilterStopsEnum.any
         case .price:
-            let maxPrice = flightPrices.max() ?? Int.max
+            let maxPrice = flightPrices.max() ?? 0
             return priceFilter < maxPrice
         case .duration:
-            let maxDuration = flightDurations.max() ?? Int.max
+            let maxDuration = flightDurations.max() ?? 0
             return durationFilter < maxDuration
         case .time:
-            let maxTime = flightTimes.max() ?? Int.max
+            let maxTime = flightTimes.max() ?? 0
             return timeFilter < maxTime
         }
     }

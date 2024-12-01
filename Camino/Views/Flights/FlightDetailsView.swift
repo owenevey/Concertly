@@ -216,7 +216,7 @@ struct FlightLeg: View {
                     Image(systemName: "airplane")
                         .font(.system(size: 16))
                         .frame(width: 20)
-                    Text(flight.airplane)
+                    Text(flight.airplane ?? "")
                         .font(Font.custom("Barlow-Regular", size: 16))
                 }
                 

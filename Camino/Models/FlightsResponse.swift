@@ -24,7 +24,7 @@ struct FlightsResponse: Codable {
         }
 }
 
-struct FlightItem: Codable, Identifiable {
+struct FlightItem: Codable, Identifiable, Equatable {
     let id = UUID()
     let flights: [Flight]
     let layovers: [Layover]?
@@ -47,6 +47,10 @@ struct FlightItem: Codable, Identifiable {
         case extensions
         case departureToken = "departure_token"
     }
+    
+    static func == (lhs: FlightItem, rhs: FlightItem) -> Bool {
+        return lhs.departureToken == rhs.departureToken
+    }
 }
 
 struct Flight: Codable, Identifiable {
@@ -54,7 +58,7 @@ struct Flight: Codable, Identifiable {
     let departureAirport: Airport
     let arrivalAirport: Airport
     let duration: Int
-    let airplane: String
+    let airplane: String?
     let airline: String
     let airlineLogo: String
     let travelClass: String

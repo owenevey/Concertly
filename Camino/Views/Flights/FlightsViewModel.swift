@@ -7,7 +7,7 @@ final class FlightsViewModel: ObservableObject {
     @Published var toDate: Date
     
     @Published var fromAirport = homeAirport
-    @Published var toAirport: String = "SAN"
+    @Published var toAirport: String
     
     @Published var flightsResponse: ApiResponse<FlightsResponse>
     
@@ -18,15 +18,17 @@ final class FlightsViewModel: ObservableObject {
     @Published var durationFilter: Int
     @Published var timeFilter: Int
     
-    @Published var outboundFlight: FlightItem?
-    @Published var inboundFlight: FlightItem?
+    @Published var departingFlight: FlightItem?
+    @Published var returningFlight: FlightItem?
     
     init(fromDate: Date, toDate: Date, flightsResponse: ApiResponse<FlightsResponse>) {
         self.fromDate = fromDate
         self.toDate = toDate
         self.flightsResponse = flightsResponse
-        
+
         if let data = flightsResponse.data {
+            self.toAirport = data.airports.first!.arrival.first!.airport.id
+            
             let allFlights = data.bestFlights + data.otherFlights
             
             let prices = allFlights.map { $0.price }
@@ -42,6 +44,7 @@ final class FlightsViewModel: ObservableObject {
             
             self.airlineFilter = extractAirlineData(from: flightsResponse.data)
         } else {
+            self.toAirport = ""
             self.priceFilter = 0
             self.durationFilter = 0
             self.timeFilter = 0
@@ -173,6 +176,27 @@ final class FlightsViewModel: ObservableObject {
                                                                  toAirport: toAirport,
                                                                  fromDate: fromDate.traditionalFormat(),
                                                                  toDate: toDate.traditionalFormat())
+            
+            DispatchQueue.main.async {
+                self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
+            }
+            print(fetchedFlights)
+        } catch {
+            print("Error fetching flights: \(error)")
+            DispatchQueue.main.async {
+                self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
+        }
+    }
+    
+    func getReturningFlights() async {
+        self.flightsResponse = ApiResponse(status: .loading)
+        
+        do {
+            let fetchedFlights = try await fetchReturnFlights(fromAirport: homeAirport,
+                                                                 toAirport: toAirport,
+                                                                 fromDate: fromDate.traditionalFormat(),
+                                                              toDate: toDate.traditionalFormat(), departureToken: departingFlight!.departureToken)
             
             DispatchQueue.main.async {
                 self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
