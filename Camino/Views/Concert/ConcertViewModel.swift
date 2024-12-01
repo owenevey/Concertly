@@ -31,7 +31,7 @@ class ConcertViewModel: ObservableObject {
         ticketPrice + hotelPrice + flightsPrice
     }
     
-    func getFlights() async {
+    func getDepartingFlights() async {
         DispatchQueue.main.async {
             self.flightsResponse = ApiResponse(status: .loading)
         }

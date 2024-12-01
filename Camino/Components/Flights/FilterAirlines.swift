@@ -24,7 +24,7 @@ struct FilterAirlines: View {
                     }
                 }) {
                     HStack(spacing: 10) {
-                        Image(systemName: allSelected ? "checkmark.square.fill" : "square")
+                        Image(systemName: allSelected ? "checkmark.circle.fill" : "circle")
                             .font(.system(size: 25))
                             .foregroundStyle(.accent)
                         
@@ -52,7 +52,7 @@ struct FilterAirlines: View {
                                 airlines[airline]?.isEnabled.toggle()
                             }) {
                                 HStack(spacing: 10) {
-                                    Image(systemName: airlines[airline]?.isEnabled ?? false ? "checkmark.square.fill" : "square")
+                                    Image(systemName: airlines[airline]?.isEnabled ?? false ? "checkmark.circle.fill" : "circle")
                                         .font(.system(size: 25))
                                         .foregroundStyle(.accent)
                                     
@@ -74,10 +74,6 @@ struct FilterAirlines: View {
                                         .font(Font.custom("Barlow-SemiBold", size: 16))
                                     
                                     Spacer()
-                                    
-                                    Text("$269")
-                                        .font(Font.custom("Barlow-SemiBold", size: 16))
-                                        .foregroundStyle(.gray)
                                 }
                                 .padding(.vertical, 2)
                                 .contentShape(Rectangle())

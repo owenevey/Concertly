@@ -8,54 +8,51 @@ struct PlaceCard: View {
     
     var body: some View {
         
-        if #available(iOS 18.0, *) {
-            NavigationLink {
-                Text(place.name)
-                    .navigationBarHidden(true)
-                    .navigationTransition(.zoom(sourceID: id, in: namespace))
-            }
-            label: {
-                VStack(alignment: .leading, spacing: 0) {
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text(place.name)
-                            .font(Font.custom("Barlow-Bold", size: 20))
-                            .minimumScaleFactor(0.5)
-                            .lineLimit(1)
-                        
-                        Text(place.country)
-                            .font(Font.custom("Barlow-SemiBold", size: 16))
-                            .foregroundStyle(.gray)
-                            .minimumScaleFactor(0.5)
-                            .lineLimit(1)
-                        
-                        Text(place.description)
-                            .font(Font.custom("Barlow-SemiBold", size: 16))
-                            .foregroundStyle(.gray)
-                            .minimumScaleFactor(0.5)
-                            .lineLimit(2, reservesSpace: true)
-                    }
-                    .padding(15)
+        NavigationLink {
+            Text(place.name)
+                .navigationBarHidden(true)
+                .navigationTransition(.zoom(sourceID: id, in: namespace))
+        }
+        label: {
+            VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(place.name)
+                        .font(Font.custom("Barlow-Bold", size: 20))
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
                     
-                    Image(place.imageString)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 250, height: 150)
-                        .clipped()
+                    Text(place.country)
+                        .font(Font.custom("Barlow-SemiBold", size: 16))
+                        .foregroundStyle(.gray)
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
                     
+                    Text(place.description)
+                        .font(Font.custom("Barlow-SemiBold", size: 16))
+                        .foregroundStyle(.gray)
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(2, reservesSpace: true)
                 }
-                .frame(width: 250)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                .background(
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(.card)
-                )
+                .padding(15)
+                
+                Image(place.imageString)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 250, height: 150)
+                    .clipped()
                 
             }
-            .buttonStyle(PlainButtonStyle())
-            .matchedTransitionSource(id: id, in: namespace)
-        } else {
-            // Fallback on earlier versions
+            .frame(width: 250)
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(.card)
+            )
+            
         }
+        .buttonStyle(PlainButtonStyle())
+        .matchedTransitionSource(id: id, in: namespace)
+        
     }
 }
 

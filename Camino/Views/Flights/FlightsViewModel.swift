@@ -5,16 +5,21 @@ final class FlightsViewModel: ObservableObject {
     
     @Published var fromDate: Date
     @Published var toDate: Date
-    @Published var flightsResponse: ApiResponse<FlightsResponse>
     
     @Published var fromAirport = homeAirport
     @Published var toAirport: String = "SAN"
     
+    @Published var flightsResponse: ApiResponse<FlightsResponse>
+    
     @Published var sortFlightsMethod = SortFlightsEnum.cheapest
     @Published var airlineFilter: [String: (imageURL: String, isEnabled: Bool)] = [:]
     @Published var stopsFilter: FilterStopsEnum = .any
-    @Published var durationFilter: Int
     @Published var priceFilter: Int
+    @Published var durationFilter: Int
+    @Published var timeFilter: Int
+    
+    @Published var outboundFlight: FlightItem?
+    @Published var inboundFlight: FlightItem?
     
     init(fromDate: Date, toDate: Date, flightsResponse: ApiResponse<FlightsResponse>) {
         self.fromDate = fromDate
@@ -24,24 +29,23 @@ final class FlightsViewModel: ObservableObject {
         if let data = flightsResponse.data {
             let allFlights = data.bestFlights + data.otherFlights
             
+            let prices = allFlights.map { $0.price }
+            self.priceFilter = prices.max() ?? 0
+            
             let durations = allFlights.map { $0.totalDuration }
             self.durationFilter = durations.max() ?? 0
             
-            let prices = allFlights.map { $0.price }
-            self.priceFilter = prices.max() ?? 0
+            let arrivalTimes = allFlights.compactMap { flightItem in
+                flightItem.flights.last?.arrivalAirport.time.timeIntervalSince1970
+            }
+            self.timeFilter = Int((arrivalTimes.max() ?? 0) / 60)
+            
+            self.airlineFilter = extractAirlineData(from: flightsResponse.data)
         } else {
-            self.durationFilter = 0
             self.priceFilter = 0
+            self.durationFilter = 0
+            self.timeFilter = 0
         }
-    }
-    
-    var flightDurations: [Int] {
-        guard let data = flightsResponse.data else {
-            return []
-        }
-        
-        let allFlights = data.bestFlights + data.otherFlights
-        return allFlights.map { $0.totalDuration }
     }
     
     var flightPrices: [Int] {
@@ -53,9 +57,29 @@ final class FlightsViewModel: ObservableObject {
         return allFlights.map { $0.price }
     }
     
+    var flightDurations: [Int] {
+        guard let data = flightsResponse.data else {
+            return []
+        }
+        
+        let allFlights = data.bestFlights + data.otherFlights
+        return allFlights.map { $0.totalDuration }
+    }
+    
+    var flightTimes: [Int] {
+        guard let data = flightsResponse.data else {
+            return []
+        }
+        
+        let allFlights = data.bestFlights + data.otherFlights
+        return allFlights.compactMap { flightItem in
+            flightItem.flights.last?.arrivalAirport.time.timeIntervalSince1970
+        }.map { Int($0) / 60 }
+    }
+    
     var filteredFlights: [FlightItem] {
         guard let data = flightsResponse.data else {
-            print("returning none")
+            print("no flightsResponse data")
             return []
         }
         
@@ -78,19 +102,25 @@ final class FlightsViewModel: ObservableObject {
             filteredByStops = filteredByAirline.filter { $0.flights.count <= 3 }
         }
         
-        let filteredByDuration = filteredByStops.filter { $0.totalDuration <= durationFilter }
+        let filteredByPrice = filteredByStops.filter { $0.price <= priceFilter }
         
-        let filteredByPrice = filteredByDuration.filter { $0.price <= priceFilter }
+        let filteredByDuration = filteredByPrice.filter { $0.totalDuration <= durationFilter }
+        
+        let filteredByTime = filteredByDuration.filter { flightItem in
+            guard let firstFlight = flightItem.flights.first else { return false }
+            let arrivalTime = Int(firstFlight.arrivalAirport.time.timeIntervalSince1970) / 60
+            return arrivalTime <= timeFilter
+        }
         
         switch sortFlightsMethod {
         case .cheapest:
-            return filteredByPrice.sorted { $0.price < $1.price }
+            return filteredByTime.sorted { $0.price < $1.price }
         case .mostExpensive:
-            return filteredByPrice.sorted { $0.price > $1.price }
+            return filteredByTime.sorted { $0.price > $1.price }
         case .quickest:
-            return filteredByPrice.sorted { $0.totalDuration < $1.totalDuration }
+            return filteredByTime.sorted { $0.totalDuration < $1.totalDuration }
         case .earliest:
-            return filteredByPrice.sorted {
+            return filteredByTime.sorted {
                 guard let firstFlightA = $0.flights.first,
                       let firstFlightB = $1.flights.first else { return false }
                 return firstFlightA.arrivalAirport.time < firstFlightB.arrivalAirport.time
@@ -98,8 +128,44 @@ final class FlightsViewModel: ObservableObject {
         }
     }
     
-    func getFlights() async {
-        print("in getflights")
+    func extractAirlineData(from flightData: FlightsResponse?) -> [String: (imageURL: String, isEnabled: Bool)] {
+        var airlineDict: [String: (imageURL: String, isEnabled: Bool)] = [:]
+        
+        guard let flights = flightData else {
+            return airlineDict
+        }
+        
+        // Loop through all the best flights
+        for flightItem in flights.bestFlights {
+            // Loop through the individual flights in each item
+            for flight in flightItem.flights {
+                let airlineName = flight.airline
+                let airlineLogo = flight.airlineLogo
+                
+                // If the airline doesn't already exist in the dictionary, add it
+                if airlineDict[airlineName] == nil {
+                    airlineDict[airlineName] = (imageURL: airlineLogo, isEnabled: true)
+                }
+            }
+        }
+        
+        for flightItem in flights.otherFlights {
+            // Loop through the individual flights in each item
+            for flight in flightItem.flights {
+                let airlineName = flight.airline
+                let airlineLogo = flight.airlineLogo
+                
+                // If the airline doesn't already exist in the dictionary, add it
+                if airlineDict[airlineName] == nil {
+                    airlineDict[airlineName] = (imageURL: airlineLogo, isEnabled: true)
+                }
+            }
+        }
+        
+        return airlineDict
+    }
+    
+    func getDepartingFlights() async {
         self.flightsResponse = ApiResponse(status: .loading)
         
         do {

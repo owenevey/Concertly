@@ -3,50 +3,63 @@ import SwiftUI
 struct FlightsFiltersBar: View {
     
     @Binding var sortMethod: SortFlightsEnum
-    @Binding var allAirlines: [String: (imageURL: String, isEnabled: Bool)]
+    @Binding var airlines: [String: (imageURL: String, isEnabled: Bool)]
     @Binding var stopsFilter: FilterStopsEnum
+    
+    @Binding var timeFilter: Int
+    var flightTimes: [Int]
+    
     @Binding var durationFilter: Int
     var flightDurations: [Int]
+    
     @Binding var priceFilter: Int
     var flightPrices: [Int]
+    
     @State var presentSheet = false
     @State var selectedFilter: FlightFilter
     
-    init(sortMethod: Binding<SortFlightsEnum>, allAirlines: Binding<[String: (imageURL: String, isEnabled: Bool)]>, stopsFilter: Binding<FilterStopsEnum>, durationFilter: Binding<Int>, flightDurations: [Int], priceFilter: Binding<Int>, flightPrices: [Int]) {
+    init(sortMethod: Binding<SortFlightsEnum>, airlines: Binding<[String: (imageURL: String, isEnabled: Bool)]>, stopsFilter: Binding<FilterStopsEnum>, priceFilter: Binding<Int>, flightPrices: [Int], durationFilter: Binding<Int>, flightDurations: [Int], timeFilter: Binding<Int>, flightTimes: [Int]) {
         self._sortMethod = sortMethod
-        self._allAirlines = allAirlines
-        self._selectedFilter = State(initialValue: .sort(sortMethod))
+        self._airlines = airlines
         self._stopsFilter = stopsFilter
-        self._durationFilter = durationFilter
-        self.flightDurations = flightDurations
+        
         self._priceFilter = priceFilter
         self.flightPrices = flightPrices
+        
+        self._durationFilter = durationFilter
+        self.flightDurations = flightDurations
+        
+        self._timeFilter = timeFilter
+        self.flightTimes = flightTimes
+        
+        self._selectedFilter = State(initialValue: .sort(sortMethod))
     }
     
     private func isFilterActive(_ filter: FlightFilter) -> Bool {
-            switch filter {
-            case.sort:
-                return sortMethod != SortFlightsEnum.cheapest
-            case .airlines:
-                        return allAirlines.contains { !$0.value.isEnabled }
-            case .stops:
-                return stopsFilter != FilterStopsEnum.any
-            case .duration:
-                let maxDuration = flightDurations.max() ?? Int.max
-                return durationFilter < maxDuration
-            case .price:
-                let maxPrice = flightPrices.max() ?? Int.max
-                return priceFilter < maxPrice
-            default:
-                return false
-            }
+        switch filter {
+        case.sort:
+            return sortMethod != SortFlightsEnum.cheapest
+        case .airlines:
+            return airlines.contains { !$0.value.isEnabled }
+        case .stops:
+            return stopsFilter != FilterStopsEnum.any
+        case .price:
+            let maxPrice = flightPrices.max() ?? Int.max
+            return priceFilter < maxPrice
+        case .duration:
+            let maxDuration = flightDurations.max() ?? Int.max
+            return durationFilter < maxDuration
+        case .time:
+            let maxTime = flightTimes.max() ?? Int.max
+            return timeFilter < maxTime
         }
+    }
     
     var body: some View {
         VStack(spacing: 0) {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(FlightFilter.allCases(airlines: $allAirlines, sortMethod: $sortMethod, stopsFilter: $stopsFilter, durationFilter: $durationFilter, flightDurations: flightDurations, priceFilter: $priceFilter, flightPrices: flightPrices), id: \.title) { filter in
+                    ForEach(FlightFilter.allCases(sortMethod: $sortMethod, airlines: $airlines, stopsFilter: $stopsFilter, priceFilter: $priceFilter, flightPrices: flightPrices, durationFilter: $durationFilter, flightDurations: flightDurations, timeFilter: $timeFilter, flightTimes: flightTimes), id: \.title) { filter in
                         Button {
                             selectedFilter = filter
                             presentSheet = true
@@ -81,6 +94,7 @@ struct FlightsFiltersBar: View {
         }
         .background(Color("Card"))
         .frame(height: 65)
+        .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 3)
     }
 }
 
@@ -91,12 +105,30 @@ struct FlightsFiltersBar: View {
         "Frontier": (imageURL: "https://www.gstatic.com/flights/airline_logos/70px/F9.png", isEnabled: false)
     ]
     
-    let flightDurations = [1,2,3,4,44,55,66,77,88,99]
+    @Previewable @State var sortMethod: SortFlightsEnum = .cheapest
+    @Previewable @State var stopsFilter: FilterStopsEnum = .any
+    @Previewable @State var priceFilter = 300
+    @Previewable @State var durationFilter = 300
+    @Previewable @State var timeFilter = 300
     
-    VStack {
+    let flightDurations = [10, 20, 30, 50, 60, 120]
+    let flightPrices = [100, 200, 300, 400, 500]
+    let flightTimes = [6, 9, 12, 15, 18, 21]
+    
+    return VStack {
         Spacer()
-        FlightsFiltersBar(sortMethod: .constant(.cheapest), allAirlines: $airlines, stopsFilter: .constant(.any), durationFilter: .constant(300), flightDurations: flightDurations, priceFilter: .constant(300), flightPrices: flightDurations)
+        FlightsFiltersBar(
+            sortMethod: $sortMethod,
+            airlines: $airlines,
+            stopsFilter: $stopsFilter,
+            priceFilter: $priceFilter,
+            flightPrices: flightPrices,
+            durationFilter: $durationFilter,
+            flightDurations: flightDurations,
+            timeFilter: $timeFilter,
+            flightTimes: flightTimes
+        )
         Spacer()
     }
-    .background(.gray)
+    .background(Color.gray)
 }

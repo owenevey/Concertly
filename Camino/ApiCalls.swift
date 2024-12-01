@@ -43,7 +43,7 @@ func fetchDepartureFlights(lat: Double, long: Double, fromAirport: String, fromD
     }
     
     let (data, response) = try await URLSession.shared.data(from: url)
-    
+        
     guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
         throw CaminoError.invalidResponse
     }

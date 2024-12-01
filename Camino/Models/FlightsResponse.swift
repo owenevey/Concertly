@@ -49,7 +49,8 @@ struct FlightItem: Codable, Identifiable {
     }
 }
 
-struct Flight: Codable {
+struct Flight: Codable, Identifiable {
+    let id = UUID()
     let departureAirport: Airport
     let arrivalAirport: Airport
     let duration: Int

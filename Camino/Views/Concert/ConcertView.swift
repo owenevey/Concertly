@@ -101,7 +101,7 @@ struct ConcertView: View {
         .onAppear {
             if !hasAppeared {
                 Task {
-                    await viewModel.getFlights()
+                    await viewModel.getDepartingFlights()
                 }
                 hasAppeared = true
             }

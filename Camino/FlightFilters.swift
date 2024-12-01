@@ -3,31 +3,31 @@ import SwiftUI
 
 enum FlightFilter: Equatable {
     case sort(Binding<SortFlightsEnum>)
-    case stops(Binding<FilterStopsEnum>)
-    case time
     case airlines(Binding<[String: (imageURL: String, isEnabled: Bool)]>)
-    case duration(Binding<Int>, [Int])
+    case stops(Binding<FilterStopsEnum>)
     case price(Binding<Int>, [Int])
+    case duration(Binding<Int>, [Int])
+    case time(Binding<Int>, [Int])
     
-    static func allCases(airlines: Binding<[String: (imageURL: String, isEnabled: Bool)]>, sortMethod: Binding<SortFlightsEnum>, stopsFilter: Binding<FilterStopsEnum>, durationFilter: Binding<Int>, flightDurations: [Int], priceFilter: Binding<Int>, flightPrices: [Int]) -> [FlightFilter] {
+    static func allCases(sortMethod: Binding<SortFlightsEnum>, airlines: Binding<[String: (imageURL: String, isEnabled: Bool)]>, stopsFilter: Binding<FilterStopsEnum>, priceFilter: Binding<Int>, flightPrices: [Int], durationFilter: Binding<Int>, flightDurations: [Int], timeFilter: Binding<Int>, flightTimes: [Int]) -> [FlightFilter] {
         return [
             .sort(sortMethod),
-            .stops(stopsFilter),
-            .time,
             .airlines(airlines),
-            .duration(durationFilter, flightDurations),
+            .stops(stopsFilter),
             .price(priceFilter, flightPrices),
+            .duration(durationFilter, flightDurations),
+            .time(timeFilter, flightTimes)
         ]
     }
     
     var title: String {
         switch self {
         case .sort: return "Sort"
-        case .stops: return "Stops"
-        case .time: return "Time"
         case .airlines: return "Airlines"
-        case .duration: return "Duration"
+        case .stops: return "Stops"
         case .price: return "Price"
+        case .duration: return "Duration"
+        case .time: return "Time"
         }
     }
     
@@ -36,15 +36,16 @@ enum FlightFilter: Equatable {
         switch self {
         case .sort(let sortMethod):
             SortFlights(sortMethod: sortMethod)
-        case .stops(let stopsFilter):
-            FilterStops(stopsFilter: stopsFilter)
-        case .time: Text("Time")
         case .airlines(let airlines):
             FilterAirlines(airlines: airlines)
-        case .duration(let durationFilter, let flightDurations):
-            FilterDuration(durationFilter: durationFilter, flightDurations: flightDurations)
+        case .stops(let stopsFilter):
+            FilterStops(stopsFilter: stopsFilter)
         case .price(let priceFilter, let flightPrices):
             FilterPrice(priceFilter: priceFilter, flightPrices: flightPrices)
+        case .duration(let durationFilter, let flightDurations):
+            FilterDuration(durationFilter: durationFilter, flightDurations: flightDurations)
+        case .time(let timeFilter, let flightTimes):
+            FilterTime(timeFilter: timeFilter, flightTimes: flightTimes)
         }
     }
     
@@ -57,7 +58,6 @@ enum FlightFilter: Equatable {
             (.price, .price):
             return true
         case (.airlines(let lhsAirlines), .airlines(let rhsAirlines)):
-            // Compare the dictionaries directly instead of `wrappedValue`
             return lhsAirlines.wrappedValue.elementsEqual(rhsAirlines.wrappedValue) { (lhsElem, rhsElem) -> Bool in
                 return lhsElem.key == rhsElem.key && lhsElem.value == rhsElem.value
             }

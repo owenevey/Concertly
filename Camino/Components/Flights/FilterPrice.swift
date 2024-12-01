@@ -31,7 +31,7 @@ struct FilterPrice: View {
                     .padding(.horizontal, 25)
                 
                 
-                Text("Max Price: \(priceFilter)")
+                Text("Max Price: $\(priceFilter)")
                     .font(Font.custom("Barlow-SemiBold", size: 20))
                     .frame(maxWidth: .infinity, alignment: .center)
             }

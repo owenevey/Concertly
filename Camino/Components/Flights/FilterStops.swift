@@ -5,50 +5,48 @@ struct FilterStops: View {
     @Binding var stopsFilter: FilterStopsEnum
     
     @Environment(\.dismiss) var dismiss
-        
+    
     var body: some View {
         VStack {
             Text("Stops")
                 .font(Font.custom("Barlow-SemiBold", size: 20))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            VStack(spacing: 0) {
-                VStack(spacing: 10) {
-                    ForEach(FilterStopsEnum.allCases.indices, id: \.self) { index in
-                        let filter = FilterStopsEnum.allCases[index]
-                        
-                        Button(action: {
-                            stopsFilter = filter
-                        }) {
-                            HStack(spacing: 10) {
-                                Image(systemName: stopsFilter == filter ? "checkmark.circle.fill" : "circle")
-                                    .font(.system(size: 25))
-                                    .foregroundStyle(.accent)
-                                
-                                Text(filter.title)
-                                    .font(Font.custom("Barlow-SemiBold", size: 16))
-                                
-                                Spacer()
-                                
-                                Text("$269")
-                                    .font(Font.custom("Barlow-SemiBold", size: 16))
-                                    .foregroundStyle(.gray)
-                            }
-                            .padding(.vertical, 2)
-                            .contentShape(Rectangle())
+            VStack(spacing: 10) {
+                ForEach(FilterStopsEnum.allCases.indices, id: \.self) { index in
+                    let filter = FilterStopsEnum.allCases[index]
+                    
+                    Button(action: {
+                        stopsFilter = filter
+                    }) {
+                        HStack(spacing: 10) {
+                            Image(systemName: stopsFilter == filter ? "checkmark.circle.fill" : "circle")
+                                .font(.system(size: 25))
+                                .foregroundStyle(.accent)
+                            
+                            Text(filter.title)
+                                .font(Font.custom("Barlow-SemiBold", size: 16))
+                            
+                            Spacer()
+                            
+                            Text("$269")
+                                .font(Font.custom("Barlow-SemiBold", size: 16))
+                                .foregroundStyle(.gray)
                         }
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        if index < FilterStopsEnum.allCases.count - 1 {
-                            Divider()
-                                .frame(height: 1)
-                                .overlay(.customGray)
-                        }
+                        .padding(.vertical, 2)
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    if index < FilterStopsEnum.allCases.count - 1 {
+                        Divider()
+                            .frame(height: 1)
+                            .overlay(.customGray)
                     }
                 }
-                .padding(.vertical, 10)                
-                
             }
+            .padding(.vertical, 10)
+            
             
             Spacer()
             
