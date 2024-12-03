@@ -33,25 +33,10 @@
 		F18C460E2CC5B30D00756472 /* TimeUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18C460D2CC5B30D00756472 /* TimeUtil.swift */; };
 		F18DE23F2CFAACC600C4D1B5 /* FilterTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18DE23E2CFAACC600C4D1B5 /* FilterTime.swift */; };
 		F18DE2412CFADDBD00C4D1B5 /* FlightDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18DE2402CFADDBD00C4D1B5 /* FlightDetailsView.swift */; };
+		F18DE2452CFCB6AF00C4D1B5 /* sampleData.json in Resources */ = {isa = PBXBuildFile; fileRef = F18DE2442CFCB6A800C4D1B5 /* sampleData.json */; };
+		F18DE2EC2CFD309500C4D1B5 /* FontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18DE2EB2CFD309200C4D1B5 /* FontExtensions.swift */; };
+		F18DE2F22CFE745300C4D1B5 /* Outfit.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18DE2F12CFE745300C4D1B5 /* Outfit.ttf */; };
 		F19900382CAB5C8300EE005F /* SportCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19900372CAB5C8300EE005F /* SportCard.swift */; };
-		F199FFE32CAA3A5F00EE005F /* Barlow-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD92CAA3A5E00EE005F /* Barlow-LightItalic.ttf */; };
-		F199FFE42CAA3A5F00EE005F /* Barlow-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD62CAA3A5E00EE005F /* Barlow-ExtraLightItalic.ttf */; };
-		F199FFE52CAA3A5F00EE005F /* Barlow-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD42CAA3A5E00EE005F /* Barlow-ExtraBoldItalic.ttf */; };
-		F199FFE72CAA3A5F00EE005F /* Barlow-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD82CAA3A5E00EE005F /* Barlow-Light.ttf */; };
-		F199FFE82CAA3A5F00EE005F /* Barlow-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD72CAA3A5E00EE005F /* Barlow-Italic.ttf */; };
-		F199FFE92CAA3A5F00EE005F /* Barlow-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD12CAA3A5E00EE005F /* Barlow-Bold.ttf */; };
-		F199FFEA2CAA3A5F00EE005F /* Barlow-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFDF2CAA3A5E00EE005F /* Barlow-Thin.ttf */; };
-		F199FFEB2CAA3A5F00EE005F /* Barlow-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFDB2CAA3A5E00EE005F /* Barlow-MediumItalic.ttf */; };
-		F199FFEC2CAA3A5F00EE005F /* Barlow-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFE02CAA3A5E00EE005F /* Barlow-ThinItalic.ttf */; };
-		F199FFED2CAA3A5F00EE005F /* Barlow-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFDA2CAA3A5E00EE005F /* Barlow-Medium.ttf */; };
-		F199FFEE2CAA3A5F00EE005F /* Barlow-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFCF2CAA3A5E00EE005F /* Barlow-Black.ttf */; };
-		F199FFEF2CAA3A5F00EE005F /* Barlow-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD52CAA3A5E00EE005F /* Barlow-ExtraLight.ttf */; };
-		F199FFF02CAA3A5F00EE005F /* Barlow-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFDE2CAA3A5E00EE005F /* Barlow-SemiBoldItalic.ttf */; };
-		F199FFF12CAA3A5F00EE005F /* Barlow-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFDC2CAA3A5E00EE005F /* Barlow-Regular.ttf */; };
-		F199FFF22CAA3A5F00EE005F /* Barlow-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD22CAA3A5E00EE005F /* Barlow-BoldItalic.ttf */; };
-		F199FFF32CAA3A5F00EE005F /* Barlow-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD02CAA3A5E00EE005F /* Barlow-BlackItalic.ttf */; };
-		F199FFF42CAA3A5F00EE005F /* Barlow-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFDD2CAA3A5E00EE005F /* Barlow-SemiBold.ttf */; };
-		F199FFF52CAA3A5F00EE005F /* Barlow-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F199FFD32CAA3A5E00EE005F /* Barlow-ExtraBold.ttf */; };
 		F19C72672CC71C5E00390BD6 /* FlightsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72662CC71C5E00390BD6 /* FlightsViewModel.swift */; };
 		F19C72692CC7249E00390BD6 /* ConcertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72682CC7249E00390BD6 /* ConcertViewModel.swift */; };
 		F19C726B2CC726BD00390BD6 /* GlobalVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C726A2CC726B800390BD6 /* GlobalVars.swift */; };
@@ -66,10 +51,9 @@
 		F19C72832CD092AC00390BD6 /* DurationRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72822CD092A900390BD6 /* DurationRange.swift */; };
 		F1CCE0D22CB0B96600D15696 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCE0D12CB0B96600D15696 /* ViewExtensions.swift */; };
 		F1DAE69A2CC34D4700901914 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE6992CC34D4700901914 /* ApiResponse.swift */; };
-		F1DAE69E2CC37F7F00901914 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE69D2CC37F7F00901914 /* DateExtension.swift */; };
+		F1DAE69E2CC37F7F00901914 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE69D2CC37F7F00901914 /* DateExtensions.swift */; };
 		F1DAE6A02CC3849D00901914 /* ImageHeaderScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE69F2CC3849D00901914 /* ImageHeaderScrollView.swift */; };
 		F1DAE6A22CC42EA500901914 /* ApiCalls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE6A12CC42EA500901914 /* ApiCalls.swift */; };
-		F1DAE6A42CC42FCA00901914 /* ClosestAirportCodeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE6A32CC42FCA00901914 /* ClosestAirportCodeResponse.swift */; };
 		F1DD1EB52CEEB354004A9F0F /* SliderFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD1EB42CEEB354004A9F0F /* SliderFilter.swift */; };
 		F1E786272CB300A200F4E462 /* HotelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E786262CB300A200F4E462 /* HotelsView.swift */; };
 		F1E786292CB36CAB00F4E462 /* SFSafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E786282CB36CAB00F4E462 /* SFSafariView.swift */; };
@@ -103,25 +87,10 @@
 		F18C460D2CC5B30D00756472 /* TimeUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUtil.swift; sourceTree = "<group>"; };
 		F18DE23E2CFAACC600C4D1B5 /* FilterTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTime.swift; sourceTree = "<group>"; };
 		F18DE2402CFADDBD00C4D1B5 /* FlightDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightDetailsView.swift; sourceTree = "<group>"; };
+		F18DE2442CFCB6A800C4D1B5 /* sampleData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleData.json; sourceTree = "<group>"; };
+		F18DE2EB2CFD309200C4D1B5 /* FontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtensions.swift; sourceTree = "<group>"; };
+		F18DE2F12CFE745300C4D1B5 /* Outfit.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Outfit.ttf; sourceTree = "<group>"; };
 		F19900372CAB5C8300EE005F /* SportCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportCard.swift; sourceTree = "<group>"; };
-		F199FFCF2CAA3A5E00EE005F /* Barlow-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Black.ttf"; sourceTree = "<group>"; };
-		F199FFD02CAA3A5E00EE005F /* Barlow-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-BlackItalic.ttf"; sourceTree = "<group>"; };
-		F199FFD12CAA3A5E00EE005F /* Barlow-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Bold.ttf"; sourceTree = "<group>"; };
-		F199FFD22CAA3A5E00EE005F /* Barlow-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-BoldItalic.ttf"; sourceTree = "<group>"; };
-		F199FFD32CAA3A5E00EE005F /* Barlow-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-ExtraBold.ttf"; sourceTree = "<group>"; };
-		F199FFD42CAA3A5E00EE005F /* Barlow-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
-		F199FFD52CAA3A5E00EE005F /* Barlow-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-ExtraLight.ttf"; sourceTree = "<group>"; };
-		F199FFD62CAA3A5E00EE005F /* Barlow-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
-		F199FFD72CAA3A5E00EE005F /* Barlow-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Italic.ttf"; sourceTree = "<group>"; };
-		F199FFD82CAA3A5E00EE005F /* Barlow-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Light.ttf"; sourceTree = "<group>"; };
-		F199FFD92CAA3A5E00EE005F /* Barlow-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-LightItalic.ttf"; sourceTree = "<group>"; };
-		F199FFDA2CAA3A5E00EE005F /* Barlow-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Medium.ttf"; sourceTree = "<group>"; };
-		F199FFDB2CAA3A5E00EE005F /* Barlow-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-MediumItalic.ttf"; sourceTree = "<group>"; };
-		F199FFDC2CAA3A5E00EE005F /* Barlow-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Regular.ttf"; sourceTree = "<group>"; };
-		F199FFDD2CAA3A5E00EE005F /* Barlow-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-SemiBold.ttf"; sourceTree = "<group>"; };
-		F199FFDE2CAA3A5E00EE005F /* Barlow-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
-		F199FFDF2CAA3A5E00EE005F /* Barlow-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-Thin.ttf"; sourceTree = "<group>"; };
-		F199FFE02CAA3A5E00EE005F /* Barlow-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Barlow-ThinItalic.ttf"; sourceTree = "<group>"; };
 		F199FFF62CAA3A6E00EE005F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F19C72662CC71C5E00390BD6 /* FlightsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsViewModel.swift; sourceTree = "<group>"; };
 		F19C72682CC7249E00390BD6 /* ConcertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertViewModel.swift; sourceTree = "<group>"; };
@@ -137,10 +106,9 @@
 		F19C72822CD092A900390BD6 /* DurationRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationRange.swift; sourceTree = "<group>"; };
 		F1CCE0D12CB0B96600D15696 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		F1DAE6992CC34D4700901914 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
-		F1DAE69D2CC37F7F00901914 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		F1DAE69D2CC37F7F00901914 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		F1DAE69F2CC3849D00901914 /* ImageHeaderScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHeaderScrollView.swift; sourceTree = "<group>"; };
 		F1DAE6A12CC42EA500901914 /* ApiCalls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCalls.swift; sourceTree = "<group>"; };
-		F1DAE6A32CC42FCA00901914 /* ClosestAirportCodeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosestAirportCodeResponse.swift; sourceTree = "<group>"; };
 		F1DD1EB42CEEB354004A9F0F /* SliderFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderFilter.swift; sourceTree = "<group>"; };
 		F1E786262CB300A200F4E462 /* HotelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsView.swift; sourceTree = "<group>"; };
 		F1E786282CB36CAB00F4E462 /* SFSafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSafariView.swift; sourceTree = "<group>"; };
@@ -191,9 +159,9 @@
 				F19C727C2CD0808B00390BD6 /* FilterStopsEnum.swift */,
 				F11640272C8BEABD0040C95D /* CustomClasses.swift */,
 				F176C9252CB5E7F9006BAE35 /* FlightFilters.swift */,
-				F13186312CB2F198003DBCC5 /* LineItem.swift */,
+				F18DE2442CFCB6A800C4D1B5 /* sampleData.json */,
+				F18DE2F12CFE745300C4D1B5 /* Outfit.ttf */,
 				F11640162C8A8A300040C95D /* Preview Content */,
-				F199FFE22CAA3A5E00EE005F /* Barlow */,
 			);
 			path = Camino;
 			sourceTree = "<group>";
@@ -242,33 +210,9 @@
 			isa = PBXGroup;
 			children = (
 				F1DD1EB42CEEB354004A9F0F /* SliderFilter.swift */,
+				F13186312CB2F198003DBCC5 /* LineItem.swift */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		F199FFE22CAA3A5E00EE005F /* Barlow */ = {
-			isa = PBXGroup;
-			children = (
-				F199FFCF2CAA3A5E00EE005F /* Barlow-Black.ttf */,
-				F199FFD02CAA3A5E00EE005F /* Barlow-BlackItalic.ttf */,
-				F199FFD12CAA3A5E00EE005F /* Barlow-Bold.ttf */,
-				F199FFD22CAA3A5E00EE005F /* Barlow-BoldItalic.ttf */,
-				F199FFD32CAA3A5E00EE005F /* Barlow-ExtraBold.ttf */,
-				F199FFD42CAA3A5E00EE005F /* Barlow-ExtraBoldItalic.ttf */,
-				F199FFD52CAA3A5E00EE005F /* Barlow-ExtraLight.ttf */,
-				F199FFD62CAA3A5E00EE005F /* Barlow-ExtraLightItalic.ttf */,
-				F199FFD72CAA3A5E00EE005F /* Barlow-Italic.ttf */,
-				F199FFD82CAA3A5E00EE005F /* Barlow-Light.ttf */,
-				F199FFD92CAA3A5E00EE005F /* Barlow-LightItalic.ttf */,
-				F199FFDA2CAA3A5E00EE005F /* Barlow-Medium.ttf */,
-				F199FFDB2CAA3A5E00EE005F /* Barlow-MediumItalic.ttf */,
-				F199FFDC2CAA3A5E00EE005F /* Barlow-Regular.ttf */,
-				F199FFDD2CAA3A5E00EE005F /* Barlow-SemiBold.ttf */,
-				F199FFDE2CAA3A5E00EE005F /* Barlow-SemiBoldItalic.ttf */,
-				F199FFDF2CAA3A5E00EE005F /* Barlow-Thin.ttf */,
-				F199FFE02CAA3A5E00EE005F /* Barlow-ThinItalic.ttf */,
-			);
-			path = Barlow;
 			sourceTree = "<group>";
 		};
 		F19C72622CC71B7500390BD6 /* Views */ = {
@@ -285,7 +229,8 @@
 		F19C72632CC71B8B00390BD6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				F1DAE69D2CC37F7F00901914 /* DateExtension.swift */,
+				F18DE2EB2CFD309200C4D1B5 /* FontExtensions.swift */,
+				F1DAE69D2CC37F7F00901914 /* DateExtensions.swift */,
 				F1CCE0D12CB0B96600D15696 /* ViewExtensions.swift */,
 			);
 			path = Extensions;
@@ -306,7 +251,6 @@
 				F19C72822CD092A900390BD6 /* DurationRange.swift */,
 				F18155202C8EB35A00E25003 /* ConcertsResponse.swift */,
 				F1659C042CC1E99800586212 /* FlightsResponse.swift */,
-				F1DAE6A32CC42FCA00901914 /* ClosestAirportCodeResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -427,24 +371,8 @@
 			files = (
 				F11640182C8A8A300040C95D /* Preview Assets.xcassets in Resources */,
 				F11640152C8A8A300040C95D /* Assets.xcassets in Resources */,
-				F199FFE32CAA3A5F00EE005F /* Barlow-LightItalic.ttf in Resources */,
-				F199FFE42CAA3A5F00EE005F /* Barlow-ExtraLightItalic.ttf in Resources */,
-				F199FFE52CAA3A5F00EE005F /* Barlow-ExtraBoldItalic.ttf in Resources */,
-				F199FFE72CAA3A5F00EE005F /* Barlow-Light.ttf in Resources */,
-				F199FFE82CAA3A5F00EE005F /* Barlow-Italic.ttf in Resources */,
-				F199FFE92CAA3A5F00EE005F /* Barlow-Bold.ttf in Resources */,
-				F199FFEA2CAA3A5F00EE005F /* Barlow-Thin.ttf in Resources */,
-				F199FFEB2CAA3A5F00EE005F /* Barlow-MediumItalic.ttf in Resources */,
-				F199FFEC2CAA3A5F00EE005F /* Barlow-ThinItalic.ttf in Resources */,
-				F199FFED2CAA3A5F00EE005F /* Barlow-Medium.ttf in Resources */,
-				F199FFEE2CAA3A5F00EE005F /* Barlow-Black.ttf in Resources */,
-				F199FFEF2CAA3A5F00EE005F /* Barlow-ExtraLight.ttf in Resources */,
-				F199FFF02CAA3A5F00EE005F /* Barlow-SemiBoldItalic.ttf in Resources */,
-				F199FFF12CAA3A5F00EE005F /* Barlow-Regular.ttf in Resources */,
-				F199FFF22CAA3A5F00EE005F /* Barlow-BoldItalic.ttf in Resources */,
-				F199FFF32CAA3A5F00EE005F /* Barlow-BlackItalic.ttf in Resources */,
-				F199FFF42CAA3A5F00EE005F /* Barlow-SemiBold.ttf in Resources */,
-				F199FFF52CAA3A5F00EE005F /* Barlow-ExtraBold.ttf in Resources */,
+				F18DE2F22CFE745300C4D1B5 /* Outfit.ttf in Resources */,
+				F18DE2452CFCB6AF00C4D1B5 /* sampleData.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,7 +384,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F19C72692CC7249E00390BD6 /* ConcertViewModel.swift in Sources */,
-				F1DAE69E2CC37F7F00901914 /* DateExtension.swift in Sources */,
+				F1DAE69E2CC37F7F00901914 /* DateExtensions.swift in Sources */,
 				F176C9262CB5E7F9006BAE35 /* FlightFilters.swift in Sources */,
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
 				F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */,
@@ -470,7 +398,6 @@
 				F1DD1EB52CEEB354004A9F0F /* SliderFilter.swift in Sources */,
 				F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */,
 				F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */,
-				F1DAE6A42CC42FCA00901914 /* ClosestAirportCodeResponse.swift in Sources */,
 				F18C460E2CC5B30D00756472 /* TimeUtil.swift in Sources */,
 				F19C72672CC71C5E00390BD6 /* FlightsViewModel.swift in Sources */,
 				F1E786292CB36CAB00F4E462 /* SFSafariView.swift in Sources */,
@@ -500,6 +427,7 @@
 				F13186292CB1EBD9003DBCC5 /* ProfileView.swift in Sources */,
 				F11640112C8A8A2F0040C95D /* CaminoApp.swift in Sources */,
 				F19C727B2CD0691200390BD6 /* SortFlightsEnum.swift in Sources */,
+				F18DE2EC2CFD309500C4D1B5 /* FontExtensions.swift in Sources */,
 				F11640222C8BA8270040C95D /* TripsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

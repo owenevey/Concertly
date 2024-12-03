@@ -20,10 +20,10 @@ struct ConcertView: View {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(concert.name)
-                        .font(Font.custom("Barlow-Bold", size: 30))
+                        .font(.system(size: 30, type: .SemiBold))
                     
                     Text(concert.dateTime.formatted(date: .complete, time: .omitted))
-                        .font(Font.custom("Barlow-SemiBold", size: 17))
+                        .font(.system(size: 16, type: .Regular))
                         .foregroundStyle(.gray)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -31,10 +31,10 @@ struct ConcertView: View {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Minimum Price Summary")
-                        .font(Font.custom("Barlow-SemiBold", size: 20))
+                        .font(.system(size: 20, type: .SemiBold))
                     
                     Text("\(viewModel.tripStartDate.mediumFormat()) - \(viewModel.tripEndDate.mediumFormat())")
-                        .font(Font.custom("Barlow-SemiBold", size: 17))
+                        .font(.system(size: 16, type: .Regular))
                         .foregroundStyle(.gray)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -59,10 +59,10 @@ struct ConcertView: View {
                     
                     HStack {
                         Text("Total:")
-                            .font(Font.custom("Barlow-SemiBold", size: 17))
+                            .font(.system(size: 16, type: .SemiBold))
                         Spacer()
                         Text("$\(viewModel.totalPrice)")
-                            .font(Font.custom("Barlow-SemiBold", size: 17))
+                            .font(.system(size: 16, type: .SemiBold))
                     }
                     .padding(.horizontal, 10)
                     
@@ -75,7 +75,7 @@ struct ConcertView: View {
                     print("Plan trip tapped")
                 } label: {
                     Text("Plan Trip")
-                        .font(Font.custom("Barlow-SemiBold", size: 18))
+                        .font(.system(size: 16, type: .SemiBold))
                         .padding()
                     
                         .containerRelativeFrame(.horizontal) { size, axis in

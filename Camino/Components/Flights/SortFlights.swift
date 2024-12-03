@@ -9,7 +9,7 @@ struct SortFlights: View {
     var body: some View {
         VStack {
             Text("Sort")
-                .font(Font.custom("Barlow-SemiBold", size: 20))
+                .font(.system(size: 20, type: .SemiBold))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             VStack(spacing: 10) {
@@ -25,7 +25,7 @@ struct SortFlights: View {
                                 .foregroundStyle(.accent)
                             
                             Text(method.title)
-                                .font(Font.custom("Barlow-SemiBold", size: 16))
+                                .font(.system(size: 17, type: .Regular))
                             
                             Spacer()
                         }
@@ -50,7 +50,7 @@ struct SortFlights: View {
                 dismiss()
             } label: {
                 Text("Done")
-                    .font(Font.custom("Barlow-SemiBold", size: 18))
+                    .font(.system(size: 17, type: .SemiBold))
                     .padding()
                     .frame(width: 250)
                     .clipShape(RoundedRectangle(cornerRadius: 20))

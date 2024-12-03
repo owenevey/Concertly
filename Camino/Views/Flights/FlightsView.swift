@@ -29,15 +29,15 @@ struct FlightsView: View {
             scrollContent: {
                 VStack(spacing: 15) {
                     if let departingFlight = viewModel.departingFlight {
-                        HStack {
+                        HStack(alignment: .bottom) {
                             Text("Departing Flight")
-                                .font(Font.custom("Barlow-SemiBold", size: 18))
+                                .font(.system(size: 18, type: .SemiBold))
                             
                             Button {
                                 viewModel.departingFlight = nil
                             } label: {
                                 Text("Remove")
-                                    .font(Font.custom("Barlow-SemiBold", size: 14))
+                                    .font(.system(size: 16, type: .Regular))
                             }
                             Spacer()
                         }
@@ -45,12 +45,12 @@ struct FlightsView: View {
                         FlightCard(flightItem: departingFlight)
                         
                         Text("Returning Flights")
-                            .font(Font.custom("Barlow-SemiBold", size: 18))
+                            .font(.system(size: 18, type: .SemiBold))
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     else {
                         Text("Departing Flights")
-                            .font(Font.custom("Barlow-SemiBold", size: 18))
+                            .font(.system(size: 18, type: .SemiBold))
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     
@@ -64,7 +64,7 @@ struct FlightsView: View {
                                     .font(.system(size: 20))
                                 
                                 Text("No flights")
-                                    .font(Font.custom("Barlow-Regular", size: 18))
+                                    .font(.system(size: 18, type: .Regular))
                             }
                             .frame(height: 300)
                         } else {
@@ -89,6 +89,10 @@ struct FlightsView: View {
             if viewModel.departingFlight != nil {
                 Task {
                     await viewModel.getReturningFlights()
+                }
+            } else {
+                Task {
+                    await viewModel.getDepartingFlights()
                 }
             }
         }

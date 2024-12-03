@@ -33,8 +33,8 @@ struct FilterTime: View {
     
     var body: some View {
         VStack {
-            Text("Filter by Arrival Time")
-                .font(Font.custom("Barlow-SemiBold", size: 20))
+            Text("Time")
+                .font(.system(size: 20, type: .SemiBold))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             Spacer()
@@ -45,7 +45,7 @@ struct FilterTime: View {
                     .padding(.horizontal, 25)
                 
                 Text("Latest Arrival Time: \(formattedTime(from: timeFilter))")
-                    .font(Font.custom("Barlow-SemiBold", size: 20))
+                    .font(.system(size: 20, type: .Medium))
                     .frame(maxWidth: .infinity, alignment: .center)
             }
             
@@ -55,7 +55,7 @@ struct FilterTime: View {
                 dismiss()
             } label: {
                 Text("Done")
-                    .font(Font.custom("Barlow-SemiBold", size: 18))
+                    .font(.system(size: 17, type: .SemiBold))
                     .padding()
                     .frame(width: 250)
                     .clipShape(RoundedRectangle(cornerRadius: 20))

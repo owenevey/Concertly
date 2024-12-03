@@ -28,7 +28,7 @@ struct ExploreView: View {
                     VStack {
                         HStack {
                             Text("What adventures\nawait?")
-                                .font(Font.custom("Barlow-Bold", size: 30))
+                                .font(.system(size: 30, type: .Bold))
                                 .foregroundStyle(.white)
                                 .frame(alignment: .leading)
                                 .shadow(color: .black.opacity(0.6), radius: 3)
@@ -43,7 +43,7 @@ struct ExploreView: View {
                                 HStack {
                                     Image(systemName: "magnifyingglass")
                                     TextField("Search", text: $textInput)
-                                        .font(Font.custom("Barlow-Regular", size: 18))
+                                        .font(.system(size: 18, type: .Regular))
                                         .padding(.trailing)
                                 }.padding()
                             )

@@ -3,7 +3,7 @@ import Foundation
 struct FlightsResponse: Codable {
     let bestFlights: [FlightItem]
     let otherFlights: [FlightItem]
-    let priceInsights: PriceInsights
+    let priceInsights: PriceInsights?
     let airports: [AirportInfo]
     
     enum CodingKeys: String, CodingKey {
@@ -14,14 +14,14 @@ struct FlightsResponse: Codable {
     }
     
     init(bestFlights: [FlightItem] = [],
-             otherFlights: [FlightItem] = [],
-             priceInsights: PriceInsights = PriceInsights(),
-             airports: [AirportInfo] = []) {
-            self.bestFlights = bestFlights
-            self.otherFlights = otherFlights
-            self.priceInsights = priceInsights
-            self.airports = airports
-        }
+         otherFlights: [FlightItem] = [],
+         priceInsights: PriceInsights = PriceInsights(),
+         airports: [AirportInfo] = []) {
+        self.bestFlights = bestFlights
+        self.otherFlights = otherFlights
+        self.priceInsights = priceInsights
+        self.airports = airports
+    }
 }
 
 struct FlightItem: Codable, Identifiable, Equatable {
@@ -34,7 +34,8 @@ struct FlightItem: Codable, Identifiable, Equatable {
     let type: String
     let airlineLogo: String
     let extensions: [String]
-    let departureToken: String
+    let departureToken: String?
+    let bookingToken: String?
     
     enum CodingKeys: String, CodingKey {
         case flights
@@ -46,14 +47,18 @@ struct FlightItem: Codable, Identifiable, Equatable {
         case airlineLogo = "airline_logo"
         case extensions
         case departureToken = "departure_token"
+        case bookingToken = "booking_token"
     }
     
     static func == (lhs: FlightItem, rhs: FlightItem) -> Bool {
-        return lhs.departureToken == rhs.departureToken
+        return lhs.flights == rhs.flights &&
+        lhs.totalDuration == rhs.totalDuration &&
+        lhs.price == rhs.price &&
+        lhs.type == rhs.type
     }
 }
 
-struct Flight: Codable, Identifiable {
+struct Flight: Codable, Identifiable, Equatable {
     let id = UUID()
     let departureAirport: Airport
     let arrivalAirport: Airport
@@ -80,12 +85,25 @@ struct Flight: Codable, Identifiable {
         case extensions
         case oftenDelayedByOver30Min = "often_delayed_by_over_30_min"
     }
+    
+    static func == (lhs: Flight, rhs: Flight) -> Bool {
+            return lhs.departureAirport == rhs.departureAirport &&
+                   lhs.arrivalAirport == rhs.arrivalAirport &&
+                   lhs.duration == rhs.duration &&
+                   lhs.flightNumber == rhs.flightNumber &&
+                   lhs.airline == rhs.airline &&
+                   lhs.travelClass == rhs.travelClass
+        }
 }
 
-struct Airport: Codable {
+struct Airport: Codable, Equatable {
     let id: String
     let name: String
     let time: Date
+    
+    static func == (lhs: Airport, rhs: Airport) -> Bool {
+        return lhs.id == rhs.id && lhs.name == rhs.name && lhs.time == rhs.time
+    }
 }
 
 struct Layover: Codable {
@@ -121,14 +139,14 @@ struct PriceInsights: Codable {
     }
     
     init(lowestPrice: Int = 0,
-             priceLevel: String = "",
-             typicalPriceRange: [Int] = [],
-             priceHistory: [[Int]] = []) {
-            self.lowestPrice = lowestPrice
-            self.priceLevel = priceLevel
-            self.typicalPriceRange = typicalPriceRange
-            self.priceHistory = priceHistory
-        }
+         priceLevel: String = "",
+         typicalPriceRange: [Int] = [],
+         priceHistory: [[Int]] = []) {
+        self.lowestPrice = lowestPrice
+        self.priceLevel = priceLevel
+        self.typicalPriceRange = typicalPriceRange
+        self.priceHistory = priceHistory
+    }
 }
 
 struct AirportInfo: Codable {

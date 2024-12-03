@@ -40,10 +40,10 @@ struct FlightsHeader: View {
             VStack {
                 HStack {
                     Text("\(fromAirport) - \(toAirport)")
-                        .font(Font.custom("Barlow-Bold", size: 20))
+                        .font(.system(size: 20, type: .SemiBold))
                 }
                 Text("\(fromDate.shortFormat()) - \(toDate.shortFormat())")
-                    .font(Font.custom("Barlow-SemiBold", size: 15))
+                    .font(.system(size: 15, type: .Medium))
             }
             
             Spacer()
@@ -54,7 +54,7 @@ struct FlightsHeader: View {
                 } label: {
                     HStack(spacing: 5) {
                         Text("Edit")
-                            .font(Font.custom("Barlow-SemiBold", size: 16))
+                            .font(.system(size: 16, type: .Medium))
                         
                         Image(systemName: "pencil")
                             .font(.system(size: 16))
@@ -75,7 +75,39 @@ struct FlightsHeader: View {
     let fromAirport = "JFK"
     let toAirport = "LAX"
     
-    let flightsResponse = ApiResponse(status: .success, data: FlightsResponse(bestFlights: [], otherFlights: []))
+    let mockAirports = [
+        AirportInfo(
+            departure: [
+                AirportDetail(
+                    airport: AirportSummary(id: "JFK", name: "John F. Kennedy International"),
+                    city: "New York",
+                    country: "USA",
+                    countryCode: "US",
+                    image: "",
+                    thumbnail: ""
+                )
+            ],
+            arrival: [
+                AirportDetail(
+                    airport: AirportSummary(id: "LAX", name: "Los Angeles International"),
+                    city: "Los Angeles",
+                    country: "USA",
+                    countryCode: "US",
+                    image: "",
+                    thumbnail: ""
+                )
+            ]
+        )
+    ]
+    
+    let flightsResponse = ApiResponse(
+        status: .success,
+        data: FlightsResponse(
+            bestFlights: [],
+            otherFlights: [],
+            airports: mockAirports
+        )
+    )
     
     VStack {
         Spacer()
@@ -90,3 +122,4 @@ struct FlightsHeader: View {
     }
     .background(.gray)
 }
+

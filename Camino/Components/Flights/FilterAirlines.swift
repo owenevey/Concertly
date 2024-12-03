@@ -13,7 +13,7 @@ struct FilterAirlines: View {
     var body: some View {
         VStack {
             Text("Airlines")
-                .font(Font.custom("Barlow-SemiBold", size: 20))
+                .font(.system(size: 20, type: .SemiBold))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             VStack(spacing: 0) {
@@ -29,7 +29,7 @@ struct FilterAirlines: View {
                             .foregroundStyle(.accent)
                         
                         Text("Select all")
-                            .font(Font.custom("Barlow-SemiBold", size: 16))
+                            .font(.system(size: 17, type: .Regular))
                         
                         Spacer()
                     }
@@ -71,7 +71,7 @@ struct FilterAirlines: View {
                                         )
                                     
                                     Text(airline)
-                                        .font(Font.custom("Barlow-SemiBold", size: 16))
+                                        .font(.system(size: 17, type: .Regular))
                                     
                                     Spacer()
                                 }
@@ -100,7 +100,7 @@ struct FilterAirlines: View {
                 dismiss()
             } label: {
                 Text("Done")
-                    .font(Font.custom("Barlow-SemiBold", size: 18))
+                    .font(.system(size: 17, type: .SemiBold))
                     .padding()
                     .frame(width: 250)
                     .clipShape(RoundedRectangle(cornerRadius: 20))

@@ -122,6 +122,7 @@ func fetchReturnFlights(fromAirport: String, toAirport: String, fromDate: String
 }
 
 
+
 enum CaminoError: Error {
     case invalidURL
     case invalidResponse

@@ -7,102 +7,131 @@ struct FlightDetailsView: View {
     @Binding var outboundFlight: FlightItem?
     
     var body: some View {
-        ScrollView {
-            
-            HStack {
-                VStack(alignment: .leading) {
-                    Circle()
-                        .fill(.white)
-                        .frame(width: 50, height: 50)
-                        .overlay(
-                            AsyncImage(url: URL(string: flightItem.flights.first!.airlineLogo)) { image in
-                                image
-                                    .resizable()
-                            } placeholder: {
-                                Image(systemName: "photo.fill")
-                            }
-                                .scaledToFit()
-                                .frame(width: 30, height: 30)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 15) {
+                HStack {
+                    VStack(alignment: .leading) {
+                        Circle()
+                            .fill(.white)
+                            .frame(width: 50, height: 50)
+                            .overlay(
+                                AsyncImage(url: URL(string: flightItem.flights.first!.airlineLogo)) { image in
+                                    image
+                                        .resizable()
+                                } placeholder: {
+                                    Image(systemName: "photo.fill")
+                                }
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)
+                            )
+                        
+                        Text("\(flightItem.flights.first!.departureAirport.id) - \(flightItem.flights.last!.arrivalAirport.id)")
+                            .font(.system(size: 24, type: .SemiBold))
+                        
+                        Text(flightItem.flights.first!.departureAirport.time.mediumFormat())
+                            .font(.system(size: 18, type: .Regular))
+                    }
+                    
+                    Spacer()
+                    
+                    VStack {
+                        Spacer()
+                        Text(flightItem.price, format: .currency(code: "USD").precision(.fractionLength(0)))
+                            .font(.system(size: 24, type: .Medium))
+                    }
+                }
+                
+                /////////////
+                
+                Divider()
+                    .frame(height: 2)
+                    .overlay(.customGray)
+                    .padding(.horizontal, -15)
+                
+                /////////////
+                
+                Button {
+                    outboundFlight = flightItem
+                    dismiss()
+                } label: {
+                    Text("Select Flight")
+                        .font(.system(size: 18, type: .Medium))
+                        .foregroundStyle(.white)
+                        .padding(10)
+                        .frame(maxWidth: .infinity)
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(.accent)
                         )
                     
-                    Text("\(flightItem.flights.first!.departureAirport.id) - \(flightItem.flights.last!.arrivalAirport.id)")
-                        .font(Font.custom("Barlow-SemiBold", size: 18))
+                }
+                .buttonStyle(PlainButtonStyle())
+                .padding(.bottom, 10)
+                
+                /////////////
+                
+                Text("Itinerary")
+                    .font(.system(size: 20, type: .SemiBold))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                /////////////
+                
+                VStack(spacing: 20) {
+                    ForEach(flightItem.flights.indices, id: \.self) { index in
+                        FlightLeg(flight: flightItem.flights[index])
+                        
+                        if index < flightItem.layovers?.count ?? 0 {
+                            LayoverView(layover: flightItem.layovers![index])
+                        }
+                    }
+                }
+                .padding(.bottom, 10)
+                
+                /////////////
+                
+                Text("Route Details")
+                    .font(.system(size: 20, type: .SemiBold))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                VStack(alignment: .leading, spacing: 8) {
+                    HStack {
+                        Image(systemName: "clock.fill")
+                            .font(.system(size: 16))
+                            .frame(width: 20)
+                        Text("Total Duration: \(minsToHrMins(minutes: flightItem.totalDuration))")
+                            .font(.system(size: 16, type: .Regular))
+                    }
                     
-                    Text("December 29, 2024")
-                        .font(Font.custom("Barlow-Regular", size: 18))
+                    HStack {
+                        Image(systemName: "airplane.departure")
+                            .font(.system(size: 16))
+                            .frame(width: 20)
+                        Text("Departure Airport:\n\(flightItem.flights.first!.departureAirport.name)")
+                            .font(.system(size: 16, type: .Regular))
+                    }
                     
+                    HStack {
+                        Image(systemName: "airplane.arrival")
+                            .font(.system(size: 16))
+                            .frame(width: 20)
+                        Text("Arrival Airport:\n\(flightItem.flights.last!.arrivalAirport.name)")
+                            .font(.system(size: 16, type: .Regular))
+                    }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(15)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(.card)
+                        .stroke(.customGray, style: StrokeStyle(lineWidth: 1))
+                )
                 
                 
-                Spacer()
                 
-                VStack {
-                    Spacer()
-                    Text(flightItem.price, format: .currency(code: "USD").precision(.fractionLength(0)))
-                        .font(Font.custom("Barlow-SemiBold", size: 23))
-                }
             }
-            .padding(.top, 50)
-            .padding(.horizontal)
-            
-            Divider()
-                .frame(height: 2)
-                .overlay(.customGray)
-            
-            Button {
-                outboundFlight = flightItem
-                dismiss()
-            } label: {
-                Text("Select Flight")
-                    .font(Font.custom("Barlow-SemiBold", size: 18))
-                    .padding(10)
-                    .frame(width: 220)
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
-                    .background(
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(.accent)
-                    )
-            }
-            .buttonStyle(PlainButtonStyle())
-            
-            
-            ForEach(flightItem.flights.indices, id: \.self) { index in
-                FlightLeg(flight: flightItem.flights[index])
-                
-                if index < flightItem.layovers?.count ?? 0 {
-                    LayoverView(layover: flightItem.layovers![index])
-                }
-            }
-            
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Image(systemName: "clock.fill")
-                        .font(.system(size: 16))
-                        .frame(width: 20)
-                    Text("Total Duration: \(minsToHrMins(minutes: flightItem.totalDuration))")
-                        .font(Font.custom("Barlow-Regular", size: 16))
-                }
-                
-                HStack {
-                    Image(systemName: "airplane.departure")
-                        .font(.system(size: 16))
-                        .frame(width: 20)
-                    Text("Departure Airport: \(flightItem.flights.first!.departureAirport.name)")
-                        .font(Font.custom("Barlow-Regular", size: 16))
-                }
-                
-                HStack {
-                    Image(systemName: "airplane.arrival")
-                        .font(.system(size: 16))
-                        .frame(width: 20)
-                    Text("Arrival Airport: \(flightItem.flights.last!.arrivalAirport.name)")
-                        .font(Font.custom("Barlow-Regular", size: 16))
-                }
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
             .padding()
-            
-            
         }
         .background(Color("Background"))
     }
@@ -113,16 +142,14 @@ struct LayoverView: View {
     let layover: Layover
     
     var body: some View {
-        HStack(spacing: 10) {
-            Image(systemName: "clock")
+        HStack {
+            Image(systemName: "clock.fill")
                 .font(.system(size: 16))
                 .foregroundStyle(.gray)
             Text("\(minsToHrMins(minutes: layover.duration)) Layover at \(layover.id)")
-                .font(Font.custom("Barlow-Regular", size: 15))
+                .font(.system(size: 16, type: .Regular))
                 .foregroundStyle(.gray)
         }
-        .padding(.horizontal)
-        .padding(.vertical, 8)
     }
 }
 
@@ -151,9 +178,9 @@ struct FlightLeg: View {
                 
                 VStack(alignment: .leading) {
                     Text(flight.airline)
-                        .font(Font.custom("Barlow-SemiBold", size: 18))
+                        .font(.system(size: 18, type: .Medium))
                     Text(flight.flightNumber)
-                        .font(Font.custom("Barlow-SemiBold", size: 15))
+                        .font(.system(size: 16, type: .Regular))
                         .foregroundStyle(.gray)
                 }
             }
@@ -162,17 +189,16 @@ struct FlightLeg: View {
                 VStack(alignment: .leading, spacing: 0) {
                     HStack(alignment: .bottom, spacing: 0) {
                         Text(flight.departureAirport.time.timeFormat())
-                            .font(Font.custom("Barlow-Regular", size: 20))
+                            .font(.system(size: 20, type: .Regular))
                         Text(flight.departureAirport.time.meridiemFormat())
-                            .font(Font.custom("Barlow-Regular", size: 15))
-                            .padding(.bottom, 2)
+                            .font(.system(size: 16, type: .Regular))
                     }
                     HStack(spacing: 5) {
                         Image(systemName: "arrow.up.right.circle.fill")
                             .font(.system(size: 13))
                         Text(flight.departureAirport.id)
-                            .font(Font.custom("Barlow-Regular", size: 14))
-                            .minimumScaleFactor(0.5)
+                            .font(.system(size: 14, type: .Regular))
+                            .minimumScaleFactor(0.75)
                     }
                     
                 }
@@ -184,7 +210,7 @@ struct FlightLeg: View {
                         .overlay(Color.gray)
                     
                     Text(minsToHrMins(minutes: flight.duration))
-                        .font(Font.custom("Barlow-SemiBold", size: 14))
+                        .font(.system(size: 14, type: .Regular))
                         .foregroundStyle(.gray)
                     
                     Rectangle()
@@ -196,17 +222,16 @@ struct FlightLeg: View {
                 VStack(alignment: .trailing, spacing: 0) {
                     HStack(alignment: .bottom, spacing: 0) {
                         Text(flight.arrivalAirport.time.timeFormat())
-                            .font(Font.custom("Barlow-Regular", size: 20))
+                            .font(.system(size: 20, type: .Regular))
                         Text(flight.arrivalAirport.time.meridiemFormat())
-                            .font(Font.custom("Barlow-Regular", size: 15))
-                            .padding(.bottom, 2)
+                            .font(.system(size: 16, type: .Regular))
                     }
                     HStack(spacing: 5) {
                         Image(systemName: "arrow.down.right.circle.fill")
                             .font(.system(size: 13))
                         Text(flight.arrivalAirport.id)
-                            .font(Font.custom("Barlow-Regular", size: 14))
-                            .minimumScaleFactor(0.5)
+                            .font(.system(size: 14, type: .Regular))
+                            .minimumScaleFactor(0.75)
                     }
                 }
             }
@@ -217,7 +242,7 @@ struct FlightLeg: View {
                         .font(.system(size: 16))
                         .frame(width: 20)
                     Text(flight.airplane ?? "")
-                        .font(Font.custom("Barlow-Regular", size: 16))
+                        .font(.system(size: 16, type: .Regular))
                 }
                 
                 HStack {
@@ -225,7 +250,7 @@ struct FlightLeg: View {
                         .font(.system(size: 16))
                         .frame(width: 20)
                     Text(flight.travelClass)
-                        .font(Font.custom("Barlow-Regular", size: 16))
+                        .font(.system(size: 16, type: .Regular))
                 }
                 
                 HStack {
@@ -233,13 +258,19 @@ struct FlightLeg: View {
                         .font(.system(size: 16))
                         .frame(width: 20)
                     Text("\(flight.legroom) legroom")
-                        .font(Font.custom("Barlow-Regular", size: 16))
+                        .font(.system(size: 16, type: .Regular))
                 }
             }
             
             
         }
-        .padding()
+        .padding(15)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(.card)
+                .stroke(.customGray, style: StrokeStyle(lineWidth: 1))
+        )
     }
 }
 

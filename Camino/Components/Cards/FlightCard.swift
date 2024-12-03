@@ -14,6 +14,8 @@ struct FlightCard: View {
         }
     }
     
+    
+    
     var body: some View {
         VStack(spacing: 10) {
             HStack(alignment: .top) {
@@ -35,10 +37,13 @@ struct FlightCard: View {
                     
                     VStack(alignment: .leading) {
                         Text(flightItem.flights.first!.airline)
-                            .font(Font.custom("Barlow-SemiBold", size: 18))
-                        Text(flightItem.flights.first!.airplane ?? "")
-                            .font(Font.custom("Barlow-SemiBold", size: 15))
-                            .foregroundStyle(.gray)
+                            .font(.system(size: 18, type: .Medium))
+                        if let airplane = flightItem.flights.first?.airplane {
+                            Text(airplane)
+                                .font(.system(size: 16, type: .Regular))
+                                .foregroundStyle(.gray)
+                        }
+                        
                     }
                 }
                 
@@ -50,7 +55,7 @@ struct FlightCard: View {
                         .foregroundStyle(.gray)
                     
                     Text(minsToHrMins(minutes: flightItem.totalDuration))
-                        .font(Font.custom("Barlow-SemiBold", size: 14))
+                        .font(.system(size: 14, type: .Regular))
                         .foregroundStyle(.gray)
                 }
             }
@@ -60,17 +65,16 @@ struct FlightCard: View {
                     VStack(alignment: .leading, spacing: 0) {
                         HStack(alignment: .bottom, spacing: 0) {
                             Text(flightItem.flights.first!.departureAirport.time.timeFormat())
-                                .font(Font.custom("Barlow-SemiBold", size: 20))
+                                .font(.system(size: 20, type: .Regular))
                             Text(flightItem.flights.first!.departureAirport.time.meridiemFormat())
-                                .font(Font.custom("Barlow-SemiBold", size: 15))
+                                .font(.system(size: 15, type: .Regular))
                                 .padding(.bottom, 2)
                         }
                         HStack(spacing: 5) {
                             Image(systemName: "arrow.up.right.circle.fill")
                                 .font(.system(size: 13))
                             Text(flightItem.flights.first!.departureAirport.id)
-                                .font(Font.custom("Barlow-SemiBold", size: 14))
-                                .minimumScaleFactor(0.5)
+                                .font(.system(size: 14, type: .Regular))
                         }
                         
                     }
@@ -95,22 +99,21 @@ struct FlightCard: View {
                     VStack(alignment: .trailing, spacing: 0) {
                         HStack(alignment: .bottom, spacing: 0) {
                             Text(flightItem.flights.last!.arrivalAirport.time.timeFormat())
-                                .font(Font.custom("Barlow-SemiBold", size: 20))
+                                .font(.system(size: 20, type: .Regular))
                             Text(flightItem.flights.last!.arrivalAirport.time.meridiemFormat())
-                                .font(Font.custom("Barlow-SemiBold", size: 15))
+                                .font(.system(size: 15, type: .Regular))
                                 .padding(.bottom, 2)
                         }
                         HStack(spacing: 5) {
                             Image(systemName: "arrow.down.right.circle.fill")
                                 .font(.system(size: 13))
                             Text(flightItem.flights.last!.arrivalAirport.id)
-                                .font(Font.custom("Barlow-SemiBold", size: 14))
-                                .minimumScaleFactor(0.5)
+                                .font(.system(size: 14, type: .Regular))
                         }
                     }
                 }
                 Text(flightItem.price, format: .currency(code: "USD").precision(.fractionLength(0)))
-                    .font(Font.custom("Barlow-SemiBold", size: 23))
+                    .font(.system(size: 25, type: .Medium))
                     .frame(width: 100)
             }
         }
@@ -169,7 +172,7 @@ struct FlightCard: View {
             "Checked baggage for a fee",
             "Bag and fare conditions depend on the return flight"
         ],
-        departureToken: "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ1pCUVRJeU9EY2FDd2pjdEFNUUFob0RWVk5FT0J4dzNMUUQiLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkFBIiwiMjI4NyJdXV0="
+        departureToken: "WyJDalJJY2s5T1JGcFdTeTFvVUdkQlFVOTFXbmRDUnkwdExTMHRMUzB0TFhCbWFITXhPRUZCUVVGQlIyTkZWemhCUldkdmNVRkJFZ1pCUVRJeU9EY2FDd2pjdEFNUUFob0RWVk5FT0J4dzNMUUQiLFtbIkFVUyIsIjIwMjQtMTAtMjAiLCJKRksiLG51bGwsIkFBIiwiMjI4NyJdXV0=", bookingToken: nil
     )
     
     FlightCard(flightItem: mockFlightItem)

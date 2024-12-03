@@ -1,0 +1,638 @@
+{
+    "best_flights": [
+        {
+            "flights": [
+                {
+                    "departure_airport": {
+                        "name": "San Diego International Airport",
+                        "id": "SAN",
+                        "time": "2024-12-08 12:05"
+                    },
+                    "arrival_airport": {
+                        "name": "Austin-Bergstrom International Airport",
+                        "id": "AUS",
+                        "time": "2024-12-08 16:50"
+                    },
+                    "duration": 165,
+                    "airplane": "Boeing 737",
+                    "airline": "Southwest",
+                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/WN.png",
+                    "travel_class": "Economy",
+                    "flight_number": "WN 2068",
+                    "legroom": "31 in",
+                    "extensions": [
+                        "Average legroom (31 in)",
+                        "Wi-Fi for a fee",
+                        "Stream media to your device",
+                        "Carbon emissions estimate: 194 kg"
+                    ]
+                }
+            ],
+            "total_duration": 165,
+            "carbon_emissions": {
+                "this_flight": 195000,
+                "typical_for_this_route": 178000,
+                "difference_percent": 10
+            },
+            "price": 658,
+            "type": "Round trip",
+            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/WN.png",
+            "extensions": [
+                "1 checked bag included",
+                "Bag and fare conditions depend on the return flight"
+            ],
+            "booking_token": "WyJDalJJV0ZoNVNUWnNlbmxoTjFWQlNrWnNjRUZDUnkwdExTMHRMUzB0TFc5NWVIVXhNa0ZCUVVGQlIyUk1ORzFOVEhSNlJEUkJFZ2hYVGpJd05qZ2pNUm9MQ0lTQ0JCQUNHZ05WVTBRNEhIQ0VnZ1E9IixbWyJBVVMiLCIyMDI0LTEyLTAyIiwiU0FOIixudWxsLCJXTiIsIjM3NjYiXV0sW1siU0FOIiwiMjAyNC0xMi0wOCIsIkFVUyIsbnVsbCwiV04iLCIyMDY4Il1dXQ=="
+        },
+        {
+            "flights": [
+                {
+                    "departure_airport": {
+                        "name": "Austin-Bergstrom International Airport",
+                        "id": "AUS",
+                        "time": "2024-12-02 14:39"
+                    },
+                    "arrival_airport": {
+                        "name": "San Diego International Airport",
+                        "id": "SAN",
+                        "time": "2024-12-02 15:47"
+                    },
+                    "duration": 188,
+                    "airplane": "Boeing 737MAX 9 Passenger",
+                    "airline": "Alaska",
+                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AS.png",
+                    "travel_class": "Economy",
+                    "flight_number": "AS 531",
+                    "ticket_also_sold_by": [
+                        "American"
+                    ],
+                    "legroom": "31 in",
+                    "extensions": [
+                        "Average legroom (31 in)",
+                        "Wi-Fi for a fee",
+                        "In-seat power & USB outlets",
+                        "Stream media to your device",
+                        "Carbon emissions estimate: 163 kg"
+                    ]
+                }
+            ],
+            "total_duration": 188,
+            "carbon_emissions": {
+                "this_flight": 164000,
+                "typical_for_this_route": 216000,
+                "difference_percent": -24
+            },
+            "price": 617,
+            "type": "Round trip",
+            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AS.png",
+            "extensions": [
+                "Checked baggage for a fee",
+                "Bag and fare conditions depend on the return flight"
+            ],
+            "departure_token": "WyJDalJJVUVRMU4wbzBhVWR2Y1RCQlNXeDNZbWRDUnkwdExTMHRMUzB0TFMxNWJHbHZOa0ZCUVVGQlIyUk1ORmROUlVwa1ZXRkJFZ1ZCVXpVek1Sb0xDTFBoQXhBQ0dnTlZVMFE0SEhDejRRTT0iLFtbIkFVUyIsIjIwMjQtMTItMDIiLCJTQU4iLG51bGwsIkFTIiwiNTMxIl1dXQ=="
+        },
+        {
+            "flights": [
+                {
+                    "departure_airport": {
+                        "name": "Austin-Bergstrom International Airport",
+                        "id": "AUS",
+                        "time": "2024-12-02 06:30"
+                    },
+                    "arrival_airport": {
+                        "name": "San Diego International Airport",
+                        "id": "SAN",
+                        "time": "2024-12-02 07:40"
+                    },
+                    "duration": 190,
+                    "airplane": "Boeing 737",
+                    "airline": "Southwest",
+                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/WN.png",
+                    "travel_class": "Economy",
+                    "flight_number": "WN 3766",
+                    "legroom": "32 in",
+                    "extensions": [
+                        "Above average legroom (32 in)",
+                        "Wi-Fi for a fee",
+                        "Stream media to your device",
+                        "Carbon emissions estimate: 174 kg"
+                    ]
+                }
+            ],
+            "total_duration": 190,
+            "carbon_emissions": {
+                "this_flight": 174000,
+                "typical_for_this_route": 216000,
+                "difference_percent": -19
+            },
+            "price": 618,
+            "type": "Round trip",
+            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/WN.png",
+            "extensions": [
+                "1 checked bag included",
+                "Bag and fare conditions depend on the return flight"
+            ],
+            "departure_token": "WyJDalJJVUVRMU4wbzBhVWR2Y1RCQlNXeDNZbWRDUnkwdExTMHRMUzB0TFMxNWJHbHZOa0ZCUVVGQlIyUk1ORmROUlVwa1ZXRkJFZ1pYVGpNM05qWWFDd2prNGdNUUFob0RWVk5FT0J4dzVPSUQiLFtbIkFVUyIsIjIwMjQtMTItMDIiLCJTQU4iLG51bGwsIldOIiwiMzc2NiJdXV0="
+        },
+        {
+            "flights": [
+                {
+                    "departure_airport": {
+                        "name": "Austin-Bergstrom International Airport",
+                        "id": "AUS",
+                        "time": "2024-12-02 07:15"
+                    },
+                    "arrival_airport": {
+                        "name": "San Diego International Airport",
+                        "id": "SAN",
+                        "time": "2024-12-02 08:30"
+                    },
+                    "duration": 195,
+                    "airplane": "Boeing 737",
+                    "airline": "Alaska",
+                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AS.png",
+                    "travel_class": "Economy",
+                    "flight_number": "AS 343",
+                    "ticket_also_sold_by": [
+                        "American"
+                    ],
+                    "legroom": "31 in",
+                    "extensions": [
+                        "Average legroom (31 in)",
+                        "Wi-Fi for a fee",
+                        "In-seat power & USB outlets",
+                        "Stream media to your device",
+                        "Carbon emissions estimate: 204 kg"
+                    ]
+                }
+            ],
+            "total_duration": 195,
+            "carbon_emissions": {
+                "this_flight": 204000,
+                "typical_for_this_route": 216000,
+                "difference_percent": -6
+            },
+            "price": 637,
+            "type": "Round trip",
+            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AS.png",
+            "extensions": [
+                "Checked baggage for a fee",
+                "Bag and fare conditions depend on the return flight"
+            ],
+            "departure_token": "WyJDalJJVUVRMU4wbzBhVWR2Y1RCQlNXeDNZbWRDUnkwdExTMHRMUzB0TFMxNWJHbHZOa0ZCUVVGQlIyUk1ORmROUlVwa1ZXRkJFZ1ZCVXpNME14b0xDSVR4QXhBQ0dnTlZVMFE0SEhDRThRTT0iLFtbIkFVUyIsIjIwMjQtMTItMDIiLCJTQU4iLG51bGwsIkFTIiwiMzQzIl1dXQ=="
+        }
+    ],
+    "other_flights": [
+        {
+            "flights": [
+                {
+                    "departure_airport": {
+                        "name": "Austin-Bergstrom International Airport",
+                        "id": "AUS",
+                        "time": "2024-12-02 22:58"
+                    },
+                    "arrival_airport": {
+                        "name": "Denver International Airport",
+                        "id": "DEN",
+                        "time": "2024-12-03 00:19"
+                    },
+                    "duration": 141,
+                    "airplane": "Airbus A320neo",
+                    "airline": "Frontier",
+                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/F9.png",
+                    "travel_class": "Economy",
+                    "flight_number": "F9 2889",
+                    "legroom": "28 in",
+                    "extensions": [
+                        "Below average legroom (28 in)",
+                        "Carbon emissions estimate: 93 kg"
+                    ]
+                },
+                {
+                    "departure_airport": {
+                        "name": "Denver International Airport",
+                        "id": "DEN",
+                        "time": "2024-12-03 22:15"
+                    },
+                    "arrival_airport": {
+                        "name": "San Diego International Airport",
+                        "id": "SAN",
+                        "time": "2024-12-03 23:49"
+                    },
+                    "duration": 154,
+                    "airplane": "Airbus A320neo",
+                    "airline": "Frontier",
+                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/F9.png",
+                    "travel_class": "Economy",
+                    "flight_number": "F9 4989",
+                    "legroom": "28 in",
+                    "extensions": [
+                        "Below average legroom (28 in)",
+                        "Carbon emissions estimate: 102 kg"
+                    ],
+                    "often_delayed_by_over_30_min": true
+                }
+            ],
+            "layovers": [
+                {
+                    "duration": 1316,
+                    "name": "Denver International Airport",
+                    "id": "DEN",
+                    "overnight": true
+                }
+            ],
+            "total_duration": 1611,
+            "carbon_emissions": {
+                "this_flight": 197000,
+                "typical_for_this_route": 216000,
+                "difference_percent": -9
+            },
+            "price": 379,
+            "type": "Round trip",
+            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/F9.png",
+            "extensions": [
+                "Checked baggage for a fee",
+                "Bag and fare conditions depend on the return flight"
+            ],
+            "departure_token": "WyJDalJJVUVRMU4wbzBhVWR2Y1RCQlNXeDNZbWRDUnkwdExTMHRMUzB0TFMxNWJHbHZOa0ZCUVVGQlIyUk1ORmROUlVwa1ZXRkJFZzFHT1RJNE9EbDhSamswT1RnNUdnc0lxYWNDRUFJYUExVlRSRGdjY0ttbkFnPT0iLFtbIkFVUyIsIjIwMjQtMTItMDIiLCJERU4iLG51bGwsIkY5IiwiMjg4OSJdLFsiREVOIiwiMjAyNC0xMi0wMyIsIlNBTiIsbnVsbCwiRjkiLCI0OTg5Il1dXQ=="
+        },
+        {
+            "flights": [
+                {
+                    "departure_airport": {
+                        "name": "Austin-Bergstrom International Airport",
+                        "id": "AUS",
+                        "time": "2024-12-02 21:38"
+                    },
+                    "arrival_airport": {
+                        "name": "Harry Reid International Airport",
+                        "id": "LAS",
+                        "time": "2024-12-02 22:39"
+                    },
+                    "duration": 181,
+                    "airline": "Frontier",
+                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/F9.png",
+                    "travel_class": "Economy",
+                    "flight_number": "F9 3645",
+                    "legroom": "28 in",
+                    "extensions": [
+                        "Below average legroom (28 in)",
+                        "Carbon emissions estimate: 110 kg"
+                    ]
+                },
+                {
+                    "departure_airport": {
+                        "name": "Harry Reid International Airport",
+                        "id": "LAS",
+                        "time": "2024-12-03 05:30"
+                    },
+                    "arrival_airport": {
+                        "name": "San Diego International Airport",
+                        "id": "SAN",
+                        "time": "2024-12-03 06:40"
+                    },
+                    "duration": 70,
+                    "airline": "Spirit",
+                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/NK.png",
+                    "travel_class": "Economy",
+                    "flight_number": "NK 1496",
+                    "legroom": "28 in",
+                    "extensions": [
+                        "Below average legroom (28 in)",
+                        "Wi-Fi for a fee",
+                        "Carbon emissions estimate: 53 kg"
+                    ]
+                }
+            ],
+            "layovers": [
+                {
+                    "duration": 411,
+                    "name": "Harry Reid International Airport",
+                    "id": "LAS",
+                    "overnight": true
+                }
+            ],
+            "total_duration": 662,
+            "carbon_emissions": {
+                "this_flight": 164000,
+                "typical_for_this_route": 216000,
+                "difference_percent": -24
+            },
+            "price": 614,
+            "type": "Round trip",
+            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/multi.png",
+            "extensions": [
+                "Checked baggage for a fee",
+                "Bag and fare conditions depend on the return flight"
+            ],
+            "departure_token": "WyJDalJJVUVRMU4wbzBhVWR2Y1RCQlNXeDNZbWRDUnkwdExTMHRMUzB0TFMxNWJHbHZOa0ZCUVVGQlIyUk1ORmROUlVwa1ZXRkJFZzFHT1RNMk5EVjhUa3N4TkRrMkdnc0l5TjhERUFJYUExVlRSRGdjY01qZkF3PT0iLFtbIkFVUyIsIjIwMjQtMTItMDIiLCJMQVMiLG51bGwsIkY5IiwiMzY0NSJdLFsiTEFTIiwiMjAyNC0xMi0wMyIsIlNBTiIsbnVsbCwiTksiLCIxNDk2Il1dXQ=="
+        },
+        {
+            "flights": [
+                {
+                    "departure_airport": {
+                        "name": "Austin-Bergstrom International Airport",
+                        "id": "AUS",
+                        "time": "2024-12-02 18:25"
+                    },
+                    "arrival_airport": {
+                        "name": "San Diego International Airport",
+                        "id": "SAN",
+                        "time": "2024-12-02 19:40"
+                    },
+                    "duration": 195,
+                    "airplane": "Boeing 737",
+                    "airline": "Southwest",
+                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/WN.png",
+                    "travel_class": "Economy",
+                    "flight_number": "WN 971",
+                    "legroom": "31 in",
+                    "extensions": [
+                        "Average legroom (31 in)",
+                        "Wi-Fi for a fee",
+                        "Stream media to your device",
+                        "Carbon emissions estimate: 197 kg"
+                    ]
+                }
+            ],
+            "total_duration": 195,
+            "carbon_emissions": {
+                "this_flight": 197000,
+                "typical_for_this_route": 216000,
+                "difference_percent": -9
+            },
+            "price": 618,
+            "type": "Round trip",
+            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/WN.png",
+            "extensions": [
+                "1 checked bag included",
+                "Bag and fare conditions depend on the return flight"
+            ],
+            "departure_token": "WyJDalJJVUVRMU4wbzBhVWR2Y1RCQlNXeDNZbWRDUnkwdExTMHRMUzB0TFMxNWJHbHZOa0ZCUVVGQlIyUk1ORmROUlVwa1ZXRkJFZ1ZYVGprM01Sb0xDT1RpQXhBQ0dnTlZVMFE0SEhEazRnTT0iLFtbIkFVUyIsIjIwMjQtMTItMDIiLCJTQU4iLG51bGwsIldOIiwiOTcxIl1dXQ=="
+        },
+        {
+            "flights": [
+                {
+                    "departure_airport": {
+                        "name": "Austin-Bergstrom International Airport",
+                        "id": "AUS",
+                        "time": "2024-12-02 21:10"
+                    },
+                    "arrival_airport": {
+                        "name": "San Diego International Airport",
+                        "id": "SAN",
+                        "time": "2024-12-02 22:20"
+                    },
+                    "duration": 190,
+                    "airplane": "Boeing 737MAX 8 Passenger",
+                    "airline": "Southwest",
+                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/WN.png",
+                    "travel_class": "Economy",
+                    "flight_number": "WN 3631",
+                    "legroom": "32 in",
+                    "extensions": [
+                        "Above average legroom (32 in)",
+                        "Wi-Fi for a fee",
+                        "In-seat USB outlet",
+                        "Stream media to your device",
+                        "Carbon emissions estimate: 150 kg"
+                    ]
+                }
+            ],
+            "total_duration": 190,
+            "carbon_emissions": {
+                "this_flight": 151000,
+                "typical_for_this_route": 216000,
+                "difference_percent": -30
+            },
+            "price": 618,
+            "type": "Round trip",
+            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/WN.png",
+            "extensions": [
+                "1 checked bag included",
+                "Bag and fare conditions depend on the return flight"
+            ],
+            "departure_token": "WyJDalJJVUVRMU4wbzBhVWR2Y1RCQlNXeDNZbWRDUnkwdExTMHRMUzB0TFMxNWJHbHZOa0ZCUVVGQlIyUk1ORmROUlVwa1ZXRkJFZ1pYVGpNMk16RWFDd2prNGdNUUFob0RWVk5FT0J4dzVPSUQiLFtbIkFVUyIsIjIwMjQtMTItMDIiLCJTQU4iLG51bGwsIldOIiwiMzYzMSJdXV0="
+        },
+        {
+            "flights": [
+                {
+                    "departure_airport": {
+                        "name": "Austin-Bergstrom International Airport",
+                        "id": "AUS",
+                        "time": "2024-12-02 16:05"
+                    },
+                    "arrival_airport": {
+                        "name": "Harry Reid International Airport",
+                        "id": "LAS",
+                        "time": "2024-12-02 17:10"
+                    },
+                    "duration": 185,
+                    "airplane": "Boeing 737",
+                    "airline": "Southwest",
+                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/WN.png",
+                    "travel_class": "Economy",
+                    "flight_number": "WN 1281",
+                    "legroom": "31 in",
+                    "extensions": [
+                        "Average legroom (31 in)",
+                        "Wi-Fi for a fee",
+                        "Stream media to your device",
+                        "Carbon emissions estimate: 177 kg"
+                    ]
+                },
+                {
+                    "departure_airport": {
+                        "name": "Harry Reid International Airport",
+                        "id": "LAS",
+                        "time": "2024-12-02 17:50"
+                    },
+                    "arrival_airport": {
+                        "name": "San Diego International Airport",
+                        "id": "SAN",
+                        "time": "2024-12-02 19:05"
+                    },
+                    "duration": 75,
+                    "airplane": "Boeing 737",
+                    "airline": "Southwest",
+                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/WN.png",
+                    "travel_class": "Economy",
+                    "flight_number": "WN 1281",
+                    "legroom": "31 in",
+                    "extensions": [
+                        "Average legroom (31 in)",
+                        "Wi-Fi for a fee",
+                        "Stream media to your device",
+                        "Carbon emissions estimate: 79 kg"
+                    ]
+                }
+            ],
+            "layovers": [
+                {
+                    "duration": 40,
+                    "name": "Harry Reid International Airport",
+                    "id": "LAS"
+                }
+            ],
+            "total_duration": 300,
+            "carbon_emissions": {
+                "this_flight": 257000,
+                "typical_for_this_route": 216000,
+                "difference_percent": 19
+            },
+            "price": 623,
+            "type": "Round trip",
+            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/WN.png",
+            "extensions": [
+                "1 checked bag included",
+                "Bag and fare conditions depend on the return flight"
+            ],
+            "departure_token": "WyJDalJJVUVRMU4wbzBhVWR2Y1RCQlNXeDNZbWRDUnkwdExTMHRMUzB0TFMxNWJHbHZOa0ZCUVVGQlIyUk1ORmROUlVwa1ZXRkJFZzFYVGpFeU9ERjhWMDR4TWpneEdnc0lwdVlERUFJYUExVlRSRGdjY0tibUF3PT0iLFtbIkFVUyIsIjIwMjQtMTItMDIiLCJMQVMiLG51bGwsIldOIiwiMTI4MSJdLFsiTEFTIiwiMjAyNC0xMi0wMiIsIlNBTiIsbnVsbCwiV04iLCIxMjgxIl1dXQ=="
+        },
+        {
+            "flights": [
+                {
+                    "departure_airport": {
+                        "name": "Austin-Bergstrom International Airport",
+                        "id": "AUS",
+                        "time": "2024-12-02 15:15"
+                    },
+                    "arrival_airport": {
+                        "name": "San Diego International Airport",
+                        "id": "SAN",
+                        "time": "2024-12-02 16:30"
+                    },
+                    "duration": 195,
+                    "airplane": "Boeing 737",
+                    "airline": "Southwest",
+                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/WN.png",
+                    "travel_class": "Economy",
+                    "flight_number": "WN 5211",
+                    "legroom": "32 in",
+                    "extensions": [
+                        "Above average legroom (32 in)",
+                        "Wi-Fi for a fee",
+                        "In-seat USB outlet",
+                        "Stream media to your device",
+                        "Carbon emissions estimate: 150 kg"
+                    ]
+                }
+            ],
+            "total_duration": 195,
+            "carbon_emissions": {
+                "this_flight": 151000,
+                "typical_for_this_route": 216000,
+                "difference_percent": -30
+            },
+            "price": 638,
+            "type": "Round trip",
+            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/WN.png",
+            "extensions": [
+                "1 checked bag included",
+                "Bag and fare conditions depend on the return flight"
+            ],
+            "departure_token": "WyJDalJJVUVRMU4wbzBhVWR2Y1RCQlNXeDNZbWRDUnkwdExTMHRMUzB0TFMxNWJHbHZOa0ZCUVVGQlIyUk1ORmROUlVwa1ZXRkJFZ1pYVGpVeU1URWFDd2kwOGdNUUFob0RWVk5FT0J4d3RQSUQiLFtbIkFVUyIsIjIwMjQtMTItMDIiLCJTQU4iLG51bGwsIldOIiwiNTIxMSJdXV0="
+        },
+        {
+            "flights": [
+                {
+                    "departure_airport": {
+                        "name": "Austin-Bergstrom International Airport",
+                        "id": "AUS",
+                        "time": "2024-12-02 13:20"
+                    },
+                    "arrival_airport": {
+                        "name": "San Diego International Airport",
+                        "id": "SAN",
+                        "time": "2024-12-02 14:30"
+                    },
+                    "duration": 190,
+                    "airplane": "Boeing 737MAX 8 Passenger",
+                    "airline": "Southwest",
+                    "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/WN.png",
+                    "travel_class": "Economy",
+                    "flight_number": "WN 2138",
+                    "legroom": "32 in",
+                    "extensions": [
+                        "Above average legroom (32 in)",
+                        "Wi-Fi for a fee",
+                        "In-seat USB outlet",
+                        "Stream media to your device",
+                        "Carbon emissions estimate: 150 kg"
+                    ]
+                }
+            ],
+            "total_duration": 190,
+            "carbon_emissions": {
+                "this_flight": 151000,
+                "typical_for_this_route": 216000,
+                "difference_percent": -30
+            },
+            "price": 743,
+            "type": "Round trip",
+            "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/WN.png",
+            "extensions": [
+                "1 checked bag included",
+                "Bag and fare conditions depend on the return flight"
+            ],
+            "departure_token": "WyJDalJJVUVRMU4wbzBhVWR2Y1RCQlNXeDNZbWRDUnkwdExTMHRMUzB0TFMxNWJHbHZOa0ZCUVVGQlIyUk1ORmROUlVwa1ZXRkJFZ1pYVGpJeE16Z2FDd2k0eEFRUUFob0RWVk5FT0J4d3VNUUUiLFtbIkFVUyIsIjIwMjQtMTItMDIiLCJTQU4iLG51bGwsIldOIiwiMjEzOCJdXV0="
+        }
+    ],
+    "airports": [
+        {
+            "departure": [
+                {
+                    "airport": {
+                        "id": "AUS",
+                        "name": "Austin-Bergstrom International Airport"
+                    },
+                    "city": "Austin",
+                    "country": "United States",
+                    "country_code": "US",
+                    "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRKdjkMcBZuGRD1MjnuLQvdGtpTk0RyjdYs0Z8JsPtfIjer-6VvmfmMLxzvBkeyUrhf_focikfda4rVHg",
+                    "thumbnail": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSQ73FSj9E8pKaNvjWKyEDQGfLV-pky_onARvOY-zHWvQ-hOuPJSqyyXzvyg4-kGGAcZxdO6T5SYGWBzrX8x6MSPq7gBHsSLzX9MYjFJWA"
+                }
+            ],
+            "arrival": [
+                {
+                    "airport": {
+                        "id": "SAN",
+                        "name": "San Diego International Airport"
+                    },
+                    "city": "San Diego",
+                    "country": "United States",
+                    "country_code": "US",
+                    "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQEOz0aPlrhIfM3YSlR68LMNiXeDXdUvIGLhy8nX9xj8_Wcdp1-tHiBcw3EIHgJ_ssoPAWoNFwEKkgV0g",
+                    "thumbnail": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT-YOh9oxUwyq8LTaU2vjl5BuF2H3ubR4_fAoNeER5Axn-DQdDAHcVLQF9LXGeiqXphUjCCkIBbUyqWvq8k64PpD9KfPVpztp6OO9daRpE"
+                }
+            ]
+        },
+        {
+            "departure": [
+                {
+                    "airport": {
+                        "id": "SAN",
+                        "name": "San Diego International Airport"
+                    },
+                    "city": "San Diego",
+                    "country": "United States",
+                    "country_code": "US",
+                    "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQEOz0aPlrhIfM3YSlR68LMNiXeDXdUvIGLhy8nX9xj8_Wcdp1-tHiBcw3EIHgJ_ssoPAWoNFwEKkgV0g",
+                    "thumbnail": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcT-YOh9oxUwyq8LTaU2vjl5BuF2H3ubR4_fAoNeER5Axn-DQdDAHcVLQF9LXGeiqXphUjCCkIBbUyqWvq8k64PpD9KfPVpztp6OO9daRpE"
+                }
+            ],
+            "arrival": [
+                {
+                    "airport": {
+                        "id": "AUS",
+                        "name": "Austin-Bergstrom International Airport"
+                    },
+                    "city": "Austin",
+                    "country": "United States",
+                    "country_code": "US",
+                    "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRKdjkMcBZuGRD1MjnuLQvdGtpTk0RyjdYs0Z8JsPtfIjer-6VvmfmMLxzvBkeyUrhf_focikfda4rVHg",
+                    "thumbnail": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSQ73FSj9E8pKaNvjWKyEDQGfLV-pky_onARvOY-zHWvQ-hOuPJSqyyXzvyg4-kGGAcZxdO6T5SYGWBzrX8x6MSPq7gBHsSLzX9MYjFJWA"
+                }
+            ]
+        }
+    ]
+}

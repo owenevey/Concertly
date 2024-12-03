@@ -4,10 +4,7 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Barlow-Bold.ttf</string>
-		<string>Barlow-ExtraBold.ttf</string>
-		<string>Barlow-Regular.ttf</string>
-		<string>Barlow-SemiBold.ttf</string>
+		<string>Outfit.ttf</string>
 	</array>
 </dict>
 </plist>

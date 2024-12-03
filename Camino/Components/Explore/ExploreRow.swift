@@ -9,7 +9,7 @@ struct ExploreRow<Data: RandomAccessCollection>: View {
         VStack(spacing: 5) {
             HStack {
                 Text(title)
-                    .font(Font.custom("Barlow-Bold", size: 23))
+                    .font(.system(size: 23, type: .SemiBold))
                 Spacer()
             }
             .padding(.horizontal, 15)

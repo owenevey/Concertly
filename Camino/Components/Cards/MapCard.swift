@@ -16,14 +16,14 @@ struct MapCard: View {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(concert.venueName)
-                        .font(Font.custom("Barlow-Bold", size: 20))
-                        .minimumScaleFactor(0.5)
+                        .font(.system(size: 20, type: .SemiBold))
+                        .minimumScaleFactor(0.75)
                         .lineLimit(1)
                     
                     Text(concert.generalLocation)
-                        .font(Font.custom("Barlow-SemiBold", size: 17))
+                        .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray)
-                        .minimumScaleFactor(0.5)
+                        .minimumScaleFactor(0.75)
                         .lineLimit(1)
                     
                 }

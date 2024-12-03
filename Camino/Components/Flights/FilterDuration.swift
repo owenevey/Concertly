@@ -19,7 +19,7 @@ struct FilterDuration: View {
     var body: some View {
         VStack {
             Text("Duration")
-                .font(Font.custom("Barlow-SemiBold", size: 20))
+                .font(.system(size: 20, type: .SemiBold))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             Spacer()
@@ -32,7 +32,7 @@ struct FilterDuration: View {
                 
                 
                 Text("Max Duration: " + minsToHrMins(minutes: durationFilter))
-                    .font(Font.custom("Barlow-SemiBold", size: 20))
+                    .font(.system(size: 20, type: .Medium))
                     .frame(maxWidth: .infinity, alignment: .center)
             }
             
@@ -42,7 +42,7 @@ struct FilterDuration: View {
                 dismiss()
             } label: {
                 Text("Done")
-                    .font(Font.custom("Barlow-SemiBold", size: 18))
+                    .font(.system(size: 17, type: .SemiBold))
                     .padding()
                     .frame(width: 250)
                     .clipShape(RoundedRectangle(cornerRadius: 20))

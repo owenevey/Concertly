@@ -7,16 +7,16 @@ final class FlightsViewModel: ObservableObject {
     @Published var toDate: Date
     
     @Published var fromAirport = homeAirport
-    @Published var toAirport: String
+    @Published var toAirport: String = ""
     
     @Published var flightsResponse: ApiResponse<FlightsResponse>
     
-    @Published var sortFlightsMethod = SortFlightsEnum.cheapest
+    @Published var sortFlightsMethod = SortFlightsEnum.recommended
     @Published var airlineFilter: [String: (imageURL: String, isEnabled: Bool)] = [:]
     @Published var stopsFilter: FilterStopsEnum = .any
-    @Published var priceFilter: Int
-    @Published var durationFilter: Int
-    @Published var timeFilter: Int
+    @Published var priceFilter: Int = Int.max
+    @Published var durationFilter: Int = Int.max
+    @Published var timeFilter: Int = Int.max
     
     @Published var departingFlight: FlightItem?
     @Published var returningFlight: FlightItem?
@@ -25,17 +25,23 @@ final class FlightsViewModel: ObservableObject {
         self.fromDate = fromDate
         self.toDate = toDate
         self.flightsResponse = flightsResponse
-
+        
+        resetFilters()
+    }
+    
+    func resetFilters() {
+        print("tehe", flightsResponse)
         if let data = flightsResponse.data {
+            print("if block")
             self.toAirport = data.airports.first!.arrival.first!.airport.id
             
             let allFlights = data.bestFlights + data.otherFlights
             
             let prices = allFlights.map { $0.price }
-            self.priceFilter = prices.max() ?? 0
+            self.priceFilter = prices.max() ?? Int.max
             
             let durations = allFlights.map { $0.totalDuration }
-            self.durationFilter = durations.max() ?? 0
+            self.durationFilter = durations.max() ?? Int.max
             
             let arrivalTimes = allFlights.compactMap { flightItem in
                 flightItem.flights.last?.arrivalAirport.time.timeIntervalSince1970
@@ -44,10 +50,10 @@ final class FlightsViewModel: ObservableObject {
             
             self.airlineFilter = extractAirlineData(from: flightsResponse.data)
         } else {
-            self.toAirport = ""
-            self.priceFilter = 0
-            self.durationFilter = 0
-            self.timeFilter = 0
+            print("else block")
+            self.priceFilter = Int.max
+            self.durationFilter = Int.max
+            self.timeFilter = Int.max
         }
     }
     
@@ -116,6 +122,8 @@ final class FlightsViewModel: ObservableObject {
         }
         
         switch sortFlightsMethod {
+        case .recommended:
+            return filteredByTime
         case .cheapest:
             return filteredByTime.sorted { $0.price < $1.price }
         case .mostExpensive:
@@ -130,6 +138,8 @@ final class FlightsViewModel: ObservableObject {
             }
         }
     }
+    
+    
     
     func extractAirlineData(from flightData: FlightsResponse?) -> [String: (imageURL: String, isEnabled: Bool)] {
         var airlineDict: [String: (imageURL: String, isEnabled: Bool)] = [:]
@@ -169,7 +179,11 @@ final class FlightsViewModel: ObservableObject {
     }
     
     func getDepartingFlights() async {
-        self.flightsResponse = ApiResponse(status: .loading)
+        DispatchQueue.main.async {
+            self.flightsResponse = ApiResponse(status: .loading)
+            self.resetFilters()
+        }
+        
         
         do {
             let fetchedFlights = try await fetchDepartureFlights(fromAirport: homeAirport,
@@ -179,33 +193,38 @@ final class FlightsViewModel: ObservableObject {
             
             DispatchQueue.main.async {
                 self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
+                self.resetFilters()
             }
-            print(fetchedFlights)
         } catch {
             print("Error fetching flights: \(error)")
             DispatchQueue.main.async {
                 self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+                self.resetFilters()
             }
         }
     }
     
     func getReturningFlights() async {
-        self.flightsResponse = ApiResponse(status: .loading)
+        DispatchQueue.main.async {
+            self.flightsResponse = ApiResponse(status: .loading)
+            self.resetFilters()
+        }
         
         do {
             let fetchedFlights = try await fetchReturnFlights(fromAirport: homeAirport,
-                                                                 toAirport: toAirport,
-                                                                 fromDate: fromDate.traditionalFormat(),
-                                                              toDate: toDate.traditionalFormat(), departureToken: departingFlight!.departureToken)
+                                                              toAirport: toAirport,
+                                                              fromDate: fromDate.traditionalFormat(),
+                                                              toDate: toDate.traditionalFormat(), departureToken: departingFlight!.departureToken!)
             
             DispatchQueue.main.async {
                 self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
+                self.resetFilters()
             }
-            print(fetchedFlights)
         } catch {
             print("Error fetching flights: \(error)")
             DispatchQueue.main.async {
                 self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+                self.resetFilters()
             }
         }
     }

@@ -38,15 +38,14 @@ struct LineItem: View {
                 .frame(width: 40, height: 40)
                 .overlay(
                     Image(systemName: item.iconName)
-                        .font(Font.custom("Barlow-SemiBold", size: 17))
+                        .font(.system(size: 16))
                         .foregroundStyle(.white)
                 )
             Text("\(item.title):")
-                .font(Font.custom("Barlow-SemiBold", size: 17))
+                .font(.system(size: 18, type: .Medium))
             Spacer()
             Text("$\(price)")
-                .font(Font.custom("Barlow-SemiBold", size: 17))
-            //                .foregroundStyle(.gray)
+                .font(.system(size: 18, type: .Medium))
         }
         .padding(15)
         .contentShape(RoundedRectangle(cornerRadius: 20))

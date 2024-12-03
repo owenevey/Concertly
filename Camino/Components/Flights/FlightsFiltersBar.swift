@@ -38,7 +38,7 @@ struct FlightsFiltersBar: View {
     private func isFilterActive(_ filter: FlightFilter) -> Bool {
         switch filter {
         case.sort:
-            return sortMethod != SortFlightsEnum.cheapest
+            return sortMethod != SortFlightsEnum.recommended
         case .airlines:
             return airlines.contains { !$0.value.isEnabled }
         case .stops:
@@ -69,7 +69,7 @@ struct FlightsFiltersBar: View {
                                     Image(systemName: "line.3.horizontal.decrease")
                                 }
                                 Text(filter.title)
-                                    .font(Font.custom("Barlow-Regular", size: 15))
+                                    .font(.system(size: 15, type: .Regular))
                             }
                             .padding(13)
                             .background(

@@ -26,7 +26,7 @@ struct CategoryPill: View {
     var title: String
     var body: some View {
         Text(title)
-            .font(Font.custom("Barlow-SemiBold", size: 15))
+            .font(.system(size: 14, type: .Medium))
             .padding(.vertical, 10)
             .padding(.horizontal, 15)
             .background(

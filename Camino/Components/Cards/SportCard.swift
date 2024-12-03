@@ -21,7 +21,7 @@ struct SportCard: View {
                             .scaledToFit()
                             .frame(width: 50, height: 50)
                         Text(game.homeTeamName)
-                            .font(Font.custom("Barlow-Bold", size: 18))
+                            .font(.system(size: 18, type: .SemiBold))
                             .frame(width: 50)
                     }
                     
@@ -36,18 +36,18 @@ struct SportCard: View {
                             .scaledToFit()
                             .frame(width: 50, height: 50)
                         Text(game.awayTeamName)
-                            .font(Font.custom("Barlow-Bold", size: 18))
+                            .font(.system(size: 18, type: .SemiBold))
                             .frame(width: 50)
                     }
                 }
                 
                 VStack(alignment: .center, spacing: 5) {
                     Text("\(game.location), \(game.country)")
-                        .font(Font.custom("Barlow-SemiBold", size: 14))
+                        .font(.system(size: 14, type: .Regular))
                         .foregroundStyle(.gray)
                     
                     Text(game.date)
-                        .font(Font.custom("Barlow-SemiBold", size: 14))
+                        .font(.system(size: 14, type: .Regular))
                         .foregroundStyle(.gray)
                 }
                 
