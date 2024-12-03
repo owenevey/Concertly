@@ -43,7 +43,7 @@ struct FlightsHeader: View {
                         .font(.system(size: 20, type: .SemiBold))
                 }
                 Text("\(fromDate.shortFormat()) - \(toDate.shortFormat())")
-                    .font(.system(size: 15, type: .Medium))
+                    .font(.system(size: 14, type: .Medium))
             }
             
             Spacer()

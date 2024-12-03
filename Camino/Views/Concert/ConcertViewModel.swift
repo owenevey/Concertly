@@ -6,6 +6,7 @@ class ConcertViewModel: ObservableObject {
     @Published var tripStartDate: Date
     @Published var tripEndDate: Date
     @Published var flightsResponse: ApiResponse<FlightsResponse> = ApiResponse<FlightsResponse>()
+    @Published var flightsPrice: Int = 0
     
     init(concert: Concert) {
         self.concert = concert
@@ -15,9 +16,9 @@ class ConcertViewModel: ObservableObject {
         self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.dateTime) ?? Date()
     }
     
-    var flightsPrice: Int {
-        flightsResponse.data?.bestFlights.first?.price ?? 0
-    }
+//    var flightsPrice: Int {
+//        flightsResponse.data?.bestFlights.first?.price ?? 0
+//    }
     
     var hotelPrice: Int {
         270
@@ -45,6 +46,7 @@ class ConcertViewModel: ObservableObject {
             
             DispatchQueue.main.async {
                 self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
+                self.flightsPrice = fetchedFlights.bestFlights.first?.price ?? 0
             }
         } catch {
             print("Error fetching flights: \(error)")

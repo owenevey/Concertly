@@ -2,6 +2,8 @@ import SwiftUI
 
 struct FlightsView: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     @ObservedObject var concertViewModel: ConcertViewModel
     @StateObject var viewModel: FlightsViewModel
     
@@ -43,6 +45,10 @@ struct FlightsView: View {
                         }
                         
                         FlightCard(flightItem: departingFlight)
+                            .onTapGesture {
+                                selectedFlight = departingFlight
+                                isSheetPresented = true
+                            }
                         
                         Text("Returning Flights")
                             .font(.system(size: 18, type: .SemiBold))
@@ -96,6 +102,10 @@ struct FlightsView: View {
                 }
             }
         }
+        .onChange(of: viewModel.returningFlight) {
+            concertViewModel.flightsPrice = viewModel.returningFlight?.price ?? 0
+            dismiss()
+        }
         .onChange(of: viewModel.fromDate) {
             concertViewModel.tripStartDate = viewModel.fromDate
         }
@@ -107,7 +117,7 @@ struct FlightsView: View {
             set: { isSheetPresented = $0 }
         )) {
             if let flight = selectedFlight {
-                FlightDetailsView(flightItem: flight, outboundFlight: $viewModel.departingFlight)
+                FlightDetailsView(flightItem: flight, departingFlight: $viewModel.departingFlight, returningFlight: $viewModel.returningFlight)
                     .presentationDetents([.large])
                     .presentationBackground(Color("Background"))
             }

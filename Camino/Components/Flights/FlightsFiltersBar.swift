@@ -55,6 +55,36 @@ struct FlightsFiltersBar: View {
         }
     }
     
+    private var isAnyFilterActive: Bool {
+        FlightFilter.allCases(
+            sortMethod: $sortMethod,
+            airlines: $airlines,
+            stopsFilter: $stopsFilter,
+            priceFilter: $priceFilter,
+            flightPrices: flightPrices,
+            durationFilter: $durationFilter,
+            flightDurations: flightDurations,
+            timeFilter: $timeFilter,
+            flightTimes: flightTimes
+        ).contains { isFilterActive($0) } }
+    
+    private func resetFilters() {
+        sortMethod = .recommended
+        
+        for airline in airlines.keys {
+            airlines[airline]?.isEnabled = true
+        }
+        
+        stopsFilter = .any
+        
+        priceFilter = flightPrices.max() ?? Int.max
+        
+        durationFilter = flightDurations.max() ?? Int.max
+        
+        timeFilter = flightTimes.max() ?? Int.max
+    }
+    
+    
     var body: some View {
         VStack(spacing: 0) {
             ScrollView(.horizontal, showsIndicators: false) {
@@ -69,7 +99,7 @@ struct FlightsFiltersBar: View {
                                     Image(systemName: "line.3.horizontal.decrease")
                                 }
                                 Text(filter.title)
-                                    .font(.system(size: 15, type: .Regular))
+                                    .font(.system(size: 14, type: .Regular))
                             }
                             .padding(13)
                             .background(
@@ -80,20 +110,40 @@ struct FlightsFiltersBar: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
-                    .sheet(isPresented: $presentSheet) {
-                        selectedFilter.destinationView
-                            .presentationDetents([.medium])
-                            .presentationBackground(Color("Background"))
+                    
+                    if isAnyFilterActive {
+                        Button {
+                            resetFilters()
+                        } label: {
+                            HStack {
+                                Image(systemName: "xmark")
+                                
+                                Text("Clear")
+                                    .font(.system(size: 14, type: .Regular))
+                            }
+                            .padding(10)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
+                    
+                    
+                    
+                    
+                    
                 }
                 .padding(10)
+                .sheet(isPresented: $presentSheet) {
+                    selectedFilter.destinationView
+                        .presentationDetents([.medium])
+                        .presentationBackground(Color("Background"))
+                }
             }
             Divider()
                 .frame(height: 1)
                 .overlay(.customGray)
         }
-        .background(Color("Card"))
         .frame(height: 65)
+        .background(Color("Card"))
         .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 3)
     }
 }

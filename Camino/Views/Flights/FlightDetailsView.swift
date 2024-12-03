@@ -4,7 +4,8 @@ struct FlightDetailsView: View {
     @Environment(\.dismiss) var dismiss
     let flightItem: FlightItem
     
-    @Binding var outboundFlight: FlightItem?
+    @Binding var departingFlight: FlightItem?
+    @Binding var returningFlight: FlightItem?
     
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -51,17 +52,24 @@ struct FlightDetailsView: View {
                 /////////////
                 
                 Button {
-                    outboundFlight = flightItem
+                    if departingFlight == nil {
+                        departingFlight = flightItem
+                    } else if departingFlight == flightItem {
+                        departingFlight = nil
+                    } else {
+                        returningFlight = flightItem
+                    }
+                    
                     dismiss()
                 } label: {
-                    Text("Select Flight")
+                    Text(departingFlight == flightItem ? "Remove" : "Select Flight")
                         .font(.system(size: 18, type: .Medium))
                         .foregroundStyle(.white)
-                        .padding(10)
+                        .padding(12)
                         .frame(maxWidth: .infinity)
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
                         .background(
-                            RoundedRectangle(cornerRadius: 10)
+                            RoundedRectangle(cornerRadius: 15)
                                 .fill(.accent)
                         )
                     
@@ -276,6 +284,8 @@ struct FlightLeg: View {
 
 
 #Preview {
+    @Previewable @State var departingFlight: FlightItem? = nil
+    @Previewable @State var returningFlight: FlightItem? = nil
     // JSON Data
     let jsonData = """
     {
@@ -363,10 +373,10 @@ struct FlightLeg: View {
     let flightItem = try! decoder.decode(FlightItem.self, from: jsonData)
     
     // Mock State for the @Binding
-    @State var outboundFlight: FlightItem? = nil
+    
     
     // Use the decoded FlightItem in the preview
-    return FlightDetailsView(flightItem: flightItem, outboundFlight: $outboundFlight)
+    return FlightDetailsView(flightItem: flightItem, departingFlight: $departingFlight, returningFlight: $returningFlight)
 }
 
 

@@ -30,9 +30,7 @@ final class FlightsViewModel: ObservableObject {
     }
     
     func resetFilters() {
-        print("tehe", flightsResponse)
         if let data = flightsResponse.data {
-            print("if block")
             self.toAirport = data.airports.first!.arrival.first!.airport.id
             
             let allFlights = data.bestFlights + data.otherFlights
@@ -50,7 +48,6 @@ final class FlightsViewModel: ObservableObject {
             
             self.airlineFilter = extractAirlineData(from: flightsResponse.data)
         } else {
-            print("else block")
             self.priceFilter = Int.max
             self.durationFilter = Int.max
             self.timeFilter = Int.max

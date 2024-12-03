@@ -29,7 +29,7 @@ struct FilterAirlines: View {
                             .foregroundStyle(.accent)
                         
                         Text("Select all")
-                            .font(.system(size: 17, type: .Regular))
+                            .font(.system(size: 16, type: .Regular))
                         
                         Spacer()
                     }
@@ -71,7 +71,7 @@ struct FilterAirlines: View {
                                         )
                                     
                                     Text(airline)
-                                        .font(.system(size: 17, type: .Regular))
+                                        .font(.system(size: 16, type: .Regular))
                                     
                                     Spacer()
                                 }
@@ -100,12 +100,13 @@ struct FilterAirlines: View {
                 dismiss()
             } label: {
                 Text("Done")
-                    .font(.system(size: 17, type: .SemiBold))
-                    .padding()
-                    .frame(width: 250)
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .font(.system(size: 18, type: .Medium))
+                    .foregroundStyle(.white)
+                    .padding(12)
+                    .frame(maxWidth: .infinity)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
                     .background(
-                        RoundedRectangle(cornerRadius: 20)
+                        RoundedRectangle(cornerRadius: 15)
                             .fill(.accent)
                     )
                     .padding(.top)
