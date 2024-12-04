@@ -49,6 +49,7 @@
 		F19C727F2CD0837700390BD6 /* FilterStops.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C727E2CD0837700390BD6 /* FilterStops.swift */; };
 		F19C72812CD089B800390BD6 /* FilterDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72802CD089B800390BD6 /* FilterDuration.swift */; };
 		F19C72832CD092AC00390BD6 /* DurationRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72822CD092A900390BD6 /* DurationRange.swift */; };
+		F1CA04CB2CFFDEC3003C78AE /* EditFlightsSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CA04CA2CFFDEC3003C78AE /* EditFlightsSearch.swift */; };
 		F1CCE0D22CB0B96600D15696 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCE0D12CB0B96600D15696 /* ViewExtensions.swift */; };
 		F1DAE69A2CC34D4700901914 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE6992CC34D4700901914 /* ApiResponse.swift */; };
 		F1DAE69E2CC37F7F00901914 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE69D2CC37F7F00901914 /* DateExtensions.swift */; };
@@ -104,6 +105,7 @@
 		F19C727E2CD0837700390BD6 /* FilterStops.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterStops.swift; sourceTree = "<group>"; };
 		F19C72802CD089B800390BD6 /* FilterDuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDuration.swift; sourceTree = "<group>"; };
 		F19C72822CD092A900390BD6 /* DurationRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationRange.swift; sourceTree = "<group>"; };
+		F1CA04CA2CFFDEC3003C78AE /* EditFlightsSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlightsSearch.swift; sourceTree = "<group>"; };
 		F1CCE0D12CB0B96600D15696 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		F1DAE6992CC34D4700901914 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		F1DAE69D2CC37F7F00901914 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				F19C72802CD089B800390BD6 /* FilterDuration.swift */,
 				F10F94252CD45849007EE947 /* FilterPrice.swift */,
 				F18DE23E2CFAACC600C4D1B5 /* FilterTime.swift */,
+				F1CA04CA2CFFDEC3003C78AE /* EditFlightsSearch.swift */,
 			);
 			path = Flights;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				F19C72812CD089B800390BD6 /* FilterDuration.swift in Sources */,
 				F13186302CB2F03E003DBCC5 /* FlightsView.swift in Sources */,
 				F13186322CB2F198003DBCC5 /* LineItem.swift in Sources */,
+				F1CA04CB2CFFDEC3003C78AE /* EditFlightsSearch.swift in Sources */,
 				F18DE2412CFADDBD00C4D1B5 /* FlightDetailsView.swift in Sources */,
 				F13186292CB1EBD9003DBCC5 /* ProfileView.swift in Sources */,
 				F11640112C8A8A2F0040C95D /* CaminoApp.swift in Sources */,

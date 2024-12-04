@@ -31,7 +31,7 @@ struct FlightsView: View {
             scrollContent: {
                 VStack(spacing: 15) {
                     if let departingFlight = viewModel.departingFlight {
-                        HStack(alignment: .bottom) {
+                        HStack(alignment: .center) {
                             Text("Departing Flight")
                                 .font(.system(size: 18, type: .SemiBold))
                             
@@ -91,6 +91,7 @@ struct FlightsView: View {
                 .padding(15)
             }
         )
+        
         .onChange(of: viewModel.departingFlight) {
             if viewModel.departingFlight != nil {
                 Task {
@@ -108,10 +109,31 @@ struct FlightsView: View {
         }
         .onChange(of: viewModel.fromDate) {
             concertViewModel.tripStartDate = viewModel.fromDate
+            Task {
+                await viewModel.getDepartingFlights()
+            }
+            concertViewModel.flightsPrice = viewModel.flightsResponse.data?.bestFlights.first?.price ?? 0
         }
         .onChange(of: viewModel.toDate) {
             concertViewModel.tripEndDate = viewModel.toDate
+            Task {
+                await viewModel.getDepartingFlights()
+            }
+            concertViewModel.flightsPrice = viewModel.flightsResponse.data?.bestFlights.first?.price ?? 0
         }
+        .onChange(of: viewModel.fromAirport) {
+            Task {
+                await viewModel.getDepartingFlights()
+            }
+            concertViewModel.flightsPrice = viewModel.flightsResponse.data?.bestFlights.first?.price ?? 0
+        }
+        .onChange(of: viewModel.toAirport) {
+            Task {
+                await viewModel.getDepartingFlights()
+            }
+            concertViewModel.flightsPrice = viewModel.flightsResponse.data?.bestFlights.first?.price ?? 0
+        }
+        
         .sheet(isPresented: Binding(
             get: { isSheetPresented && selectedFlight != nil },
             set: { isSheetPresented = $0 }

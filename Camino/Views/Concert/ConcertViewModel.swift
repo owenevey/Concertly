@@ -15,10 +15,7 @@ class ConcertViewModel: ObservableObject {
         self.tripStartDate = calendar.date(byAdding: .day, value: -1, to: concert.dateTime) ?? Date()
         self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.dateTime) ?? Date()
     }
-    
-//    var flightsPrice: Int {
-//        flightsResponse.data?.bestFlights.first?.price ?? 0
-//    }
+
     
     var hotelPrice: Int {
         270

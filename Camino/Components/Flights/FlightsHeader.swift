@@ -13,6 +13,8 @@ struct FlightsHeader: View {
     
     let calendar = Calendar.current
     
+    @State var presentSheet = false
+    
     var body: some View {
         HStack {
             HStack {
@@ -52,13 +54,17 @@ struct FlightsHeader: View {
                 Button {
                     fromDate = calendar.date(byAdding: .day, value: -1, to: fromDate)!
                 } label: {
-                    HStack(spacing: 5) {
-                        Text("Edit")
-                            .font(.system(size: 16, type: .Medium))
-                        
-                        Image(systemName: "pencil")
-                            .font(.system(size: 16))
-                            .padding(.trailing, 20)
+                    Button {
+                        presentSheet = true
+                    } label: {
+                        HStack(spacing: 5) {
+                            Image(systemName: "pencil")
+                                .font(.system(size: 16))
+                                
+                            Text("Edit")
+                                .font(.system(size: 16, type: .Medium))
+                                .padding(.trailing, 20)
+                        }
                     }
                 }
             }
@@ -66,6 +72,11 @@ struct FlightsHeader: View {
         }
         .frame(height: 60)
         .background(.card)
+        .sheet(isPresented: $presentSheet) {
+            EditFlightsSearch(fromDate: $fromDate, toDate: $toDate, fromAirport: $fromAirport, toAirport: $toAirport)
+                .presentationDetents([.medium])
+                .presentationBackground(Color("Background"))
+        }
     }
 }
 

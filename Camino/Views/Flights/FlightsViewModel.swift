@@ -177,6 +177,8 @@ final class FlightsViewModel: ObservableObject {
     
     func getDepartingFlights() async {
         DispatchQueue.main.async {
+//            self.departingFlight = nil
+//            self.returningFlight = nil
             self.flightsResponse = ApiResponse(status: .loading)
             self.resetFilters()
         }
@@ -203,6 +205,7 @@ final class FlightsViewModel: ObservableObject {
     
     func getReturningFlights() async {
         DispatchQueue.main.async {
+//            self.returningFlight = nil
             self.flightsResponse = ApiResponse(status: .loading)
             self.resetFilters()
         }
