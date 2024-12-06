@@ -10,7 +10,7 @@ struct MapCard: View {
             openAddressInMaps(address: concert.venueAddress)
         } label: {
             VStack(alignment: .leading, spacing: 0) {
-                Map(initialPosition: MapCameraPosition.region( MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: concert.latitude, longitude: concert.longitude), span: MKCoordinateSpan(latitudeDelta: 0.3, longitudeDelta: 0.3))), interactionModes: [])
+                Map(initialPosition: MapCameraPosition.region( MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: concert.latitude, longitude: concert.longitude), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))), interactionModes: [])
                     .frame(height: 175)
                     .clipped()
                 

@@ -25,28 +25,29 @@ struct ImageHeaderScrollView<HeaderContent: View, Content: View>: View {
     @State private var offset: CGFloat = 0
     
     var body: some View {
-        ZStack(alignment: .top) {
-            if let url = imageUrl {
-                AsyncImage(url: URL(string: url)) { image in
-                    image
-                        .resizable()
-                } placeholder: {
-                    Color.gray
-                        .frame(height: 300 + max(0, -offset))
-                }
-                .scaledToFill()
-                .frame(height: 300 + max(0, -offset))
-                .containerRelativeFrame(.horizontal) { size, axis in
-                    size
-                }
-                .transformEffect(.init(translationX: 0, y: -max(0, offset)))
-            } else if let customHeader = headerContent {
-                customHeader
+        GeometryReader { geometry in
+            ZStack(alignment: .top) {
+                if let url = imageUrl {
+                    AsyncImage(url: URL(string: url)) { image in
+                        image
+                            .resizable()
+                    } placeholder: {
+                        Color.gray
+                            .frame(height: 300 + max(0, -offset))
+                    }
+                    .scaledToFill()
                     .frame(height: 300 + max(0, -offset))
+                    .containerRelativeFrame(.horizontal) { size, axis in
+                        size
+                    }
                     .transformEffect(.init(translationX: 0, y: -max(0, offset)))
-            }
-            
-            if #available(iOS 18.0, *) {
+                } else if let customHeader = headerContent {
+                    customHeader
+                        .frame(height: 300 + max(0, -offset))
+                        .transformEffect(.init(translationX: 0, y: -max(0, offset)))
+                }
+                
+                
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 0) {
                         Rectangle()
@@ -65,27 +66,26 @@ struct ImageHeaderScrollView<HeaderContent: View, Content: View>: View {
                 } action: { oldValue, newValue in
                     offset = newValue
                 }
-            } else {
-                // Fallback on earlier versions
-            }
-            
-            if showBackButton {
-                HStack {
-                    Button(action: {dismiss()}) {
-                        RoundedRectangle(cornerRadius: 20, style: .continuous)
-                            .fill(.ultraThinMaterial)
-                            .frame(width: 50, height: 50)
-                            .overlay(
-                                Image(systemName: "arrow.backward")
-                                    .font(.system(size: 20))
-                            )
-                            .padding(.top, 60)
-                            .padding(.leading, 20)
+                
+                if showBackButton {
+                    HStack {
+                        Button(action: {dismiss()}) {
+                            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                                .fill(.ultraThinMaterial)
+                                .frame(width: 50, height: 50)
+                                .overlay(
+                                    Image(systemName: "arrow.backward")
+                                        .font(.system(size: 20))
+                                )
+                                .padding(.top, geometry.safeAreaInsets.top)
+                                .padding(.leading, 20)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        Spacer()
                     }
-                    .buttonStyle(PlainButtonStyle())
-                    Spacer()
                 }
             }
+            .ignoresSafeArea(edges: .top)
         }
     }
 }

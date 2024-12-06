@@ -24,6 +24,7 @@ final class FlightsViewModel: ObservableObject {
     init(fromDate: Date, toDate: Date, flightsResponse: ApiResponse<FlightsResponse>) {
         self.fromDate = fromDate
         self.toDate = toDate
+        self.toAirport = flightsResponse.data?.airports.first!.arrival.first!.airport.id ?? ""
         self.flightsResponse = flightsResponse
         
         resetFilters()
@@ -31,8 +32,6 @@ final class FlightsViewModel: ObservableObject {
     
     func resetFilters() {
         if let data = flightsResponse.data {
-            self.toAirport = data.airports.first!.arrival.first!.airport.id
-            
             let allFlights = data.bestFlights + data.otherFlights
             
             let prices = allFlights.map { $0.price }

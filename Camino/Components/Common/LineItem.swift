@@ -44,8 +44,13 @@ struct LineItem: View {
             Text("\(item.title):")
                 .font(.system(size: 18, type: .Medium))
             Spacer()
-            Text("$\(price)")
-                .font(.system(size: 18, type: .Medium))
+            HStack {
+                Text("$\(price)")
+                    .font(.system(size: 18, type: .Medium))
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 15))
+            }
+            
         }
         .padding(15)
         .contentShape(RoundedRectangle(cornerRadius: 20))

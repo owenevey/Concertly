@@ -59,10 +59,10 @@ struct ConcertView: View {
                     
                     HStack {
                         Text("Total:")
-                            .font(.system(size: 16, type: .SemiBold))
+                            .font(.system(size: 18, type: .Medium))
                         Spacer()
                         Text("$\(viewModel.totalPrice)")
-                            .font(.system(size: 16, type: .SemiBold))
+                            .font(.system(size: 18, type: .Medium))
                     }
                     .padding(.horizontal, 10)
                     
@@ -97,7 +97,6 @@ struct ConcertView: View {
             }
         }
         .background(Color("Background"))
-        .ignoresSafeArea(edges: .top)
         .onAppear {
             if !hasAppeared {
                 Task {

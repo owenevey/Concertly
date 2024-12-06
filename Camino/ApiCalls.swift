@@ -35,6 +35,33 @@ func fetchConcertsFromAPI() async throws -> [Concert] {
     }
 }
 
+func fetchAirportSearch(query: String) async throws -> AirportSearchResponse {
+    let endpoint = "https://d9hepdo8p4.execute-api.us-east-1.amazonaws.com/dev/airportSearch?query=\(query)"
+    
+    
+    guard let url = URL(string: endpoint) else {
+        throw CaminoError.invalidURL
+    }
+    
+    let (data, response) = try await URLSession.shared.data(from: url)
+        
+    guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+        throw CaminoError.invalidResponse
+    }
+    
+    do {
+        let decoder = JSONDecoder()
+        
+        let decoded = try decoder.decode(AirportSearchResponse.self, from: data)
+        
+        print(decoded)
+        
+        return decoded
+    } catch {
+        throw CaminoError.invalidData
+    }
+}
+
 
 func fetchDepartureFlights(lat: Double, long: Double, fromAirport: String, fromDate: String, toDate: String) async throws -> FlightsResponse {
     let endpoint = "https://d9hepdo8p4.execute-api.us-east-1.amazonaws.com/dev/flights?lat=\(lat)&long=\(long)&fromAirport=\(fromAirport)&fromDate=\(fromDate)&toDate=\(toDate)"
@@ -45,7 +72,6 @@ func fetchDepartureFlights(lat: Double, long: Double, fromAirport: String, fromD
     }
     
     let (data, response) = try await URLSession.shared.data(from: url)
-    
         
     guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
         throw CaminoError.invalidResponse
