@@ -18,48 +18,105 @@ struct FlightCard: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            HStack(alignment: .top) {
+            HStack(alignment: .center) {
                 HStack {
-                    Circle()
-                        .fill(.white)
-                        .frame(width: 40, height: 40)
-                        .overlay(
-                            AsyncImage(url: URL(string: flightItem.flights.first!.airlineLogo)) { image in
-                                image
-                                    .resizable()
-                            } placeholder: {
-                                Color.background
+                    if flightItem.flights.count > 1 && flightItem.flights[0].airline != flightItem.flights[1].airline {
+                        VStack(spacing: 0) {
+                            HStack {
+                                Circle()
+                                    .fill(.white)
+                                    .stroke(.gray2, lineWidth: 1)
                                     .frame(width: 25, height: 25)
+                                    .overlay(
+                                        AsyncImage(url: URL(string: flightItem.flights[1].airlineLogo)) { image in
+                                            image
+                                                .resizable()
+                                        } placeholder: {
+                                            Color.background
+                                                .frame(width: 15, height: 15)
+                                        }
+                                            .scaledToFit()
+                                            .frame(width: 15, height: 15)
+                                    )
+                                    .offset(y: 5)
+                                Spacer()
                             }
-                                .scaledToFit()
-                                .frame(width: 25, height: 25)
-                        )
+                            HStack {
+                                Spacer()
+                                Circle()
+                                    .fill(.white)
+                                    .stroke(.gray2, lineWidth: 1)
+                                    .frame(width: 25, height: 25)
+                                    .overlay(
+                                        AsyncImage(url: URL(string: flightItem.flights[0].airlineLogo)) { image in
+                                            image
+                                                .resizable()
+                                        } placeholder: {
+                                            Color.background
+                                                .frame(width: 15, height: 15)
+                                        }
+                                            .scaledToFit()
+                                            .frame(width: 15, height: 15)
+                                    )
+                                    .offset(y: -5)
+                            }
+                        }
+                    }
+                    else {
+                        Circle()
+                            .fill(.white)
+                            .frame(width: 40, height: 40)
+                            .overlay(
+                                AsyncImage(url: URL(string: flightItem.flights.first!.airlineLogo)) { image in
+                                    image
+                                        .resizable()
+                                } placeholder: {
+                                    Color.background
+                                        .frame(width: 25, height: 25)
+                                }
+                                    .scaledToFit()
+                                    .frame(width: 25, height: 25)
+                            )
+                    }
                     
-                    
-                    VStack(alignment: .leading) {
+                }
+                .frame(width: 40, height: 40)
+                
+                
+                VStack(alignment: .leading) {
+                    if let airplane = flightItem.flights.first?.airplane {
                         Text(flightItem.flights.first!.airline)
                             .font(.system(size: 18, type: .Medium))
-                        if let airplane = flightItem.flights.first?.airplane {
-                            Text(airplane)
-                                .font(.system(size: 16, type: .Regular))
-                                .foregroundStyle(.gray3)
-                        }
-                        
+                        Text(airplane)
+                            .font(.system(size: 16, type: .Regular))
+                            .foregroundStyle(.gray3)
                     }
+                    else {
+                        Spacer()
+                        Text(flightItem.flights.first!.airline)
+                            .font(.system(size: 18, type: .Medium))
+                        Spacer()
+                    }
+                    
                 }
                 
                 Spacer()
                 
-                HStack(spacing: 5) {
-                    Image(systemName: "clock.fill")
-                        .font(.system(size: 14))
-                        .foregroundStyle(.gray3)
-                    
-                    Text(minsToHrMins(minutes: flightItem.totalDuration))
-                        .font(.system(size: 14, type: .Regular))
-                        .foregroundStyle(.gray3)
+                VStack {
+                    HStack(spacing: 5) {
+                        Image(systemName: "clock.fill")
+                            .font(.system(size: 14))
+                            .foregroundStyle(.gray3)
+                        
+                        Text(minsToHrMins(minutes: flightItem.totalDuration))
+                            .font(.system(size: 14, type: .Regular))
+                            .foregroundStyle(.gray3)
+                    }
+                    Spacer()
                 }
+                    
             }
+            .frame(height: 45)
             
             HStack {
                 HStack {
@@ -161,8 +218,28 @@ struct FlightCard: View {
         oftenDelayedByOver30Min: false
     )
     
+    let mockFlight2 = Flight(
+        departureAirport: departureAirport,
+        arrivalAirport: arrivalAirport,
+        duration: 224,
+        airplane: "Airbus A319",
+        airline: "Southwest",
+        airlineLogo: "https://www.gstatic.com/flights/airline_logos/70px/WN.png",
+        travelClass: "Economy",
+        flightNumber: "AA 2287",
+        legroom: "30 in",
+        extensions: [
+            "Average legroom (30 in)",
+            "Wi-Fi for a fee",
+            "In-seat power outlet",
+            "Stream media to your device",
+            "Carbon emissions estimate: 249 kg"
+        ],
+        oftenDelayedByOver30Min: false
+    )
+    
     let mockFlightItem = FlightItem(
-        flights: [mockFlight],
+        flights: [mockFlight, mockFlight2],
         layovers: nil,
         totalDuration: 224,
         carbonEmissions: CarbonEmissions(thisFlight: 249000, typicalForThisRoute: 225000, differencePercent: 11),

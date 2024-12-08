@@ -12,20 +12,55 @@ struct FlightDetailsView: View {
             VStack(spacing: 15) {
                 HStack {
                     VStack(alignment: .leading) {
-                        Circle()
-                            .fill(.white)
-                            .frame(width: 50, height: 50)
-                            .overlay(
-                                AsyncImage(url: URL(string: flightItem.flights.first!.airlineLogo)) { image in
-                                    image
-                                        .resizable()
-                                } placeholder: {
-                                    Color.background
-                                        .frame(width: 30, height: 30)
-                                }
-                                    .scaledToFit()
-                                    .frame(width: 30, height: 30)
-                            )
+                        HStack {
+                            if flightItem.flights.count > 1 && flightItem.flights[0].airline != flightItem.flights[1].airline {
+                                Circle()
+                                    .fill(.white)
+                                    .frame(width: 50, height: 50)
+                                    .overlay(
+                                        AsyncImage(url: URL(string: flightItem.flights[0].airlineLogo)) { image in
+                                            image
+                                                .resizable()
+                                        } placeholder: {
+                                            Color.background
+                                                .frame(width: 30, height: 30)
+                                        }
+                                            .scaledToFit()
+                                            .frame(width: 30, height: 30)
+                                    )
+                                
+                                Circle()
+                                    .fill(.white)
+                                    .frame(width: 50, height: 50)
+                                    .overlay(
+                                        AsyncImage(url: URL(string: flightItem.flights[1].airlineLogo)) { image in
+                                            image
+                                                .resizable()
+                                        } placeholder: {
+                                            Color.background
+                                                .frame(width: 30, height: 30)
+                                        }
+                                            .scaledToFit()
+                                            .frame(width: 30, height: 30)
+                                    )
+                            } else {
+                                Circle()
+                                    .fill(.white)
+                                    .frame(width: 50, height: 50)
+                                    .overlay(
+                                        AsyncImage(url: URL(string: flightItem.flights.first!.airlineLogo)) { image in
+                                            image
+                                                .resizable()
+                                        } placeholder: {
+                                            Color.background
+                                                .frame(width: 30, height: 30)
+                                        }
+                                            .scaledToFit()
+                                            .frame(width: 30, height: 30)
+                                    )
+                            }
+                            
+                        }
                         
                         Text("\(flightItem.flights.first!.departureAirport.id) - \(flightItem.flights.last!.arrivalAirport.id)")
                             .font(.system(size: 24, type: .SemiBold))
@@ -141,6 +176,7 @@ struct FlightDetailsView: View {
                 
             }
             .padding()
+            .padding(.top, 30)
         }
         .background(Color.background)
     }
@@ -247,12 +283,14 @@ struct FlightLeg: View {
             }
             
             VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Image(systemName: "airplane")
-                        .font(.system(size: 16))
-                        .frame(width: 20)
-                    Text(flight.airplane ?? "")
-                        .font(.system(size: 16, type: .Regular))
+                if let airplane = flight.airplane {
+                    HStack {
+                        Image(systemName: "airplane")
+                            .font(.system(size: 16))
+                            .frame(width: 20)
+                        Text(airplane)
+                            .font(.system(size: 16, type: .Regular))
+                    }
                 }
                 
                 HStack {
@@ -331,8 +369,8 @@ struct FlightLeg: View {
                 },
                 "duration": 133,
                 "airplane": "Boeing 737",
-                "airline": "American",
-                "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AA.png",
+                "airline": "Alaska",
+                "airline_logo": "https://www.gstatic.com/flights/airline_logos/70px/AS.png",
                 "travel_class": "Economy",
                 "flight_number": "AA 2908",
                 "legroom": "30 in",

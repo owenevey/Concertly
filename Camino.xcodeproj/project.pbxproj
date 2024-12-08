@@ -30,6 +30,7 @@
 		F18075292D04F2C300D67622 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18075282D04F2C300D67622 /* LoadingView.swift */; };
 		F180752B2D04FF2B00D67622 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F180752A2D04FF2B00D67622 /* ErrorView.swift */; };
 		F180752D2D052E3F00D67622 /* CircleLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F180752C2D052E3F00D67622 /* CircleLoadingView.swift */; };
+		F18075312D0568DA00D67622 /* PriceAdvice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18075302D0568DA00D67622 /* PriceAdvice.swift */; };
 		F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551B2C8CEA2800E25003 /* ConcertCard.swift */; };
 		F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551E2C8D5D1F00E25003 /* ConcertView.swift */; };
 		F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18155202C8EB35A00E25003 /* ConcertsResponse.swift */; };
@@ -91,6 +92,7 @@
 		F18075282D04F2C300D67622 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		F180752A2D04FF2B00D67622 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		F180752C2D052E3F00D67622 /* CircleLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLoadingView.swift; sourceTree = "<group>"; };
+		F18075302D0568DA00D67622 /* PriceAdvice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceAdvice.swift; sourceTree = "<group>"; };
 		F181551B2C8CEA2800E25003 /* ConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertCard.swift; sourceTree = "<group>"; };
 		F181551E2C8D5D1F00E25003 /* ConcertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertView.swift; sourceTree = "<group>"; };
 		F18155202C8EB35A00E25003 /* ConcertsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertsResponse.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 				F18DE23E2CFAACC600C4D1B5 /* FilterTime.swift */,
 				F1CA04CA2CFFDEC3003C78AE /* EditFlightsSearch.swift */,
 				F1A858692D027AF6009A37E8 /* AirportSearchView.swift */,
+				F18075302D0568DA00D67622 /* PriceAdvice.swift */,
 			);
 			path = Flights;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */,
 				F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */,
 				F18C460E2CC5B30D00756472 /* TimeUtil.swift in Sources */,
+				F18075312D0568DA00D67622 /* PriceAdvice.swift in Sources */,
 				F19C72672CC71C5E00390BD6 /* FlightsViewModel.swift in Sources */,
 				F1E786292CB36CAB00F4E462 /* SFSafariView.swift in Sources */,
 				F11640202C8AAA610040C95D /* ExploreView.swift in Sources */,

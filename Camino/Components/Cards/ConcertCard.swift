@@ -19,7 +19,7 @@ struct ConcertCard: View {
                     image
                         .resizable()
                 } placeholder: {
-                    Color.background
+                    Color.foreground
                         .frame(width: 250, height: 250)
                 }
                 .scaledToFill()

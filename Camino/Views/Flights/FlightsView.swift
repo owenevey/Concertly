@@ -30,6 +30,12 @@ struct FlightsView: View {
             },
             scrollContent: {
                 VStack(spacing: 15) {
+                    
+                    if viewModel.flightsResponse.status == .success || viewModel.departingFlight != nil {
+                        PriceAdvice()
+                    }
+                    
+                    
                     if let departingFlight = viewModel.departingFlight {
                         HStack(alignment: .center) {
                             Text("Departing Flight")
@@ -117,6 +123,7 @@ struct FlightsView: View {
         }
         .onChange(of: viewModel.fromDate) {
             concertViewModel.tripStartDate = viewModel.fromDate
+            viewModel.departingFlight = nil
             Task {
                 await viewModel.getDepartingFlights()
             }
@@ -124,18 +131,21 @@ struct FlightsView: View {
         }
         .onChange(of: viewModel.toDate) {
             concertViewModel.tripEndDate = viewModel.toDate
+            viewModel.departingFlight = nil
             Task {
                 await viewModel.getDepartingFlights()
             }
             concertViewModel.flightsPrice = viewModel.flightsResponse.data?.bestFlights.first?.price ?? 0
         }
         .onChange(of: viewModel.fromAirport) {
+            viewModel.departingFlight = nil
             Task {
                 await viewModel.getDepartingFlights()
             }
             concertViewModel.flightsPrice = viewModel.flightsResponse.data?.bestFlights.first?.price ?? 0
         }
         .onChange(of: viewModel.toAirport) {
+            viewModel.departingFlight = nil
             Task {
                 await viewModel.getDepartingFlights()
             }

@@ -182,7 +182,7 @@ final class FlightsViewModel: ObservableObject {
         
         
         do {
-            try await Task.sleep(nanoseconds: 3 * 1_000_000_000)
+            try await Task.sleep(nanoseconds: 1 * 1_000_000_000)
             let fetchedFlights = try await fetchDepartureFlights(fromAirport: homeAirport,
                                                                  toAirport: toAirport,
                                                                  fromDate: fromDate.traditionalFormat(),
@@ -209,7 +209,7 @@ final class FlightsViewModel: ObservableObject {
         }
         
         do {
-            try await Task.sleep(nanoseconds: 3 * 1_000_000_000)
+            try await Task.sleep(nanoseconds: 1 * 1_000_000_000)
             let fetchedFlights = try await fetchReturnFlights(fromAirport: homeAirport,
                                                               toAirport: toAirport,
                                                               fromDate: fromDate.traditionalFormat(),
