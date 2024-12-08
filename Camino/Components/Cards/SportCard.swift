@@ -44,11 +44,11 @@ struct SportCard: View {
                 VStack(alignment: .center, spacing: 5) {
                     Text("\(game.location), \(game.country)")
                         .font(.system(size: 14, type: .Regular))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.gray3)
                     
                     Text(game.date)
                         .font(.system(size: 14, type: .Regular))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.gray3)
                 }
                 
             }
@@ -57,7 +57,7 @@ struct SportCard: View {
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .background(
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(.card)
+                    .fill(Color.foreground)
             )
         }.buttonStyle(PlainButtonStyle())
             .matchedTransitionSource(id: id, in: namespace)

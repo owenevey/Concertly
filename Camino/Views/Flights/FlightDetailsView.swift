@@ -20,7 +20,8 @@ struct FlightDetailsView: View {
                                     image
                                         .resizable()
                                 } placeholder: {
-                                    Image(systemName: "photo.fill")
+                                    Color.background
+                                        .frame(width: 30, height: 30)
                                 }
                                     .scaledToFit()
                                     .frame(width: 30, height: 30)
@@ -46,7 +47,7 @@ struct FlightDetailsView: View {
                 
                 Divider()
                     .frame(height: 2)
-                    .overlay(.customGray)
+                    .overlay(.gray2)
                     .padding(.horizontal, -15)
                 
                 /////////////
@@ -132,8 +133,8 @@ struct FlightDetailsView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 20))
                 .background(
                     RoundedRectangle(cornerRadius: 20)
-                        .fill(.card)
-                        .stroke(.customGray, style: StrokeStyle(lineWidth: 1))
+                        .fill(Color.foreground)
+                        .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
                 )
                 
                 
@@ -141,7 +142,7 @@ struct FlightDetailsView: View {
             }
             .padding()
         }
-        .background(Color("Background"))
+        .background(Color.background)
     }
 }
 
@@ -153,10 +154,10 @@ struct LayoverView: View {
         HStack {
             Image(systemName: "clock.fill")
                 .font(.system(size: 16))
-                .foregroundStyle(.gray)
+                .foregroundStyle(.gray3)
             Text("\(minsToHrMins(minutes: layover.duration)) Layover at \(layover.id)")
                 .font(.system(size: 16, type: .Regular))
-                .foregroundStyle(.gray)
+                .foregroundStyle(.gray3)
         }
     }
 }
@@ -177,7 +178,8 @@ struct FlightLeg: View {
                             image
                                 .resizable()
                         } placeholder: {
-                            Image(systemName: "photo.fill")
+                            Color.background
+                                .frame(width: 25, height: 25)
                         }
                             .scaledToFit()
                             .frame(width: 25, height: 25)
@@ -189,7 +191,7 @@ struct FlightLeg: View {
                         .font(.system(size: 18, type: .Medium))
                     Text(flight.flightNumber)
                         .font(.system(size: 16, type: .Regular))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.gray3)
                 }
             }
             
@@ -215,15 +217,15 @@ struct FlightLeg: View {
                 HStack(spacing: 5) {
                     Rectangle()
                         .frame(height: 2)
-                        .overlay(Color.gray)
+                        .overlay(Color.gray2)
                     
                     Text(minsToHrMins(minutes: flight.duration))
                         .font(.system(size: 14, type: .Regular))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.gray3)
                     
                     Rectangle()
                         .frame(height: 2)
-                        .overlay(Color.gray)
+                        .overlay(Color.gray2)
                 }
                 
                 
@@ -276,8 +278,8 @@ struct FlightLeg: View {
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(.card)
-                .stroke(.customGray, style: StrokeStyle(lineWidth: 1))
+                .fill(Color.foreground)
+                .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
         )
     }
 }

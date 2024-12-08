@@ -23,13 +23,13 @@ struct PlaceCard: View {
                     
                     Text(place.country)
                         .font(.system(size: 16, type: .Regular))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.gray3)
                         .minimumScaleFactor(0.75)
                         .lineLimit(1)
                     
                     Text(place.description)
                         .font(.system(size: 16, type: .Regular))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.gray3)
                         .minimumScaleFactor(0.75)
                         .lineLimit(2, reservesSpace: true)
                 }
@@ -46,7 +46,7 @@ struct PlaceCard: View {
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .background(
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(.card)
+                    .fill(Color.foreground)
             )
             
         }

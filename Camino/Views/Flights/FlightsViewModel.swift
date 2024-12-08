@@ -176,14 +176,13 @@ final class FlightsViewModel: ObservableObject {
     
     func getDepartingFlights() async {
         DispatchQueue.main.async {
-//            self.departingFlight = nil
-//            self.returningFlight = nil
             self.flightsResponse = ApiResponse(status: .loading)
             self.resetFilters()
         }
         
         
         do {
+            try await Task.sleep(nanoseconds: 3 * 1_000_000_000)
             let fetchedFlights = try await fetchDepartureFlights(fromAirport: homeAirport,
                                                                  toAirport: toAirport,
                                                                  fromDate: fromDate.traditionalFormat(),
@@ -210,6 +209,7 @@ final class FlightsViewModel: ObservableObject {
         }
         
         do {
+            try await Task.sleep(nanoseconds: 3 * 1_000_000_000)
             let fetchedFlights = try await fetchReturnFlights(fromAirport: homeAirport,
                                                               toAirport: toAirport,
                                                               fromDate: fromDate.traditionalFormat(),

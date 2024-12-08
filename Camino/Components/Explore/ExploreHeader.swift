@@ -18,7 +18,7 @@ struct ExploreHeader: View {
 //                    HStack {
 //                        Spacer()
 //                        Circle()
-//                            .fill(.card)
+//                            .fill(Color.foreground)
 //                            .frame(width: 40, height: 40)
 //                            .overlay(
 //                                Image(systemName: "bell.fill")
@@ -41,7 +41,7 @@ struct ExploreHeader: View {
 //                        }
 //                        
 //                        RoundedRectangle(cornerRadius: 20)
-//                            .fill(.card)
+//                            .fill(Color.foreground)
 //                            .frame(maxWidth: .infinity)
 //                            .frame(height: 50)
 //                            .overlay(

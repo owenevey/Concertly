@@ -23,8 +23,8 @@ struct ConcertView: View {
                         .font(.system(size: 30, type: .SemiBold))
                     
                     Text(concert.dateTime.formatted(date: .complete, time: .omitted))
-                        .font(.system(size: 16, type: .Regular))
-                        .foregroundStyle(.gray)
+                        .font(.system(size: 18, type: .Regular))
+                        .foregroundStyle(.gray3)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
@@ -35,7 +35,7 @@ struct ConcertView: View {
                     
                     Text("\(viewModel.tripStartDate.mediumFormat()) - \(viewModel.tripEndDate.mediumFormat())")
                         .font(.system(size: 16, type: .Regular))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.gray3)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
@@ -44,25 +44,31 @@ struct ConcertView: View {
                     ForEach((LineItemType.allCases(concertViewModel: viewModel, link: concert.url)), id: \.title) { item in
                         switch item {
                         case .flights:
-                            LineItem(item: item, price: viewModel.flightsPrice)
+                            LineItem(item: item, price: viewModel.flightsPrice, status: viewModel.flightsResponse.status)
                         case .hotel:
-                            LineItem(item: item, price: viewModel.hotelPrice)
+                            LineItem(item: item, price: viewModel.hotelPrice, status: Status.success)
                             
                         case .ticket:
-                            LineItem(item: item, price: viewModel.ticketPrice)
+                            LineItem(item: item, price: viewModel.ticketPrice, status: Status.success)
                         }
                     }
                     
                     Divider()
                         .frame(height: 2)
-                        .overlay(.customGray)
+                        .overlay(.gray2)
                     
                     HStack {
                         Text("Total:")
                             .font(.system(size: 18, type: .Medium))
                         Spacer()
-                        Text("$\(viewModel.totalPrice)")
-                            .font(.system(size: 18, type: .Medium))
+                        if viewModel.flightsResponse.status == .loading {
+                            CircleLoadingView(ringSize: 20)
+                                .padding(.trailing, 10)
+                        } else {
+                            Text("$\(viewModel.totalPrice)")
+                                .font(.system(size: 18, type: .Medium))
+                        }
+                        
                     }
                     .padding(.horizontal, 10)
                     
@@ -75,28 +81,29 @@ struct ConcertView: View {
                     print("Plan trip tapped")
                 } label: {
                     Text("Plan Trip")
-                        .font(.system(size: 16, type: .SemiBold))
-                        .padding()
-                    
+                        .font(.system(size: 18, type: .Medium))
+                        .foregroundStyle(.white)
+                        .padding(12)
                         .containerRelativeFrame(.horizontal) { size, axis in
                             size - 100
                         }
-                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
                         .background(
-                            RoundedRectangle(cornerRadius: 20)
+                            RoundedRectangle(cornerRadius: 15)
                                 .fill(.accent)
                         )
+                    
                 }
                 .buttonStyle(PlainButtonStyle())
             }
             .padding(15)
-            .background(Color("Background"))
+            .background(Color.background)
             
             .containerRelativeFrame(.horizontal) { size, axis in
                 size
             }
         }
-        .background(Color("Background"))
+        .background(Color.background)
         .onAppear {
             if !hasAppeared {
                 Task {

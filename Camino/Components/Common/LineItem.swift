@@ -4,6 +4,7 @@ struct LineItem: View {
     
     let item: LineItemType
     let price: Int
+    let status: Status
     
     @State private var showSafariView = false
     
@@ -22,11 +23,16 @@ struct LineItem: View {
                 }
                 .buttonStyle(PlainButtonStyle())
             } else {
-                NavigationLink(destination: item.destinationView.navigationBarHidden(true)) {
-                    lineItemContent
-                    
+                if status == Status.success {
+                    NavigationLink(destination: item.destinationView.navigationBarHidden(true)) {
+                        lineItemContent
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
-                .buttonStyle(PlainButtonStyle())
+                else {
+                    lineItemContent
+                }
+                
             }
         }
     }
@@ -45,10 +51,20 @@ struct LineItem: View {
                 .font(.system(size: 18, type: .Medium))
             Spacer()
             HStack {
-                Text("$\(price)")
-                    .font(.system(size: 18, type: .Medium))
-                Image(systemName: "chevron.right")
-                    .font(.system(size: 15))
+                if status == .loading {
+                    CircleLoadingView(ringSize: 20)
+                        .padding(.trailing, 10)
+                }
+                else if status == .success {
+                    Text("$\(price)")
+                        .font(.system(size: 18, type: .Medium))
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 15))
+                }
+                else if status == .error {
+                    Text("Error")
+                        .font(.system(size: 18, type: .Medium))
+                }
             }
             
         }
@@ -56,7 +72,7 @@ struct LineItem: View {
         .contentShape(RoundedRectangle(cornerRadius: 20))
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(.customGray.opacity(0.5))
+                .fill(.gray1)
         )
     }
 }
@@ -115,16 +131,16 @@ import SwiftUI
 
 #Preview {
     let concertViewModel = ConcertViewModel(concert: hotConcerts[0])
-    let link = "https://example.com" // Example link for ticket
+    let link = "https://example.com"
     
     NavigationStack {
-        LineItem(item: LineItemType.flights(concertViewModel: concertViewModel), price: 55)
+        LineItem(item: LineItemType.flights(concertViewModel: concertViewModel), price: 55, status: Status.loading)
             .padding()
         
-        LineItem(item: LineItemType.hotel(concertViewModel: concertViewModel), price: 100)
+        LineItem(item: LineItemType.hotel(concertViewModel: concertViewModel), price: 100, status: Status.success)
             .padding()
         
-        LineItem(item: LineItemType.ticket(link: link), price: 25)
+        LineItem(item: LineItemType.ticket(link: link), price: 25, status: Status.error)
             .padding()
     }
 }

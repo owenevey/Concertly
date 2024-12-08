@@ -61,7 +61,8 @@ struct FlightsView: View {
                     }
                     
                     if viewModel.flightsResponse.status == Status.loading {
-                        Text("Loading")
+                        LoadingView()
+                            .frame(height: 250)
                     }
                     else if viewModel.flightsResponse.status == Status.success {
                         if viewModel.filteredFlights.isEmpty {
@@ -83,7 +84,14 @@ struct FlightsView: View {
                             }
                         }
                     } else if viewModel.flightsResponse.status == Status.error {
-                        Text("Error")
+                        ErrorView(text: "Error fetching flights", action: {
+                            if viewModel.departingFlight == nil {
+                                await viewModel.getDepartingFlights()
+                            } else {
+                                await viewModel.getReturningFlights()
+                            }
+                        })
+                        .frame(height: 250)
                     }
                     
                     
@@ -141,7 +149,7 @@ struct FlightsView: View {
             if let flight = selectedFlight {
                 FlightDetailsView(flightItem: flight, departingFlight: $viewModel.departingFlight, returningFlight: $viewModel.returningFlight)
                     .presentationDetents([.large])
-                    .presentationBackground(Color("Background"))
+                    .presentationBackground(Color.background)
             }
         }
     }

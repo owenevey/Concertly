@@ -38,7 +38,7 @@ struct SortFlights: View {
                         if index < SortFlightsEnum.allCases.count - 1 {
                             Divider()
                                 .frame(height: 1)
-                                .overlay(.customGray)
+                                .overlay(.gray2)
                         }
                     }
                 }
@@ -77,7 +77,7 @@ struct SortFlights: View {
     VStack {
         SortFlights(sortMethod: .constant(.cheapest))
     }
-    .background(Color("Background"))
+    .background(Color.background)
     .border(Color.red)
     .frame(maxHeight: 400)
 }

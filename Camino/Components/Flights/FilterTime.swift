@@ -77,7 +77,7 @@ struct FilterTime: View {
     return VStack {
         FilterTime(timeFilter: $time, flightTimes: [300, 450, 600, 720, 900, 1140])
     }
-    .background(Color("Background"))
+    .background(Color.background)
     .border(Color.red)
     .frame(maxHeight: 400)
 }

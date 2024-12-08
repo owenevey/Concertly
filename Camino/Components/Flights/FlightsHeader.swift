@@ -71,11 +71,11 @@ struct FlightsHeader: View {
             .frame(maxWidth: .infinity)
         }
         .frame(height: 60)
-        .background(.card)
+        .background(Color.foreground)
         .sheet(isPresented: $presentSheet) {
             EditFlightsSearch(fromDate: $fromDate, toDate: $toDate, fromAirport: $fromAirport, toAirport: $toAirport)
                 .presentationDetents([.medium])
-                .presentationBackground(Color("Background"))
+                .presentationBackground(Color.background)
         }
     }
 }
@@ -131,6 +131,6 @@ struct FlightsHeader: View {
         )
         Spacer()
     }
-    .background(.gray)
+    .background(.gray3)
 }
 

@@ -32,7 +32,7 @@ struct ImageHeaderScrollView<HeaderContent: View, Content: View>: View {
                         image
                             .resizable()
                     } placeholder: {
-                        Color.gray
+                        Color.background
                             .frame(height: 300 + max(0, -offset))
                     }
                     .scaledToFill()

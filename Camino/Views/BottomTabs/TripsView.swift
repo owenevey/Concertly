@@ -6,7 +6,7 @@ struct TripsView: View {
         VStack {
             Text("Trips!")
                 .font(.system(size: 18, type: .SemiBold))
-                .background(Color("Background"))
+                .background(Color.background)
             Spacer()
         }
         

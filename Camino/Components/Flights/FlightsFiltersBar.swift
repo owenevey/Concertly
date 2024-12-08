@@ -104,7 +104,7 @@ struct FlightsFiltersBar: View {
                             .padding(13)
                             .background(
                                 RoundedRectangle(cornerRadius: 10)
-                                    .stroke(isFilterActive(filter) ? Color.primary : .customGray, style: StrokeStyle(lineWidth: 2))
+                                    .stroke(isFilterActive(filter) ? Color.primary : .gray2, style: StrokeStyle(lineWidth: 2))
                                     .padding(2)
                             )
                         }
@@ -135,15 +135,15 @@ struct FlightsFiltersBar: View {
                 .sheet(isPresented: $presentSheet) {
                     selectedFilter.destinationView
                         .presentationDetents([.medium])
-                        .presentationBackground(Color("Background"))
+                        .presentationBackground(Color.background)
                 }
             }
             Divider()
                 .frame(height: 1)
-                .overlay(.customGray)
+                .overlay(.gray2)
         }
         .frame(height: 65)
-        .background(Color("Card"))
+        .background(Color.foreground)
         .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 3)
     }
 }
@@ -180,5 +180,5 @@ struct FlightsFiltersBar: View {
         )
         Spacer()
     }
-    .background(Color.gray)
+    .background(Color.gray3)
 }

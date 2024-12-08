@@ -35,6 +35,7 @@ class ConcertViewModel: ObservableObject {
         }
         
         do {
+            try await Task.sleep(nanoseconds: 3 * 1_000_000_000)
             let fetchedFlights = try await fetchDepartureFlights(lat: concert.latitude,
                                                                 long: concert.longitude,
                                                                 fromAirport: homeAirport,

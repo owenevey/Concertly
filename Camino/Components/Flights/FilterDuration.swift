@@ -64,7 +64,7 @@ struct FilterDuration: View {
     return VStack {
         FilterDuration(durationFilter: $duration, flightDurations: [10, 15, 30, 40, 55, 75, 85, 95])
     }
-    .background(Color("Background"))
+    .background(Color.background)
     .border(Color.red)
     .frame(maxHeight: 400)
 }

@@ -27,6 +27,9 @@
 		F1659C012CBF252400586212 /* FilterAirlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C002CBF252400586212 /* FilterAirlines.swift */; };
 		F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C042CC1E99800586212 /* FlightsResponse.swift */; };
 		F176C9262CB5E7F9006BAE35 /* FlightFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F176C9252CB5E7F9006BAE35 /* FlightFilters.swift */; };
+		F18075292D04F2C300D67622 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18075282D04F2C300D67622 /* LoadingView.swift */; };
+		F180752B2D04FF2B00D67622 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F180752A2D04FF2B00D67622 /* ErrorView.swift */; };
+		F180752D2D052E3F00D67622 /* CircleLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F180752C2D052E3F00D67622 /* CircleLoadingView.swift */; };
 		F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551B2C8CEA2800E25003 /* ConcertCard.swift */; };
 		F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551E2C8D5D1F00E25003 /* ConcertView.swift */; };
 		F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18155202C8EB35A00E25003 /* ConcertsResponse.swift */; };
@@ -85,6 +88,9 @@
 		F1659C002CBF252400586212 /* FilterAirlines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAirlines.swift; sourceTree = "<group>"; };
 		F1659C042CC1E99800586212 /* FlightsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsResponse.swift; sourceTree = "<group>"; };
 		F176C9252CB5E7F9006BAE35 /* FlightFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightFilters.swift; sourceTree = "<group>"; };
+		F18075282D04F2C300D67622 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		F180752A2D04FF2B00D67622 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		F180752C2D052E3F00D67622 /* CircleLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLoadingView.swift; sourceTree = "<group>"; };
 		F181551B2C8CEA2800E25003 /* ConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertCard.swift; sourceTree = "<group>"; };
 		F181551E2C8D5D1F00E25003 /* ConcertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertView.swift; sourceTree = "<group>"; };
 		F18155202C8EB35A00E25003 /* ConcertsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertsResponse.swift; sourceTree = "<group>"; };
@@ -220,6 +226,9 @@
 			children = (
 				F1DD1EB42CEEB354004A9F0F /* SliderFilter.swift */,
 				F13186312CB2F198003DBCC5 /* LineItem.swift */,
+				F18075282D04F2C300D67622 /* LoadingView.swift */,
+				F180752A2D04FF2B00D67622 /* ErrorView.swift */,
+				F180752C2D052E3F00D67622 /* CircleLoadingView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -406,6 +415,7 @@
 				F1DAE69A2CC34D4700901914 /* ApiResponse.swift in Sources */,
 				F1DAE6A22CC42EA500901914 /* ApiCalls.swift in Sources */,
 				F131862E2CB2E5D5003DBCC5 /* MapCard.swift in Sources */,
+				F180752B2D04FF2B00D67622 /* ErrorView.swift in Sources */,
 				F1DAE6A02CC3849D00901914 /* ImageHeaderScrollView.swift in Sources */,
 				F1DD1EB52CEEB354004A9F0F /* SliderFilter.swift in Sources */,
 				F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */,
@@ -415,6 +425,8 @@
 				F1E786292CB36CAB00F4E462 /* SFSafariView.swift in Sources */,
 				F11640202C8AAA610040C95D /* ExploreView.swift in Sources */,
 				F11640282C8BEABD0040C95D /* CustomClasses.swift in Sources */,
+				F18075292D04F2C300D67622 /* LoadingView.swift in Sources */,
+				F180752D2D052E3F00D67622 /* CircleLoadingView.swift in Sources */,
 				F19C72712CCB378700390BD6 /* FlightsHeader.swift in Sources */,
 				F18DE23F2CFAACC600C4D1B5 /* FilterTime.swift in Sources */,
 				F10F94262CD45849007EE947 /* FilterPrice.swift in Sources */,

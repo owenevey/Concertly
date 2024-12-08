@@ -34,7 +34,7 @@ struct CustomSlider: View {
             
             ZStack(alignment: .leading) {
                 Rectangle()
-                    .foregroundColor(Color("customGray"))
+                    .foregroundColor(.gray2)
                     .frame(height: 5)
                     .cornerRadius(5)
                 
@@ -70,7 +70,7 @@ struct CustomBarGraph: View {
     
     var bins: [Int: Int] {
         guard let minValue = values.min(), let maxValue = values.max() else { return [:] }
-        let totalBins = 10
+        let totalBins = 14
         let binSize = max(1, (maxValue - minValue) / totalBins)
         
         var bins: [Int: Int] = [:]

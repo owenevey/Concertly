@@ -23,7 +23,7 @@ struct HidingHeaderView<Header: View, FiltersBar: View, ScrollContent: View>: Vi
                 scrollContent()
                     .frame(maxWidth: .infinity)
             }
-            .background(Color("Background"))
+            .background(Color.background)
             .safeAreaInset(edge: .top, spacing: 0) {
                 VStack(spacing: 0) {
                     header()

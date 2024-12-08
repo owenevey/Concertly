@@ -44,7 +44,7 @@ struct EditFlightsSearch: View {
                     showSheet = true
                 } label: {
                     RoundedRectangle(cornerRadius: 15)
-                        .fill(.customGray.opacity(0.5))
+                        .fill(.gray1)
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
                         .overlay(
@@ -64,7 +64,7 @@ struct EditFlightsSearch: View {
                     showSheet = true
                 } label: {
                     RoundedRectangle(cornerRadius: 15)
-                        .fill(.customGray.opacity(0.5))
+                        .fill(.gray1)
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
                         .overlay(
@@ -81,7 +81,7 @@ struct EditFlightsSearch: View {
                 
                 Divider()
                     .frame(height: 2)
-                    .overlay(.customGray)
+                    .overlay(.gray2)
                 
                 HStack(spacing: 30) {
                     DatePicker("", selection: $tempFromDate, in: Date.now...maxDate, displayedComponents: .date)
@@ -149,7 +149,7 @@ struct EditFlightsSearch: View {
         fromAirport: $fromAirport,
         toAirport: $toAirport
     )
-    .background(Color("Background"))
+    .background(Color.background)
     .border(Color.red)
     .frame(maxHeight: 400)
 }

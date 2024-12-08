@@ -38,7 +38,7 @@ struct FilterStops: View {
                         if index < FilterStopsEnum.allCases.count - 1 {
                             Divider()
                                 .frame(height: 1)
-                                .overlay(.customGray)
+                                .overlay(.gray2)
                         }
                     }
                 }
@@ -77,7 +77,7 @@ struct FilterStops: View {
     VStack {
         FilterStops(stopsFilter: .constant(.any))
     }
-    .background(Color("Background"))
+    .background(Color.background)
     .border(Color.red)
     .frame(maxHeight: 400)
 }

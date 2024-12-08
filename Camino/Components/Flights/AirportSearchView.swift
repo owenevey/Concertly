@@ -31,7 +31,7 @@ struct AirportSearchView: View {
             }
             
             RoundedRectangle(cornerRadius: 15)
-                .fill(.customGray.opacity(0.5))
+                .fill(.gray1)
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)
                 .overlay(
@@ -64,7 +64,7 @@ struct AirportSearchView: View {
                                 HStack(spacing: 0) {
                                     Image(systemName: "airplane")
                                         .font(.system(size: 20))
-                                        .padding(.horizontal, 30)
+                                        .padding(.horizontal, 20)
                                     
                                     VStack(alignment: .leading) {
                                         Text(airportResult.name)
@@ -77,23 +77,22 @@ struct AirportSearchView: View {
                                     
                                     Text(airportResult.code)
                                         .font(.system(size: 18, type: .Medium))
-                                        .padding(.horizontal, 30)
+                                        .padding(.horizontal, 20)
                                 }
+                                .contentShape(Rectangle())
                             }
                             .buttonStyle(PlainButtonStyle())
-                            
                         }
                     }
                     
                 }
             case .loading:
-                ProgressView("Loading...")
-                    .frame(maxHeight: 50)
+                LoadingView()
+                    .frame(height: 250)
             case .error:
-                Text(viewModel.airportsResponse.error ?? "Failed to load airports.")
-                    .foregroundColor(.red)
-                    .frame(maxHeight: 50)
-            default: // Handles `.empty` and any unexpected cases
+                ErrorView(text: "Error fetching airports", action: { await viewModel.getSuggestedAirports() })
+                .frame(height: 250)
+            default:
                 EmptyView()
             }
             Spacer()
@@ -108,15 +107,6 @@ struct AirportSearchView: View {
 
 #Preview {
     @Previewable @State var airportCode: String = "SAN"
-    @Previewable @State var airportsResponse = ApiResponse(
-        status: .success,
-        data: AirportSearchResponse(suggestedAirports: [
-            SuggestedAirport(name: "Los Angeles Intl", code: "LAX", city: "Los Angeles", country: "US"),
-            SuggestedAirport(name: "Harry Reid Intl", code: "LAS", city: "Las Vegas", country: "US"),
-            SuggestedAirport(name: "Fll Intl", code: "FLL", city: "Ft Lauderdale", country: "US"),
-            SuggestedAirport(name: "Laguardia", code: "LGA", city: "New York", country: "US")
-        ])
-    )
     
     AirportSearchView(airportCode: $airportCode, title: "Destination")
 }

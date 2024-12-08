@@ -13,7 +13,7 @@ struct ExploreView: View {
 //                    HStack {
 //                        Spacer()
 //                        Circle()
-//                            .fill(.card)
+//                            .fill(Color.foreground)
 //                            .frame(width: 40, height: 40)
 //                            .overlay(
 //                                Image(systemName: "bell.fill")
@@ -36,7 +36,7 @@ struct ExploreView: View {
                         }
                         
                         RoundedRectangle(cornerRadius: 20)
-                            .fill(.card)
+                            .fill(Color.gray1)
                             .frame(maxWidth: .infinity)
                             .frame(height: 50)
                             .overlay(
@@ -58,9 +58,9 @@ struct ExploreView: View {
             }
             .padding(.bottom, 90)
             .padding(.top, -300)
-            .background(Color("Background"))
+            .background(Color.background)
         }
-        .background(Color("Background"))
+        .background(Color.background)
         .ignoresSafeArea(edges: .top)
         .task {
             do {

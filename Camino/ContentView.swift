@@ -25,7 +25,7 @@ struct ContentView: View {
                     Label("Profile", systemImage: "person")
                 }
             }
-            .toolbarBackground(Color("Background"), for: .tabBar)
+            .toolbarBackground(Color.background, for: .tabBar)
         }
     }
 }

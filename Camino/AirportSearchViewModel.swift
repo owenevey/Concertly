@@ -17,19 +17,19 @@ class AirportSearchViewModel: ObservableObject {
                     return
                 }
                 Task {
-                    await self?.getSuggestedAirports(query: query)
+                    await self?.getSuggestedAirports()
                 }
             }
             .store(in: &cancellables)
     }
     
-    func getSuggestedAirports(query: String) async {
+    func getSuggestedAirports() async {
         DispatchQueue.main.async {
             self.airportsResponse = ApiResponse(status: .loading)
         }
         
         do {
-            let fetchedAirports = try await fetchAirportSearch(query: query)
+            let fetchedAirports = try await fetchAirportSearch(query: searchQuery)
             
             DispatchQueue.main.async {
                 self.airportsResponse = ApiResponse(status: .success, data: fetchedAirports)

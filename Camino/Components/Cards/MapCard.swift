@@ -22,7 +22,7 @@ struct MapCard: View {
                     
                     Text(concert.generalLocation)
                         .font(.system(size: 17, type: .Regular))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.gray3)
                         .minimumScaleFactor(0.75)
                         .lineLimit(1)
                     
@@ -35,7 +35,7 @@ struct MapCard: View {
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .background(
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(.card)
+                    .fill(Color.foreground)
                     .shadow(color: .black.opacity(0.2), radius: 5)
                     
             )

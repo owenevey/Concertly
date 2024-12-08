@@ -41,7 +41,7 @@ struct FilterAirlines: View {
                 
                 Divider()
                     .frame(height: 1)
-                    .overlay(.customGray)
+                    .overlay(.gray2)
                 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 10) {
@@ -64,7 +64,8 @@ struct FilterAirlines: View {
                                                 image
                                                     .resizable()
                                             } placeholder: {
-                                                Image(systemName: "photo.fill")
+                                                Color.clear
+                                                    .frame(width: 20, height: 20)
                                             }
                                                 .scaledToFit()
                                                 .frame(width: 20, height: 20)
@@ -83,7 +84,7 @@ struct FilterAirlines: View {
                             if index < airlines.keys.count - 1 {
                                 Divider()
                                     .frame(height: 1)
-                                    .overlay(.customGray)
+                                    .overlay(.gray2)
                             }
                         }
                     }
@@ -129,7 +130,7 @@ struct FilterAirlines: View {
             "Alaska": (imageURL: "https://www.gstatic.com/flights/airline_logos/70px/DL.png", isEnabled: true)
         ]))
     }
-    .background(Color("Background"))
+    .background(Color.background)
     .border(Color.red)
     .frame(maxHeight: 400)
 }

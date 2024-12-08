@@ -28,7 +28,8 @@ struct FlightCard: View {
                                 image
                                     .resizable()
                             } placeholder: {
-                                Image(systemName: "photo.fill")
+                                Color.background
+                                    .frame(width: 25, height: 25)
                             }
                                 .scaledToFit()
                                 .frame(width: 25, height: 25)
@@ -41,7 +42,7 @@ struct FlightCard: View {
                         if let airplane = flightItem.flights.first?.airplane {
                             Text(airplane)
                                 .font(.system(size: 16, type: .Regular))
-                                .foregroundStyle(.gray)
+                                .foregroundStyle(.gray3)
                         }
                         
                     }
@@ -52,11 +53,11 @@ struct FlightCard: View {
                 HStack(spacing: 5) {
                     Image(systemName: "clock.fill")
                         .font(.system(size: 14))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.gray3)
                     
                     Text(minsToHrMins(minutes: flightItem.totalDuration))
                         .font(.system(size: 14, type: .Regular))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.gray3)
                 }
             }
             
@@ -83,15 +84,15 @@ struct FlightCard: View {
                     HStack(spacing: 0) {
                         Rectangle()
                             .frame(height: 2)
-                            .overlay(Color.gray)
+                            .overlay(Color.gray2)
                         
                         ForEach(1..<flightItem.flights.count, id: \.self) { _ in
                             Circle()
-                                .stroke(.gray, lineWidth: 2)
+                                .stroke(.gray2, lineWidth: 2)
                                 .frame(width: 8, height: 8)
                             Rectangle()
                                 .frame(height: 2)
-                                .overlay(Color.gray)
+                                .overlay(Color.gray2)
                         }
                     }
                     
@@ -121,8 +122,8 @@ struct FlightCard: View {
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .background(
             RoundedRectangle(cornerRadius: 20)
-                .fill(.card)
-                .stroke(.customGray, style: StrokeStyle(lineWidth: 1))
+                .fill(Color.foreground)
+                .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
         )
         
         

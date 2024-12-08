@@ -19,7 +19,8 @@ struct ConcertCard: View {
                     image
                         .resizable()
                 } placeholder: {
-                    Image(systemName: "photo.fill")
+                    Color.background
+                        .frame(width: 250, height: 250)
                 }
                 .scaledToFill()
                 .frame(width: 250, height: 150)
@@ -33,13 +34,13 @@ struct ConcertCard: View {
                     
                     Text(concert.generalLocation)
                         .font(.system(size: 16, type: .Regular))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.gray3)
                         .minimumScaleFactor(0.75)
                         .lineLimit(1)
                     
                     Text(concert.dateTime.formatted(date: .abbreviated, time: .omitted))
                         .font(.system(size: 16, type: .Regular))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.gray3)
                         .minimumScaleFactor(0.75)
                         .lineLimit(1)
                     
@@ -50,7 +51,7 @@ struct ConcertCard: View {
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .background(
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(.card)
+                    .fill(Color.foreground)
             )
         }
         .buttonStyle(PlainButtonStyle())
