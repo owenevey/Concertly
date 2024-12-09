@@ -65,6 +65,9 @@
 		F1DD1EB52CEEB354004A9F0F /* SliderFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DD1EB42CEEB354004A9F0F /* SliderFilter.swift */; };
 		F1E786272CB300A200F4E462 /* HotelsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E786262CB300A200F4E462 /* HotelsView.swift */; };
 		F1E786292CB36CAB00F4E462 /* SFSafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E786282CB36CAB00F4E462 /* SFSafariView.swift */; };
+		F1F3A6472D068C1C0042F4F2 /* PriceGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F3A6462D068C1C0042F4F2 /* PriceGraph.swift */; };
+		F1F3A6492D0694E50042F4F2 /* PriceHistorySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F3A6482D0694E50042F4F2 /* PriceHistorySheet.swift */; };
+		F1F3A64B2D0698850042F4F2 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F3A64A2D0698850042F4F2 /* IntExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +131,9 @@
 		F1DD1EB42CEEB354004A9F0F /* SliderFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderFilter.swift; sourceTree = "<group>"; };
 		F1E786262CB300A200F4E462 /* HotelsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsView.swift; sourceTree = "<group>"; };
 		F1E786282CB36CAB00F4E462 /* SFSafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFSafariView.swift; sourceTree = "<group>"; };
+		F1F3A6462D068C1C0042F4F2 /* PriceGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceGraph.swift; sourceTree = "<group>"; };
+		F1F3A6482D0694E50042F4F2 /* PriceHistorySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHistorySheet.swift; sourceTree = "<group>"; };
+		F1F3A64A2D0698850042F4F2 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				F18DE2EB2CFD309200C4D1B5 /* FontExtensions.swift */,
+				F1F3A64A2D0698850042F4F2 /* IntExtensions.swift */,
 				F1DAE69D2CC37F7F00901914 /* DateExtensions.swift */,
 				F1CCE0D12CB0B96600D15696 /* ViewExtensions.swift */,
 			);
@@ -321,6 +328,8 @@
 				F1CA04CA2CFFDEC3003C78AE /* EditFlightsSearch.swift */,
 				F1A858692D027AF6009A37E8 /* AirportSearchView.swift */,
 				F18075302D0568DA00D67622 /* PriceAdvice.swift */,
+				F1F3A6482D0694E50042F4F2 /* PriceHistorySheet.swift */,
+				F1F3A6462D068C1C0042F4F2 /* PriceGraph.swift */,
 			);
 			path = Flights;
 			sourceTree = "<group>";
@@ -408,7 +417,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F19C72692CC7249E00390BD6 /* ConcertViewModel.swift in Sources */,
+				F1F3A6472D068C1C0042F4F2 /* PriceGraph.swift in Sources */,
 				F1DAE69E2CC37F7F00901914 /* DateExtensions.swift in Sources */,
+				F1F3A64B2D0698850042F4F2 /* IntExtensions.swift in Sources */,
 				F176C9262CB5E7F9006BAE35 /* FlightFilters.swift in Sources */,
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
 				F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */,
@@ -438,6 +449,7 @@
 				F1A8586A2D027AF6009A37E8 /* AirportSearchView.swift in Sources */,
 				F11640262C8BB4F00040C95D /* ExploreRow.swift in Sources */,
 				F11640242C8BAD140040C95D /* ExplorePills.swift in Sources */,
+				F1F3A6492D0694E50042F4F2 /* PriceHistorySheet.swift in Sources */,
 				F1659C012CBF252400586212 /* FilterAirlines.swift in Sources */,
 				F19C72832CD092AC00390BD6 /* DurationRange.swift in Sources */,
 				F1A858682D0142C9009A37E8 /* AirportSearchViewModel.swift in Sources */,

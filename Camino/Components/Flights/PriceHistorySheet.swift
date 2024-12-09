@@ -1,51 +1,32 @@
 import SwiftUI
 
-struct PriceAdvice: View {
+struct PriceHistorySheet: View {
     
     var insights: PriceInsights
-    @State private var showPriceHistorySheet = false
-    
-    var advice: String {
-        if insights.priceLevel == "high" {
-            return "Wait"
-        } else {
-            return "Buy"
-        }
-    }
     
     var body: some View {
-        Button {
-            showPriceHistorySheet = true
-        }
-        label: {
-            HStack(spacing: 10) {
-                Image(systemName: advice == "Buy" ? "chart.line.uptrend.xyaxis" : "chart.line.downtrend.xyaxis")
-                    .foregroundStyle(advice == "Buy" ? Color.green : Color.orange)
-                HStack(spacing: 5) {
-                    Text("Our advice:")
-                        .font(.system(size: 18, type: .Medium))
-                    Text(advice)
-                        .font(.system(size: 18, type: .Medium))
-                        .foregroundStyle(advice == "Buy" ? Color.green : Color.orange)
-                }
-                Spacer()
-                Image(systemName: "info.circle")
+        VStack {
+            VStack(alignment: .leading, spacing: 5) {
+                Text("Price History")
+                    .font(.system(size: 26, type: .SemiBold))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Text("Current Level: \(insights.priceLevel.capitalized)")
+                    .font(.system(size: 18, type: .Regular))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                Text("Typical Price Range: \(insights.typicalPriceRange[0].asDollarString) - \(insights.typicalPriceRange[1].asDollarString)")
+                    .font(.system(size: 18, type: .Regular))
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
-            .padding(20)
-            .contentShape(RoundedRectangle(cornerRadius: 20))
-            .frame(maxWidth: .infinity)
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.foreground)
-                    .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
-            )
-            .sheet(isPresented: $showPriceHistorySheet) {
-                PriceHistorySheet(insights: insights)
-                    .presentationDetents([.height(500)])
-            }
+            
+            PriceGraph(prices: insights.priceHistory)
+                .padding(.top)
+            Spacer()
         }
-        .buttonStyle(PlainButtonStyle())
+        .padding(20)
+        
+        .background(Color.background)
     }
 }
 
@@ -119,7 +100,7 @@ struct PriceAdvice: View {
         ]
     )
     
-    PriceAdvice(insights: examplePriceInsights)
+    PriceHistorySheet(insights: examplePriceInsights)
         .padding()
 }
 

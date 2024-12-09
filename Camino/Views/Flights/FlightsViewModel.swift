@@ -10,6 +10,7 @@ final class FlightsViewModel: ObservableObject {
     @Published var toAirport: String = ""
     
     @Published var flightsResponse: ApiResponse<FlightsResponse>
+    @Published var priceHistory: PriceInsights?
     
     @Published var sortFlightsMethod = SortFlightsEnum.recommended
     @Published var airlineFilter: [String: (imageURL: String, isEnabled: Bool)] = [:]
@@ -26,6 +27,7 @@ final class FlightsViewModel: ObservableObject {
         self.toDate = toDate
         self.toAirport = flightsResponse.data?.airports.first!.arrival.first!.airport.id ?? ""
         self.flightsResponse = flightsResponse
+        self.priceHistory = flightsResponse.data?.priceInsights
         
         resetFilters()
     }
@@ -176,6 +178,7 @@ final class FlightsViewModel: ObservableObject {
     
     func getDepartingFlights() async {
         DispatchQueue.main.async {
+            self.departingFlight = nil
             self.flightsResponse = ApiResponse(status: .loading)
             self.resetFilters()
         }
@@ -190,6 +193,7 @@ final class FlightsViewModel: ObservableObject {
             
             DispatchQueue.main.async {
                 self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
+                self.priceHistory = fetchedFlights.priceInsights
                 self.resetFilters()
             }
         } catch {
@@ -203,7 +207,6 @@ final class FlightsViewModel: ObservableObject {
     
     func getReturningFlights() async {
         DispatchQueue.main.async {
-//            self.returningFlight = nil
             self.flightsResponse = ApiResponse(status: .loading)
             self.resetFilters()
         }

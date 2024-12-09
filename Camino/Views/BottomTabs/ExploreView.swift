@@ -6,23 +6,9 @@ struct ExploreView: View {
     @State private var textInput = ""
     
     var body: some View {
-//        ScrollView(showsIndicators: false) {
         ImageHeaderScrollView(headerContent: ExploreHeader(), showBackButton: false) {
             VStack(spacing: 15) {
                 VStack {
-//                    HStack {
-//                        Spacer()
-//                        Circle()
-//                            .fill(Color.foreground)
-//                            .frame(width: 40, height: 40)
-//                            .overlay(
-//                                Image(systemName: "bell.fill")
-//                                    .foregroundStyle(.accent)
-//                            )
-//                            .padding(.trailing, 20)
-//                            .padding(.top, 50)
-//                    }
-                    
                     Spacer()
                     
                     VStack {
@@ -37,6 +23,7 @@ struct ExploreView: View {
                         
                         RoundedRectangle(cornerRadius: 20)
                             .fill(Color.gray1)
+                            .shadow(color: .black.opacity(0.6), radius: 3)
                             .frame(maxWidth: .infinity)
                             .frame(height: 50)
                             .overlay(
