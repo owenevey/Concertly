@@ -7,11 +7,7 @@ struct FilterStops: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack {
-            Text("Stops")
-                .font(.system(size: 20, type: .SemiBold))
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
+        FilterSheet(filter: $stopsFilter, title: "Stops") {
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 10) {
                     ForEach(FilterStopsEnum.allCases.indices, id: \.self) { index in
@@ -44,29 +40,7 @@ struct FilterStops: View {
                 }
                 .padding(.vertical, 10)
             }
-            
-            
-            Spacer()
-            
-            Button {
-                dismiss()
-            } label: {
-                Text("Done")
-                    .font(.system(size: 18, type: .Medium))
-                    .foregroundStyle(.white)
-                    .padding(12)
-                    .frame(maxWidth: .infinity)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(.accent)
-                    )
-                    .padding(.top)
-            }
-            .buttonStyle(PlainButtonStyle())
-            
         }
-        .padding()
     }
     
     

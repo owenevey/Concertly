@@ -61,14 +61,17 @@ struct ConcertView: View {
                         Text("Total:")
                             .font(.system(size: 18, type: .Medium))
                         Spacer()
-                        if viewModel.flightsResponse.status == .loading {
-                            CircleLoadingView(ringSize: 20)
-                                .padding(.trailing, 10)
-                        } else {
-                            Text("$\(viewModel.totalPrice)")
-                                .font(.system(size: 18, type: .Medium))
+                        Group {
+                            if viewModel.flightsResponse.status == .loading {
+                                CircleLoadingView(ringSize: 20)
+                                    .padding(.trailing, 10)
+                            } else if viewModel.flightsResponse.status == .success {
+                                Text("$\(viewModel.totalPrice)")
+                                    .font(.system(size: 18, type: .Medium))
+                            }
                         }
-                        
+                        .transition(.opacity)
+                        .animation(.easeInOut, value: viewModel.totalPrice)
                     }
                     .padding(.horizontal, 10)
                     

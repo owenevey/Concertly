@@ -32,43 +32,23 @@ struct FilterTime: View {
 
     
     var body: some View {
-        VStack {
-            Text("Time")
-                .font(.system(size: 20, type: .SemiBold))
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            Spacer()
-            
-            VStack(spacing: 20) {
-                SliderFilter(values: flightTimes, filter: $timeFilter)
-                    .frame(width: nil, height: 100, alignment: .center)
-                    .padding(.horizontal, 25)
+        FilterSheet(filter: $timeFilter, title: "Time") {
+            VStack {
+                Spacer()
                 
-                Text("Latest Arrival Time: \(formattedTime(from: timeFilter))")
-                    .font(.system(size: 20, type: .Medium))
-                    .frame(maxWidth: .infinity, alignment: .center)
+                VStack(spacing: 20) {
+                    SliderFilter(values: flightTimes, filter: $timeFilter)
+                        .frame(width: nil, height: 100, alignment: .center)
+                        .padding(.horizontal, 25)
+                    
+                    Text("Arrival Before: \(formattedTime(from: timeFilter))")
+                        .font(.system(size: 20, type: .Medium))
+                        .frame(maxWidth: .infinity, alignment: .center)
+                }
+                
+                Spacer()
             }
-            
-            Spacer()
-            
-            Button {
-                dismiss()
-            } label: {
-                Text("Done")
-                    .font(.system(size: 18, type: .Medium))
-                    .foregroundStyle(.white)
-                    .padding(12)
-                    .frame(maxWidth: .infinity)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(.accent)
-                    )
-                    .padding(.top)
-            }
-            .buttonStyle(PlainButtonStyle())
         }
-        .padding()
     }
 }
 

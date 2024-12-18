@@ -2,8 +2,6 @@ import SwiftUI
 
 struct FlightsHeader: View {
     
-    @Environment(\.dismiss) var dismiss
-    
     let viewModel: FlightsViewModel
     
     @Binding var fromDate: Date
@@ -18,53 +16,31 @@ struct FlightsHeader: View {
     var body: some View {
         HStack {
             HStack {
-                Button(
-                    action: {
-                        dismiss()
-                    }
-                ) {
-                    RoundedRectangle(cornerRadius: 20, style: .continuous)
-                        .fill(.ultraThinMaterial)
-                        .frame(width: 50, height: 50)
-                        .overlay(
-                            Image(systemName: "arrow.backward")
-                                .font(.system(size: 20))
-                        )
-                        .padding(.leading, 20)
-                }
-                .buttonStyle(PlainButtonStyle())
+                TranslucentBackButton()
                 Spacer()
             }
             .frame(maxWidth: .infinity)
-            
-            Spacer()
-            
+                        
             VStack {
-                HStack {
-                    Text("\(fromAirport) - \(toAirport)")
-                        .font(.system(size: 20, type: .SemiBold))
-                }
+                Text("\(fromAirport) - \(toAirport)")
+                    .font(.system(size: 20, type: .SemiBold))
+                
                 Text("\(fromDate.shortFormat()) - \(toDate.shortFormat())")
                     .font(.system(size: 14, type: .Medium))
             }
             
-            Spacer()
             HStack {
                 Spacer()
                 Button {
-                    fromDate = calendar.date(byAdding: .day, value: -1, to: fromDate)!
+                    presentSheet = true
                 } label: {
-                    Button {
-                        presentSheet = true
-                    } label: {
-                        HStack(spacing: 5) {
-                            Image(systemName: "pencil")
-                                .font(.system(size: 16))
-                                
-                            Text("Edit")
-                                .font(.system(size: 16, type: .Medium))
-                                .padding(.trailing, 20)
-                        }
+                    HStack(spacing: 5) {
+                        Image(systemName: "pencil")
+                            .font(.system(size: 16))
+                        
+                        Text("Edit")
+                            .font(.system(size: 16, type: .Medium))
+                            .padding(.trailing, 20)
                     }
                 }
             }

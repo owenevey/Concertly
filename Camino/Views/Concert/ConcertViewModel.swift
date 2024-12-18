@@ -1,5 +1,7 @@
 import Foundation
+import SwiftUI
 
+@MainActor
 class ConcertViewModel: ObservableObject {
     var concert: Concert
     
@@ -15,7 +17,6 @@ class ConcertViewModel: ObservableObject {
         self.tripStartDate = calendar.date(byAdding: .day, value: -1, to: concert.dateTime) ?? Date()
         self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.dateTime) ?? Date()
     }
-
     
     var hotelPrice: Int {
         270
@@ -30,27 +31,24 @@ class ConcertViewModel: ObservableObject {
     }
     
     func getDepartingFlights() async {
-        DispatchQueue.main.async {
-            self.flightsResponse = ApiResponse(status: .loading)
-        }
+        self.flightsResponse = ApiResponse(status: .loading)
         
         do {
             try await Task.sleep(nanoseconds: 1 * 1_000_000_000)
             let fetchedFlights = try await fetchDepartureFlights(lat: concert.latitude,
-                                                                long: concert.longitude,
-                                                                fromAirport: homeAirport,
-                                                                fromDate: tripStartDate.traditionalFormat(),
-                                                                toDate: tripEndDate.traditionalFormat())
+                                                                 long: concert.longitude,
+                                                                 fromAirport: homeAirport,
+                                                                 fromDate: tripStartDate.traditionalFormat(),
+                                                                 toDate: tripEndDate.traditionalFormat())
             
-            DispatchQueue.main.async {
-                self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
+            self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
+            withAnimation(.easeInOut) {
                 self.flightsPrice = fetchedFlights.bestFlights.first?.price ?? 0
             }
+            
         } catch {
             print("Error fetching flights: \(error)")
-            DispatchQueue.main.async {
-                self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
-            }
+            self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
         }
     }
 }

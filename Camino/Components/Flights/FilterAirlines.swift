@@ -11,11 +11,7 @@ struct FilterAirlines: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack {
-            Text("Airlines")
-                .font(.system(size: 20, type: .SemiBold))
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
+        FilterSheet(filter: $airlines, title: "Airlines") {
             VStack(spacing: 0) {
                 Button(action: {
                     let newValue = !allSelected
@@ -90,32 +86,8 @@ struct FilterAirlines: View {
                     }
                     .padding(.vertical, 10)
                 }
-                .frame(maxHeight: 300)
-                
-                
             }
-            
-            Spacer()
-            
-            Button {
-                dismiss()
-            } label: {
-                Text("Done")
-                    .font(.system(size: 18, type: .Medium))
-                    .foregroundStyle(.white)
-                    .padding(12)
-                    .frame(maxWidth: .infinity)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(.accent)
-                    )
-                    .padding(.top)
-            }
-            .buttonStyle(PlainButtonStyle())
-            
         }
-        .padding()
     }
     
     

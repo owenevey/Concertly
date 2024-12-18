@@ -47,10 +47,11 @@ struct PriceGraph: View {
                         }
                     }
                 }
+        .chartXAxis(.hidden)
         .frame(height: 300)
         .onAppear {
             for (index, _) in prices.enumerated() {
-                DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.01) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.005) {
                     withAnimation(.interactiveSpring(response: 0.8, dampingFraction: 0.8, blendDuration: 0.8)) {
                         prices[index].animate = true
                     }

@@ -4,14 +4,13 @@ struct AirportSearchView: View {
     
     @Environment(\.dismiss) var dismiss
     @FocusState private var isTextFieldFocused: Bool
+    @StateObject private var viewModel = AirportSearchViewModel()
     
     @Binding var airportCode: String
     var title: String
-    @StateObject private var viewModel = AirportSearchViewModel()
     
     var body: some View {
         VStack(spacing: 0) {
-            
             HStack {
                 Button {
                     dismiss()
@@ -30,24 +29,19 @@ struct AirportSearchView: View {
                     .frame(maxWidth: .infinity)
             }
             
-            RoundedRectangle(cornerRadius: 15)
-                .fill(.gray1)
-                .frame(maxWidth: .infinity)
-                .frame(height: 50)
-                .overlay(
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                        TextField("Search", text: $viewModel.searchQuery)
-                            .submitLabel(.done)
-                            .disableAutocorrection(true)
-                            .focused($isTextFieldFocused)
-                            .font(.system(size: 18, type: .Regular))
-                            .padding(.trailing)
-                    }
-                        .padding()
-                )
-                .padding(.top)
-                .padding(.bottom, 20)
+            CaminoSearchBar(content: {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                    TextField("Search", text: $viewModel.searchQuery)
+                        .submitLabel(.done)
+                        .disableAutocorrection(true)
+                        .focused($isTextFieldFocused)
+                        .font(.system(size: 18, type: .Regular))
+                        .padding(.trailing)
+                }
+            })
+            .padding(.top)
+            .padding(.bottom, 20)
             
             
             switch viewModel.airportsResponse.status {
@@ -91,13 +85,13 @@ struct AirportSearchView: View {
                     .frame(height: 250)
             case .error:
                 ErrorView(text: "Error fetching airports", action: { await viewModel.getSuggestedAirports() })
-                .frame(height: 250)
+                    .frame(height: 250)
             default:
                 EmptyView()
             }
             Spacer()
         }
-        .padding()
+        .padding(15)
         .background(Color.background)
         .onAppear {
             isTextFieldFocused = true

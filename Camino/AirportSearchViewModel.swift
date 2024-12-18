@@ -1,6 +1,7 @@
 import SwiftUI
 import Combine
 
+@MainActor
 class AirportSearchViewModel: ObservableObject {
     @Published var searchQuery: String = ""
     @Published var airportsResponse: ApiResponse<AirportSearchResponse> = ApiResponse<AirportSearchResponse>()
@@ -24,21 +25,17 @@ class AirportSearchViewModel: ObservableObject {
     }
     
     func getSuggestedAirports() async {
-        DispatchQueue.main.async {
-            self.airportsResponse = ApiResponse(status: .loading)
-        }
+        self.airportsResponse = ApiResponse(status: .loading)
         
         do {
-            let fetchedAirports = try await fetchAirportSearch(query: searchQuery)
+            let fetchedAirports = try await fetchAirportSearchResults(query: searchQuery)
             
-            DispatchQueue.main.async {
-                self.airportsResponse = ApiResponse(status: .success, data: fetchedAirports)
-            }
+            self.airportsResponse = ApiResponse(status: .success, data: fetchedAirports)
+            
         } catch {
             print("Error fetching airports: \(error)")
-            DispatchQueue.main.async {
-                self.airportsResponse = ApiResponse(status: .error, error: error.localizedDescription)
-            }
+            self.airportsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            
         }
     }
 }

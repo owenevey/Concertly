@@ -20,6 +20,10 @@
 		F11640282C8BEABD0040C95D /* CustomClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640272C8BEABD0040C95D /* CustomClasses.swift */; };
 		F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F116402B2C8C274E0040C95D /* ExploreHeader.swift */; };
 		F116402E2C8C2F3E0040C95D /* PlaceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F116402D2C8C2F3E0040C95D /* PlaceCard.swift */; };
+		F117149C2D1253B0007A0052 /* CaminoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117149B2D1253B0007A0052 /* CaminoButton.swift */; };
+		F117149E2D126787007A0052 /* TranslucentBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117149D2D126787007A0052 /* TranslucentBackButton.swift */; };
+		F11714A02D126C90007A0052 /* CaminoSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117149F2D126C90007A0052 /* CaminoSearchBar.swift */; };
+		F11714A32D1274DA007A0052 /* FilterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11714A22D1274DA007A0052 /* FilterSheet.swift */; };
 		F13186292CB1EBD9003DBCC5 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13186282CB1EBD9003DBCC5 /* ProfileView.swift */; };
 		F131862E2CB2E5D5003DBCC5 /* MapCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131862D2CB2E5D5003DBCC5 /* MapCard.swift */; };
 		F13186302CB2F03E003DBCC5 /* FlightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131862F2CB2F03E003DBCC5 /* FlightsView.swift */; };
@@ -30,7 +34,7 @@
 		F18075292D04F2C300D67622 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18075282D04F2C300D67622 /* LoadingView.swift */; };
 		F180752B2D04FF2B00D67622 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F180752A2D04FF2B00D67622 /* ErrorView.swift */; };
 		F180752D2D052E3F00D67622 /* CircleLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F180752C2D052E3F00D67622 /* CircleLoadingView.swift */; };
-		F18075312D0568DA00D67622 /* PriceAdvice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18075302D0568DA00D67622 /* PriceAdvice.swift */; };
+		F18075312D0568DA00D67622 /* PriceInsightsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18075302D0568DA00D67622 /* PriceInsightsCard.swift */; };
 		F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551B2C8CEA2800E25003 /* ConcertCard.swift */; };
 		F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F181551E2C8D5D1F00E25003 /* ConcertView.swift */; };
 		F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18155202C8EB35A00E25003 /* ConcertsResponse.swift */; };
@@ -85,6 +89,10 @@
 		F11640272C8BEABD0040C95D /* CustomClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomClasses.swift; sourceTree = "<group>"; };
 		F116402B2C8C274E0040C95D /* ExploreHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreHeader.swift; sourceTree = "<group>"; };
 		F116402D2C8C2F3E0040C95D /* PlaceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCard.swift; sourceTree = "<group>"; };
+		F117149B2D1253B0007A0052 /* CaminoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaminoButton.swift; sourceTree = "<group>"; };
+		F117149D2D126787007A0052 /* TranslucentBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentBackButton.swift; sourceTree = "<group>"; };
+		F117149F2D126C90007A0052 /* CaminoSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaminoSearchBar.swift; sourceTree = "<group>"; };
+		F11714A22D1274DA007A0052 /* FilterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheet.swift; sourceTree = "<group>"; };
 		F13186282CB1EBD9003DBCC5 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		F131862D2CB2E5D5003DBCC5 /* MapCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCard.swift; sourceTree = "<group>"; };
 		F131862F2CB2F03E003DBCC5 /* FlightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsView.swift; sourceTree = "<group>"; };
@@ -95,7 +103,7 @@
 		F18075282D04F2C300D67622 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		F180752A2D04FF2B00D67622 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		F180752C2D052E3F00D67622 /* CircleLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLoadingView.swift; sourceTree = "<group>"; };
-		F18075302D0568DA00D67622 /* PriceAdvice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceAdvice.swift; sourceTree = "<group>"; };
+		F18075302D0568DA00D67622 /* PriceInsightsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceInsightsCard.swift; sourceTree = "<group>"; };
 		F181551B2C8CEA2800E25003 /* ConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertCard.swift; sourceTree = "<group>"; };
 		F181551E2C8D5D1F00E25003 /* ConcertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertView.swift; sourceTree = "<group>"; };
 		F18155202C8EB35A00E25003 /* ConcertsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertsResponse.swift; sourceTree = "<group>"; };
@@ -178,10 +186,8 @@
 				F19C726A2CC726B800390BD6 /* GlobalVars.swift */,
 				F1DAE6A12CC42EA500901914 /* ApiCalls.swift */,
 				F1A858672D0142C9009A37E8 /* AirportSearchViewModel.swift */,
-				F19C727A2CD0691200390BD6 /* SortFlightsEnum.swift */,
-				F19C727C2CD0808B00390BD6 /* FilterStopsEnum.swift */,
+				F11714A12D127278007A0052 /* Enums */,
 				F11640272C8BEABD0040C95D /* CustomClasses.swift */,
-				F176C9252CB5E7F9006BAE35 /* FlightFilters.swift */,
 				F18DE2442CFCB6A800C4D1B5 /* sampleData.json */,
 				F18DE2F12CFE745300C4D1B5 /* Outfit.ttf */,
 				F11640162C8A8A300040C95D /* Preview Content */,
@@ -207,6 +213,16 @@
 			path = BottomTabs;
 			sourceTree = "<group>";
 		};
+		F11714A12D127278007A0052 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				F176C9252CB5E7F9006BAE35 /* FlightFilters.swift */,
+				F19C727A2CD0691200390BD6 /* SortFlightsEnum.swift */,
+				F19C727C2CD0808B00390BD6 /* FilterStopsEnum.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		F131862C2CB26255003DBCC5 /* Cards */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,6 +231,7 @@
 				F19900372CAB5C8300EE005F /* SportCard.swift */,
 				F131862D2CB2E5D5003DBCC5 /* MapCard.swift */,
 				F113E9572CB4986A0057CF90 /* FlightCard.swift */,
+				F18075302D0568DA00D67622 /* PriceInsightsCard.swift */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -232,11 +249,16 @@
 		F18DE23D2CFA8D3B00C4D1B5 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				F11714A22D1274DA007A0052 /* FilterSheet.swift */,
+				F1F3A6482D0694E50042F4F2 /* PriceHistorySheet.swift */,
 				F1DD1EB42CEEB354004A9F0F /* SliderFilter.swift */,
 				F13186312CB2F198003DBCC5 /* LineItem.swift */,
 				F18075282D04F2C300D67622 /* LoadingView.swift */,
 				F180752A2D04FF2B00D67622 /* ErrorView.swift */,
 				F180752C2D052E3F00D67622 /* CircleLoadingView.swift */,
+				F117149B2D1253B0007A0052 /* CaminoButton.swift */,
+				F117149D2D126787007A0052 /* TranslucentBackButton.swift */,
+				F117149F2D126C90007A0052 /* CaminoSearchBar.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -320,15 +342,13 @@
 				F19C72702CCB378700390BD6 /* FlightsHeader.swift */,
 				F19C72722CCB394300390BD6 /* FlightsFiltersBar.swift */,
 				F19C72782CD0685300390BD6 /* SortFlights.swift */,
-				F19C727E2CD0837700390BD6 /* FilterStops.swift */,
 				F1659C002CBF252400586212 /* FilterAirlines.swift */,
+				F19C727E2CD0837700390BD6 /* FilterStops.swift */,
 				F19C72802CD089B800390BD6 /* FilterDuration.swift */,
 				F10F94252CD45849007EE947 /* FilterPrice.swift */,
 				F18DE23E2CFAACC600C4D1B5 /* FilterTime.swift */,
 				F1CA04CA2CFFDEC3003C78AE /* EditFlightsSearch.swift */,
 				F1A858692D027AF6009A37E8 /* AirportSearchView.swift */,
-				F18075302D0568DA00D67622 /* PriceAdvice.swift */,
-				F1F3A6482D0694E50042F4F2 /* PriceHistorySheet.swift */,
 				F1F3A6462D068C1C0042F4F2 /* PriceGraph.swift */,
 			);
 			path = Flights;
@@ -435,7 +455,7 @@
 				F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */,
 				F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */,
 				F18C460E2CC5B30D00756472 /* TimeUtil.swift in Sources */,
-				F18075312D0568DA00D67622 /* PriceAdvice.swift in Sources */,
+				F18075312D0568DA00D67622 /* PriceInsightsCard.swift in Sources */,
 				F19C72672CC71C5E00390BD6 /* FlightsViewModel.swift in Sources */,
 				F1E786292CB36CAB00F4E462 /* SFSafariView.swift in Sources */,
 				F11640202C8AAA610040C95D /* ExploreView.swift in Sources */,
@@ -450,6 +470,8 @@
 				F11640262C8BB4F00040C95D /* ExploreRow.swift in Sources */,
 				F11640242C8BAD140040C95D /* ExplorePills.swift in Sources */,
 				F1F3A6492D0694E50042F4F2 /* PriceHistorySheet.swift in Sources */,
+				F11714A02D126C90007A0052 /* CaminoSearchBar.swift in Sources */,
+				F117149E2D126787007A0052 /* TranslucentBackButton.swift in Sources */,
 				F1659C012CBF252400586212 /* FilterAirlines.swift in Sources */,
 				F19C72832CD092AC00390BD6 /* DurationRange.swift in Sources */,
 				F1A858682D0142C9009A37E8 /* AirportSearchViewModel.swift in Sources */,
@@ -458,6 +480,7 @@
 				F19C727F2CD0837700390BD6 /* FilterStops.swift in Sources */,
 				F113E9582CB4986A0057CF90 /* FlightCard.swift in Sources */,
 				F116402E2C8C2F3E0040C95D /* PlaceCard.swift in Sources */,
+				F117149C2D1253B0007A0052 /* CaminoButton.swift in Sources */,
 				F1CCE0D22CB0B96600D15696 /* ViewExtensions.swift in Sources */,
 				F19C727D2CD0808B00390BD6 /* FilterStopsEnum.swift in Sources */,
 				F19C726F2CCB27D900390BD6 /* HidingHeaderView.swift in Sources */,
@@ -473,6 +496,7 @@
 				F19C727B2CD0691200390BD6 /* SortFlightsEnum.swift in Sources */,
 				F18DE2EC2CFD309500C4D1B5 /* FontExtensions.swift in Sources */,
 				F11640222C8BA8270040C95D /* TripsView.swift in Sources */,
+				F11714A32D1274DA007A0052 /* FilterSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

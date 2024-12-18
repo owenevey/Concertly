@@ -56,9 +56,6 @@ struct HidingHeaderView<Header: View, FiltersBar: View, ScrollContent: View>: Vi
             .onChange(of: isScrollingUp, { oldValue, newValue in
                 lastNaturalOffset = naturalScrollOffset - headerOffset
             })
-            
-            
-            
         }
     }
 }

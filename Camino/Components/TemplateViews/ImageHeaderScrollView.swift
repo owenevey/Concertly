@@ -69,18 +69,8 @@ struct ImageHeaderScrollView<HeaderContent: View, Content: View>: View {
                 
                 if showBackButton {
                     HStack {
-                        Button(action: {dismiss()}) {
-                            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                                .fill(.ultraThinMaterial)
-                                .frame(width: 50, height: 50)
-                                .overlay(
-                                    Image(systemName: "arrow.backward")
-                                        .font(.system(size: 20))
-                                )
-                                .padding(.top, geometry.safeAreaInsets.top)
-                                .padding(.leading, 20)
-                        }
-                        .buttonStyle(PlainButtonStyle())
+                        TranslucentBackButton()
+                        .padding(.top, geometry.safeAreaInsets.top)
                         Spacer()
                     }
                 }

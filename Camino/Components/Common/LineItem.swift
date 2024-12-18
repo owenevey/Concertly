@@ -7,6 +7,14 @@ struct LineItem: View {
     let status: Status
     
     @State private var showSafariView = false
+    @State private var currentStatus: Status
+    
+    init(item: LineItemType, price: Int, status: Status) {
+        self.item = item
+        self.price = price
+        self.status = status
+        _currentStatus = State(initialValue: status)
+    }
     
     var body: some View {
         Group {
@@ -35,6 +43,11 @@ struct LineItem: View {
                 
             }
         }
+        .onChange(of: status) { oldStatus, newStatus in
+            withAnimation(.easeInOut) {
+                currentStatus = newStatus
+            }
+        }
     }
     
     var lineItemContent: some View {
@@ -51,22 +64,22 @@ struct LineItem: View {
                 .font(.system(size: 18, type: .Medium))
             Spacer()
             HStack {
-                if status == .loading {
+                if currentStatus == .loading {
                     CircleLoadingView(ringSize: 20)
                         .padding(.trailing, 10)
                 }
-                else if status == .success {
+                else if currentStatus == .success {
                     Text("$\(price)")
                         .font(.system(size: 18, type: .Medium))
                     Image(systemName: "chevron.right")
                         .font(.system(size: 15))
                 }
-                else if status == .error {
+                else if currentStatus == .error {
                     Text("Error")
                         .font(.system(size: 18, type: .Medium))
                 }
             }
-            
+            .transition(.opacity)
         }
         .padding(15)
         .contentShape(RoundedRectangle(cornerRadius: 20))

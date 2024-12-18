@@ -14,8 +14,6 @@ struct FlightCard: View {
         }
     }
     
-    
-    
     var body: some View {
         VStack(spacing: 10) {
             HStack(alignment: .center) {
@@ -32,8 +30,7 @@ struct FlightCard: View {
                                             image
                                                 .resizable()
                                         } placeholder: {
-                                            Color.background
-                                                .frame(width: 15, height: 15)
+                                            Color.white
                                         }
                                             .scaledToFit()
                                             .frame(width: 15, height: 15)
@@ -52,8 +49,7 @@ struct FlightCard: View {
                                             image
                                                 .resizable()
                                         } placeholder: {
-                                            Color.background
-                                                .frame(width: 15, height: 15)
+                                            Color.white
                                         }
                                             .scaledToFit()
                                             .frame(width: 15, height: 15)
@@ -67,12 +63,11 @@ struct FlightCard: View {
                             .fill(.white)
                             .frame(width: 40, height: 40)
                             .overlay(
-                                AsyncImage(url: URL(string: flightItem.flights.first!.airlineLogo)) { image in
+                                AsyncImage(url: URL(string: flightItem.flights.first?.airlineLogo ?? "")) { image in
                                     image
                                         .resizable()
                                 } placeholder: {
-                                    Color.background
-                                        .frame(width: 25, height: 25)
+                                    Color.white
                                 }
                                     .scaledToFit()
                                     .frame(width: 25, height: 25)
@@ -85,7 +80,7 @@ struct FlightCard: View {
                 
                 VStack(alignment: .leading) {
                     if let airplane = flightItem.flights.first?.airplane {
-                        Text(flightItem.flights.first!.airline)
+                        Text(flightItem.flights.first?.airline ?? "")
                             .font(.system(size: 18, type: .Medium))
                         Text(airplane)
                             .font(.system(size: 16, type: .Regular))
@@ -93,7 +88,7 @@ struct FlightCard: View {
                     }
                     else {
                         Spacer()
-                        Text(flightItem.flights.first!.airline)
+                        Text(flightItem.flights.first?.airline ?? "")
                             .font(.system(size: 18, type: .Medium))
                         Spacer()
                     }
@@ -114,7 +109,7 @@ struct FlightCard: View {
                     }
                     Spacer()
                 }
-                    
+                
             }
             .frame(height: 45)
             
@@ -122,9 +117,9 @@ struct FlightCard: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 0) {
                         HStack(alignment: .bottom, spacing: 0) {
-                            Text(flightItem.flights.first!.departureAirport.time.timeFormat())
+                            Text(flightItem.flights.first?.departureAirport.time.timeFormat() ?? "")
                                 .font(.system(size: 20, type: .Regular))
-                            Text(flightItem.flights.first!.departureAirport.time.meridiemFormat())
+                            Text(flightItem.flights.first?.departureAirport.time.meridiemFormat() ?? "")
                                 .font(.system(size: 15, type: .Regular))
                                 .padding(.bottom, 2)
                         }
@@ -134,9 +129,7 @@ struct FlightCard: View {
                             Text(flightItem.flights.first!.departureAirport.id)
                                 .font(.system(size: 14, type: .Regular))
                         }
-                        
                     }
-                    
                     
                     HStack(spacing: 0) {
                         Rectangle()
@@ -156,9 +149,9 @@ struct FlightCard: View {
                     
                     VStack(alignment: .trailing, spacing: 0) {
                         HStack(alignment: .bottom, spacing: 0) {
-                            Text(flightItem.flights.last!.arrivalAirport.time.timeFormat())
+                            Text(flightItem.flights.last?.arrivalAirport.time.timeFormat() ?? "")
                                 .font(.system(size: 20, type: .Regular))
-                            Text(flightItem.flights.last!.arrivalAirport.time.meridiemFormat())
+                            Text(flightItem.flights.last?.arrivalAirport.time.meridiemFormat() ?? "")
                                 .font(.system(size: 15, type: .Regular))
                                 .padding(.bottom, 2)
                         }
@@ -176,14 +169,12 @@ struct FlightCard: View {
             }
         }
         .padding(15)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.foreground)
                 .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
         )
-        
-        
+        .clipShape(RoundedRectangle(cornerRadius: 20))
     }
     
     func timeFormat(_ date: Date) -> String {

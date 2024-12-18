@@ -8,23 +8,26 @@ struct PriceHistorySheet: View {
         VStack {
             VStack(alignment: .leading, spacing: 5) {
                 Text("Price History")
-                    .font(.system(size: 26, type: .SemiBold))
+                    .font(.system(size: 20, type: .SemiBold))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text("Current Level: \(insights.priceLevel.capitalized)")
-                    .font(.system(size: 18, type: .Regular))
+                    .font(.system(size: 16, type: .Regular))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text("Typical Price Range: \(insights.typicalPriceRange[0].asDollarString) - \(insights.typicalPriceRange[1].asDollarString)")
-                    .font(.system(size: 18, type: .Regular))
+                    .font(.system(size: 16, type: .Regular))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             
-            PriceGraph(prices: insights.priceHistory)
-                .padding(.top)
             Spacer()
+            PriceGraph(prices: insights.priceHistory)
+                .padding(5)
+                .padding(.bottom, 10)
+            Spacer()
+            
         }
-        .padding(20)
+        .padding(15)
         
         .background(Color.background)
     }
@@ -101,6 +104,6 @@ struct PriceHistorySheet: View {
     )
     
     PriceHistorySheet(insights: examplePriceInsights)
-        .padding()
+        .frame(height: 470)
 }
 

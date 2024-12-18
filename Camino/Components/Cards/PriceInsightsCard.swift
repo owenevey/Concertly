@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct PriceAdvice: View {
+struct PriceInsightsCard: View {
     
     var insights: PriceInsights
     @State private var showPriceHistorySheet = false
@@ -13,6 +13,14 @@ struct PriceAdvice: View {
         }
     }
     
+    var color: Color {
+        if insights.priceLevel == "high" {
+            return Color.orange
+        } else {
+            return Color.green
+        }
+    }
+    
     var body: some View {
         Button {
             showPriceHistorySheet = true
@@ -20,29 +28,29 @@ struct PriceAdvice: View {
         label: {
             HStack(spacing: 10) {
                 Image(systemName: advice == "Buy" ? "chart.line.uptrend.xyaxis" : "chart.line.downtrend.xyaxis")
-                    .foregroundStyle(advice == "Buy" ? Color.green : Color.orange)
+                    .foregroundStyle(color)
                 HStack(spacing: 5) {
                     Text("Our advice:")
                         .font(.system(size: 18, type: .Medium))
                     Text(advice)
                         .font(.system(size: 18, type: .Medium))
-                        .foregroundStyle(advice == "Buy" ? Color.green : Color.orange)
+                        .foregroundStyle(color)
                 }
                 Spacer()
                 Image(systemName: "info.circle")
             }
             .padding(20)
-            .contentShape(RoundedRectangle(cornerRadius: 20))
             .frame(maxWidth: .infinity)
-            .clipShape(RoundedRectangle(cornerRadius: 20))
             .background(
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.foreground)
                     .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
             )
+            .clipShape(RoundedRectangle(cornerRadius: 20))
             .sheet(isPresented: $showPriceHistorySheet) {
                 PriceHistorySheet(insights: insights)
-                    .presentationDetents([.height(500)])
+                    .presentationDetents([.height(470)])
+                    .background(Color.background)
             }
         }
         .buttonStyle(PlainButtonStyle())
@@ -119,7 +127,7 @@ struct PriceAdvice: View {
         ]
     )
     
-    PriceAdvice(insights: examplePriceInsights)
+    PriceInsightsCard(insights: examplePriceInsights)
         .padding()
 }
 

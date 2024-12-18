@@ -2,14 +2,14 @@ import SwiftUI
 
 struct LoadingView: View {
     
-    @State private var offsetY1:CGFloat = 0.0
-    @State private var offsetY2:CGFloat = 0.0
-    @State private var offsetY3:CGFloat = 0.0
+    @State private var offsetY1: CGFloat = 0.0
+    @State private var offsetY2: CGFloat = 0.0
+    @State private var offsetY3: CGFloat = 0.0
     
-    let dotSize:CGFloat = 20.0
-    let bounceDistance:CGFloat = 20.0
-    let animationDuration:Double = 0.5
-    let delayBetweenDots:Double = 0.2
+    let dotSize: CGFloat = 20.0
+    let bounceDistance: CGFloat = 20.0
+    let animationDuration: Double = 0.5
+    let delayBetweenDots: Double = 0.2
     
     
     var body: some View {
@@ -18,11 +18,11 @@ struct LoadingView: View {
             
             HStack(spacing: 20, content: {
                 DotView()
-                    .offset(y:offsetY1)
+                    .offset(y: offsetY1)
                 DotView()
-                    .offset(y:offsetY2)
+                    .offset(y: offsetY2)
                 DotView()
-                    .offset(y:offsetY3)
+                    .offset(y: offsetY3)
             })
             .onAppear(perform: {
                 animateDots()
@@ -32,7 +32,7 @@ struct LoadingView: View {
         }
     }
     
-    private func animateDots(){
+    private func animateDots() {
         withAnimation(Animation.easeInOut(duration: animationDuration).repeatForever(autoreverses: true)) {
             offsetY1 = bounceDistance
         }

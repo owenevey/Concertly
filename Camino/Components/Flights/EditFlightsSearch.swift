@@ -33,7 +33,7 @@ struct EditFlightsSearch: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 15) {
             Text("Edit Search")
                 .font(.system(size: 20, type: .SemiBold))
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -42,20 +42,16 @@ struct EditFlightsSearch: View {
                 Button {
                     isFromAirport = true
                     showSheet = true
-                } label: {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.gray1)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 50)
-                        .overlay(
-                            HStack {
-                                Image(systemName: "airplane.departure")
-                                Text(tempFromAirport != "" ? tempFromAirport : "Departure Airport")
-                                    .font(.system(size: 18, type: .Regular))
-                                    .foregroundStyle(tempFromAirport != "" ? .primary : .secondary)
-                                Spacer()
-                            }.padding()
-                        )
+                } label: {                    
+                    CaminoSearchBar {
+                        HStack {
+                            Image(systemName: "airplane.departure")
+                            Text(tempFromAirport != "" ? tempFromAirport : "Departure Airport")
+                                .font(.system(size: 18, type: .Regular))
+                                .foregroundStyle(tempFromAirport != "" ? .primary : .secondary)
+                            Spacer()
+                        }
+                    }
                 }
                 .buttonStyle(PlainButtonStyle())
                 
@@ -63,19 +59,15 @@ struct EditFlightsSearch: View {
                     isFromAirport = false
                     showSheet = true
                 } label: {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.gray1)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 50)
-                        .overlay(
-                            HStack {
-                                Image(systemName: "airplane.arrival")
-                                Text(tempToAirport != "" ? tempToAirport : "Arrival Airport")
-                                    .font(.system(size: 18, type: .Regular))
-                                    .foregroundStyle(tempFromAirport != "" ? .primary : .secondary)
-                                Spacer()
-                            }.padding()
-                        )
+                    CaminoSearchBar {
+                        HStack {
+                            Image(systemName: "airplane.arrival")
+                            Text(tempToAirport != "" ? tempToAirport : "Arrival Airport")
+                                .font(.system(size: 18, type: .Regular))
+                                .foregroundStyle(tempFromAirport != "" ? .primary : .secondary)
+                            Spacer()
+                        }
+                    }
                 }
                 .buttonStyle(PlainButtonStyle())
                 
@@ -98,38 +90,24 @@ struct EditFlightsSearch: View {
             
             Spacer()
             
-            Button {
+            CaminoButton(label: "Search") {
                 fromDate = tempFromDate
                 toDate = tempToDate
                 fromAirport = tempFromAirport
                 toAirport = tempToAirport
                 
                 dismiss()
-            } label: {
-                Text("Search")
-                    .font(.system(size: 18, type: .Medium))
-                    .foregroundStyle(.white)
-                    .padding(12)
-                    .frame(maxWidth: .infinity)
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(.accent)
-                    )
-                    .padding(.top)
             }
-            .buttonStyle(PlainButtonStyle())
+            .padding(.top)
             
         }
-        
-        .padding()
+        .padding(15)
         .sheet(isPresented: $showSheet) {
             if isFromAirport {
                 AirportSearchView(airportCode: $tempFromAirport, title: "Origin")
             } else {
                 AirportSearchView(airportCode: $tempToAirport, title: "Destination")
             }
-            
         }
     }
 }

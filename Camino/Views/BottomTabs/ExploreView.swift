@@ -51,14 +51,14 @@ struct ExploreView: View {
         .ignoresSafeArea(edges: .top)
         .task {
             do {
-                concerts = try await fetchConcertsFromAPI()
+                concerts = try await fetchSuggestedConcerts()
             } catch {
                 print("Error fetching concerts")
             }
         }
         .refreshable {
             do {
-                concerts = try await fetchConcertsFromAPI()
+                concerts = try await fetchSuggestedConcerts()
             } catch {
                 print("Error fetching concerts")
             }

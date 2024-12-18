@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct FlightDetailsView: View {
+    
     @Environment(\.dismiss) var dismiss
+    
     let flightItem: FlightItem
     
     @Binding var departingFlight: FlightItem?
@@ -22,8 +24,7 @@ struct FlightDetailsView: View {
                                             image
                                                 .resizable()
                                         } placeholder: {
-                                            Color.background
-                                                .frame(width: 30, height: 30)
+                                            Color.white
                                         }
                                             .scaledToFit()
                                             .frame(width: 30, height: 30)
@@ -37,8 +38,7 @@ struct FlightDetailsView: View {
                                             image
                                                 .resizable()
                                         } placeholder: {
-                                            Color.background
-                                                .frame(width: 30, height: 30)
+                                            Color.white
                                         }
                                             .scaledToFit()
                                             .frame(width: 30, height: 30)
@@ -48,12 +48,11 @@ struct FlightDetailsView: View {
                                     .fill(.white)
                                     .frame(width: 50, height: 50)
                                     .overlay(
-                                        AsyncImage(url: URL(string: flightItem.flights.first!.airlineLogo)) { image in
+                                        AsyncImage(url: URL(string: flightItem.flights.first?.airlineLogo ?? "")) { image in
                                             image
                                                 .resizable()
                                         } placeholder: {
-                                            Color.background
-                                                .frame(width: 30, height: 30)
+                                            Color.white
                                         }
                                             .scaledToFit()
                                             .frame(width: 30, height: 30)
@@ -62,10 +61,10 @@ struct FlightDetailsView: View {
                             
                         }
                         
-                        Text("\(flightItem.flights.first!.departureAirport.id) - \(flightItem.flights.last!.arrivalAirport.id)")
+                        Text("\(flightItem.flights.first?.departureAirport.id ?? "") - \(flightItem.flights.last?.arrivalAirport.id ?? "")")
                             .font(.system(size: 24, type: .SemiBold))
                         
-                        Text(flightItem.flights.first!.departureAirport.time.mediumFormat())
+                        Text(flightItem.flights.first?.departureAirport.time.mediumFormat() ?? "")
                             .font(.system(size: 18, type: .Regular))
                     }
                     
@@ -77,17 +76,13 @@ struct FlightDetailsView: View {
                             .font(.system(size: 24, type: .Medium))
                     }
                 }
-                
-                /////////////
-                
+                                
                 Divider()
                     .frame(height: 2)
                     .overlay(.gray2)
                     .padding(.horizontal, -15)
                 
-                /////////////
-                
-                Button {
+                CaminoButton(label: departingFlight == flightItem ? "Remove" : "Select Flight") {
                     if departingFlight == nil {
                         departingFlight = flightItem
                     } else if departingFlight == flightItem {
@@ -97,29 +92,13 @@ struct FlightDetailsView: View {
                     }
                     
                     dismiss()
-                } label: {
-                    Text(departingFlight == flightItem ? "Remove" : "Select Flight")
-                        .font(.system(size: 18, type: .Medium))
-                        .foregroundStyle(.white)
-                        .padding(12)
-                        .frame(maxWidth: .infinity)
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                        .background(
-                            RoundedRectangle(cornerRadius: 15)
-                                .fill(.accent)
-                        )
-                    
                 }
-                .buttonStyle(PlainButtonStyle())
-                .padding(.bottom, 10)
                 
-                /////////////
                 
+                                
                 Text("Itinerary")
                     .font(.system(size: 20, type: .SemiBold))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
-                /////////////
                 
                 VStack(spacing: 20) {
                     ForEach(flightItem.flights.indices, id: \.self) { index in
@@ -131,9 +110,7 @@ struct FlightDetailsView: View {
                     }
                 }
                 .padding(.bottom, 10)
-                
-                /////////////
-                
+                                
                 Text("Route Details")
                     .font(.system(size: 20, type: .SemiBold))
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -165,17 +142,14 @@ struct FlightDetailsView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(15)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
                 .background(
                     RoundedRectangle(cornerRadius: 20)
                         .fill(Color.foreground)
                         .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
                 )
-                
-                
-                
+                .clipShape(RoundedRectangle(cornerRadius: 20))
             }
-            .padding()
+            .padding(15)
             .padding(.top, 30)
         }
         .background(Color.background)
@@ -214,8 +188,7 @@ struct FlightLeg: View {
                             image
                                 .resizable()
                         } placeholder: {
-                            Color.background
-                                .frame(width: 25, height: 25)
+                            Color.white
                         }
                             .scaledToFit()
                             .frame(width: 25, height: 25)
@@ -239,14 +212,13 @@ struct FlightLeg: View {
                         Text(flight.departureAirport.time.meridiemFormat())
                             .font(.system(size: 16, type: .Regular))
                     }
+                    
                     HStack(spacing: 5) {
                         Image(systemName: "arrow.up.right.circle.fill")
                             .font(.system(size: 13))
                         Text(flight.departureAirport.id)
                             .font(.system(size: 14, type: .Regular))
-                            .minimumScaleFactor(0.75)
                     }
-                    
                 }
                 
                 
@@ -277,7 +249,6 @@ struct FlightLeg: View {
                             .font(.system(size: 13))
                         Text(flight.arrivalAirport.id)
                             .font(.system(size: 14, type: .Regular))
-                            .minimumScaleFactor(0.75)
                     }
                 }
             }
@@ -313,12 +284,12 @@ struct FlightLeg: View {
             
         }
         .padding(15)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.foreground)
                 .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
         )
+        .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
 
@@ -326,7 +297,7 @@ struct FlightLeg: View {
 #Preview {
     @Previewable @State var departingFlight: FlightItem? = nil
     @Previewable @State var returningFlight: FlightItem? = nil
-    // JSON Data
+
     let jsonData = """
     {
         "flights": [
