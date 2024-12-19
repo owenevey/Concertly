@@ -78,16 +78,19 @@ struct AirportSearchView: View {
                             .buttonStyle(PlainButtonStyle())
                         }
                     }
-                    
+                    .transition(.opacity)
                 }
             case .loading:
                 LoadingView()
                     .frame(height: 250)
+                    .transition(.opacity)
             case .error:
                 ErrorView(text: "Error fetching airports", action: { await viewModel.getSuggestedAirports() })
                     .frame(height: 250)
+                    .transition(.opacity)
             default:
                 EmptyView()
+                    .transition(.opacity)
             }
             Spacer()
         }

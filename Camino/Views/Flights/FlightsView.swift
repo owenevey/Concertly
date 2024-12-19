@@ -22,7 +22,7 @@ struct FlightsView: View {
     var body: some View {
         HidingHeaderView (
             header: {
-                FlightsHeader(viewModel: viewModel, fromDate: $viewModel.fromDate, toDate: $viewModel.toDate, fromAirport: $viewModel.fromAirport, toAirport: $viewModel.toAirport)
+                FlightsHeader(fromDate: $viewModel.fromDate, toDate: $viewModel.toDate, fromAirport: $viewModel.fromAirport, toAirport: $viewModel.toAirport)
             },
             filtersBar: {
                 FlightsFiltersBar(sortMethod: $viewModel.sortFlightsMethod, airlines: $viewModel.airlineFilter, stopsFilter: $viewModel.stopsFilter, priceFilter: $viewModel.priceFilter, flightPrices: viewModel.flightPrices, durationFilter: $viewModel.durationFilter, flightDurations: viewModel.flightDurations, timeFilter: $viewModel.arrivalTimeFilter, flightTimes: viewModel.flightArrivalTimes)
@@ -85,6 +85,7 @@ struct FlightsView: View {
                     }
                     
                     FlightCard(flightItem: departingFlight)
+                        .shadow(color: .black.opacity(0.05), radius: 5)
                         .onTapGesture {
                             selectedFlight = departingFlight
                         }
@@ -104,6 +105,7 @@ struct FlightsView: View {
             if viewModel.flightsResponse.status == Status.loading {
                 LoadingView()
                     .frame(height: 250)
+                    .transition(.opacity)
             }
             else if viewModel.flightsResponse.status == Status.success {
                 if viewModel.filteredFlights.isEmpty {
@@ -115,9 +117,11 @@ struct FlightsView: View {
                             .font(.system(size: 18, type: .Regular))
                     }
                     .frame(height: 250)
+                    .transition(.opacity)
                 } else {
                     ForEach(viewModel.filteredFlights) { flightItem in
                         FlightCard(flightItem: flightItem)
+                            .shadow(color: .black.opacity(0.05), radius: 5)
                             .transition(.opacity)
                             .onTapGesture {
                                 selectedFlight = flightItem
@@ -136,6 +140,7 @@ struct FlightsView: View {
                     }
                 })
                 .frame(height: 250)
+                .transition(.opacity)
             }
         }
         .padding(15)

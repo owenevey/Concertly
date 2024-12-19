@@ -64,7 +64,7 @@ struct LineItem: View {
                 .font(.system(size: 18, type: .Medium))
             Spacer()
             HStack {
-                if currentStatus == .loading {
+                if currentStatus == .loading || currentStatus == .empty {
                     CircleLoadingView(ringSize: 20)
                         .padding(.trailing, 10)
                 }

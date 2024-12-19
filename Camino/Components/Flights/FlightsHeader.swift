@@ -1,9 +1,7 @@
 import SwiftUI
 
 struct FlightsHeader: View {
-    
-    let viewModel: FlightsViewModel
-    
+        
     @Binding var fromDate: Date
     @Binding var toDate: Date
     @Binding var fromAirport: String
@@ -99,7 +97,6 @@ struct FlightsHeader: View {
     VStack {
         Spacer()
         FlightsHeader(
-            viewModel: FlightsViewModel(fromDate: fromDate, toDate: toDate, flightsResponse: flightsResponse),
             fromDate: .constant(fromDate),
             toDate: .constant(toDate),
             fromAirport: .constant(fromAirport),

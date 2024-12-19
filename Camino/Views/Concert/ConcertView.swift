@@ -46,7 +46,7 @@ struct ConcertView: View {
                         case .flights:
                             LineItem(item: item, price: viewModel.flightsPrice, status: viewModel.flightsResponse.status)
                         case .hotel:
-                            LineItem(item: item, price: viewModel.hotelPrice, status: Status.success)
+                            LineItem(item: item, price: viewModel.hotelsPrice, status: viewModel.hotelsResponse.status)
                             
                         case .ticket:
                             LineItem(item: item, price: viewModel.ticketPrice, status: Status.success)
@@ -62,11 +62,14 @@ struct ConcertView: View {
                             .font(.system(size: 18, type: .Medium))
                         Spacer()
                         Group {
-                            if viewModel.flightsResponse.status == .loading {
+                            if viewModel.flightsResponse.status == .loading || viewModel.hotelsResponse.status == .loading {
                                 CircleLoadingView(ringSize: 20)
                                     .padding(.trailing, 10)
-                            } else if viewModel.flightsResponse.status == .success {
+                            } else if viewModel.flightsResponse.status == .success && viewModel.hotelsResponse.status == .success {
                                 Text("$\(viewModel.totalPrice)")
+                                    .font(.system(size: 18, type: .Medium))
+                            } else if viewModel.flightsResponse.status == .error || viewModel.hotelsResponse.status == .error {
+                                Text("Error")
                                     .font(.system(size: 18, type: .Medium))
                             }
                         }
@@ -111,6 +114,7 @@ struct ConcertView: View {
             if !hasAppeared {
                 Task {
                     await viewModel.getDepartingFlights()
+                    await viewModel.getHotels()
                 }
                 hasAppeared = true
             }

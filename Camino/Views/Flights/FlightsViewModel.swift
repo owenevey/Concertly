@@ -160,6 +160,7 @@ final class FlightsViewModel: ObservableObject {
         withAnimation(.easeInOut) {
             self.departingFlight = nil
             self.flightsResponse = ApiResponse(status: .loading)
+            self.resetFilters()
         }
         
         do {

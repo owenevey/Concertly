@@ -8,7 +8,9 @@ class ConcertViewModel: ObservableObject {
     @Published var tripStartDate: Date
     @Published var tripEndDate: Date
     @Published var flightsResponse: ApiResponse<FlightsResponse> = ApiResponse<FlightsResponse>()
+    @Published var hotelsResponse: ApiResponse<HotelsResponse> = ApiResponse<HotelsResponse>()
     @Published var flightsPrice: Int = 0
+    @Published var hotelsPrice: Int = 0
     
     init(concert: Concert) {
         self.concert = concert
@@ -18,16 +20,12 @@ class ConcertViewModel: ObservableObject {
         self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.dateTime) ?? Date()
     }
     
-    var hotelPrice: Int {
-        270
-    }
-    
     var ticketPrice: Int {
         Int(concert.minPrice)
     }
     
     var totalPrice: Int {
-        ticketPrice + hotelPrice + flightsPrice
+        ticketPrice + hotelsPrice + flightsPrice
     }
     
     func getDepartingFlights() async {
@@ -41,14 +39,32 @@ class ConcertViewModel: ObservableObject {
                                                                  fromDate: tripStartDate.traditionalFormat(),
                                                                  toDate: tripEndDate.traditionalFormat())
             
-            self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
             withAnimation(.easeInOut) {
+                self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
                 self.flightsPrice = fetchedFlights.bestFlights.first?.price ?? 0
             }
             
         } catch {
             print("Error fetching flights: \(error)")
             self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+        }
+    }
+    
+    func getHotels() async {
+        self.hotelsResponse = ApiResponse(status: .loading)
+        
+        do {
+            try await Task.sleep(nanoseconds: 1 * 1_000_000_000)
+            let fetchedHotels = try await fetchHotels(location: concert.generalLocation,
+                                                      fromDate: tripStartDate.traditionalFormat(),
+                                                      toDate: tripEndDate.traditionalFormat())
+            withAnimation(.easeInOut) {
+                self.hotelsResponse = ApiResponse(status: .success, data: fetchedHotels)
+                self.hotelsPrice = fetchedHotels.properties.first?.totalRate.extractedLowest ?? 0
+            }
+        } catch {
+            print("Error fetching hotels: \(error)")
+            self.hotelsResponse = ApiResponse(status: .error, error: error.localizedDescription)
         }
     }
 }

@@ -29,6 +29,7 @@ func customDateFormatter() -> DateFormatter {
     return formatter
 }
 
+// Concerts
 
 func fetchSuggestedConcerts() async throws -> [Concert] {
     let endpoint = "\(baseUrl)/suggestedConcerts"
@@ -36,12 +37,8 @@ func fetchSuggestedConcerts() async throws -> [Concert] {
     return response.concerts
 }
 
-func fetchAirportSearchResults(query: String) async throws -> AirportSearchResponse {
-    let endpoint = "\(baseUrl)/airportSearch?query=\(query)"
-    let response: AirportSearchResponse = try await fetchData(endpoint: endpoint)
-    return response
-}
 
+// Flights
 
 func fetchDepartureFlights(lat: Double, long: Double, fromAirport: String, fromDate: String, toDate: String) async throws -> FlightsResponse {
     let endpoint = "\(baseUrl)/flights?lat=\(lat)&long=\(long)&fromAirport=\(fromAirport)&fromDate=\(fromDate)&toDate=\(toDate)"
@@ -58,6 +55,20 @@ func fetchDepartureFlights(fromAirport: String, toAirport: String, fromDate: Str
 func fetchReturnFlights(fromAirport: String, toAirport: String, fromDate: String, toDate: String, departureToken: String) async throws -> FlightsResponse {
     let endpoint = "\(baseUrl)/flights?fromAirport=\(fromAirport)&toAirport=\(toAirport)&fromDate=\(fromDate)&toDate=\(toDate)&departureToken=\(departureToken)"
     let response: FlightsResponse = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
+    return response
+}
+
+func fetchAirportSearchResults(query: String) async throws -> AirportSearchResponse {
+    let endpoint = "\(baseUrl)/airportSearch?query=\(query)"
+    let response: AirportSearchResponse = try await fetchData(endpoint: endpoint)
+    return response
+}
+
+// Hotels
+
+func fetchHotels(location: String, fromDate: String, toDate: String) async throws -> HotelsResponse {
+    let endpoint = "\(baseUrl)/hotels?location=\(location)&fromDate=\(fromDate)&toDate=\(toDate)"
+    let response: HotelsResponse = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
     return response
 }
 
