@@ -18,6 +18,7 @@ struct HotelsView: View {
         ))
     }
     
+    @State private var selectedHotel: Property? = nil
     
     var body: some View {
         HidingHeaderView (
@@ -25,31 +26,30 @@ struct HotelsView: View {
                 HotelsHeader(fromDate: $viewModel.fromDate, toDate: $viewModel.toDate, location: $viewModel.location)
             },
             filtersBar: {
-                HotelsFilterBar(priceFilter: $viewModel.priceFilter, hotelPrices: viewModel.hotelPrices)
+                HotelsFilterBar(sortMethod: $viewModel.sortMethod, priceFilter: $viewModel.priceFilter, hotelPrices: viewModel.hotelPrices, ratingFilter: $viewModel.ratingFilter, locationRatingFilter: $viewModel.locationRatingFilter)
             },
             scrollContent: {
                 mainContent
             }
         )
         
-        //        .sheet(isPresented: Binding<Bool>(
-        //            get: { selectedFlight != nil },
-        //            set: { isPresented in
-        //                if !isPresented {
-        //                    selectedFlight = nil
-        //                }
-        //            }
-        //        )) {
-        //            if let flight = selectedFlight {
-        //                FlightDetailsView(
-        //                    flightItem: flight,
-        //                    departingFlight: $viewModel.departingFlight,
-        //                    returningFlight: $viewModel.returningFlight
-        //                )
-        //                .presentationDetents([.large])
-        //                .presentationBackground(Color.background)
-        //            }
-        //        }
+                .sheet(isPresented: Binding<Bool>(
+                    get: { selectedHotel != nil },
+                    set: { isPresented in
+                        if !isPresented {
+                            selectedHotel = nil
+                        }
+                    }
+                )) {
+                    if let hotel = selectedHotel {
+                        HotelDetailsView(
+                            property: hotel,
+                            generalLocation: viewModel.location
+                        )
+                        .presentationDetents([.large])
+                        .presentationBackground(Color.background)
+                    }
+                }
     }
     
     private var mainContent: some View {
@@ -76,12 +76,11 @@ struct HotelsView: View {
                         HotelCard(property: property)
                             .shadow(color: .black.opacity(0.05), radius: 5)
                             .transition(.opacity)
-//                            .onTapGesture {
-//                                selectedFlight = flightItem
-//                            }
+                            .onTapGesture {
+                                selectedHotel = property
+                            }
                     }
                     .transition(.opacity)
-                    .animation(.easeInOut, value: viewModel.filteredHotels)
                 }
             }
             else if viewModel.hotelsResponse.status == Status.error {

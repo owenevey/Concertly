@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct FlightsHeader: View {
-        
+    
     @Binding var fromDate: Date
     @Binding var toDate: Date
     @Binding var fromAirport: String
@@ -13,22 +13,18 @@ struct FlightsHeader: View {
     
     var body: some View {
         HStack {
-            HStack {
-                TranslucentBackButton()
-                Spacer()
-            }
-            .frame(maxWidth: .infinity)
-                        
+            TranslucentBackButton()
+            
             VStack {
                 Text("\(fromAirport) - \(toAirport)")
-                    .font(.system(size: 20, type: .SemiBold))
+                    .font(.system(size: 18, type: .SemiBold))
                 
                 Text("\(fromDate.shortFormat()) - \(toDate.shortFormat())")
                     .font(.system(size: 14, type: .Medium))
             }
+            .frame(maxWidth: .infinity)
             
             HStack {
-                Spacer()
                 Button {
                     presentSheet = true
                 } label: {
@@ -42,7 +38,6 @@ struct FlightsHeader: View {
                     }
                 }
             }
-            .frame(maxWidth: .infinity)
         }
         .frame(height: 60)
         .background(Color.foreground)

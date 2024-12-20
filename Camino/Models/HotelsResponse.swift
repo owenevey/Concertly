@@ -83,8 +83,8 @@ struct GPSCoordinates: Codable {
 struct RateBreakdown: Codable {
     var lowest: String
     var extractedLowest: Int
-    var beforeTaxesFees: String? //issue causer
-    var extractedBeforeTaxesFees: Int? //issue causer
+    var beforeTaxesFees: String?
+    var extractedBeforeTaxesFees: Int?
     
     enum CodingKeys: String, CodingKey {
         case lowest

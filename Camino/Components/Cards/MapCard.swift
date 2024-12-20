@@ -3,24 +3,28 @@ import MapKit
 
 struct MapCard: View {
     
-    let concert: Concert
+    let address: String
+    let latitude: Double
+    let longitude: Double
+    let name: String
+    let generalLocation: String
     
     var body: some View {
         Button {
-            openAddressInMaps(address: concert.venueAddress)
+            openAddressInMaps(address: address)
         } label: {
             VStack(alignment: .leading, spacing: 0) {
-                Map(initialPosition: MapCameraPosition.region( MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: concert.latitude, longitude: concert.longitude), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))), interactionModes: [])
+                Map(initialPosition: MapCameraPosition.region( MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))), interactionModes: [])
                     .frame(height: 175)
                     .clipped()
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(concert.venueName)
+                    Text(name)
                         .font(.system(size: 20, type: .SemiBold))
                         .minimumScaleFactor(0.75)
                         .lineLimit(1)
                     
-                    Text(concert.generalLocation)
+                    Text(generalLocation)
                         .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
                         .minimumScaleFactor(0.75)
@@ -55,6 +59,6 @@ struct MapCard: View {
 
 #Preview {
     NavigationStack {
-        MapCard(concert: hotConcerts[0])
+        MapCard(address: hotConcerts[0].venueAddress, latitude: hotConcerts[0].latitude, longitude: hotConcerts[0].longitude, name: hotConcerts[0].venueName, generalLocation: hotConcerts[0].generalLocation)
     }
 }

@@ -128,7 +128,6 @@ struct FlightsView: View {
                             }
                     }
                     .transition(.opacity)
-                    .animation(.easeInOut, value: viewModel.filteredFlights)
                 }
             }
             else if viewModel.flightsResponse.status == Status.error {

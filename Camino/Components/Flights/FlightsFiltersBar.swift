@@ -113,9 +113,7 @@ struct FlightsFiltersBar: View {
                     
                     if isAnyFilterActive {
                         Button {
-                            withAnimation(.easeInOut) {
-                                resetFilters()
-                            }
+                            resetFilters()
                         } label: {
                             HStack {
                                 Image(systemName: "xmark")
@@ -127,7 +125,7 @@ struct FlightsFiltersBar: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         .transition(.opacity)
-                    }                    
+                    }
                 }
                 .padding(10)
                 .sheet(isPresented: $presentSheet) {

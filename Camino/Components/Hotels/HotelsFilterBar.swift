@@ -2,37 +2,51 @@ import SwiftUI
 
 struct HotelsFilterBar: View {
     
+    @Binding var sortMethod: SortHotelsEnum
     @Binding var priceFilter: Int
     var hotelPrices: [Int]
+    @Binding var ratingFilter: Int
+    @Binding var locationRatingFilter: Int
     
     @State var presentSheet = false
     @State var selectedFilter: HotelFilter
     
-    init(priceFilter: Binding<Int>, hotelPrices: [Int]) {
+    init(sortMethod: Binding<SortHotelsEnum>, priceFilter: Binding<Int>, hotelPrices: [Int], ratingFilter: Binding<Int>, locationRatingFilter: Binding<Int>) {
+        self._sortMethod = sortMethod
         self._priceFilter = priceFilter
         self.hotelPrices = hotelPrices
+        self._ratingFilter = ratingFilter
+        self._locationRatingFilter = locationRatingFilter
         
-        self._selectedFilter = State(initialValue: .price(priceFilter, hotelPrices))
+        self._selectedFilter = State(initialValue: .sort(sortMethod))
     }
     
     private func isFilterActive(_ filter: HotelFilter) -> Bool {
         switch filter {
+        case .sort:
+            return sortMethod != .recommended
         case .price:
             let maxPrice = hotelPrices.max() ?? 0
             return priceFilter < maxPrice
+        case .rating:
+            return ratingFilter != 1
+        case .locationRating:
+            return locationRatingFilter != 1
         default:
             return false
         }
     }
     
     private var isAnyFilterActive: Bool {
-        HotelFilter.allCases(
-            priceFilter: $priceFilter,
-            hotelPrices: hotelPrices
+        HotelFilter.allCases(sortMethod: $sortMethod, priceFilter: $priceFilter,
+                             hotelPrices: hotelPrices, ratingFilter: $ratingFilter, locationRatingFilter: $locationRatingFilter
         ).contains { isFilterActive($0) } }
     
     private func resetFilters() {
+        sortMethod = .recommended
         priceFilter = hotelPrices.max() ?? Int.max
+        ratingFilter = 1
+        locationRatingFilter = 1
     }
     
     
@@ -40,7 +54,7 @@ struct HotelsFilterBar: View {
         VStack(spacing: 0) {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(HotelFilter.allCases(priceFilter: $priceFilter, hotelPrices: hotelPrices), id: \.title) { filter in
+                    ForEach(HotelFilter.allCases(sortMethod: $sortMethod, priceFilter: $priceFilter, hotelPrices: hotelPrices, ratingFilter: $ratingFilter, locationRatingFilter: $locationRatingFilter), id: \.title) { filter in
                         Button {
                             selectedFilter = filter
                             presentSheet = true
@@ -64,9 +78,7 @@ struct HotelsFilterBar: View {
                     
                     if isAnyFilterActive {
                         Button {
-                            withAnimation(.easeInOut) {
-                                resetFilters()
-                            }
+                            resetFilters()
                         } label: {
                             HStack {
                                 Image(systemName: "xmark")
@@ -98,7 +110,7 @@ struct HotelsFilterBar: View {
 }
 
 #Preview {
-
+    
     @Previewable @State var priceFilter = 300
     
     let hotelPrices = [100, 200, 300, 400, 500]
@@ -106,8 +118,11 @@ struct HotelsFilterBar: View {
     return VStack {
         Spacer()
         HotelsFilterBar(
+            sortMethod: .constant(.recommended),
             priceFilter: $priceFilter,
-            hotelPrices: hotelPrices
+            hotelPrices: hotelPrices,
+            ratingFilter: .constant(1),
+            locationRatingFilter: .constant(1)
         )
         Spacer()
     }

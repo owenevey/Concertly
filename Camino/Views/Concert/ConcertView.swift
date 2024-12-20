@@ -80,7 +80,7 @@ struct ConcertView: View {
                     
                 }
                 
-                MapCard(concert: concert)
+                MapCard(address: concert.venueAddress, latitude: concert.latitude, longitude: concert.longitude, name: concert.venueName, generalLocation: concert.generalLocation)
                     .padding(.vertical, 10)
                 
                 Button {

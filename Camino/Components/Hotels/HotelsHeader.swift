@@ -12,22 +12,19 @@ struct HotelsHeader: View {
     
     var body: some View {
         HStack {
-            HStack {
                 TranslucentBackButton()
-                Spacer()
-            }
-            .frame(maxWidth: .infinity)
-                        
+   
             VStack {
                 Text(location)
-                    .font(.system(size: 20, type: .SemiBold))
+                    .font(.system(size: 18, type: .SemiBold))
+                    .minimumScaleFactor(0.8)
+                    .frame(maxWidth: .infinity)
                 
                 Text("\(fromDate.shortFormat()) - \(toDate.shortFormat())")
                     .font(.system(size: 14, type: .Medium))
             }
             
             HStack {
-                Spacer()
                 Button {
                     presentSheet = true
                 } label: {
@@ -41,7 +38,7 @@ struct HotelsHeader: View {
                     }
                 }
             }
-            .frame(maxWidth: .infinity)
+            
         }
         .frame(height: 60)
         .background(Color.foreground)

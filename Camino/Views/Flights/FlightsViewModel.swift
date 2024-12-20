@@ -35,6 +35,7 @@ final class FlightsViewModel: ObservableObject {
     
     func resetFilters() {
         if let data = flightsResponse.data {
+            self.sortFlightsMethod = .recommended
             let allFlights = data.bestFlights + data.otherFlights
             
             let prices = allFlights.map { $0.price }
@@ -53,6 +54,7 @@ final class FlightsViewModel: ObservableObject {
             
             self.airlineFilter = extractAirlineData(from: flightsResponse.data)
         } else {
+            self.sortFlightsMethod = .recommended
             self.priceFilter = Int.max
             self.durationFilter = Int.max
             self.arrivalTimeFilter = Int.max
