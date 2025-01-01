@@ -48,29 +48,36 @@ struct CitySearchView: View {
                 if let cities = viewModel.citiesResponse.data?.suggestedCities {
                     
                     VStack(spacing: 20) {
-                        ForEach(cities, id: \.self) { city in
+                        ForEach(cities, id: \.name) { city in
                             Button {
-                                location = city
+                                if let state = city.stateCode {
+                                    location = "\(city.name), \(state)"
+                                } else {
+                                    location = "\(city.name), \(city.countryCode)"
+                                }
                                 dismiss()
                             }
                             label: {
                                 HStack(spacing: 0) {
-                                    Image(systemName: "airplane")
+                                    Image(systemName: "building.2.fill")
                                         .font(.system(size: 20))
                                         .padding(.horizontal, 20)
                                     
                                     VStack(alignment: .leading) {
-                                        Text(city)
-                                            .font(.system(size: 18, type: .Medium))
-                                        Text(city)
+                                        if let state = city.stateCode {
+                                            Text("\(city.name), \(state)")
+                                                .font(.system(size: 18, type: .Medium))
+                                        } else {
+                                            Text(city.name)
+                                                .font(.system(size: 18, type: .Medium))
+                                        }
+                                        
+                                        Text(city.countryName)
                                             .font(.system(size: 16, type: .Regular))
+                                            .foregroundStyle(.gray3)
                                     }
                                     
                                     Spacer()
-                                    
-                                    Text(city)
-                                        .font(.system(size: 18, type: .Medium))
-                                        .padding(.horizontal, 20)
                                 }
                                 .contentShape(Rectangle())
                             }

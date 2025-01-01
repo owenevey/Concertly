@@ -33,7 +33,9 @@ struct EditHotelsSearch: View {
                 .font(.system(size: 20, type: .SemiBold))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            VStack(spacing: 15) {
+            Spacer()
+            
+            VStack(spacing: 35) {
                 Button {
                     showSheet = true
                 } label: {
@@ -81,7 +83,7 @@ struct EditHotelsSearch: View {
         }
         .padding(15)
         .sheet(isPresented: $showSheet) {
-            CitySearchView(location: $location)
+            CitySearchView(location: $tempLocation)
         }
     }
 }

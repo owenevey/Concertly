@@ -65,6 +65,7 @@ struct AirportSearchView: View {
                                             .font(.system(size: 18, type: .Medium))
                                         Text("\(airportResult.city), \(airportResult.country)")
                                             .font(.system(size: 16, type: .Regular))
+                                            .foregroundStyle(.gray3)
                                     }
                                     
                                     Spacer()

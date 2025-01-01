@@ -38,7 +38,9 @@ struct EditFlightsSearch: View {
                 .font(.system(size: 20, type: .SemiBold))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            VStack(spacing: 15) {
+            Spacer()
+            
+            VStack(spacing: 25) {
                 Button {
                     isFromAirport = true
                     showSheet = true
@@ -85,8 +87,6 @@ struct EditFlightsSearch: View {
                         .labelsHidden()
                 }
             }
-            
-            
             
             Spacer()
             

@@ -7,6 +7,8 @@ struct HotelDetailsView: View {
     let property: Property
     let generalLocation: String
     
+    @Binding var selectedHotel: Property?
+    
     var locationRating: String {
         if let rating = property.locationRating {
             if rating >= 4 {
@@ -120,6 +122,11 @@ struct HotelDetailsView: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         
+                        CaminoButton(label: "Select Hotel") {
+                            selectedHotel = property
+                            dismiss()
+                        }
+                        
                         HStack(spacing: 30) {
                             HStack(alignment: .bottom, spacing: 3) {
                                 Text(property.totalRate.extractedLowest, format: .currency(code: "USD").precision(.fractionLength(0)))
@@ -179,6 +186,8 @@ struct HotelDetailsView: View {
 }
 
 #Preview {
+    @Previewable @State var selectedHotel: Property? = nil
+    
     let images: [PropertyImage] = [
         PropertyImage(thumbnail: "https://lh4.googleusercontent.com/proxy/s-RFGSHRMbUWSwLbxeCY3ijpxX6OoBHoExMAwcZ6tdjyNKL44aK_gJrpHvNdR9cQRFbyb9-W8SbAhrK9gpt8tUtS6gqPwkEPqpoknjliG2kX7M5evJauC38f5hXUDSIZiKcy8BAwRiXUMWN4vH__iFawyItcOA=s287-w287-h192-n-k-no-v1", originalImage: "https://q-xx.bstatic.com/xdata/images/hotel/max1440x1080/100191168.jpg?k=85965c206e01a5f5ea647ad310ac7c84ded47fc580a6baea6496abfa2f2dd858&o="),
         PropertyImage(thumbnail: "https://lh4.googleusercontent.com/proxy/2Clj0TAo8MAT3ygyimKV8mCjbsnlrctkb4TYzTcYjR3MV-q3Crvgf3CLzWwY_YoA9VwObWRnt_kyCdWQoZ6me7j-k9_k6Zh44naFlC9NhQlW49uFXBtUYCQ50CrRSpWsQlqXEFx6XQZarYr6CS9vrOnspczk_Q=s287-w287-h192-n-k-no-v1", originalImage: "https://q-xx.bstatic.com/xdata/images/hotel/max1440x1080/87113043.jpg?k=26b4e8cec33bc111b793d709c3bc8ab7bd34f1ede9b93bec720dd7f148930503&o="),
@@ -210,4 +219,4 @@ struct HotelDetailsView: View {
         amenities: ["Wi-Fi", "Air Conditioning", "Pool"],
         propertyToken: "12345",
         serpapiPropertyDetailsLink: "https://www.serpapi.com/property/12345"
-    ), generalLocation: "Bali")}
+    ), generalLocation: "Bali", selectedHotel: $selectedHotel)}

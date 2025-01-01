@@ -32,24 +32,29 @@ struct HotelsView: View {
                 mainContent
             }
         )
+        .onChange(of: viewModel.location, { handleLocationChange() })
+        .onChange(of: viewModel.selectedHotel, { handleSelectedHotelChange() })
+        .onChange(of: viewModel.fromDate, { handleDateChange() })
+        .onChange(of: viewModel.toDate, { handleDateChange() })
         
-                .sheet(isPresented: Binding<Bool>(
-                    get: { selectedHotel != nil },
-                    set: { isPresented in
-                        if !isPresented {
-                            selectedHotel = nil
-                        }
-                    }
-                )) {
-                    if let hotel = selectedHotel {
-                        HotelDetailsView(
-                            property: hotel,
-                            generalLocation: viewModel.location
-                        )
-                        .presentationDetents([.large])
-                        .presentationBackground(Color.background)
-                    }
+        .sheet(isPresented: Binding<Bool>(
+            get: { selectedHotel != nil },
+            set: { isPresented in
+                if !isPresented {
+                    selectedHotel = nil
                 }
+            }
+        )) {
+            if let hotel = selectedHotel {
+                HotelDetailsView(
+                    property: hotel,
+                    generalLocation: viewModel.location,
+                    selectedHotel: $viewModel.selectedHotel
+                )
+                .presentationDetents([.large])
+                .presentationBackground(Color.background)
+            }
+        }
     }
     
     private var mainContent: some View {
@@ -93,6 +98,32 @@ struct HotelsView: View {
             }
         }
         .padding(15)
+    }
+    
+    private func handleSelectedHotelChange() {
+        concertViewModel.hotelsPrice = viewModel.selectedHotel?.totalRate.extractedLowest ?? 0
+        dismiss()
+    }
+    
+    private func refetchHotels() {
+        Task {
+            await viewModel.getHotels()
+        }
+        concertViewModel.hotelsResponse = viewModel.hotelsResponse
+        concertViewModel.hotelsPrice = viewModel.hotelsResponse.data?.properties.first?.totalRate.extractedLowest ?? 0
+    }
+    
+    private func handleLocationChange() {
+        refetchHotels()
+    }
+    
+    private func handleDateChange() {
+        concertViewModel.tripStartDate = viewModel.fromDate
+        concertViewModel.tripEndDate = viewModel.toDate
+        refetchHotels()
+        Task {
+            await concertViewModel.getDepartingFlights()
+        }
     }
 }
 

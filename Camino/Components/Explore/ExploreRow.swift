@@ -16,6 +16,12 @@ struct ExploreRow<Data: RandomAccessCollection>: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 15) {
+                    if data.isEmpty {
+                        ForEach(0..<8) { _ in
+                            LoadingConcertCard()
+                                .shadow(color: .black.opacity(0.2), radius: 5)
+                        }
+                    }
                     if let places = data as? [Place] {
                         ForEach(places, id: \.id) { place in
                             PlaceCard(place: place)

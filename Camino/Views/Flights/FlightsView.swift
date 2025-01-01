@@ -174,6 +174,9 @@ struct FlightsView: View {
         concertViewModel.tripStartDate = viewModel.fromDate
         concertViewModel.tripEndDate = viewModel.toDate
         refetchDepartingFlights()
+        Task {
+            await concertViewModel.getHotels()
+        }
     }
 }
 
