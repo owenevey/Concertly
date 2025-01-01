@@ -2,16 +2,49 @@ import SwiftUI
 
 struct HotelDetailsView: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     let property: Property
     let generalLocation: String
     
+    var locationRating: String {
+        if let rating = property.locationRating {
+            if rating >= 4 {
+                return "Great Location"
+            }
+            else if rating >= 2 {
+                return "Good Location"
+            }
+            else {
+                return "Bad Location"
+            }
+        }
+        return ""
+    }
+    
+    var locationRatingColor: Color {
+        if let rating = property.locationRating {
+            if rating >= 4 {
+                return Color.green
+            }
+            else if rating >= 2 {
+                return Color.green
+            }
+            else {
+                return Color.red
+            }
+        }
+        return Color.black
+    }
+    
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 0) {
-                if let images = property.images {
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 0) {
-                            let imageUrls = images.compactMap { $0.originalImage }
+                VStack(spacing: 0) {
+                    if let images = property.images {
+                        let imageUrls = images.compactMap { $0.originalImage }
+                        
+                        ZStack {
+                        TabView {
                             ForEach(imageUrls, id: \.self) { imageUrl in
                                 if let url = URL(string: imageUrl) {
                                     AsyncImage(url: url) { image in
@@ -21,44 +54,71 @@ struct HotelDetailsView: View {
                                     } placeholder: {
                                         Color.foreground
                                     }
-                                    .frame(height: 300)
-                                    .containerRelativeFrame(.horizontal) { size, axis in
-                                        size
-                                    }
+                                    .frame(width: UIScreen.main.bounds.width, height: 300)
                                     .clipped()
                                     .scrollTargetLayout()
                                 }
                             }
                         }
+                        .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
+                        .frame(height: 300)
+                        .containerRelativeFrame(.horizontal) { size, axis in
+                            size
+                        }
+                        .scrollTargetBehavior(.viewAligned)
+                        VStack {
+                            Button(
+                                action: {
+                                    dismiss()
+                                }
+                            ) {
+                                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                                    .fill(.ultraThinMaterial)
+                                    .frame(width: 40, height: 40)
+                                    .overlay(
+                                        Image(systemName: "xmark")
+                                    )
+                                    .padding(15)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            Spacer()
+                        }
                     }
-                    .frame(height: 300)
-                    .containerRelativeFrame(.horizontal) { size, axis in
-                        size
                     }
-                    .scrollTargetBehavior(.viewAligned)
-                }
-                VStack(spacing: 15) {
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text(property.name)
-                            .font(.system(size: 30, type: .SemiBold))
-                        
-                        if let rating = property.overallRating {
-                            HStack(spacing: 5) {
-                                Text("\(rating, specifier: "%.1f")")
-                                    .font(.system(size: 18, type: .Medium))
-                                Image(systemName: "star.fill")
-                                    .font(.system(size: 14))
-                                    .foregroundStyle(Color.yellow)
+                    
+                    VStack(spacing: 15) {
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text(property.name)
+                                .font(.system(size: 30, type: .SemiBold))
+                            
+                            HStack {
+                                if let rating = property.overallRating {
+                                    HStack(spacing: 5) {
+                                        Text("\(rating, specifier: "%.1f")")
+                                            .font(.system(size: 20, type: .Medium))
+                                        Image(systemName: "star.fill")
+                                            .font(.system(size: 15))
+                                            .foregroundStyle(Color.yellow)
+                                    }
+                                }
+                                
+                                if locationRating != "" {
+                                    HStack(spacing: 5) {
+                                        Text(locationRating)
+                                            .font(.system(size: 20, type: .Medium))
+                                            .foregroundStyle(locationRatingColor)
+                                    }
+                                }
+                            }
+                            
+                            if let description = property.description {
+                                Text(description)
+                                    .font(.system(size: 18, type: .Regular))
+                                    .foregroundStyle(.gray3)
                             }
                         }
-                        
-                        if let description = property.description {
-                            Text(description)
-                                .font(.system(size: 16, type: .Regular))
-                                .foregroundStyle(.gray3)
-                        }
-                        
-                        
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         
                         HStack(spacing: 30) {
                             HStack(alignment: .bottom, spacing: 3) {
@@ -80,19 +140,11 @@ struct HotelDetailsView: View {
                             }
                         }
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical)
-                        
-                        
-                        if let locationRating = property.locationRating {
-                            Text("Location Rating: \(locationRating, specifier: "%.1f")/5")
-                                .font(.system(size: 18, type: .Medium))
-                        }
-                        
                         
                         if let amenities = property.amenities {
                             VStack(alignment: .leading, spacing: 6) {
                                 Text("Amenities")
-                                    .font(.system(size: 18, type: .Medium))
+                                    .font(.system(size: 20, type: .Medium))
                                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
                                     ForEach(amenities, id: \.self) { amenity in
                                         HStack(spacing: 5) {
@@ -110,16 +162,17 @@ struct HotelDetailsView: View {
                         }
                         
                         if let gpsCoordinates = property.gpsCoordinates {
-                            MapCard(address: "property.name \(gpsCoordinates.latitude) \(gpsCoordinates.longitude)", latitude: gpsCoordinates.latitude, longitude: gpsCoordinates.longitude, name: property.name, generalLocation: generalLocation)
+                            MapCard(address: "\(property.name) \(gpsCoordinates.latitude) \(gpsCoordinates.longitude)", latitude: gpsCoordinates.latitude, longitude: gpsCoordinates.longitude, name: property.name, generalLocation: generalLocation)
                                 .padding(.vertical)
                         }
                         
+                        
+                        
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(15)
+                    Spacer()
                 }
-                .padding(15)
-                Spacer()
-            }
         }
         .background(Color.background)
     }

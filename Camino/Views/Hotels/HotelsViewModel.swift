@@ -134,6 +134,7 @@ func determineIcon(for amenity: String) -> String {
         "accessible": "figure.roll",
         "business": "briefcase.roll",
         "kid": "figure.and.child.holdinghands",
+        "child": "figure.and.child.holdinghands",
         "elevator": "arrow.up.arrow.down.circle.fill",
         "golf": "figure.golf",
         "pet": "pawprint.fill",

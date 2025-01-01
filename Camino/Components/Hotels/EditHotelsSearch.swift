@@ -1,0 +1,105 @@
+import SwiftUI
+
+struct EditHotelsSearch: View {
+    
+    @Environment(\.dismiss) var dismiss
+    @State private var showSheet = false
+    
+    @Binding var fromDate: Date
+    @Binding var toDate: Date
+    @Binding var location: String
+    
+    @State var tempFromDate: Date
+    @State var tempToDate: Date
+    @State var tempLocation: String
+    
+    private var maxDate: Date {
+        Calendar.current.date(byAdding: .month, value: 6, to: Date.now) ?? Date.now
+    }
+    
+    init(fromDate: Binding<Date>, toDate: Binding<Date>, location: Binding<String>) {
+        _fromDate = fromDate
+        _toDate = toDate
+        _location = location
+        
+        _tempFromDate = State(initialValue: fromDate.wrappedValue)
+        _tempToDate = State(initialValue: toDate.wrappedValue)
+        _tempLocation = State(initialValue: location.wrappedValue)
+    }
+    
+    var body: some View {
+        VStack(spacing: 15) {
+            Text("Edit Search")
+                .font(.system(size: 20, type: .SemiBold))
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            VStack(spacing: 15) {
+                Button {
+                    showSheet = true
+                } label: {
+                    CaminoSearchBar {
+                        HStack {
+                            Image(systemName: "mappin.and.ellipse")
+                            Text(tempLocation)
+                                .font(.system(size: 18, type: .Regular))
+                                .foregroundStyle(.primary)
+                            Spacer()
+                        }
+                    }
+                }
+                .buttonStyle(PlainButtonStyle())
+                
+                
+                Divider()
+                    .frame(height: 2)
+                    .overlay(.gray2)
+                
+                HStack(spacing: 30) {
+                    DatePicker("", selection: $tempFromDate, in: Date.now...maxDate, displayedComponents: .date)
+                        .labelsHidden()
+                    
+                    Image(systemName: "arrow.right")
+                    
+                    DatePicker("", selection: $tempToDate, in: tempFromDate...maxDate, displayedComponents: .date)
+                        .labelsHidden()
+                }
+            }
+            
+            
+            
+            Spacer()
+            
+            CaminoButton(label: "Search") {
+                fromDate = tempFromDate
+                toDate = tempToDate
+                location = tempLocation
+                
+                dismiss()
+            }
+            .padding(.top)
+            
+        }
+        .padding(15)
+        .sheet(isPresented: $showSheet) {
+            CitySearchView(location: $location)
+        }
+    }
+}
+
+
+
+
+#Preview {
+    @Previewable @State var fromDate = Date.now
+    @Previewable @State var toDate = Date.now
+    @Previewable @State var location = "Denver, CO"
+    
+    return EditHotelsSearch(
+        fromDate: $fromDate,
+        toDate: $toDate,
+        location: $location
+    )
+    .background(Color.background)
+    .border(Color.red)
+    .frame(maxHeight: 400)
+}

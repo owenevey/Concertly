@@ -42,11 +42,11 @@ struct HotelsHeader: View {
         }
         .frame(height: 60)
         .background(Color.foreground)
-//        .sheet(isPresented: $presentSheet) {
-//            EditFlightsSearch(fromDate: $fromDate, toDate: $toDate, fromAirport: $fromAirport, toAirport: $toAirport)
-//                .presentationDetents([.medium])
-//                .presentationBackground(Color.background)
-//        }
+        .sheet(isPresented: $presentSheet) {
+            EditHotelsSearch(fromDate: $fromDate, toDate: $toDate, location: $location)
+                .presentationDetents([.medium])
+                .presentationBackground(Color.background)
+        }
     }
 }
 

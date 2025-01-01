@@ -72,6 +72,12 @@ func fetchHotels(location: String, fromDate: String, toDate: String) async throw
     return response
 }
 
+func fetchCitySearchResults(query: String) async throws -> CitySearchResponse {
+    let endpoint = "\(baseUrl)/citySearch?query=\(query)"
+    let response: CitySearchResponse = try await fetchData(endpoint: endpoint)
+    return response
+}
+
 enum CaminoError: Error {
     case invalidURL
     case invalidResponse
