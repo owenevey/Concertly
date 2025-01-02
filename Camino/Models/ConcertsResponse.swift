@@ -1,10 +1,10 @@
 import Foundation
 
-struct ConcertsResponse: Decodable {
+struct ConcertsResponse: Codable {
     let concerts: [Concert]
 }
 
-struct Concert: Decodable, Identifiable {
+struct Concert: Codable, Identifiable {
     let name: String
     let id: String
     let url: String
@@ -18,8 +18,3 @@ struct Concert: Decodable, Identifiable {
     let latitude: Double
     let longitude: Double
 }
-
-
-
-
-

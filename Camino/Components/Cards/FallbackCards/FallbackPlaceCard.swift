@@ -1,13 +1,9 @@
 import SwiftUI
 
-struct LoadingConcertCard: View {
+struct FallbackPlaceCard: View {
     
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 0) {
-            ShimmerView()
-                .frame(width: 250, height: 150)
-            
             VStack(alignment: .leading, spacing: 5) {
                 ShimmerView()
                     .frame(width: 200, height: 25)
@@ -22,6 +18,10 @@ struct LoadingConcertCard: View {
                     .cornerRadius(5)
             }
             .padding(15)
+            
+            ShimmerView()
+                .frame(width: 250, height: 150)
+            
         }
         .frame(width: 250)
         .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -32,9 +32,10 @@ struct LoadingConcertCard: View {
     }
 }
 
-#Preview {
-    NavigationStack {
-        LoadingConcertCard()
-            .shadow(color: .black.opacity(0.2), radius: 5)
-    }
-}
+//#Preview {
+//    NavigationStack {
+//        PlaceCard(place: suggestedPlaces[6])
+//            .shadow(color: .black.opacity(0.2), radius: 5)
+//    }
+//
+//}

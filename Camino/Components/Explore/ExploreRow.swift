@@ -1,9 +1,11 @@
 import SwiftUI
 
-struct ExploreRow<Data: RandomAccessCollection>: View {
+struct ExploreRow<T: Codable & Identifiable>: View {
     
     let title: String
-    let data : Data
+    let status: Status
+    let data: [T]
+    let contentType: ExploreContentType
     
     var body: some View {
         VStack(spacing: 5) {
@@ -16,26 +18,30 @@ struct ExploreRow<Data: RandomAccessCollection>: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 15) {
-                    if data.isEmpty {
-                        ForEach(0..<8) { _ in
-                            LoadingConcertCard()
-                                .shadow(color: .black.opacity(0.2), radius: 5)
+                    switch status {
+                    case .loading:
+                        if data.isEmpty {
+                            renderFallbackCards(for: contentType)
+                        } else {
+                            renderCards(for: data)
                         }
-                    }
-                    if let places = data as? [Place] {
-                        ForEach(places, id: \.id) { place in
-                            PlaceCard(place: place)
-                                .shadow(color: .black.opacity(0.2), radius: 5)
+                        
+                    case .success:
+                        renderCards(for: data)
+                        
+                    case .error:
+                        if data.isEmpty {
+                            renderErrorCards(for: contentType)
+                        } else {
+                            renderErrorCards(for: contentType)
+//                            renderCards(for: data)
                         }
-                    } else if let concerts = data as? [Concert] {
-                        ForEach(concerts, id: \.id) { concert in
-                            ConcertCard(concert: concert)
-                                .shadow(color: .black.opacity(0.2), radius: 5)
-                        }
-                    } else if let games = data as? [Game] {
-                        ForEach(games, id: \.id) { game in
-                            SportCard(game: game)
-                                .shadow(color: .black.opacity(0.2), radius: 5)
+                        
+                    case .empty:
+                        if data.isEmpty {
+                            renderFallbackCards(for: contentType)
+                        } else {
+                            renderCards(for: data)
                         }
                     }
                 }
@@ -46,10 +52,71 @@ struct ExploreRow<Data: RandomAccessCollection>: View {
             .safeAreaPadding(.horizontal, 15)
         }
     }
-}
-
-#Preview {
-    NavigationStack {
-        ExploreRow(title: "Suggested Places", data: suggestedPlaces)
+    
+    @ViewBuilder
+    private func renderCards(for data: Any) -> some View {
+        if let concerts = data as? [Concert] {
+            ForEach(concerts) { concert in
+                ConcertCard(concert: concert)
+                    .shadow(color: .black.opacity(0.2), radius: 5)
+            }
+        }
+        
+        if let places = data as? [Place] {
+            ForEach(places) { place in
+                PlaceCard(place: place)
+                    .shadow(color: .black.opacity(0.2), radius: 5)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func renderFallbackCards(for contentType: ExploreContentType) -> some View {
+        switch contentType {
+        case .concert:
+            ForEach(0..<6, id: \.self) { _ in
+                FallbackConcertCard()
+                    .shadow(color: .black.opacity(0.2), radius: 5)
+            }
+        case .place:
+            ForEach(0..<6, id: \.self) { _ in
+                FallbackPlaceCard()
+                    .shadow(color: .black.opacity(0.2), radius: 5)
+            }
+        case .sport:
+            ForEach(0..<5, id: \.self) { _ in
+                Text("Loading Game...")
+                    .frame(width: 100, height: 100)
+                    .background(Color.gray.opacity(0.3))
+            }
+        }
+    }
+    
+    @ViewBuilder
+    private func renderErrorCards(for contentType: ExploreContentType) -> some View {
+        switch contentType {
+        case .concert:
+            ForEach(0..<6, id: \.self) { _ in
+                ErrorConcertCard()
+                    .shadow(color: .black.opacity(0.2), radius: 5)
+            }
+        case .place:
+            ForEach(0..<6, id: \.self) { _ in
+                ErrorPlaceCard()
+                    .shadow(color: .black.opacity(0.2), radius: 5)
+            }
+        case .sport:
+            ForEach(0..<5, id: \.self) { _ in
+                Text("Loading Game...")
+                    .frame(width: 100, height: 100)
+                    .background(Color.gray.opacity(0.3))
+            }
+        }
     }
 }
+
+//#Preview {
+//    NavigationStack {
+//        ExploreRow(title: "Suggested Places", data: suggestedPlaces)
+//    }
+//}

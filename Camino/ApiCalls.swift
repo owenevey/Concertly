@@ -9,9 +9,21 @@ func fetchData<T: Decodable>(endpoint: String, dateDecodingStrategy: JSONDecoder
     
     let (data, response) = try await URLSession.shared.data(from: url)
     
+    if endpoint.contains("popularDestinations") {
+        print(response)
+        if let rawData = String(data: data, encoding: .utf8) {
+            print("Raw Response: \(rawData)")
+        } else {
+            print("Unable to convert data to string")
+        }
+    }
+    
     guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
         throw CaminoError.invalidResponse
     }
+    
+    
+    
     
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = dateDecodingStrategy
@@ -31,10 +43,16 @@ func customDateFormatter() -> DateFormatter {
 
 // Concerts
 
-func fetchSuggestedConcerts() async throws -> [Concert] {
+func fetchSuggestedConcerts() async throws -> ConcertsResponse {
     let endpoint = "\(baseUrl)/suggestedConcerts"
     let response: ConcertsResponse = try await fetchData(endpoint: endpoint)
-    return response.concerts
+    return response
+}
+
+func fetchTrendingConcerts() async throws -> ConcertsResponse {
+    let endpoint = "\(baseUrl)/trendingConcerts"
+    let response: ConcertsResponse = try await fetchData(endpoint: endpoint)
+    return response
 }
 
 
@@ -75,6 +93,14 @@ func fetchHotels(location: String, fromDate: String, toDate: String) async throw
 func fetchCitySearchResults(query: String) async throws -> CitySearchResponse {
     let endpoint = "\(baseUrl)/citySearch?query=\(query)"
     let response: CitySearchResponse = try await fetchData(endpoint: endpoint)
+    return response
+}
+
+// Places
+
+func fetchPopularDestination() async throws -> PlacesResponse {
+    let endpoint = "\(baseUrl)/popularDestinations"
+    let response: PlacesResponse = try await fetchData(endpoint: endpoint)
     return response
 }
 

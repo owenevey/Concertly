@@ -21,13 +21,13 @@ struct PlaceCard: View {
                         .minimumScaleFactor(0.75)
                         .lineLimit(1)
                     
-                    Text(place.country)
+                    Text(place.countryName)
                         .font(.system(size: 16, type: .Regular))
                         .foregroundStyle(.gray3)
                         .minimumScaleFactor(0.75)
                         .lineLimit(1)
                     
-                    Text(place.description)
+                    Text(place.shortDescription)
                         .font(.system(size: 16, type: .Regular))
                         .foregroundStyle(.gray3)
                         .minimumScaleFactor(0.75)
@@ -35,11 +35,17 @@ struct PlaceCard: View {
                 }
                 .padding(15)
                 
-                Image(place.imageString)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 250, height: 150)
-                    .clipped()
+                
+                AsyncImage(url: URL(string: place.images[0])) { image in
+                    image
+                        .resizable()
+                } placeholder: {
+                    Color.foreground
+                        .frame(width: 250, height: 250)
+                }
+                .scaledToFill()
+                .frame(width: 250, height: 150)
+                .clipped()
                 
             }
             .frame(width: 250)
@@ -56,10 +62,10 @@ struct PlaceCard: View {
     }
 }
 
-#Preview {
-    NavigationStack {
-        PlaceCard(place: suggestedPlaces[6])
-            .shadow(color: .black.opacity(0.2), radius: 5)
-    }
-    
-}
+//#Preview {
+//    NavigationStack {
+//        PlaceCard(place: suggestedPlaces[6])
+//            .shadow(color: .black.opacity(0.2), radius: 5)
+//    }
+//    
+//}

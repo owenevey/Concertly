@@ -2,8 +2,11 @@ import SwiftUI
 
 struct ExploreView: View {
     
+    @StateObject var viewModel: ExploreViewModel = ExploreViewModel()
     @State private var concerts: [Concert] = []
     @State private var textInput = ""
+    
+    @State private var hasAppeared: Bool = false
     
     var body: some View {
         ImageHeaderScrollView(headerContent: ExploreHeader(), showBackButton: false) {
@@ -38,10 +41,21 @@ struct ExploreView: View {
                     .padding(20)
                 }
                 .frame(height: 300)
+                
                 ExplorePills()
-                ExploreRow(title: "Suggested Places", data: suggestedPlaces)
-                ExploreRow(title: "Trending Concerts", data: concerts)
-                ExploreRow(title: "Upcoming Games", data: upcomingGames)
+                
+                ExploreRow(title: "Trending Concerts", status: viewModel.trendingConcertsResponse.status, data: viewModel.trendingConcerts, contentType: ExploreContentType.concert)
+                
+                ExploreRow(title: "Popular Destinations", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.place)
+                
+                ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert)
+                
+                
+                
+                
+                
+                //                ExploreRow(title: "Suggested Places", data: suggestedPlaces)
+                //                ExploreRow(title: "Upcoming Games", data: upcomingGames)
             }
             .padding(.bottom, 90)
             .padding(.top, -300)
@@ -49,18 +63,21 @@ struct ExploreView: View {
         }
         .background(Color.background)
         .ignoresSafeArea(edges: .top)
-        .task {
-            do {
-                concerts = try await fetchSuggestedConcerts()
-            } catch {
-                print("Error fetching concerts")
+        .onAppear {
+            if !hasAppeared {
+                Task {
+                    await viewModel.getTrendingConcerts()
+                    await viewModel.getPopularDestinations()
+                    await viewModel.getSuggestedConcerts()
+                }
+                hasAppeared = true
             }
         }
         .refreshable {
-            do {
-                concerts = try await fetchSuggestedConcerts()
-            } catch {
-                print("Error fetching concerts")
+            Task {
+                await viewModel.getTrendingConcerts()
+                await viewModel.getPopularDestinations()
+                await viewModel.getSuggestedConcerts()
             }
         }
     }
