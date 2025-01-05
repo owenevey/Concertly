@@ -34,7 +34,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                             renderErrorCards(for: contentType)
                         } else {
                             renderErrorCards(for: contentType)
-//                            renderCards(for: data)
+//                            renderCards(for: data) NOTE: Keep for debugging
                         }
                         
                     case .empty:
@@ -68,6 +68,13 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                     .shadow(color: .black.opacity(0.2), radius: 5)
             }
         }
+        
+        if let games = data as? [Game] {
+            ForEach(games) { game in
+                GameCard(game: game)
+                    .shadow(color: .black.opacity(0.2), radius: 5)
+            }
+        }
     }
     
     @ViewBuilder
@@ -83,11 +90,10 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                 FallbackPlaceCard()
                     .shadow(color: .black.opacity(0.2), radius: 5)
             }
-        case .sport:
-            ForEach(0..<5, id: \.self) { _ in
-                Text("Loading Game...")
-                    .frame(width: 100, height: 100)
-                    .background(Color.gray.opacity(0.3))
+        case .game:
+            ForEach(0..<6, id: \.self) { _ in
+                FallbackGameCard()
+                    .shadow(color: .black.opacity(0.2), radius: 5)
             }
         }
     }
@@ -105,11 +111,10 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                 ErrorPlaceCard()
                     .shadow(color: .black.opacity(0.2), radius: 5)
             }
-        case .sport:
-            ForEach(0..<5, id: \.self) { _ in
-                Text("Loading Game...")
-                    .frame(width: 100, height: 100)
-                    .background(Color.gray.opacity(0.3))
+        case .game:
+            ForEach(0..<6, id: \.self) { _ in
+                ErrorGameCard()
+                    .shadow(color: .black.opacity(0.2), radius: 5)
             }
         }
     }

@@ -3,7 +3,7 @@ import MapKit
 
 struct MapCard: View {
     
-    let address: String
+    let addressToSearch: String
     let latitude: Double
     let longitude: Double
     let name: String
@@ -11,7 +11,7 @@ struct MapCard: View {
     
     var body: some View {
         Button {
-            openAddressInMaps(address: address)
+            openAddressInMaps(address: addressToSearch)
         } label: {
             VStack(alignment: .leading, spacing: 0) {
                 Map(initialPosition: MapCameraPosition.region( MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))), interactionModes: [])
@@ -59,6 +59,6 @@ struct MapCard: View {
 
 #Preview {
     NavigationStack {
-        MapCard(address: hotConcerts[0].venueAddress, latitude: hotConcerts[0].latitude, longitude: hotConcerts[0].longitude, name: hotConcerts[0].venueName, generalLocation: hotConcerts[0].generalLocation)
+        MapCard(addressToSearch: hotConcerts[0].venueAddress, latitude: hotConcerts[0].latitude, longitude: hotConcerts[0].longitude, name: hotConcerts[0].venueName, generalLocation: hotConcerts[0].cityName)
     }
 }

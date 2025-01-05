@@ -1,15 +1,15 @@
 import SwiftUI
 
-struct LineItem: View {
+struct LineItem<T: TripViewModelProtocol>: View {
     
-    let item: LineItemType
+    let item: LineItemType<T>
     let price: Int
     let status: Status
     
     @State private var showSafariView = false
     @State private var currentStatus: Status
     
-    init(item: LineItemType, price: Int, status: Status) {
+    init(item: LineItemType<T>, price: Int, status: Status) {
         self.item = item
         self.price = price
         self.status = status
@@ -90,17 +90,24 @@ struct LineItem: View {
     }
 }
 
-enum LineItemType {
+enum LineItemType<T: TripViewModelProtocol> {
     
-    case flights(concertViewModel: ConcertViewModel)
-    case hotel(concertViewModel: ConcertViewModel)
+    case flights(tripViewModel: T)
+    case hotel(tripViewModel: T)
     case ticket(link: String)
     
-    static func allCases(concertViewModel: ConcertViewModel, link: String) -> [LineItemType] {
+    static func eventItems(eventViewModel: T, link: String) -> [LineItemType] {
         return [
-            .flights(concertViewModel: concertViewModel),
-            .hotel(concertViewModel: concertViewModel),
+            .flights(tripViewModel: eventViewModel),
+            .hotel(tripViewModel: eventViewModel),
             .ticket(link: link)
+        ]
+    }
+    
+    static func placeItems(placeViewModel: T) -> [LineItemType] {
+        return [
+            .flights(tripViewModel: placeViewModel),
+            .hotel(tripViewModel: placeViewModel),
         ]
     }
     
@@ -129,10 +136,10 @@ enum LineItemType {
     @ViewBuilder
     var destinationView: some View {
         switch self {
-        case let .flights(concertViewModel):
-            FlightsView(concertViewModel: concertViewModel)
-        case let .hotel(concertViewModel):
-            HotelsView(concertViewModel: concertViewModel)
+        case let .flights(tripViewModel):
+            FlightsView(tripViewModel: tripViewModel)
+        case let .hotel(tripViewModel):
+            HotelsView(tripViewModel: tripViewModel)
         case let .ticket(link):
             SFSafariView(url: URL(string: link)!)
         }
@@ -140,21 +147,21 @@ enum LineItemType {
 }
 
 
-import SwiftUI
-
 #Preview {
     let concertViewModel = ConcertViewModel(concert: hotConcerts[0])
     let link = "https://example.com"
     
     NavigationStack {
-        LineItem(item: LineItemType.flights(concertViewModel: concertViewModel), price: 55, status: Status.loading)
-            .padding()
-        
-        LineItem(item: LineItemType.hotel(concertViewModel: concertViewModel), price: 100, status: Status.success)
-            .padding()
-        
-        LineItem(item: LineItemType.ticket(link: link), price: 25, status: Status.error)
-            .padding()
+        VStack(spacing: 20) {
+            LineItem(item: LineItemType.flights(tripViewModel: concertViewModel), price: 55, status: Status.loading)
+                .padding()
+            
+            LineItem(item: LineItemType.hotel(tripViewModel: concertViewModel), price: 100, status: Status.success)
+                .padding()
+            
+            LineItem(item: LineItemType<ConcertViewModel>.ticket(link: link), price: 25, status: Status.error)
+                .padding()
+        }
     }
 }
 

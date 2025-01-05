@@ -41,7 +41,7 @@ struct ConcertView: View {
                 
                 
                 VStack(spacing: 15) {
-                    ForEach((LineItemType.allCases(concertViewModel: viewModel, link: concert.url)), id: \.title) { item in
+                    ForEach((LineItemType.eventItems(eventViewModel: viewModel, link: concert.url)), id: \.title) { item in
                         switch item {
                         case .flights:
                             LineItem(item: item, price: viewModel.flightsPrice, status: viewModel.flightsResponse.status)
@@ -80,7 +80,7 @@ struct ConcertView: View {
                     
                 }
                 
-                MapCard(address: concert.venueAddress, latitude: concert.latitude, longitude: concert.longitude, name: concert.venueName, generalLocation: concert.generalLocation)
+                MapCard(addressToSearch: concert.venueAddress, latitude: concert.latitude, longitude: concert.longitude, name: concert.venueName, generalLocation: concert.cityName)
                     .padding(.vertical, 10)
                 
                 Button {

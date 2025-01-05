@@ -41,11 +41,11 @@ struct HotelDetailsView: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-                VStack(spacing: 0) {
-                    if let images = property.images {
-                        let imageUrls = images.compactMap { $0.originalImage }
-                        
-                        ZStack {
+            VStack(spacing: 0) {
+                if let images = property.images {
+                    let imageUrls = images.compactMap { $0.originalImage }
+                    
+                    ZStack {
                         TabView {
                             ForEach(imageUrls, id: \.self) { imageUrl in
                                 if let url = URL(string: imageUrl) {
@@ -87,99 +87,99 @@ struct HotelDetailsView: View {
                             Spacer()
                         }
                     }
+                }
+                
+                VStack(spacing: 15) {
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text(property.name)
+                            .font(.system(size: 30, type: .SemiBold))
+                        
+                        HStack {
+                            if let rating = property.overallRating {
+                                HStack(spacing: 5) {
+                                    Text("\(rating, specifier: "%.1f")")
+                                        .font(.system(size: 20, type: .Medium))
+                                    Image(systemName: "star.fill")
+                                        .font(.system(size: 15))
+                                        .foregroundStyle(Color.yellow)
+                                }
+                            }
+                            
+                            if locationRating != "" {
+                                HStack(spacing: 5) {
+                                    Text(locationRating)
+                                        .font(.system(size: 20, type: .Medium))
+                                        .foregroundStyle(locationRatingColor)
+                                }
+                            }
+                        }
+                        
+                        if let description = property.description {
+                            Text(description)
+                                .font(.system(size: 18, type: .Regular))
+                                .foregroundStyle(.gray3)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    CaminoButton(label: "Select Hotel") {
+                        selectedHotel = property
+                        dismiss()
                     }
                     
-                    VStack(spacing: 15) {
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text(property.name)
-                                .font(.system(size: 30, type: .SemiBold))
-                            
-                            HStack {
-                                if let rating = property.overallRating {
-                                    HStack(spacing: 5) {
-                                        Text("\(rating, specifier: "%.1f")")
-                                            .font(.system(size: 20, type: .Medium))
-                                        Image(systemName: "star.fill")
-                                            .font(.system(size: 15))
-                                            .foregroundStyle(Color.yellow)
-                                    }
-                                }
-                                
-                                if locationRating != "" {
-                                    HStack(spacing: 5) {
-                                        Text(locationRating)
-                                            .font(.system(size: 20, type: .Medium))
-                                            .foregroundStyle(locationRatingColor)
-                                    }
-                                }
-                            }
-                            
-                            if let description = property.description {
-                                Text(description)
-                                    .font(.system(size: 18, type: .Regular))
-                                    .foregroundStyle(.gray3)
-                            }
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        CaminoButton(label: "Select Hotel") {
-                            selectedHotel = property
-                            dismiss()
+                    HStack(spacing: 30) {
+                        HStack(alignment: .bottom, spacing: 3) {
+                            Text(property.totalRate.extractedLowest, format: .currency(code: "USD").precision(.fractionLength(0)))
+                                .font(.system(size: 22, type: .Medium))
+                            Text("Total")
+                                .font(.system(size: 16, type: .Medium))
+                                .padding(.bottom, 1.5)
                         }
                         
-                        HStack(spacing: 30) {
+                        if let ratePerNight = property.ratePerNight?.extractedLowest {
                             HStack(alignment: .bottom, spacing: 3) {
-                                Text(property.totalRate.extractedLowest, format: .currency(code: "USD").precision(.fractionLength(0)))
+                                Text(ratePerNight, format: .currency(code: "USD").precision(.fractionLength(0)))
                                     .font(.system(size: 22, type: .Medium))
-                                Text("Total")
+                                Text("Per Night")
                                     .font(.system(size: 16, type: .Medium))
                                     .padding(.bottom, 1.5)
                             }
-                            
-                            if let ratePerNight = property.ratePerNight?.extractedLowest {
-                                HStack(alignment: .bottom, spacing: 3) {
-                                    Text(ratePerNight, format: .currency(code: "USD").precision(.fractionLength(0)))
-                                        .font(.system(size: 22, type: .Medium))
-                                    Text("Per Night")
-                                        .font(.system(size: 16, type: .Medium))
-                                        .padding(.bottom, 1.5)
-                                }
-                            }
                         }
-                        .frame(maxWidth: .infinity)
-                        
-                        if let amenities = property.amenities {
-                            VStack(alignment: .leading, spacing: 6) {
-                                Text("Amenities")
-                                    .font(.system(size: 20, type: .Medium))
-                                LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-                                    ForEach(amenities, id: \.self) { amenity in
-                                        HStack(spacing: 5) {
-                                            Image(systemName: determineIcon(for: amenity))
-                                                .font(.system(size: 16))
-                                                .frame(width: 25)
-                                            
-                                            Text(amenity)
-                                                .font(.system(size: 16))
-                                        }
-                                        .foregroundColor(.gray)
-                                    }.frame(maxWidth: .infinity, alignment: .leading)
-                                }
-                            }
-                        }
-                        
-                        if let gpsCoordinates = property.gpsCoordinates {
-                            MapCard(address: "\(property.name) \(gpsCoordinates.latitude) \(gpsCoordinates.longitude)", latitude: gpsCoordinates.latitude, longitude: gpsCoordinates.longitude, name: property.name, generalLocation: generalLocation)
-                                .padding(.vertical)
-                        }
-                        
-                        
-                        
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(15)
-                    Spacer()
+                    .frame(maxWidth: .infinity)
+                    
+                    if let amenities = property.amenities {
+                        VStack(alignment: .leading, spacing: 6) {
+                            Text("Amenities")
+                                .font(.system(size: 20, type: .Medium))
+                            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                                ForEach(amenities, id: \.self) { amenity in
+                                    HStack(spacing: 5) {
+                                        Image(systemName: determineIcon(for: amenity))
+                                            .font(.system(size: 16))
+                                            .frame(width: 25)
+                                        
+                                        Text(amenity)
+                                            .font(.system(size: 16))
+                                    }
+                                    .foregroundColor(.gray)
+                                }.frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+                    }
+                    
+                    if let gpsCoordinates = property.gpsCoordinates {
+                        MapCard(addressToSearch: "\(property.name) \(gpsCoordinates.latitude) \(gpsCoordinates.longitude)", latitude: gpsCoordinates.latitude, longitude: gpsCoordinates.longitude, name: property.name, generalLocation: generalLocation)
+                            .padding(.vertical)
+                    }
+                    
+                    
+                    
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(15)
+                Spacer()
+            }
         }
         .background(Color.background)
     }

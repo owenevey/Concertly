@@ -1,20 +1,20 @@
 import SwiftUI
 
-struct HotelsView: View {
+struct HotelsView<T: TripViewModelProtocol>: View {
     
     @Environment(\.dismiss) var dismiss
     
-    @ObservedObject var concertViewModel: ConcertViewModel
+    @ObservedObject var tripViewModel: T
     @StateObject var viewModel: HotelsViewModel
     
-    init(concertViewModel: ConcertViewModel) {
-        self.concertViewModel = concertViewModel
+    init(tripViewModel: T) {
+        self.tripViewModel = tripViewModel
         
         _viewModel = StateObject(wrappedValue: HotelsViewModel(
-            location: concertViewModel.concert.generalLocation,
-            fromDate: concertViewModel.tripStartDate,
-            toDate: concertViewModel.tripEndDate,
-            hotelsResponse: concertViewModel.hotelsResponse
+            location: tripViewModel.cityName,
+            fromDate: tripViewModel.tripStartDate,
+            toDate: tripViewModel.tripEndDate,
+            hotelsResponse: tripViewModel.hotelsResponse
         ))
     }
     
@@ -101,7 +101,7 @@ struct HotelsView: View {
     }
     
     private func handleSelectedHotelChange() {
-        concertViewModel.hotelsPrice = viewModel.selectedHotel?.totalRate.extractedLowest ?? 0
+        tripViewModel.hotelsPrice = viewModel.selectedHotel?.totalRate.extractedLowest ?? 0
         dismiss()
     }
     
@@ -109,8 +109,8 @@ struct HotelsView: View {
         Task {
             await viewModel.getHotels()
         }
-        concertViewModel.hotelsResponse = viewModel.hotelsResponse
-        concertViewModel.hotelsPrice = viewModel.hotelsResponse.data?.properties.first?.totalRate.extractedLowest ?? 0
+        tripViewModel.hotelsResponse = viewModel.hotelsResponse
+        tripViewModel.hotelsPrice = viewModel.hotelsResponse.data?.properties.first?.totalRate.extractedLowest ?? 0
     }
     
     private func handleLocationChange() {
@@ -118,17 +118,17 @@ struct HotelsView: View {
     }
     
     private func handleDateChange() {
-        concertViewModel.tripStartDate = viewModel.fromDate
-        concertViewModel.tripEndDate = viewModel.toDate
+        tripViewModel.tripStartDate = viewModel.fromDate
+        tripViewModel.tripEndDate = viewModel.toDate
         refetchHotels()
         Task {
-            await concertViewModel.getDepartingFlights()
+            await tripViewModel.getDepartingFlights()
         }
     }
 }
 
 #Preview {
-    let concertViewModel = ConcertViewModel(concert: hotConcerts[0])
+    let tripViewModel = ConcertViewModel(concert: hotConcerts[0])
     
-    HotelsView(concertViewModel: concertViewModel)
+    HotelsView(tripViewModel: tripViewModel)
 }

@@ -55,7 +55,7 @@
 		F18DE2452CFCB6AF00C4D1B5 /* sampleData.json in Resources */ = {isa = PBXBuildFile; fileRef = F18DE2442CFCB6A800C4D1B5 /* sampleData.json */; };
 		F18DE2EC2CFD309500C4D1B5 /* FontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18DE2EB2CFD309200C4D1B5 /* FontExtensions.swift */; };
 		F18DE2F22CFE745300C4D1B5 /* Outfit.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18DE2F12CFE745300C4D1B5 /* Outfit.ttf */; };
-		F19900382CAB5C8300EE005F /* SportCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19900372CAB5C8300EE005F /* SportCard.swift */; };
+		F19900382CAB5C8300EE005F /* GameCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19900372CAB5C8300EE005F /* GameCard.swift */; };
 		F19C72672CC71C5E00390BD6 /* FlightsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72662CC71C5E00390BD6 /* FlightsViewModel.swift */; };
 		F19C72692CC7249E00390BD6 /* ConcertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72682CC7249E00390BD6 /* ConcertViewModel.swift */; };
 		F19C726B2CC726BD00390BD6 /* GlobalVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C726A2CC726B800390BD6 /* GlobalVars.swift */; };
@@ -86,6 +86,17 @@
 		F1CD3C952D263C3F004E3041 /* PlacesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C942D263C3F004E3041 /* PlacesResponse.swift */; };
 		F1CD3C972D26419C004E3041 /* FallbackPlaceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C962D26419C004E3041 /* FallbackPlaceCard.swift */; };
 		F1CD3C992D264208004E3041 /* ErrorPlaceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C982D264208004E3041 /* ErrorPlaceCard.swift */; };
+		F1CD3C9B2D2755DA004E3041 /* PlaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C9A2D2755DA004E3041 /* PlaceView.swift */; };
+		F1CD3C9E2D275628004E3041 /* PlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C9D2D275628004E3041 /* PlaceViewModel.swift */; };
+		F1CD3CA02D275907004E3041 /* TripViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C9F2D275907004E3041 /* TripViewModelProtocol.swift */; };
+		F1CD3CA42D290FE4004E3041 /* MyLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1CD3CA32D290FE4004E3041 /* MyLaunchScreen.storyboard */; };
+		F1CD3CA82D29D7D4004E3041 /* testHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CA72D29D7D4004E3041 /* testHeader.swift */; };
+		F1CD3CAA2D2A2422004E3041 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CA92D2A2422004E3041 /* GameView.swift */; };
+		F1CD3CAD2D2A245D004E3041 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CAC2D2A245D004E3041 /* GameViewModel.swift */; };
+		F1CD3CAF2D2A2488004E3041 /* GamesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CAE2D2A2488004E3041 /* GamesResponse.swift */; };
+		F1CD3CB22D2A35F2004E3041 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CB12D2A35F2004E3041 /* ColorExtensions.swift */; };
+		F1CD3CB42D2A3BC2004E3041 /* FallbackGameCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CB32D2A3BC2004E3041 /* FallbackGameCard.swift */; };
+		F1CD3CB62D2A3DB0004E3041 /* ErrorGamecard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CB52D2A3DB0004E3041 /* ErrorGamecard.swift */; };
 		F1DAE69A2CC34D4700901914 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE6992CC34D4700901914 /* ApiResponse.swift */; };
 		F1DAE69E2CC37F7F00901914 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE69D2CC37F7F00901914 /* DateExtensions.swift */; };
 		F1DAE6A02CC3849D00901914 /* ImageHeaderScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE69F2CC3849D00901914 /* ImageHeaderScrollView.swift */; };
@@ -148,7 +159,7 @@
 		F18DE2442CFCB6A800C4D1B5 /* sampleData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleData.json; sourceTree = "<group>"; };
 		F18DE2EB2CFD309200C4D1B5 /* FontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtensions.swift; sourceTree = "<group>"; };
 		F18DE2F12CFE745300C4D1B5 /* Outfit.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Outfit.ttf; sourceTree = "<group>"; };
-		F19900372CAB5C8300EE005F /* SportCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportCard.swift; sourceTree = "<group>"; };
+		F19900372CAB5C8300EE005F /* GameCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCard.swift; sourceTree = "<group>"; };
 		F199FFF62CAA3A6E00EE005F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F19C72662CC71C5E00390BD6 /* FlightsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsViewModel.swift; sourceTree = "<group>"; };
 		F19C72682CC7249E00390BD6 /* ConcertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertViewModel.swift; sourceTree = "<group>"; };
@@ -180,6 +191,17 @@
 		F1CD3C942D263C3F004E3041 /* PlacesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesResponse.swift; sourceTree = "<group>"; };
 		F1CD3C962D26419C004E3041 /* FallbackPlaceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallbackPlaceCard.swift; sourceTree = "<group>"; };
 		F1CD3C982D264208004E3041 /* ErrorPlaceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPlaceCard.swift; sourceTree = "<group>"; };
+		F1CD3C9A2D2755DA004E3041 /* PlaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceView.swift; sourceTree = "<group>"; };
+		F1CD3C9D2D275628004E3041 /* PlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewModel.swift; sourceTree = "<group>"; };
+		F1CD3C9F2D275907004E3041 /* TripViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewModelProtocol.swift; sourceTree = "<group>"; };
+		F1CD3CA32D290FE4004E3041 /* MyLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyLaunchScreen.storyboard; sourceTree = "<group>"; };
+		F1CD3CA72D29D7D4004E3041 /* testHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testHeader.swift; sourceTree = "<group>"; };
+		F1CD3CA92D2A2422004E3041 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		F1CD3CAC2D2A245D004E3041 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		F1CD3CAE2D2A2488004E3041 /* GamesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesResponse.swift; sourceTree = "<group>"; };
+		F1CD3CB12D2A35F2004E3041 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		F1CD3CB32D2A3BC2004E3041 /* FallbackGameCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallbackGameCard.swift; sourceTree = "<group>"; };
+		F1CD3CB52D2A3DB0004E3041 /* ErrorGamecard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorGamecard.swift; sourceTree = "<group>"; };
 		F1DAE6992CC34D4700901914 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		F1DAE69D2CC37F7F00901914 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		F1DAE69F2CC3849D00901914 /* ImageHeaderScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHeaderScrollView.swift; sourceTree = "<group>"; };
@@ -238,6 +260,7 @@
 				F18DE2442CFCB6A800C4D1B5 /* sampleData.json */,
 				F18DE2F12CFE745300C4D1B5 /* Outfit.ttf */,
 				F11640162C8A8A300040C95D /* Preview Content */,
+				F1CD3CA32D290FE4004E3041 /* MyLaunchScreen.storyboard */,
 			);
 			path = Camino;
 			sourceTree = "<group>";
@@ -306,7 +329,7 @@
 				F1CD3C872D25BCE9004E3041 /* FallbackCards */,
 				F116402D2C8C2F3E0040C95D /* PlaceCard.swift */,
 				F181551B2C8CEA2800E25003 /* ConcertCard.swift */,
-				F19900372CAB5C8300EE005F /* SportCard.swift */,
+				F19900372CAB5C8300EE005F /* GameCard.swift */,
 				F131862D2CB2E5D5003DBCC5 /* MapCard.swift */,
 				F11714B02D13D0A7007A0052 /* HotelCard.swift */,
 				F113E9572CB4986A0057CF90 /* FlightCard.swift */,
@@ -346,10 +369,13 @@
 		F19C72622CC71B7500390BD6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F1CD3CAB2D2A2448004E3041 /* Game */,
+				F1CD3C9C2D275618004E3041 /* Place */,
 				F116401E2C8AAA2C0040C95D /* BottomTabs */,
 				F19C726C2CC7496200390BD6 /* Concert */,
 				F19C726D2CC7498E00390BD6 /* Flights */,
 				F11714A62D13A87C007A0052 /* Hotels */,
+				F1CD3C9F2D275907004E3041 /* TripViewModelProtocol.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -361,6 +387,7 @@
 				F1F3A64A2D0698850042F4F2 /* IntExtensions.swift */,
 				F1DAE69D2CC37F7F00901914 /* DateExtensions.swift */,
 				F1CCE0D12CB0B96600D15696 /* ViewExtensions.swift */,
+				F1CD3CB12D2A35F2004E3041 /* ColorExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -378,6 +405,7 @@
 			children = (
 				F1DAE6992CC34D4700901914 /* ApiResponse.swift */,
 				F19C72822CD092A900390BD6 /* DurationRange.swift */,
+				F1CD3CAE2D2A2488004E3041 /* GamesResponse.swift */,
 				F18155202C8EB35A00E25003 /* ConcertsResponse.swift */,
 				F1659C042CC1E99800586212 /* FlightsResponse.swift */,
 				F11714A42D13A0E3007A0052 /* HotelsResponse.swift */,
@@ -455,6 +483,7 @@
 			children = (
 				F1CD3C882D25BD07004E3041 /* FallbackConcertCard.swift */,
 				F1CD3C962D26419C004E3041 /* FallbackPlaceCard.swift */,
+				F1CD3CB32D2A3BC2004E3041 /* FallbackGameCard.swift */,
 			);
 			path = FallbackCards;
 			sourceTree = "<group>";
@@ -464,8 +493,28 @@
 			children = (
 				F1CD3C902D2618A7004E3041 /* ErrorConcertCard.swift */,
 				F1CD3C982D264208004E3041 /* ErrorPlaceCard.swift */,
+				F1CD3CB52D2A3DB0004E3041 /* ErrorGamecard.swift */,
 			);
 			path = ErrorCards;
+			sourceTree = "<group>";
+		};
+		F1CD3C9C2D275618004E3041 /* Place */ = {
+			isa = PBXGroup;
+			children = (
+				F1CD3C9A2D2755DA004E3041 /* PlaceView.swift */,
+				F1CD3CA72D29D7D4004E3041 /* testHeader.swift */,
+				F1CD3C9D2D275628004E3041 /* PlaceViewModel.swift */,
+			);
+			path = Place;
+			sourceTree = "<group>";
+		};
+		F1CD3CAB2D2A2448004E3041 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				F1CD3CA92D2A2422004E3041 /* GameView.swift */,
+				F1CD3CAC2D2A245D004E3041 /* GameViewModel.swift */,
+			);
+			path = Game;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -530,6 +579,7 @@
 				F11640152C8A8A300040C95D /* Assets.xcassets in Resources */,
 				F18DE2F22CFE745300C4D1B5 /* Outfit.ttf in Resources */,
 				F18DE2452CFCB6AF00C4D1B5 /* sampleData.json in Resources */,
+				F1CD3CA42D290FE4004E3041 /* MyLaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,13 +591,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				F19C72692CC7249E00390BD6 /* ConcertViewModel.swift in Sources */,
+				F1CD3C9E2D275628004E3041 /* PlaceViewModel.swift in Sources */,
 				F1F3A6472D068C1C0042F4F2 /* PriceGraph.swift in Sources */,
 				F1DAE69E2CC37F7F00901914 /* DateExtensions.swift in Sources */,
+				F1CD3CAA2D2A2422004E3041 /* GameView.swift in Sources */,
+				F1CD3CB22D2A35F2004E3041 /* ColorExtensions.swift in Sources */,
 				F1F3A64B2D0698850042F4F2 /* IntExtensions.swift in Sources */,
+				F1CD3CAD2D2A245D004E3041 /* GameViewModel.swift in Sources */,
 				F176C9262CB5E7F9006BAE35 /* FlightFilter.swift in Sources */,
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
 				F1CD3C8B2D25FB88004E3041 /* ExploreViewModel.swift in Sources */,
 				F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */,
+				F1CD3CA02D275907004E3041 /* TripViewModelProtocol.swift in Sources */,
 				F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */,
 				F11714B92D15129F007A0052 /* LocationRatingFilter.swift in Sources */,
 				F19C726B2CC726BD00390BD6 /* GlobalVars.swift in Sources */,
@@ -556,6 +611,7 @@
 				F1DAE69A2CC34D4700901914 /* ApiResponse.swift in Sources */,
 				F1DAE6A22CC42EA500901914 /* ApiCalls.swift in Sources */,
 				F11714B12D13D0A7007A0052 /* HotelCard.swift in Sources */,
+				F1CD3CB42D2A3BC2004E3041 /* FallbackGameCard.swift in Sources */,
 				F1CD3C802D24CA05004E3041 /* CitySearchView.swift in Sources */,
 				F131862E2CB2E5D5003DBCC5 /* MapCard.swift in Sources */,
 				F180752B2D04FF2B00D67622 /* ErrorView.swift in Sources */,
@@ -593,10 +649,12 @@
 				F19C72832CD092AC00390BD6 /* DurationRange.swift in Sources */,
 				F1A858682D0142C9009A37E8 /* AirportSearchViewModel.swift in Sources */,
 				F19C72792CD0685300390BD6 /* SortFlights.swift in Sources */,
-				F19900382CAB5C8300EE005F /* SportCard.swift in Sources */,
+				F19900382CAB5C8300EE005F /* GameCard.swift in Sources */,
 				F19C727F2CD0837700390BD6 /* FilterStops.swift in Sources */,
 				F113E9582CB4986A0057CF90 /* FlightCard.swift in Sources */,
+				F1CD3C9B2D2755DA004E3041 /* PlaceView.swift in Sources */,
 				F11714AF2D13CC11007A0052 /* HotelFilter.swift in Sources */,
+				F1CD3CAF2D2A2488004E3041 /* GamesResponse.swift in Sources */,
 				F116402E2C8C2F3E0040C95D /* PlaceCard.swift in Sources */,
 				F117149C2D1253B0007A0052 /* CaminoButton.swift in Sources */,
 				F11714A52D13A0E3007A0052 /* HotelsResponse.swift in Sources */,
@@ -606,6 +664,7 @@
 				F1CD3C932D2618D5004E3041 /* StillShimmerView.swift in Sources */,
 				F19C726F2CCB27D900390BD6 /* HidingHeaderView.swift in Sources */,
 				F11714AB2D13C4FE007A0052 /* HotelsHeader.swift in Sources */,
+				F1CD3CA82D29D7D4004E3041 /* testHeader.swift in Sources */,
 				F1E786272CB300A200F4E462 /* HotelsView.swift in Sources */,
 				F1CD3C8D2D260876004E3041 /* ExploreContentType.swift in Sources */,
 				F1CD3C842D24CAEB004E3041 /* CitySearchResponse.swift in Sources */,
@@ -623,6 +682,7 @@
 				F1A858662D0140F0009A37E8 /* AirportSearchResponse.swift in Sources */,
 				F19C727B2CD0691200390BD6 /* SortFlightsEnum.swift in Sources */,
 				F18DE2EC2CFD309500C4D1B5 /* FontExtensions.swift in Sources */,
+				F1CD3CB62D2A3DB0004E3041 /* ErrorGamecard.swift in Sources */,
 				F11640222C8BA8270040C95D /* TripsView.swift in Sources */,
 				F11714A32D1274DA007A0052 /* FilterSheet.swift in Sources */,
 			);
@@ -764,7 +824,7 @@
 				INFOPLIST_FILE = Camino/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = MyLaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
@@ -795,7 +855,7 @@
 				INFOPLIST_FILE = Camino/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = MyLaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;

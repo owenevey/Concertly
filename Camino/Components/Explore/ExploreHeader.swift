@@ -12,6 +12,7 @@ struct ExploreHeader: View {
             .containerRelativeFrame(.horizontal) { size, axis in
                 size
             }
+            .zIndex(-1)
 //            .clipped()
 //            .overlay(
 //                VStack {

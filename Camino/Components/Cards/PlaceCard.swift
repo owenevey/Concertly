@@ -9,33 +9,12 @@ struct PlaceCard: View {
     var body: some View {
         
         NavigationLink {
-            Text(place.name)
+            PlaceView(place: place)
                 .navigationBarHidden(true)
                 .navigationTransition(.zoom(sourceID: id, in: namespace))
         }
         label: {
             VStack(alignment: .leading, spacing: 0) {
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(place.name)
-                        .font(.system(size: 20, type: .SemiBold))
-                        .minimumScaleFactor(0.75)
-                        .lineLimit(1)
-                    
-                    Text(place.countryName)
-                        .font(.system(size: 16, type: .Regular))
-                        .foregroundStyle(.gray3)
-                        .minimumScaleFactor(0.75)
-                        .lineLimit(1)
-                    
-                    Text(place.shortDescription)
-                        .font(.system(size: 16, type: .Regular))
-                        .foregroundStyle(.gray3)
-                        .minimumScaleFactor(0.75)
-                        .lineLimit(2, reservesSpace: true)
-                }
-                .padding(15)
-                
-                
                 AsyncImage(url: URL(string: place.images[0])) { image in
                     image
                         .resizable()
@@ -46,6 +25,26 @@ struct PlaceCard: View {
                 .scaledToFill()
                 .frame(width: 250, height: 150)
                 .clipped()
+                
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(place.name)
+                        .font(.system(size: 20, type: .SemiBold))
+//                        .minimumScaleFactor(0.75)
+                        .lineLimit(1)
+                    
+                    Text(place.countryName)
+                        .font(.system(size: 16, type: .Regular))
+                        .foregroundStyle(.gray3)
+//                        .minimumScaleFactor(0.75)
+                        .lineLimit(1)
+                    
+                    Text(place.shortDescription)
+                        .font(.system(size: 16, type: .Regular))
+                        .foregroundStyle(.gray3)
+//                        .minimumScaleFactor(0.75)
+                        .lineLimit(2, reservesSpace: true)
+                }
+                .padding(15)
                 
             }
             .frame(width: 250)

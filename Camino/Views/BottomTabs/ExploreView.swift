@@ -48,14 +48,13 @@ struct ExploreView: View {
                 
                 ExploreRow(title: "Popular Destinations", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.place)
                 
+                ExploreRow(title: "Upcoming Games", status: viewModel.upcomingGamesResponse.status, data: viewModel.upcomingGames, contentType: ExploreContentType.game)
+                
                 ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert)
                 
                 
-                
-                
-                
-                //                ExploreRow(title: "Suggested Places", data: suggestedPlaces)
-                //                ExploreRow(title: "Upcoming Games", data: upcomingGames)
+                ExploreRow(title: "International Adventures", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.place)
+
             }
             .padding(.bottom, 90)
             .padding(.top, -300)
@@ -69,6 +68,7 @@ struct ExploreView: View {
                     await viewModel.getTrendingConcerts()
                     await viewModel.getPopularDestinations()
                     await viewModel.getSuggestedConcerts()
+                    await viewModel.getUpcomingGames()
                 }
                 hasAppeared = true
             }
@@ -78,6 +78,7 @@ struct ExploreView: View {
                 await viewModel.getTrendingConcerts()
                 await viewModel.getPopularDestinations()
                 await viewModel.getSuggestedConcerts()
+                await viewModel.getUpcomingGames()
             }
         }
     }

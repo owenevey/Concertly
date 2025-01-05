@@ -1,8 +1,7 @@
 import Foundation
 import SwiftUI
 
-@MainActor
-class ConcertViewModel: ObservableObject {
+class ConcertViewModel: TripViewModelProtocol {
     var concert: Concert
     
     @Published var tripStartDate: Date
@@ -11,6 +10,7 @@ class ConcertViewModel: ObservableObject {
     @Published var hotelsResponse: ApiResponse<HotelsResponse> = ApiResponse<HotelsResponse>()
     @Published var flightsPrice: Int = 0
     @Published var hotelsPrice: Int = 0
+    @Published var cityName: String = ""
     
     init(concert: Concert) {
         self.concert = concert
@@ -18,6 +18,7 @@ class ConcertViewModel: ObservableObject {
         let calendar = Calendar.current
         self.tripStartDate = calendar.date(byAdding: .day, value: -1, to: concert.dateTime) ?? Date()
         self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.dateTime) ?? Date()
+        self.cityName = concert.cityName
     }
     
     var ticketPrice: Int {
@@ -32,7 +33,6 @@ class ConcertViewModel: ObservableObject {
         self.flightsResponse = ApiResponse(status: .loading)
         
         do {
-            try await Task.sleep(nanoseconds: 1 * 1_000_000_000)
             let fetchedFlights = try await fetchDepartureFlights(lat: concert.latitude,
                                                                  long: concert.longitude,
                                                                  fromAirport: homeAirport,
@@ -54,8 +54,7 @@ class ConcertViewModel: ObservableObject {
         self.hotelsResponse = ApiResponse(status: .loading)
         
         do {
-            try await Task.sleep(nanoseconds: 1 * 1_000_000_000)
-            let fetchedHotels = try await fetchHotels(location: concert.generalLocation,
+            let fetchedHotels = try await fetchHotels(location: concert.cityName,
                                                       fromDate: tripStartDate.traditionalFormat(),
                                                       toDate: tripEndDate.traditionalFormat())
             withAnimation(.easeInOut) {

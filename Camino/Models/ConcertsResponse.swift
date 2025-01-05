@@ -14,7 +14,7 @@ struct Concert: Codable, Identifiable {
     let maxPrice: Double
     let venueName: String
     let venueAddress: String
-    let generalLocation: String
+    let cityName: String
     let latitude: Double
     let longitude: Double
 }

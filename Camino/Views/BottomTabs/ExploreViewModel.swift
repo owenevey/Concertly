@@ -12,6 +12,9 @@ final class ExploreViewModel: ObservableObject {
     @Published var popularDestinationsResponse: ApiResponse<[Place]> = ApiResponse<[Place]>()
     @Published var popularDestinations: [Place] = []
     
+    @Published var upcomingGamesResponse: ApiResponse<[Game]> = ApiResponse<[Game]>()
+    @Published var upcomingGames: [Game] = []
+    
     func getSuggestedConcerts() async {
         withAnimation(.easeInOut) {
             self.suggestedConcertsResponse = ApiResponse(status: .loading)
@@ -65,6 +68,25 @@ final class ExploreViewModel: ObservableObject {
             print("Error fetching popular destinations: \(error)")
             withAnimation(.easeInOut) {
                 self.popularDestinationsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
+        }
+    }
+    
+    func getUpcomingGames() async {
+        withAnimation(.easeInOut) {
+            self.upcomingGamesResponse = ApiResponse(status: .loading)
+        }
+        
+        do {
+            let fetchedGames = try await fetchUpcomingGames()
+            withAnimation(.easeInOut) {
+                self.upcomingGames = fetchedGames.games
+                self.upcomingGamesResponse = ApiResponse(status: .success, data: fetchedGames.games)
+            }
+        } catch {
+            print("Error fetching upcoming games: \(error)")
+            withAnimation(.easeInOut) {
+                self.upcomingGamesResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }
     }

@@ -29,13 +29,13 @@ struct ConcertCard: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text(concert.name)
                         .font(.system(size: 20, type: .SemiBold))
-                        .minimumScaleFactor(0.75)
+//                        .minimumScaleFactor(0.75)
                         .lineLimit(1)
                     
-                    Text(concert.generalLocation)
+                    Text(concert.cityName)
                         .font(.system(size: 16, type: .Regular))
                         .foregroundStyle(.gray3)
-                        .minimumScaleFactor(0.75)
+//                        .minimumScaleFactor(0.75)
                         .lineLimit(1)
                     
                     Text(concert.dateTime.formatted(date: .abbreviated, time: .omitted))
@@ -48,6 +48,7 @@ struct ConcertCard: View {
                 .padding(15)
             }
             .frame(width: 250)
+//            .frame(height: 250)
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .background(
                 RoundedRectangle(cornerRadius: 20)

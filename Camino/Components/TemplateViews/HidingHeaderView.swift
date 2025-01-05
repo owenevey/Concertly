@@ -63,5 +63,5 @@ struct HidingHeaderView<Header: View, FiltersBar: View, ScrollContent: View>: Vi
 #Preview {
     let concertViewModel = ConcertViewModel(concert: hotConcerts[0])
     
-    FlightsView(concertViewModel: concertViewModel)
+    FlightsView(tripViewModel: concertViewModel)
 }

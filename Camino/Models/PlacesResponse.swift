@@ -16,6 +16,13 @@ struct Place: Codable, Identifiable {
     let longitude: Double
     
     private enum CodingKeys: String, CodingKey {
-            case name, shortDescription, longDescription, images, cityName, countryName, latitude, longitude
-        }
+        case name,
+             shortDescription,
+             longDescription,
+             images,
+             cityName,
+             countryName,
+             latitude,
+             longitude
+    }
 }

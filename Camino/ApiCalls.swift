@@ -9,21 +9,18 @@ func fetchData<T: Decodable>(endpoint: String, dateDecodingStrategy: JSONDecoder
     
     let (data, response) = try await URLSession.shared.data(from: url)
     
-    if endpoint.contains("popularDestinations") {
-        print(response)
-        if let rawData = String(data: data, encoding: .utf8) {
-            print("Raw Response: \(rawData)")
-        } else {
-            print("Unable to convert data to string")
-        }
-    }
+//    if endpoint.contains("popularDestinations") {
+//        print(response)
+//        if let rawData = String(data: data, encoding: .utf8) {
+//            print("Raw Response: \(rawData)")
+//        } else {
+//            print("Unable to convert data to string")
+//        }
+//    }
     
     guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
         throw CaminoError.invalidResponse
-    }
-    
-    
-    
+    }    
     
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = dateDecodingStrategy
@@ -52,6 +49,14 @@ func fetchSuggestedConcerts() async throws -> ConcertsResponse {
 func fetchTrendingConcerts() async throws -> ConcertsResponse {
     let endpoint = "\(baseUrl)/trendingConcerts"
     let response: ConcertsResponse = try await fetchData(endpoint: endpoint)
+    return response
+}
+
+// Games
+
+func fetchUpcomingGames() async throws -> GamesResponse {
+    let endpoint = "\(baseUrl)/upcomingGames"
+    let response: GamesResponse = try await fetchData(endpoint: endpoint)
     return response
 }
 

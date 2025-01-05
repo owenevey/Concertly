@@ -1,19 +1,19 @@
 import SwiftUI
 
-struct FlightsView: View {
+struct FlightsView<T: TripViewModelProtocol>: View {
     
     @Environment(\.dismiss) var dismiss
     
-    @ObservedObject var concertViewModel: ConcertViewModel
+    @ObservedObject var tripViewModel: T
     @StateObject var viewModel: FlightsViewModel
     
-    init(concertViewModel: ConcertViewModel) {
-        self.concertViewModel = concertViewModel
+    init(tripViewModel: T) {
+        self.tripViewModel = tripViewModel
         
         _viewModel = StateObject(wrappedValue: FlightsViewModel(
-            fromDate: concertViewModel.tripStartDate,
-            toDate: concertViewModel.tripEndDate,
-            flightsResponse: concertViewModel.flightsResponse
+            fromDate: tripViewModel.tripStartDate,
+            toDate: tripViewModel.tripEndDate,
+            flightsResponse: tripViewModel.flightsResponse
         ))
     }
     
@@ -150,15 +150,15 @@ struct FlightsView: View {
             Task {
                 await viewModel.getReturningFlights()
             }
-            concertViewModel.flightsResponse = viewModel.flightsResponse
-            concertViewModel.flightsPrice = viewModel.flightsResponse.data?.bestFlights.first?.price ?? 0
+            tripViewModel.flightsResponse = viewModel.flightsResponse
+            tripViewModel.flightsPrice = viewModel.flightsResponse.data?.bestFlights.first?.price ?? 0
         } else {
             refetchDepartingFlights()
         }
     }
     
     private func handleReturningFlightChange() {
-        concertViewModel.flightsPrice = viewModel.returningFlight?.price ?? 0
+        tripViewModel.flightsPrice = viewModel.returningFlight?.price ?? 0
         dismiss()
     }
     
@@ -166,22 +166,22 @@ struct FlightsView: View {
         Task {
             await viewModel.getDepartingFlights()
         }
-        concertViewModel.flightsResponse = viewModel.flightsResponse
-        concertViewModel.flightsPrice = viewModel.flightsResponse.data?.bestFlights.first?.price ?? 0
+        tripViewModel.flightsResponse = viewModel.flightsResponse
+        tripViewModel.flightsPrice = viewModel.flightsResponse.data?.bestFlights.first?.price ?? 0
     }
     
     private func handleDateChange() {
-        concertViewModel.tripStartDate = viewModel.fromDate
-        concertViewModel.tripEndDate = viewModel.toDate
+        tripViewModel.tripStartDate = viewModel.fromDate
+        tripViewModel.tripEndDate = viewModel.toDate
         refetchDepartingFlights()
         Task {
-            await concertViewModel.getHotels()
+            await tripViewModel.getHotels()
         }
     }
 }
 
 #Preview {
-    let concertViewModel = ConcertViewModel(concert: hotConcerts[0])
+    let tripViewModel = ConcertViewModel(concert: hotConcerts[0])
     
-    FlightsView(concertViewModel: concertViewModel)
+    FlightsView(tripViewModel: tripViewModel)
 }
