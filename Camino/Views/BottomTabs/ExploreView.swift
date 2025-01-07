@@ -50,6 +50,8 @@ struct ExploreView: View {
                 
                 ExploreRow(title: "Upcoming Games", status: viewModel.upcomingGamesResponse.status, data: viewModel.upcomingGames, contentType: ExploreContentType.game)
                 
+                FeaturedEvent(event: viewModel.featuredEvent, status: viewModel.featuredEventResponse.status)
+                
                 ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert)
                 
                 
@@ -69,6 +71,7 @@ struct ExploreView: View {
                     await viewModel.getPopularDestinations()
                     await viewModel.getSuggestedConcerts()
                     await viewModel.getUpcomingGames()
+                    await viewModel.getFeaturedEvent()
                 }
                 hasAppeared = true
             }
@@ -79,6 +82,7 @@ struct ExploreView: View {
                 await viewModel.getPopularDestinations()
                 await viewModel.getSuggestedConcerts()
                 await viewModel.getUpcomingGames()
+                await viewModel.getFeaturedEvent()
             }
         }
     }

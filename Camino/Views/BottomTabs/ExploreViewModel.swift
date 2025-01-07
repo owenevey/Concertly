@@ -15,6 +15,9 @@ final class ExploreViewModel: ObservableObject {
     @Published var upcomingGamesResponse: ApiResponse<[Game]> = ApiResponse<[Game]>()
     @Published var upcomingGames: [Game] = []
     
+    @Published var featuredEventResponse: ApiResponse<Concert> = ApiResponse<Concert>()
+    @Published var featuredEvent: Concert?
+    
     func getSuggestedConcerts() async {
         withAnimation(.easeInOut) {
             self.suggestedConcertsResponse = ApiResponse(status: .loading)
@@ -87,6 +90,25 @@ final class ExploreViewModel: ObservableObject {
             print("Error fetching upcoming games: \(error)")
             withAnimation(.easeInOut) {
                 self.upcomingGamesResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
+        }
+    }
+    
+    func getFeaturedEvent() async {
+        withAnimation(.easeInOut) {
+            self.featuredEventResponse = ApiResponse(status: .loading)
+        }
+        
+        do {
+            let fetchedEvent = try await fetchFeaturedEvent()
+            withAnimation(.easeInOut) {
+                self.featuredEvent = fetchedEvent.event
+                self.featuredEventResponse = ApiResponse(status: .success, data: fetchedEvent.event)
+            }
+        } catch {
+            print("Error fetching featured event: \(error)")
+            withAnimation(.easeInOut) {
+                self.featuredEventResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }
     }

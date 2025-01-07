@@ -26,7 +26,9 @@ struct LineItem<T: TripViewModelProtocol>: View {
                 }
                 .sheet(isPresented: $showSafariView) {
                     if case let .ticket(link) = item {
-                        SFSafariView(url: URL(string: link)!)
+                        if let url = URL(string: link) {
+                            SFSafariView(url: url)
+                        }
                     }
                 }
                 .buttonStyle(PlainButtonStyle())
@@ -57,7 +59,7 @@ struct LineItem<T: TripViewModelProtocol>: View {
                 .frame(width: 40, height: 40)
                 .overlay(
                     Image(systemName: item.iconName)
-                        .font(.system(size: 16))
+                        .font(.system(size: 18))
                         .foregroundStyle(.white)
                 )
             Text("\(item.title):")
@@ -69,8 +71,14 @@ struct LineItem<T: TripViewModelProtocol>: View {
                         .padding(.trailing, 10)
                 }
                 else if currentStatus == .success {
-                    Text("$\(price)")
-                        .font(.system(size: 18, type: .Medium))
+                    if case .ticket = item {
+                        Text("View")
+                            .font(.system(size: 18, type: .Medium))
+                    } else {
+                        Text("$\(price)")
+                            .font(.system(size: 18, type: .Medium))
+                    }
+                    
                     Image(systemName: "chevron.right")
                         .font(.system(size: 15))
                 }
@@ -159,7 +167,7 @@ enum LineItemType<T: TripViewModelProtocol> {
             LineItem(item: LineItemType.hotel(tripViewModel: concertViewModel), price: 100, status: Status.success)
                 .padding()
             
-            LineItem(item: LineItemType<ConcertViewModel>.ticket(link: link), price: 25, status: Status.error)
+            LineItem(item: LineItemType<ConcertViewModel>.ticket(link: link), price: 25, status: Status.success)
                 .padding()
         }
     }
