@@ -45,7 +45,8 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                         }
                     }
                 }
-                .padding(.vertical, 15)
+                .padding(.top, 10)
+                .padding(.bottom, 15)
                 .scrollTargetLayout()
             }
             .scrollTargetBehavior(.viewAligned)

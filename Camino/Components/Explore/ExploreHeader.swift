@@ -2,61 +2,30 @@ import SwiftUI
 
 struct ExploreHeader: View {
     
-    @State private var textInput = ""
-    
     var body: some View {
-        Image(.goldenGate)
-            .resizable()
-            .scaledToFill()
-//            .frame(height: 300)
-            .containerRelativeFrame(.horizontal) { size, axis in
-                size
+        
+        VStack(spacing: 0) {
+            HStack(spacing: 0) {
+                Text("Camino")
+                    .font(.system(size: 23, type: .SemiBold))
+                    .foregroundStyle(.accent)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                
+                HStack(spacing: 25) {
+                    Image(systemName: "magnifyingglass")
+                    Image(systemName: "bell")
+                }
+                .font(.system(size: 20))
             }
-            .zIndex(-1)
-//            .clipped()
-//            .overlay(
-//                VStack {
-//                    HStack {
-//                        Spacer()
-//                        Circle()
-//                            .fill(Color.foreground)
-//                            .frame(width: 40, height: 40)
-//                            .overlay(
-//                                Image(systemName: "bell.fill")
-//                                    .foregroundStyle(.accent)
-//                            )
-//                            .padding(.trailing, 20)
-//                            .padding(.top, 50)
-//                    }
-//                    
-//                    Spacer()
-//                    
-//                    VStack {
-//                        HStack {
-//                            Text("What adventures\nawait?")
-//                                .font(Font.custom("Barlow-Bold", size: 30))
-//                                .foregroundStyle(.white)
-//                                .frame(alignment: .leading)
-//                                .shadow(color: .black.opacity(0.6), radius: 3)
-//                            Spacer()
-//                        }
-//                        
-//                        RoundedRectangle(cornerRadius: 20)
-//                            .fill(Color.foreground)
-//                            .frame(maxWidth: .infinity)
-//                            .frame(height: 50)
-//                            .overlay(
-//                                HStack {
-//                                    Image(systemName: "magnifyingglass")
-//                                    TextField("Search", text: $textInput)
-//                                        .font(Font.custom("Barlow-Regular", size: 18))
-//                                        .padding(.trailing)
-//                                }.padding()
-//                            )
-//                    }
-//                    .padding(20)
-//                }
-//            )
+            .padding(.horizontal, 20)
+            .padding(.bottom, 10)
+            .background(Color.background)
+            
+            Divider()
+                .frame(height: 1)
+                .overlay(.gray2)
+        }
+        
     }
 }
 

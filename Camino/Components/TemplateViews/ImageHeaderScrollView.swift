@@ -42,6 +42,7 @@ struct ImageHeaderScrollView<HeaderContent: View, Content: View>: View {
                 .onScrollGeometryChange(for: CGFloat.self) { geo in
                     return geo.contentOffset.y
                 } action: { oldValue, newValue in
+                    print(newValue)
                     offset = newValue
                 }
                 

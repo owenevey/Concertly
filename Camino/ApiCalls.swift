@@ -9,14 +9,14 @@ func fetchData<T: Decodable>(endpoint: String, dateDecodingStrategy: JSONDecoder
     
     let (data, response) = try await URLSession.shared.data(from: url)
     
-    if endpoint.contains("featuredEvent") {
-        print(response)
-        if let rawData = String(data: data, encoding: .utf8) {
-            print("Raw Response: \(rawData)")
-        } else {
-            print("Unable to convert data to string")
-        }
-    }
+//    if endpoint.contains("featuredEvent") {
+//        print(response)
+//        if let rawData = String(data: data, encoding: .utf8) {
+//            print("Raw Response: \(rawData)")
+//        } else {
+//            print("Unable to convert data to string")
+//        }
+//    }
     
     guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
         throw CaminoError.invalidResponse
