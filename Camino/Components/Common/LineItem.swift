@@ -61,6 +61,7 @@ struct LineItem<T: TripViewModelProtocol>: View {
                     Image(systemName: item.iconName)
                         .font(.system(size: 18))
                         .foregroundStyle(.white)
+                        .fontWeight(.semibold)
                 )
             Text("\(item.title):")
                 .font(.system(size: 18, type: .Medium))
@@ -81,6 +82,7 @@ struct LineItem<T: TripViewModelProtocol>: View {
                     
                     Image(systemName: "chevron.right")
                         .font(.system(size: 15))
+                        .fontWeight(.semibold)
                 }
                 else if currentStatus == .error {
                     Text("Error")

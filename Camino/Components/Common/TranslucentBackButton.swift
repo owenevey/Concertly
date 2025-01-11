@@ -16,6 +16,7 @@ struct TranslucentBackButton: View {
                 .overlay(
                     Image(systemName: "arrow.backward")
                         .font(.system(size: 20))
+                        .fontWeight(.semibold)
                 )
                 .padding(.leading, 20)
         }

@@ -3,13 +3,11 @@ import SwiftUI
 struct ExploreView: View {
     
     @StateObject var viewModel: ExploreViewModel = ExploreViewModel()
-    @State private var concerts: [Concert] = []
-    @State private var textInput = ""
     
     @State private var hasAppeared: Bool = false
-    
     @State private var offset: CGFloat = 0
     @State private var isSearchBarVisible: Bool = true
+    @State private var isOverlayVisible: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -26,12 +24,13 @@ struct ExploreView: View {
                                     Spacer()
                                     Image(systemName: "bell")
                                         .font(.system(size: 20))
+                                        .fontWeight(.semibold)
                                         .background(
                                             Circle()
                                                 .fill(Color.foreground)
                                                 .frame(width: 40, height: 40)
-                                            )
-                                        
+                                        )
+                                    
                                 }
                                 .padding(.horizontal, 30)
                                 .padding(.top, geometry.safeAreaInsets.top)
@@ -49,23 +48,32 @@ struct ExploreView: View {
                                         Spacer()
                                     }
                                     
-                                    RoundedRectangle(cornerRadius: 30)
-                                        .fill(Color.gray1)
-                                        .shadow(color: .black.opacity(0.6), radius: 3)
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 50)
-                                        .overlay(
-                                            HStack {
-                                                Image(systemName: "magnifyingglass")
-                                                TextField("Search", text: $textInput)
-                                                    .font(.system(size: 18, type: .Regular))
-                                                    .padding(.trailing)
-                                            }
-                                                .padding()
+                                    NavigationLink {
+                                        ExploreSearchView()
+                                            .navigationBarHidden(true)
+//                                            .navigationTransition(.zoom(sourceID: id, in: namespace))
+                                    } label: {
+                                        HStack {
+                                            Image(systemName: "magnifyingglass")
+                                                .fontWeight(.semibold)
+                                            Text("Search Artists")
+                                                .font(.system(size: 18, type: .Regular))
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                        }
+                                        .padding(.vertical, 12)
+                                        .padding(.horizontal, 15)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 30)
+                                                .fill(Color.gray1)
+                                                .shadow(color: .black.opacity(0.6), radius: 3)
                                         )
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                    
                                 }
-                                .frame(maxWidth: 800)
                                 .padding(15)
+                                .frame(maxWidth: 800)
+                                
                             }
                             .frame(height: 300)
                             
@@ -97,7 +105,7 @@ struct ExploreView: View {
                     return geo.contentOffset.y
                 } action: { oldValue, newValue in
                     offset = newValue
-                    withAnimation {
+                    withAnimation(.linear(duration: 0.1)) {
                         if newValue > (300 - 15 - 50 - geometry.safeAreaInsets.top) {
                             isSearchBarVisible = false
                         } else {
@@ -106,7 +114,7 @@ struct ExploreView: View {
                     }
                 }
                 
-                Image(.zhangJiaJie)
+                Image(.concert)
                     .resizable()
                     .scaledToFill()
                     .zIndex(-1)
@@ -117,6 +125,7 @@ struct ExploreView: View {
                     ExploreHeader()
                         .padding(.top, geometry.safeAreaInsets.top)
                 }
+                
                 
             }
             .ignoresSafeArea(edges: .top)

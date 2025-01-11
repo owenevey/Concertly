@@ -58,6 +58,20 @@ func fetchFeaturedEvent() async throws -> FeaturedEventResponse {
     return response
 }
 
+// Artists
+
+func fetchArtistSearchResults(query: String) async throws -> ArtistSearchResponse {
+    let endpoint = "\(baseUrl)/artistSearch?query=\(query)"
+    let response: ArtistSearchResponse = try await fetchData(endpoint: endpoint)
+    return response
+}
+
+func fetchArtistDetails(artistId: String) async throws -> ArtistDetailsResponse {
+    let endpoint = "\(baseUrl)/artistDetails?artistId=\(artistId)"
+    let response: ArtistDetailsResponse = try await fetchData(endpoint: endpoint)
+    return response
+}
+
 // Games
 
 func fetchUpcomingGames() async throws -> GamesResponse {

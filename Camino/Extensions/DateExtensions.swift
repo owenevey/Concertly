@@ -33,8 +33,19 @@ extension Date {
     
     // 10/18/2024
     func traditionalFormat() -> String {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "MM/dd/yyyy"
-            return formatter.string(from: self)
-        }
+        Date.dateFormatter.dateFormat = "MM/dd/yyyy"
+        return Date.dateFormatter.string(from: self)
+    }
+    
+    // Oct
+    func shortMonthFormat() -> String {
+        Date.dateFormatter.dateFormat = "MMM"
+        return Date.dateFormatter.string(from: self)
+    }
+    
+    // 18
+    func dayNumber() -> String {
+        Date.dateFormatter.dateFormat = "d"
+        return Date.dateFormatter.string(from: self)
+    }
 }

@@ -102,6 +102,12 @@
 		F1CD3CBC2D2CC40B004E3041 /* FeaturedEventItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CBB2D2CC40B004E3041 /* FeaturedEventItem.swift */; };
 		F1CD3CBE2D2CC449004E3041 /* FallbackFeaturedEventItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CBD2D2CC449004E3041 /* FallbackFeaturedEventItem.swift */; };
 		F1CD3CC02D2CC60C004E3041 /* ErrorFeaturedEventItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CBF2D2CC60C004E3041 /* ErrorFeaturedEventItem.swift */; };
+		F1CD3CC62D31F1D6004E3041 /* ExploreSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CC52D31F1D6004E3041 /* ExploreSearchView.swift */; };
+		F1CD3CC82D31F9F1004E3041 /* ExploreSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CC72D31F9F1004E3041 /* ExploreSearchViewModel.swift */; };
+		F1CD3CCA2D31FE04004E3041 /* ArtistSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CC92D31FDEF004E3041 /* ArtistSearchResponse.swift */; };
+		F1CD3CCC2D320403004E3041 /* ArtistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CCB2D320403004E3041 /* ArtistView.swift */; };
+		F1CD3CD02D323154004E3041 /* ArtistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CCF2D323154004E3041 /* ArtistViewModel.swift */; };
+		F1CD3CD22D323194004E3041 /* ArtistDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CD12D323194004E3041 /* ArtistDetailsResponse.swift */; };
 		F1DAE69A2CC34D4700901914 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE6992CC34D4700901914 /* ApiResponse.swift */; };
 		F1DAE69E2CC37F7F00901914 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE69D2CC37F7F00901914 /* DateExtensions.swift */; };
 		F1DAE6A02CC3849D00901914 /* ImageHeaderScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE69F2CC3849D00901914 /* ImageHeaderScrollView.swift */; };
@@ -212,6 +218,12 @@
 		F1CD3CBB2D2CC40B004E3041 /* FeaturedEventItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedEventItem.swift; sourceTree = "<group>"; };
 		F1CD3CBD2D2CC449004E3041 /* FallbackFeaturedEventItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallbackFeaturedEventItem.swift; sourceTree = "<group>"; };
 		F1CD3CBF2D2CC60C004E3041 /* ErrorFeaturedEventItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorFeaturedEventItem.swift; sourceTree = "<group>"; };
+		F1CD3CC52D31F1D6004E3041 /* ExploreSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreSearchView.swift; sourceTree = "<group>"; };
+		F1CD3CC72D31F9F1004E3041 /* ExploreSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreSearchViewModel.swift; sourceTree = "<group>"; };
+		F1CD3CC92D31FDEF004E3041 /* ArtistSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistSearchResponse.swift; sourceTree = "<group>"; };
+		F1CD3CCB2D320403004E3041 /* ArtistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistView.swift; sourceTree = "<group>"; };
+		F1CD3CCF2D323154004E3041 /* ArtistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewModel.swift; sourceTree = "<group>"; };
+		F1CD3CD12D323194004E3041 /* ArtistDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailsResponse.swift; sourceTree = "<group>"; };
 		F1DAE6992CC34D4700901914 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		F1DAE69D2CC37F7F00901914 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		F1DAE69F2CC3849D00901914 /* ImageHeaderScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHeaderScrollView.swift; sourceTree = "<group>"; };
@@ -290,6 +302,7 @@
 				F1CD3C8A2D25FB88004E3041 /* ExploreViewModel.swift */,
 				F11640212C8BA8270040C95D /* TripsView.swift */,
 				F13186282CB1EBD9003DBCC5 /* ProfileView.swift */,
+				F1CD3CC72D31F9F1004E3041 /* ExploreSearchViewModel.swift */,
 			);
 			path = BottomTabs;
 			sourceTree = "<group>";
@@ -356,6 +369,7 @@
 				F11640232C8BAD140040C95D /* ExplorePills.swift */,
 				F11640252C8BB4F00040C95D /* ExploreRow.swift */,
 				F1CD3CB72D2CBA0F004E3041 /* FeaturedEvent.swift */,
+				F1CD3CC52D31F1D6004E3041 /* ExploreSearchView.swift */,
 			);
 			path = Explore;
 			sourceTree = "<group>";
@@ -388,6 +402,8 @@
 				F19C726D2CC7498E00390BD6 /* Flights */,
 				F11714A62D13A87C007A0052 /* Hotels */,
 				F1CD3C9F2D275907004E3041 /* TripViewModelProtocol.swift */,
+				F1CD3CCB2D320403004E3041 /* ArtistView.swift */,
+				F1CD3CCF2D323154004E3041 /* ArtistViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -415,6 +431,7 @@
 		F19C72652CC71BF700390BD6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F1CD3CC92D31FDEF004E3041 /* ArtistSearchResponse.swift */,
 				F1DAE6992CC34D4700901914 /* ApiResponse.swift */,
 				F19C72822CD092A900390BD6 /* DurationRange.swift */,
 				F1CD3CAE2D2A2488004E3041 /* GamesResponse.swift */,
@@ -425,6 +442,7 @@
 				F1CD3C832D24CAEB004E3041 /* CitySearchResponse.swift */,
 				F1CD3C942D263C3F004E3041 /* PlacesResponse.swift */,
 				F1CD3CB92D2CC18A004E3041 /* FeaturedEventResponse.swift */,
+				F1CD3CD12D323194004E3041 /* ArtistDetailsResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -618,6 +636,7 @@
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
 				F1CD3C8B2D25FB88004E3041 /* ExploreViewModel.swift in Sources */,
 				F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */,
+				F1CD3CD22D323194004E3041 /* ArtistDetailsResponse.swift in Sources */,
 				F1CD3CA02D275907004E3041 /* TripViewModelProtocol.swift in Sources */,
 				F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */,
 				F11714B92D15129F007A0052 /* LocationRatingFilter.swift in Sources */,
@@ -626,6 +645,7 @@
 				F11714B52D14FFBB007A0052 /* SortHotels.swift in Sources */,
 				F1DAE69A2CC34D4700901914 /* ApiResponse.swift in Sources */,
 				F1DAE6A22CC42EA500901914 /* ApiCalls.swift in Sources */,
+				F1CD3CCC2D320403004E3041 /* ArtistView.swift in Sources */,
 				F11714B12D13D0A7007A0052 /* HotelCard.swift in Sources */,
 				F1CD3CB42D2A3BC2004E3041 /* FallbackGameCard.swift in Sources */,
 				F1CD3C802D24CA05004E3041 /* CitySearchView.swift in Sources */,
@@ -642,6 +662,8 @@
 				F19C72672CC71C5E00390BD6 /* FlightsViewModel.swift in Sources */,
 				F1E786292CB36CAB00F4E462 /* SFSafariView.swift in Sources */,
 				F11640202C8AAA610040C95D /* ExploreView.swift in Sources */,
+				F1CD3CC62D31F1D6004E3041 /* ExploreSearchView.swift in Sources */,
+				F1CD3CC82D31F9F1004E3041 /* ExploreSearchViewModel.swift in Sources */,
 				F11640282C8BEABD0040C95D /* CustomClasses.swift in Sources */,
 				F18075292D04F2C300D67622 /* LoadingView.swift in Sources */,
 				F180752D2D052E3F00D67622 /* CircleLoadingView.swift in Sources */,
@@ -663,6 +685,7 @@
 				F1CD3C952D263C3F004E3041 /* PlacesResponse.swift in Sources */,
 				F1CD3CBE2D2CC449004E3041 /* FallbackFeaturedEventItem.swift in Sources */,
 				F117149E2D126787007A0052 /* TranslucentBackButton.swift in Sources */,
+				F1CD3CD02D323154004E3041 /* ArtistViewModel.swift in Sources */,
 				F1659C012CBF252400586212 /* FilterAirlines.swift in Sources */,
 				F19C72832CD092AC00390BD6 /* DurationRange.swift in Sources */,
 				F1A858682D0142C9009A37E8 /* AirportSearchViewModel.swift in Sources */,
@@ -682,6 +705,7 @@
 				F19C727D2CD0808B00390BD6 /* FilterStopsEnum.swift in Sources */,
 				F11714BB2D1526AB007A0052 /* HotelDetailsView.swift in Sources */,
 				F1CD3C932D2618D5004E3041 /* StillShimmerView.swift in Sources */,
+				F1CD3CCA2D31FE04004E3041 /* ArtistSearchResponse.swift in Sources */,
 				F19C726F2CCB27D900390BD6 /* HidingHeaderView.swift in Sources */,
 				F11714AB2D13C4FE007A0052 /* HotelsHeader.swift in Sources */,
 				F1CD3CA82D29D7D4004E3041 /* testHeader.swift in Sources */,

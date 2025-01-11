@@ -16,6 +16,7 @@ struct ExploreHeader: View {
                     Image(systemName: "bell")
                 }
                 .font(.system(size: 20))
+                .fontWeight(.semibold)
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 10)
