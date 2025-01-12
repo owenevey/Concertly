@@ -27,7 +27,7 @@ struct ConcertCard: View {
                 .clipped()
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(concert.name)
+                    Text(concert.artistName)
                         .font(.system(size: 20, type: .SemiBold))
 //                        .minimumScaleFactor(0.75)
                         .lineLimit(1)

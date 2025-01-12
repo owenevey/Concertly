@@ -70,9 +70,9 @@ struct ExploreRow<T: Codable & Identifiable>: View {
             }
         }
         
-        if let games = data as? [Game] {
-            ForEach(games) { game in
-                GameCard(game: game)
+        if let artists = data as? [SuggestedArtist] {
+            ForEach(artists) { artist in
+                ArtistCard(artist: artist)
                     .shadow(color: .black.opacity(0.2), radius: 5)
             }
         }
@@ -91,9 +91,9 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                 FallbackPlaceCard()
                     .shadow(color: .black.opacity(0.2), radius: 5)
             }
-        case .game:
+        case .artist:
             ForEach(0..<6, id: \.self) { _ in
-                FallbackGameCard()
+                FallbackArtistCard()
                     .shadow(color: .black.opacity(0.2), radius: 5)
             }
         }
@@ -112,9 +112,9 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                 ErrorPlaceCard()
                     .shadow(color: .black.opacity(0.2), radius: 5)
             }
-        case .game:
+        case .artist:
             ForEach(0..<6, id: \.self) { _ in
-                ErrorGameCard()
+                ErrorArtistCard()
                     .shadow(color: .black.opacity(0.2), radius: 5)
             }
         }

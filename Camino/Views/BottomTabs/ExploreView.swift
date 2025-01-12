@@ -52,7 +52,6 @@ struct ExploreView: View {
                                     NavigationLink {
                                         ExploreSearchView()
                                             .navigationBarHidden(true)
-//                                            .navigationTransition(.zoom(sourceID: id, in: namespace))
                                     } label: {
                                         HStack {
                                             Image(systemName: "magnifyingglass")
@@ -85,6 +84,8 @@ struct ExploreView: View {
                             ExploreRow(title: "Popular Destinations", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.place)
                             
                             FeaturedEvent(event: viewModel.featuredEvent, status: viewModel.featuredEventResponse.status)
+                            
+                            ExploreRow(title: "Popular Artists", status: viewModel.popularArtistsResponse.status, data: viewModel.popularArtists, contentType: ExploreContentType.artist)
                             
                             ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert)
                             
@@ -136,7 +137,7 @@ struct ExploreView: View {
                     await viewModel.getTrendingConcerts()
                     await viewModel.getPopularDestinations()
                     await viewModel.getSuggestedConcerts()
-                    await viewModel.getUpcomingGames()
+                    await viewModel.getPopularArtists()
                     await viewModel.getFeaturedEvent()
                 }
                 hasAppeared = true
@@ -147,7 +148,7 @@ struct ExploreView: View {
                 await viewModel.getTrendingConcerts()
                 await viewModel.getPopularDestinations()
                 await viewModel.getSuggestedConcerts()
-                await viewModel.getUpcomingGames()
+                await viewModel.getPopularArtists()
                 await viewModel.getFeaturedEvent()
             }
         }

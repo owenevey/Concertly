@@ -28,7 +28,7 @@ struct FeaturedEventItem: View {
                 .clipShape(RoundedRectangle(cornerRadius: 20))
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(event.name)
+                    Text(event.artistName)
                         .font(.system(size: 23, type: .SemiBold))
                     //                        .minimumScaleFactor(0.75)
                         .lineLimit(1)

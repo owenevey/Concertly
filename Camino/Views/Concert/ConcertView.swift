@@ -20,41 +20,32 @@ struct ConcertView: View {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
-                        Text(concert.name)
+                        Text(concert.artistName)
                             .font(.system(size: 30, type: .SemiBold))
                         
                         Spacer()
                         
                         Menu {
-//                            Button(action: {
-//                                // Action for "Option 1"
-//                                print("Option 1 selected")
-//                            }) {
-//                                Label("View Artist", systemImage: "person.fill")
-//                            }
-//                            
                             NavigationLink {
-//                                ArtistView(artist: <#T##SuggestedArtist#>)
-//                                    .navigationBarHidden(true)
+                                ArtistView(artistID: concert.artistId)
+                                    .navigationBarHidden(true)
                             } label: {
                                 Label("View Artist", systemImage: "person.fill")
                             }
-
-                            Button(action: {
-                                print("Option 2 selected")
-                            }) {
-                                Label("Favorite Artist", systemImage: "star")
-                            }
-
                         } label: {
                             Image(systemName: "ellipsis")
                                 .font(.system(size: 20))
-                                .padding(10)
-                                .background(.ultraThinMaterial)
-                                .clipShape(Circle())
+                                .padding(.vertical)
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
+                    
+                    if concert.name != concert.artistName {
+                        Text(concert.name)
+                            .font(.system(size: 18, type: .Regular))
+                            .foregroundStyle(.gray3)
+                    }
+                    
                     
                     Text(concert.dateTime.formatted(date: .complete, time: .omitted))
                         .font(.system(size: 18, type: .Regular))

@@ -12,7 +12,14 @@ struct ExploreHeader: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 HStack(spacing: 25) {
-                    Image(systemName: "magnifyingglass")
+                    NavigationLink {
+                        ExploreSearchView()
+                            .navigationBarHidden(true)
+                    } label: {
+                        Image(systemName: "magnifyingglass")
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
                     Image(systemName: "bell")
                 }
                 .font(.system(size: 20))

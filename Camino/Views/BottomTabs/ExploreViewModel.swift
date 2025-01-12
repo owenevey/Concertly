@@ -12,8 +12,8 @@ final class ExploreViewModel: ObservableObject {
     @Published var popularDestinationsResponse: ApiResponse<[Place]> = ApiResponse<[Place]>()
     @Published var popularDestinations: [Place] = []
     
-    @Published var upcomingGamesResponse: ApiResponse<[Game]> = ApiResponse<[Game]>()
-    @Published var upcomingGames: [Game] = []
+    @Published var popularArtistsResponse: ApiResponse<[SuggestedArtist]> = ApiResponse<[SuggestedArtist]>()
+    @Published var popularArtists: [SuggestedArtist] = []
     
     @Published var featuredEventResponse: ApiResponse<Concert> = ApiResponse<Concert>()
     @Published var featuredEvent: Concert?
@@ -75,21 +75,21 @@ final class ExploreViewModel: ObservableObject {
         }
     }
     
-    func getUpcomingGames() async {
+    func getPopularArtists() async {
         withAnimation(.easeInOut) {
-            self.upcomingGamesResponse = ApiResponse(status: .loading)
+            self.popularArtistsResponse = ApiResponse(status: .loading)
         }
         
         do {
-            let fetchedGames = try await fetchUpcomingGames()
+            let fetchedArtists = try await fetchPopularArtists()
             withAnimation(.easeInOut) {
-                self.upcomingGames = fetchedGames.games
-                self.upcomingGamesResponse = ApiResponse(status: .success, data: fetchedGames.games)
+                self.popularArtists = fetchedArtists.artists
+                self.popularArtistsResponse = ApiResponse(status: .success, data: fetchedArtists.artists)
             }
         } catch {
-            print("Error fetching upcoming games: \(error)")
+            print("Error fetching popular artists: \(error)")
             withAnimation(.easeInOut) {
-                self.upcomingGamesResponse = ApiResponse(status: .error, error: error.localizedDescription)
+                self.popularArtistsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }
     }

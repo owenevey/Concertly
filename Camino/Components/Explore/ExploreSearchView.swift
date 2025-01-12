@@ -63,12 +63,12 @@ struct ExploreSearchView: View {
                                                 Color.foreground
                                             }
                                             .scaledToFill()
-                                            .frame(width: 150, height: 75)
-                                            .cornerRadius(10)
+                                            .frame(width: 60, height: 60)
+                                            .cornerRadius(40)
                                             .clipped()
                                             
                                             Text(artistResult.name)
-                                                .font(.system(size: 20, type: .Medium))
+                                                .font(.system(size: 20, type: .Regular))
                                                 .lineLimit(2)
                                                 .minimumScaleFactor(0.75)
                                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -112,7 +112,9 @@ struct ExploreSearchView: View {
 }
 
 #Preview {
-    ExploreSearchView()
+    NavigationStack {
+        ExploreSearchView()
+    }
 }
 
 

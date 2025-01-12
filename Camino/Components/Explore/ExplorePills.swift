@@ -4,12 +4,12 @@ struct ExplorePills: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
-                ForEach((PillCategory.allCases), id: \.self) { category in
+                ForEach((PillGenre.allCases), id: \.self) { genre in
                     NavigationLink{
-                        Text(category.title)
+                        Text(genre.title)
                     }
                     label: {
-                        CategoryPill(title: category.title)
+                        GenrePill(genre: genre)
                     }.buttonStyle(PlainButtonStyle())
                 }
             }
@@ -22,10 +22,11 @@ struct ExplorePills: View {
     ExplorePills()
 }
 
-struct CategoryPill: View {
-    var title: String
+struct GenrePill: View {
+    var genre: PillGenre
+    
     var body: some View {
-        Text(title)
+        Text("\(genre.emoji)   \(genre.title)")
             .font(.system(size: 14, type: .Medium))
             .padding(.vertical, 10)
             .padding(.horizontal, 15)
@@ -39,25 +40,43 @@ struct CategoryPill: View {
 }
 
 
-enum PillCategory: Int, CaseIterable {
-    case places
-    case concerts
-    case soccer
-    case football
-    case basketball
+enum PillGenre: Int, CaseIterable {
+    case pop
+    case rock
+    case country
+    case hipHop
+    case rAndB
+    case rap
+    case latin
     
-    var title: String{
+    var title: String {
         switch self {
-        case .places:
-            return "🕌 Places"
-        case .concerts:
-            return "🎸 Concerts"
-        case .soccer:
-            return "⚽️ Soccer"
-        case .football:
-            return "🏈 Football"
-        case .basketball:
-            return "🏀 Basketball"
+        case .pop:
+            return "Pop"
+        case .rock:
+            return "Rock"
+        case .country:
+            return "Country"
+        case .hipHop:
+            return "Hip Hop"
+        case .rAndB:
+            return "R&B"
+        case .latin:
+            return "Latin"
+        case .rap:
+            return "Rap"
         }
     }
+    
+    var emoji: String {
+            switch self {
+            case .pop: return "🎤"
+            case .rock: return "🎸"
+            case .country: return "🤠"
+            case .hipHop: return "🎧"
+            case .rAndB: return "🎶"
+            case .latin: return "💃"
+            case .rap: return "🎙️"
+            }
+        }
 }
