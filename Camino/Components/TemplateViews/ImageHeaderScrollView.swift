@@ -82,3 +82,11 @@ struct ImageHeaderScrollView<HeaderContent: View, Content: View>: View {
         }
     }
 }
+
+
+#Preview {
+    NavigationStack {
+        ConcertView(concert: hotConcerts[0])
+            .navigationBarHidden(true)
+    }
+}

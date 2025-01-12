@@ -19,8 +19,42 @@ struct ConcertView: View {
             VStack(spacing: 20) {
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(concert.name)
-                        .font(.system(size: 30, type: .SemiBold))
+                    HStack {
+                        Text(concert.name)
+                            .font(.system(size: 30, type: .SemiBold))
+                        
+                        Spacer()
+                        
+                        Menu {
+//                            Button(action: {
+//                                // Action for "Option 1"
+//                                print("Option 1 selected")
+//                            }) {
+//                                Label("View Artist", systemImage: "person.fill")
+//                            }
+//                            
+                            NavigationLink {
+//                                ArtistView(artist: <#T##SuggestedArtist#>)
+//                                    .navigationBarHidden(true)
+                            } label: {
+                                Label("View Artist", systemImage: "person.fill")
+                            }
+
+                            Button(action: {
+                                print("Option 2 selected")
+                            }) {
+                                Label("Favorite Artist", systemImage: "star")
+                            }
+
+                        } label: {
+                            Image(systemName: "ellipsis")
+                                .font(.system(size: 20))
+                                .padding(10)
+                                .background(.ultraThinMaterial)
+                                .clipShape(Circle())
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
                     
                     Text(concert.dateTime.formatted(date: .complete, time: .omitted))
                         .font(.system(size: 18, type: .Regular))

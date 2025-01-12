@@ -108,6 +108,8 @@
 		F1CD3CCC2D320403004E3041 /* ArtistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CCB2D320403004E3041 /* ArtistView.swift */; };
 		F1CD3CD02D323154004E3041 /* ArtistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CCF2D323154004E3041 /* ArtistViewModel.swift */; };
 		F1CD3CD22D323194004E3041 /* ArtistDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CD12D323194004E3041 /* ArtistDetailsResponse.swift */; };
+		F1CD3CD42D32E96A004E3041 /* WrappingCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CD32D32E963004E3041 /* WrappingCollectionView.swift */; };
+		F1CD3CD62D32EBD2004E3041 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CD52D32EBCE004E3041 /* StringExtensions.swift */; };
 		F1DAE69A2CC34D4700901914 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE6992CC34D4700901914 /* ApiResponse.swift */; };
 		F1DAE69E2CC37F7F00901914 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE69D2CC37F7F00901914 /* DateExtensions.swift */; };
 		F1DAE6A02CC3849D00901914 /* ImageHeaderScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE69F2CC3849D00901914 /* ImageHeaderScrollView.swift */; };
@@ -224,6 +226,8 @@
 		F1CD3CCB2D320403004E3041 /* ArtistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistView.swift; sourceTree = "<group>"; };
 		F1CD3CCF2D323154004E3041 /* ArtistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewModel.swift; sourceTree = "<group>"; };
 		F1CD3CD12D323194004E3041 /* ArtistDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistDetailsResponse.swift; sourceTree = "<group>"; };
+		F1CD3CD32D32E963004E3041 /* WrappingCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappingCollectionView.swift; sourceTree = "<group>"; };
+		F1CD3CD52D32EBCE004E3041 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		F1DAE6992CC34D4700901914 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		F1DAE69D2CC37F7F00901914 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		F1DAE69F2CC3849D00901914 /* ImageHeaderScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHeaderScrollView.swift; sourceTree = "<group>"; };
@@ -411,6 +415,7 @@
 		F19C72632CC71B8B00390BD6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				F1CD3CD52D32EBCE004E3041 /* StringExtensions.swift */,
 				F18DE2EB2CFD309200C4D1B5 /* FontExtensions.swift */,
 				F1F3A64A2D0698850042F4F2 /* IntExtensions.swift */,
 				F1DAE69D2CC37F7F00901914 /* DateExtensions.swift */,
@@ -501,6 +506,7 @@
 		F19C72772CCB3FC400390BD6 /* TemplateViews */ = {
 			isa = PBXGroup;
 			children = (
+				F1CD3CD32D32E963004E3041 /* WrappingCollectionView.swift */,
 				F11714A22D1274DA007A0052 /* FilterSheet.swift */,
 				F1DAE69F2CC3849D00901914 /* ImageHeaderScrollView.swift */,
 				F19C726E2CCB27D900390BD6 /* HidingHeaderView.swift */,
@@ -638,6 +644,7 @@
 				F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */,
 				F1CD3CD22D323194004E3041 /* ArtistDetailsResponse.swift in Sources */,
 				F1CD3CA02D275907004E3041 /* TripViewModelProtocol.swift in Sources */,
+				F1CD3CD42D32E96A004E3041 /* WrappingCollectionView.swift in Sources */,
 				F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */,
 				F11714B92D15129F007A0052 /* LocationRatingFilter.swift in Sources */,
 				F19C726B2CC726BD00390BD6 /* GlobalVars.swift in Sources */,
@@ -670,6 +677,7 @@
 				F19C72712CCB378700390BD6 /* FlightsHeader.swift in Sources */,
 				F11714B72D150EDD007A0052 /* FilterRating.swift in Sources */,
 				F18DE23F2CFAACC600C4D1B5 /* FilterTime.swift in Sources */,
+				F1CD3CD62D32EBD2004E3041 /* StringExtensions.swift in Sources */,
 				F10F94262CD45849007EE947 /* FilterPrice.swift in Sources */,
 				F19C72732CCB394300390BD6 /* FlightsFiltersBar.swift in Sources */,
 				F1CD3CBA2D2CC18A004E3041 /* FeaturedEventResponse.swift in Sources */,

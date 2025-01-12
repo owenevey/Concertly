@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ExploreView: View {
     
+    @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: ExploreViewModel = ExploreViewModel()
     
     @State private var hasAppeared: Bool = false
@@ -83,8 +84,6 @@ struct ExploreView: View {
                             
                             ExploreRow(title: "Popular Destinations", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.place)
                             
-                            ExploreRow(title: "Upcoming Games", status: viewModel.upcomingGamesResponse.status, data: viewModel.upcomingGames, contentType: ExploreContentType.game)
-                            
                             FeaturedEvent(event: viewModel.featuredEvent, status: viewModel.featuredEventResponse.status)
                             
                             ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert)
@@ -114,7 +113,7 @@ struct ExploreView: View {
                     }
                 }
                 
-                Image(.concert)
+                Image(colorScheme == .dark ? .concert : .acl)
                     .resizable()
                     .scaledToFill()
                     .zIndex(-1)

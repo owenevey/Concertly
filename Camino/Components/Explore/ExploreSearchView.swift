@@ -7,7 +7,7 @@ struct ExploreSearchView: View {
     @StateObject private var viewModel = ExploreSearchViewModel()
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 15) {
             HStack {
                 Button {
                     dismiss()
@@ -15,6 +15,7 @@ struct ExploreSearchView: View {
                 label: {
                     Image(systemName: "arrow.backward")
                         .fontWeight(.semibold)
+                        .padding(10)
                 }
                 .buttonStyle(PlainButtonStyle())
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -26,6 +27,7 @@ struct ExploreSearchView: View {
                     .frame(height: 0)
                     .frame(maxWidth: .infinity)
             }
+            .padding(.horizontal, 15)
             
             CaminoSearchBar(content: {
                 HStack {
@@ -39,72 +41,69 @@ struct ExploreSearchView: View {
                         .padding(.trailing)
                 }
             })
-            .padding(.top)
-            .padding(.bottom, 20)
+            .padding(.horizontal, 15)
             
-            
-            
-            
-            switch viewModel.artistsResponse.status {
-            case .success:
-                if let artists = viewModel.artistsResponse.data?.suggestedArtists {
-                    
-                    VStack(spacing: 15) {
-                        ForEach(artists) { artistResult in
-                            NavigationLink {
-                                ArtistView(artist: artistResult)
-                                    .navigationBarHidden(true)
-//                                    .navigationTransition(.zoom(sourceID: id, in: namespace))
-                            }
-                            label: {
-                                HStack(spacing: 15) {
-                                    AsyncImage(url: URL(string: artistResult.imageUrl)) { image in
-                                        image
-                                            .resizable()
-                                    } placeholder: {
-                                        Color.foreground
+            ScrollView {
+                VStack(spacing: 0) {
+                    switch viewModel.artistsResponse.status {
+                    case .success:
+                        if let artists = viewModel.artistsResponse.data?.suggestedArtists {
+                            VStack(spacing: 5) {
+                                ForEach(artists) { artistResult in
+                                    NavigationLink {
+                                        ArtistView(artistID: artistResult.id)
+                                            .navigationBarHidden(true)
+                                    }
+                                    label: {
+                                        HStack(spacing: 15) {
+                                            AsyncImage(url: URL(string: artistResult.imageUrl)) { image in
+                                                image
+                                                    .resizable()
+                                            } placeholder: {
+                                                Color.foreground
+                                            }
+                                            .scaledToFill()
                                             .frame(width: 150, height: 75)
                                             .cornerRadius(10)
+                                            .clipped()
+                                            
+                                            Text(artistResult.name)
+                                                .font(.system(size: 20, type: .Medium))
+                                                .lineLimit(2)
+                                                .minimumScaleFactor(0.75)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                            
+                                            Image(systemName: "chevron.right")
+                                                .font(.system(size: 15))
+                                                .fontWeight(.semibold)
+                                                .padding(.trailing, 5)
+                                        }
+                                        .padding(.vertical, 5)
+                                        .padding(.horizontal, 15)
+                                        .contentShape(Rectangle())
                                     }
-                                    .scaledToFill()
-                                    .frame(width: 150, height: 75)
-                                    .cornerRadius(10)
-                                    .clipped()
-                                    
-                                    Text(artistResult.name)
-                                        .font(.system(size: 20, type: .Medium))
-                                        .lineLimit(2)
-                                        .minimumScaleFactor(0.75)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                    
-                                    Image(systemName: "chevron.right")
-                                        .font(.system(size: 15))
-                                        .fontWeight(.semibold)
-                                        .padding(.trailing, 5)
-                                    
+                                    .buttonStyle(PlainButtonStyle())
                                 }
-                                .contentShape(Rectangle())
                             }
-                            .buttonStyle(PlainButtonStyle())
+                            .padding(.bottom, 15)
+                            .transition(.opacity)
                         }
+                    case .loading:
+                        LoadingView()
+                            .frame(height: 250)
+                            .transition(.opacity)
+                    case .error:
+                        ErrorView(text: "Error fetching artists", action: { await viewModel.getSuggestedArtists() })
+                            .frame(height: 250)
+                            .transition(.opacity)
+                    default:
+                        EmptyView()
+                            .transition(.opacity)
                     }
-                    .transition(.opacity)
                 }
-            case .loading:
-                LoadingView()
-                    .frame(height: 250)
-                    .transition(.opacity)
-            case .error:
-                ErrorView(text: "Error fetching artists", action: { await viewModel.getSuggestedArtists() })
-                    .frame(height: 250)
-                    .transition(.opacity)
-            default:
-                EmptyView()
-                    .transition(.opacity)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            Spacer()
         }
-        .padding(15)
         .background(Color.background)
         .onAppear {
             isTextFieldFocused = true

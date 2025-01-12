@@ -3,13 +3,13 @@ import SwiftUI
 
 @MainActor
 class ArtistViewModel: ObservableObject {
-    var suggestedArtist: SuggestedArtist
+    var artistID: String
     
     @Published var artistDetailsResponse: ApiResponse<ArtistDetailsResponse> = ApiResponse<ArtistDetailsResponse>()
 
     
-    init(suggestedArtist: SuggestedArtist) {
-        self.suggestedArtist = suggestedArtist
+    init(artistID: String) {
+        self.artistID = artistID
     }
     
     
@@ -17,7 +17,7 @@ class ArtistViewModel: ObservableObject {
         self.artistDetailsResponse = ApiResponse(status: .loading)
         
         do {
-            let fetchedDetails = try await fetchArtistDetails(artistId: suggestedArtist.id)
+            let fetchedDetails = try await fetchArtistDetails(artistId: artistID)
             
             withAnimation(.easeInOut) {
                 self.artistDetailsResponse = ApiResponse(status: .success, data: fetchedDetails)

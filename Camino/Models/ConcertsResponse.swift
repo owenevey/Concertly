@@ -7,6 +7,7 @@ struct ConcertsResponse: Codable {
 struct Concert: Codable, Identifiable {
     let name: String
     let id: String
+    let artistId: String
     let url: String
     let imageUrl: String
     let dateTime: Date

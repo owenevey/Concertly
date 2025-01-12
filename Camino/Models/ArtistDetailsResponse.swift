@@ -14,7 +14,29 @@ struct Artist: Codable, Identifiable {
     let similarArtists: [SuggestedArtist]
 }
 
-struct Social: Codable {
+struct Social: Codable, Identifiable {
     let name: String
     let url: String
+    var id: String {
+        url
+    }
+}
+
+func determineSocialImage(for social: Social) -> String {
+    switch social.name {
+    case "Instagram":
+        return "instagram"
+    case "X":
+        return "x"
+    case "YouTube":
+        return "youtube"
+    case "Spotify":
+        return "spotify"
+    case "Wikipedia":
+        return "wikipedia"
+    case "Homepage":
+        return "safari"
+    default:
+        return ""
+    }
 }

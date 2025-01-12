@@ -37,7 +37,7 @@ class ExploreSearchViewModel: ObservableObject {
             }
             
         } catch {
-            print("Error fetching airports: \(error)")
+            print("Error fetching search results: \(error)")
             withAnimation(.easeInOut) {
                 self.artistsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }

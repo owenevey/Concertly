@@ -21,7 +21,7 @@ struct FeaturedEventItem: View {
                         .resizable()
                 } placeholder: {
                     Color.foreground
-                        .frame(width: 250, height: 250)
+//                        .frame(width: 250, height: 250)
                 }
                 .scaledToFill()
                 .frame(width: UIScreen.main.bounds.width - 30, height: (UIScreen.main.bounds.width - 30) * 0.6)

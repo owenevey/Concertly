@@ -8,7 +8,7 @@ struct ConcertCard: View {
     var concert: Concert
     
     var body: some View {
-        NavigationLink{
+        NavigationLink {
             ConcertView(concert: concert)
                 .navigationBarHidden(true)
                 .navigationTransition(.zoom(sourceID: id, in: namespace))
