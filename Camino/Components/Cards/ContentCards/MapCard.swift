@@ -21,13 +21,13 @@ struct MapCard: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text(name)
                         .font(.system(size: 20, type: .SemiBold))
-                        .minimumScaleFactor(0.75)
+                        .minimumScaleFactor(0.85)
                         .lineLimit(1)
                     
                     Text(generalLocation)
                         .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
-                        .minimumScaleFactor(0.75)
+                        .minimumScaleFactor(0.85)
                         .lineLimit(1)
                     
                 }

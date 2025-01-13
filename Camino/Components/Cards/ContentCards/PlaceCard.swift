@@ -14,17 +14,10 @@ struct PlaceCard: View {
                 .navigationTransition(.zoom(sourceID: id, in: namespace))
         }
         label: {
-            VStack(alignment: .leading, spacing: 0) {
-                AsyncImage(url: URL(string: place.images[0])) { image in
-                    image
-                        .resizable()
-                } placeholder: {
-                    Color.foreground
-                        .frame(width: 250, height: 250)
-                }
-                .scaledToFill()
-                .frame(width: 250, height: 150)
-                .clipped()
+            VStack(alignment: .leading, spacing: 0) {                
+                ImageLoader(url: place.images[0], contentMode: .fill)
+                    .frame(width: 250, height: 150)
+                    .clipped()
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(place.name)

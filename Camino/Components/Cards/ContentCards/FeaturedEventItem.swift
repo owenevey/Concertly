@@ -16,16 +16,9 @@ struct FeaturedEventItem: View {
         }
         label: {
             VStack(alignment: .leading, spacing: 10) {
-                AsyncImage(url: URL(string: event.imageUrl)) { image in
-                    image
-                        .resizable()
-                } placeholder: {
-                    Color.foreground
-//                        .frame(width: 250, height: 250)
-                }
-                .scaledToFill()
-                .frame(width: UIScreen.main.bounds.width - 30, height: (UIScreen.main.bounds.width - 30) * 0.6)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
+                ImageLoader(url: event.imageUrl, contentMode: .fill)
+                    .frame(width: UIScreen.main.bounds.width - 30, height: (UIScreen.main.bounds.width - 30) * 0.6)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(event.artistName)

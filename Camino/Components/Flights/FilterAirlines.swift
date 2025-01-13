@@ -56,14 +56,7 @@ struct FilterAirlines: View {
                                         .fill(.white)
                                         .frame(width: 35, height: 35)
                                         .overlay(
-                                            AsyncImage(url: URL(string: airlines[airline]!.imageURL)) { image in
-                                                image
-                                                    .resizable()
-                                            } placeholder: {
-                                                Color.clear
-                                                    .frame(width: 20, height: 20)
-                                            }
-                                                .scaledToFit()
+                                            ImageLoader(url: airlines[airline]!.imageURL, contentMode: .fit)
                                                 .frame(width: 20, height: 20)
                                         )
                                     

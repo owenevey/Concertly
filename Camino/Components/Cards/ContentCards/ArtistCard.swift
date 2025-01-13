@@ -14,13 +14,7 @@ struct ArtistCard: View {
                 .navigationTransition(.zoom(sourceID: id, in: namespace))
         }
         label: {
-            AsyncImage(url: URL(string: artist.imageUrl)) { image in
-                image
-                    .resizable()
-            } placeholder: {
-                Color.foreground
-            }
-            .scaledToFill()
+            ImageLoader(url: artist.imageUrl, contentMode: .fill)
             .frame(width: 200, height: 230)
             .clipped()
             .overlay {
@@ -48,6 +42,7 @@ struct ArtistCard: View {
                 }
             }
             .cornerRadius(20)
+            .contentShape(Rectangle())
         }
         .buttonStyle(PlainButtonStyle())
         .matchedTransitionSource(id: id, in: namespace)
@@ -58,6 +53,8 @@ struct ArtistCard: View {
 #Preview {
     NavigationStack {
         ArtistCard(artist: SuggestedArtist(name: "Morgan Wallen", id: "K8vZ9174qlV", imageUrl: "https://s1.ticketm.net/dam/a/68c/b889729a-9af0-4a79-8c38-1b1ac86a868c_TABLET_LANDSCAPE_3_2.jpg"))
-            .shadow(color: .black.opacity(0.2), radius: 5)
+//            .shadow(color: .black.opacity(0.2), radius: 5)
+            .border(.blue, width: 2)
     }
+    .border(.red, width: 2)
 }

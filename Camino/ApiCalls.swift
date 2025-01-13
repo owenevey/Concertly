@@ -40,20 +40,20 @@ func customDateFormatter() -> DateFormatter {
 
 // Concerts
 
-func fetchSuggestedConcerts() async throws -> ConcertsResponse {
-    let endpoint = "\(baseUrl)/suggestedConcerts"
+func fetchSuggestedConcerts(genre: String = "") async throws -> ConcertsResponse {
+    let endpoint = genre.isEmpty ? "\(baseUrl)/suggestedConcerts" : "\(baseUrl)/suggestedConcerts?genre=\(genre)"
     let response: ConcertsResponse = try await fetchData(endpoint: endpoint)
     return response
 }
 
-func fetchTrendingConcerts() async throws -> ConcertsResponse {
-    let endpoint = "\(baseUrl)/trendingConcerts"
+func fetchTrendingConcerts(genre: String = "") async throws -> ConcertsResponse {
+    let endpoint = genre.isEmpty ? "\(baseUrl)/trendingConcerts" : "\(baseUrl)/trendingConcerts?genre=\(genre)"
     let response: ConcertsResponse = try await fetchData(endpoint: endpoint)
     return response
 }
 
-func fetchFeaturedEvent() async throws -> FeaturedEventResponse {
-    let endpoint = "\(baseUrl)/featuredEvent"
+func fetchFeaturedEvent(genre: String = "") async throws -> FeaturedEventResponse {
+    let endpoint = genre.isEmpty ? "\(baseUrl)/featuredEvent" : "\(baseUrl)/featuredEvent?genre=\(genre)"
     let response: FeaturedEventResponse = try await fetchData(endpoint: endpoint)
     return response
 }
@@ -72,8 +72,8 @@ func fetchArtistDetails(artistId: String) async throws -> ArtistDetailsResponse 
     return response
 }
 
-func fetchPopularArtists() async throws -> PopularArtistsResponse {
-    let endpoint = "\(baseUrl)/popularArtists"
+func fetchPopularArtists(genre: String = "") async throws -> PopularArtistsResponse {
+    let endpoint = genre.isEmpty ? "\(baseUrl)/popularArtists" : "\(baseUrl)/popularArtists?genre=\(genre)"
     let response: PopularArtistsResponse = try await fetchData(endpoint: endpoint)
     return response
 }

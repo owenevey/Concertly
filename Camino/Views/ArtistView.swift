@@ -58,7 +58,7 @@ struct ArtistView: View {
     private var mainContent: some View {
         Group {
             if let artistDetails = viewModel.artistDetailsResponse.data?.artistDetails {
-                ImageHeaderScrollView(imageUrl: artistDetails.imageUrl, showBackButton: false) {
+                ImageHeaderScrollView(title: artistDetails.name, imageUrl: artistDetails.imageUrl, showBackButton: false) {
                     VStack(spacing: 20) {
                         VStack(alignment: .leading, spacing: 5) {
                             Text(artistDetails.name)
@@ -140,17 +140,11 @@ struct ArtistView: View {
                                                 ArtistView(artistID: artist.id)
                                                     .navigationBarHidden(true)
                                             } label: {
-                                                VStack {
-                                                    AsyncImage(url: URL(string: artist.imageUrl)) { image in
-                                                        image
-                                                            .resizable()
-                                                    } placeholder: {
-                                                        Color.foreground
-                                                    }
-                                                    .scaledToFill()
-                                                    .frame(width: 100, height: 100)
-                                                    .cornerRadius(50)
-                                                    .clipped()
+                                                VStack {                                                    
+                                                    ImageLoader(url: artist.imageUrl, contentMode: .fill)
+                                                        .frame(width: 90, height: 90)
+                                                        .cornerRadius(50)
+                                                        .clipped()
                                                     
                                                     Text(artist.name)
                                                         .font(.system(size: 18, type: .Medium))
@@ -162,9 +156,12 @@ struct ArtistView: View {
                                             }
                                             .buttonStyle(PlainButtonStyle())
                                         }
+                                        .scrollTargetLayout()
                                     }
-                                    .padding(.horizontal, 15)
                                 }
+                                
+                                .scrollTargetBehavior(.viewAligned)
+                                .safeAreaPadding(.horizontal, 15)
                                 .padding(.horizontal, -15)
                             }
                         }

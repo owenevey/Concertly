@@ -48,18 +48,10 @@ struct HotelDetailsView: View {
                     ZStack {
                         TabView {
                             ForEach(imageUrls, id: \.self) { imageUrl in
-                                if let url = URL(string: imageUrl) {
-                                    AsyncImage(url: url) { image in
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                    } placeholder: {
-                                        Color.foreground
-                                    }
+                                ImageLoader(url: imageUrl, contentMode: .fill)
                                     .frame(width: UIScreen.main.bounds.width, height: 300)
                                     .clipped()
                                     .scrollTargetLayout()
-                                }
                             }
                         }
                         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
@@ -182,6 +174,18 @@ struct HotelDetailsView: View {
             }
         }
         .background(Color.background)
+        .onAppear {
+            var propertyImages: [URL] = []
+            if let images = property.images {
+                propertyImages = images.compactMap { propertyImage in
+                    if let urlString = propertyImage.thumbnail {
+                        return URL(string: urlString)
+                    }
+                    return nil
+                }
+            }
+            ImagePrefetcher.instance.startPrefetching(urls: propertyImages)
+        }
     }
 }
 

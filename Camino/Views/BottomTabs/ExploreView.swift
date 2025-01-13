@@ -8,11 +8,16 @@ struct ExploreView: View {
     @State private var hasAppeared: Bool = false
     @State private var offset: CGFloat = 0
     @State private var isSearchBarVisible: Bool = true
-    @State private var isOverlayVisible: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .top) {
+                Image(colorScheme == .dark ? .concert : .acl)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: UIScreen.main.bounds.width, height: 300 + max(0, -offset))
+                    .transformEffect(.init(translationX: 0, y: -max(0, offset)))
+                
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 0) {
                         Rectangle()
@@ -81,14 +86,13 @@ struct ExploreView: View {
                             
                             ExploreRow(title: "Trending Concerts", status: viewModel.trendingConcertsResponse.status, data: viewModel.trendingConcerts, contentType: ExploreContentType.concert)
                             
+                            ExploreRow(title: "Popular Artists", status: viewModel.popularArtistsResponse.status, data: viewModel.popularArtists, contentType: ExploreContentType.artist)
+                            
                             ExploreRow(title: "Popular Destinations", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.place)
                             
                             FeaturedEvent(event: viewModel.featuredEvent, status: viewModel.featuredEventResponse.status)
                             
-                            ExploreRow(title: "Popular Artists", status: viewModel.popularArtistsResponse.status, data: viewModel.popularArtists, contentType: ExploreContentType.artist)
-                            
                             ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert)
-                            
                             
                             ExploreRow(title: "International Adventures", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.place)
                             
@@ -113,20 +117,10 @@ struct ExploreView: View {
                         }
                     }
                 }
-                
-                Image(colorScheme == .dark ? .concert : .acl)
-                    .resizable()
-                    .scaledToFill()
-                    .zIndex(-1)
-                    .frame(width: UIScreen.main.bounds.width, height: 300 + max(0, -offset))
-                    .transformEffect(.init(translationX: 0, y: -max(0, offset)))
-                
-                if !isSearchBarVisible {
-                    ExploreHeader()
-                        .padding(.top, geometry.safeAreaInsets.top)
-                }
-                
-                
+                ExploreHeader()
+                    .opacity(isSearchBarVisible ? 0 : 1)
+                    .animation(.linear(duration: 0.1), value: isSearchBarVisible)
+                    .padding(.top, geometry.safeAreaInsets.top)
             }
             .ignoresSafeArea(edges: .top)
         }

@@ -41,6 +41,11 @@
 		F13186322CB2F198003DBCC5 /* LineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13186312CB2F198003DBCC5 /* LineItem.swift */; };
 		F1659C012CBF252400586212 /* FilterAirlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C002CBF252400586212 /* FilterAirlines.swift */; };
 		F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C042CC1E99800586212 /* FlightsResponse.swift */; };
+		F17252BC2D344192006C3454 /* GeneralHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17252BB2D344192006C3454 /* GeneralHeader.swift */; };
+		F17252BF2D345581006C3454 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F17252BE2D345581006C3454 /* SDWebImageSwiftUI */; };
+		F17252C12D3455B2006C3454 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17252C02D3455B2006C3454 /* ImageLoader.swift */; };
+		F17252C32D346F96006C3454 /* GenreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17252C22D346F96006C3454 /* GenreView.swift */; };
+		F17252C52D34A4DC006C3454 /* GenreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17252C42D34A4DC006C3454 /* GenreViewModel.swift */; };
 		F176C9262CB5E7F9006BAE35 /* FlightFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F176C9252CB5E7F9006BAE35 /* FlightFilter.swift */; };
 		F17DCCCE2D3386E4000D477C /* ArtistCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17DCCCD2D3386E4000D477C /* ArtistCard.swift */; };
 		F17DCCD02D338E8D000D477C /* PopularArtistsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17DCCCF2D338E7E000D477C /* PopularArtistsResponse.swift */; };
@@ -93,9 +98,6 @@
 		F1CD3C9E2D275628004E3041 /* PlaceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C9D2D275628004E3041 /* PlaceViewModel.swift */; };
 		F1CD3CA02D275907004E3041 /* TripViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C9F2D275907004E3041 /* TripViewModelProtocol.swift */; };
 		F1CD3CA42D290FE4004E3041 /* MyLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1CD3CA32D290FE4004E3041 /* MyLaunchScreen.storyboard */; };
-		F1CD3CA82D29D7D4004E3041 /* testHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CA72D29D7D4004E3041 /* testHeader.swift */; };
-		F1CD3CAA2D2A2422004E3041 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CA92D2A2422004E3041 /* GameView.swift */; };
-		F1CD3CAD2D2A245D004E3041 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CAC2D2A245D004E3041 /* GameViewModel.swift */; };
 		F1CD3CAF2D2A2488004E3041 /* GamesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CAE2D2A2488004E3041 /* GamesResponse.swift */; };
 		F1CD3CB22D2A35F2004E3041 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CB12D2A35F2004E3041 /* ColorExtensions.swift */; };
 		F1CD3CB82D2CBA0F004E3041 /* FeaturedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CB72D2CBA0F004E3041 /* FeaturedEvent.swift */; };
@@ -159,6 +161,10 @@
 		F13186312CB2F198003DBCC5 /* LineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineItem.swift; sourceTree = "<group>"; };
 		F1659C002CBF252400586212 /* FilterAirlines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAirlines.swift; sourceTree = "<group>"; };
 		F1659C042CC1E99800586212 /* FlightsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsResponse.swift; sourceTree = "<group>"; };
+		F17252BB2D344192006C3454 /* GeneralHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralHeader.swift; sourceTree = "<group>"; };
+		F17252C02D3455B2006C3454 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		F17252C22D346F96006C3454 /* GenreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreView.swift; sourceTree = "<group>"; };
+		F17252C42D34A4DC006C3454 /* GenreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreViewModel.swift; sourceTree = "<group>"; };
 		F176C9252CB5E7F9006BAE35 /* FlightFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightFilter.swift; sourceTree = "<group>"; };
 		F17DCCCD2D3386E4000D477C /* ArtistCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistCard.swift; sourceTree = "<group>"; };
 		F17DCCCF2D338E7E000D477C /* PopularArtistsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularArtistsResponse.swift; sourceTree = "<group>"; };
@@ -212,9 +218,6 @@
 		F1CD3C9D2D275628004E3041 /* PlaceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewModel.swift; sourceTree = "<group>"; };
 		F1CD3C9F2D275907004E3041 /* TripViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripViewModelProtocol.swift; sourceTree = "<group>"; };
 		F1CD3CA32D290FE4004E3041 /* MyLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyLaunchScreen.storyboard; sourceTree = "<group>"; };
-		F1CD3CA72D29D7D4004E3041 /* testHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testHeader.swift; sourceTree = "<group>"; };
-		F1CD3CA92D2A2422004E3041 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
-		F1CD3CAC2D2A245D004E3041 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		F1CD3CAE2D2A2488004E3041 /* GamesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesResponse.swift; sourceTree = "<group>"; };
 		F1CD3CB12D2A35F2004E3041 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		F1CD3CB72D2CBA0F004E3041 /* FeaturedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedEvent.swift; sourceTree = "<group>"; };
@@ -247,6 +250,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F17252BF2D345581006C3454 /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,7 +413,6 @@
 		F19C72622CC71B7500390BD6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				F1CD3CAB2D2A2448004E3041 /* Game */,
 				F1CD3C9C2D275618004E3041 /* Place */,
 				F116401E2C8AAA2C0040C95D /* BottomTabs */,
 				F19C726C2CC7496200390BD6 /* Concert */,
@@ -418,6 +421,8 @@
 				F1CD3C9F2D275907004E3041 /* TripViewModelProtocol.swift */,
 				F1CD3CCB2D320403004E3041 /* ArtistView.swift */,
 				F1CD3CCF2D323154004E3041 /* ArtistViewModel.swift */,
+				F17252C22D346F96006C3454 /* GenreView.swift */,
+				F17252C42D34A4DC006C3454 /* GenreViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -522,6 +527,8 @@
 				F1DAE69F2CC3849D00901914 /* ImageHeaderScrollView.swift */,
 				F19C726E2CCB27D900390BD6 /* HidingHeaderView.swift */,
 				F1E786282CB36CAB00F4E462 /* SFSafariView.swift */,
+				F17252BB2D344192006C3454 /* GeneralHeader.swift */,
+				F17252C02D3455B2006C3454 /* ImageLoader.swift */,
 			);
 			path = TemplateViews;
 			sourceTree = "<group>";
@@ -552,19 +559,9 @@
 			isa = PBXGroup;
 			children = (
 				F1CD3C9A2D2755DA004E3041 /* PlaceView.swift */,
-				F1CD3CA72D29D7D4004E3041 /* testHeader.swift */,
 				F1CD3C9D2D275628004E3041 /* PlaceViewModel.swift */,
 			);
 			path = Place;
-			sourceTree = "<group>";
-		};
-		F1CD3CAB2D2A2448004E3041 /* Game */ = {
-			isa = PBXGroup;
-			children = (
-				F1CD3CA92D2A2422004E3041 /* GameView.swift */,
-				F1CD3CAC2D2A245D004E3041 /* GameViewModel.swift */,
-			);
-			path = Game;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -611,6 +608,9 @@
 				Base,
 			);
 			mainGroup = F11640042C8A8A2F0040C95D;
+			packageReferences = (
+				F17252BD2D345581006C3454 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
 			productRefGroup = F116400E2C8A8A2F0040C95D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -646,10 +646,8 @@
 				F1CD3C9E2D275628004E3041 /* PlaceViewModel.swift in Sources */,
 				F1F3A6472D068C1C0042F4F2 /* PriceGraph.swift in Sources */,
 				F1DAE69E2CC37F7F00901914 /* DateExtensions.swift in Sources */,
-				F1CD3CAA2D2A2422004E3041 /* GameView.swift in Sources */,
 				F1CD3CB22D2A35F2004E3041 /* ColorExtensions.swift in Sources */,
 				F1F3A64B2D0698850042F4F2 /* IntExtensions.swift in Sources */,
-				F1CD3CAD2D2A245D004E3041 /* GameViewModel.swift in Sources */,
 				F176C9262CB5E7F9006BAE35 /* FlightFilter.swift in Sources */,
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
 				F1CD3C8B2D25FB88004E3041 /* ExploreViewModel.swift in Sources */,
@@ -663,6 +661,7 @@
 				F19C726B2CC726BD00390BD6 /* GlobalVars.swift in Sources */,
 				F11640132C8A8A2F0040C95D /* ContentView.swift in Sources */,
 				F11714B52D14FFBB007A0052 /* SortHotels.swift in Sources */,
+				F17252BC2D344192006C3454 /* GeneralHeader.swift in Sources */,
 				F1DAE69A2CC34D4700901914 /* ApiResponse.swift in Sources */,
 				F1DAE6A22CC42EA500901914 /* ApiCalls.swift in Sources */,
 				F1CD3CCC2D320403004E3041 /* ArtistView.swift in Sources */,
@@ -723,13 +722,15 @@
 				F117149C2D1253B0007A0052 /* CaminoButton.swift in Sources */,
 				F11714A52D13A0E3007A0052 /* HotelsResponse.swift in Sources */,
 				F1CCE0D22CB0B96600D15696 /* ViewExtensions.swift in Sources */,
+				F17252C52D34A4DC006C3454 /* GenreViewModel.swift in Sources */,
 				F19C727D2CD0808B00390BD6 /* FilterStopsEnum.swift in Sources */,
 				F11714BB2D1526AB007A0052 /* HotelDetailsView.swift in Sources */,
 				F1CD3C932D2618D5004E3041 /* StillShimmerView.swift in Sources */,
+				F17252C32D346F96006C3454 /* GenreView.swift in Sources */,
 				F1CD3CCA2D31FE04004E3041 /* ArtistSearchResponse.swift in Sources */,
+				F17252C12D3455B2006C3454 /* ImageLoader.swift in Sources */,
 				F19C726F2CCB27D900390BD6 /* HidingHeaderView.swift in Sources */,
 				F11714AB2D13C4FE007A0052 /* HotelsHeader.swift in Sources */,
-				F1CD3CA82D29D7D4004E3041 /* testHeader.swift in Sources */,
 				F1E786272CB300A200F4E462 /* HotelsView.swift in Sources */,
 				F1CD3C8D2D260876004E3041 /* ExploreContentType.swift in Sources */,
 				F1CD3C842D24CAEB004E3041 /* CitySearchResponse.swift in Sources */,
@@ -958,6 +959,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F17252BD2D345581006C3454 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F17252BE2D345581006C3454 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F17252BD2D345581006C3454 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F11640052C8A8A2F0040C95D /* Project object */;
 }

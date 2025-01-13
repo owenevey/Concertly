@@ -4,17 +4,20 @@ struct ExplorePills: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
-                ForEach((PillGenre.allCases), id: \.self) { genre in
+                ForEach((MusicGenre.allCases), id: \.self) { genre in
                     NavigationLink{
-                        Text(genre.title)
+                        GenreView(genre: genre)
+                            .navigationBarHidden(true)
                     }
                     label: {
                         GenrePill(genre: genre)
                     }.buttonStyle(PlainButtonStyle())
                 }
+                .scrollTargetLayout()
             }
-            .padding(.horizontal, 15)
         }
+        .scrollTargetBehavior(.viewAligned)
+        .safeAreaPadding(.horizontal, 15)
     }
 }
 
@@ -23,7 +26,7 @@ struct ExplorePills: View {
 }
 
 struct GenrePill: View {
-    var genre: PillGenre
+    var genre: MusicGenre
     
     var body: some View {
         Text("\(genre.emoji)   \(genre.title)")
@@ -40,7 +43,7 @@ struct GenrePill: View {
 }
 
 
-enum PillGenre: Int, CaseIterable {
+enum MusicGenre: Int, CaseIterable {
     case pop
     case rock
     case country
@@ -70,7 +73,7 @@ enum PillGenre: Int, CaseIterable {
     
     var emoji: String {
             switch self {
-            case .pop: return "🎤"
+            case .pop: return "🎉"
             case .rock: return "🎸"
             case .country: return "🤠"
             case .hipHop: return "🎧"

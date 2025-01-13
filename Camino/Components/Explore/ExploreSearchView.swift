@@ -27,7 +27,8 @@ struct ExploreSearchView: View {
                     .frame(height: 0)
                     .frame(maxWidth: .infinity)
             }
-            .padding(.horizontal, 15)
+            .padding(.leading, 5)
+            .padding(.trailing, 15)
             
             CaminoSearchBar(content: {
                 HStack {
@@ -56,21 +57,15 @@ struct ExploreSearchView: View {
                                     }
                                     label: {
                                         HStack(spacing: 15) {
-                                            AsyncImage(url: URL(string: artistResult.imageUrl)) { image in
-                                                image
-                                                    .resizable()
-                                            } placeholder: {
-                                                Color.foreground
-                                            }
-                                            .scaledToFill()
-                                            .frame(width: 60, height: 60)
-                                            .cornerRadius(40)
-                                            .clipped()
+                                            ImageLoader(url: artistResult.imageUrl, contentMode: .fill)
+                                                .frame(width: 60, height: 60)
+                                                .cornerRadius(40)
+                                                .clipped()
                                             
                                             Text(artistResult.name)
                                                 .font(.system(size: 20, type: .Regular))
                                                 .lineLimit(2)
-                                                .minimumScaleFactor(0.75)
+                                                .minimumScaleFactor(0.85)
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                             
                                             Image(systemName: "chevron.right")

@@ -18,7 +18,7 @@ struct TranslucentBackButton: View {
                         .font(.system(size: 20))
                         .fontWeight(.semibold)
                 )
-                .padding(.leading, 20)
+                .padding(.leading, 15)
         }
         .buttonStyle(PlainButtonStyle())
     }

@@ -26,14 +26,9 @@ struct FlightCard: View {
                                     .stroke(.gray2, lineWidth: 1)
                                     .frame(width: 25, height: 25)
                                     .overlay(
-                                        AsyncImage(url: URL(string: flightItem.flights[1].airlineLogo)) { image in
-                                            image
-                                                .resizable()
-                                        } placeholder: {
-                                            Color.white
-                                        }
-                                            .scaledToFit()
+                                        ImageLoader(url: flightItem.flights[1].airlineLogo, contentMode: .fit)
                                             .frame(width: 15, height: 15)
+                                            .clipped()
                                     )
                                     .offset(y: 5)
                                 Spacer()
@@ -45,14 +40,9 @@ struct FlightCard: View {
                                     .stroke(.gray2, lineWidth: 1)
                                     .frame(width: 25, height: 25)
                                     .overlay(
-                                        AsyncImage(url: URL(string: flightItem.flights[0].airlineLogo)) { image in
-                                            image
-                                                .resizable()
-                                        } placeholder: {
-                                            Color.white
-                                        }
-                                            .scaledToFit()
+                                        ImageLoader(url: flightItem.flights[0].airlineLogo, contentMode: .fit)
                                             .frame(width: 15, height: 15)
+                                            .clipped()
                                     )
                                     .offset(y: -5)
                             }
@@ -63,14 +53,9 @@ struct FlightCard: View {
                             .fill(.white)
                             .frame(width: 40, height: 40)
                             .overlay(
-                                AsyncImage(url: URL(string: flightItem.flights.first?.airlineLogo ?? "")) { image in
-                                    image
-                                        .resizable()
-                                } placeholder: {
-                                    Color.white
-                                }
-                                    .scaledToFit()
+                                ImageLoader(url: flightItem.flights.first?.airlineLogo ?? "", contentMode: .fit)
                                     .frame(width: 25, height: 25)
+                                    .clipped()
                             )
                     }
                     

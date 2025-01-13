@@ -15,7 +15,7 @@ struct ConcertView: View {
     @State var hasAppeared: Bool = false
     
     var body: some View {
-        ImageHeaderScrollView(imageUrl: concert.imageUrl) {
+        ImageHeaderScrollView(title: concert.artistName, imageUrl: concert.imageUrl) {
             VStack(spacing: 20) {
                 
                 VStack(alignment: .leading, spacing: 5) {
@@ -35,6 +35,7 @@ struct ConcertView: View {
                         } label: {
                             Image(systemName: "ellipsis")
                                 .font(.system(size: 20))
+                                .fontWeight(.semibold)
                                 .padding(.vertical)
                         }
                         .buttonStyle(PlainButtonStyle())
@@ -65,7 +66,7 @@ struct ConcertView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
                 
-                VStack(spacing: 15) {
+                VStack(spacing: 10) {
                     ForEach((LineItemType.eventItems(eventViewModel: viewModel, link: concert.url)), id: \.title) { item in
                         switch item {
                         case .flights:

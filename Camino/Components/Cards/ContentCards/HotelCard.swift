@@ -7,16 +7,10 @@ struct HotelCard: View {
     var body: some View {
         HStack(spacing: 10) {
             if let url = property.images?.first?.originalImage {
-                AsyncImage(url: URL(string: url)) { image in
-                    image
-                        .resizable()
-                } placeholder: {
-                    Color.foreground
-                }
-                .scaledToFill()
-                .frame(width: 140, height: 170)
-                .clipped()
-                .padding(.leading, -15)
+                ImageLoader(url: url, contentMode: .fill)
+                    .frame(width: 140, height: 170)
+                    .clipped()
+                    .padding(.leading, -15)
             }
             
             VStack(alignment: .leading, spacing: 0) {

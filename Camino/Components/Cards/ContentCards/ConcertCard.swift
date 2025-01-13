@@ -14,17 +14,10 @@ struct ConcertCard: View {
                 .navigationTransition(.zoom(sourceID: id, in: namespace))
         }
         label: {
-            VStack(alignment: .leading, spacing: 0) {
-                AsyncImage(url: URL(string: concert.imageUrl)) { image in
-                    image
-                        .resizable()
-                } placeholder: {
-                    Color.foreground
-                        .frame(width: 250, height: 250)
-                }
-                .scaledToFill()
-                .frame(width: 250, height: 150)
-                .clipped()
+            VStack(alignment: .leading, spacing: 0) {                
+                ImageLoader(url: concert.imageUrl, contentMode: .fill)
+                    .frame(width: 250, height: 150)
+                    .clipped()
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(concert.artistName)

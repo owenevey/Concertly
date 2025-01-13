@@ -61,6 +61,17 @@ class ConcertViewModel: TripViewModelProtocol {
                 self.hotelsResponse = ApiResponse(status: .success, data: fetchedHotels)
                 self.hotelsPrice = fetchedHotels.properties.first?.totalRate.extractedLowest ?? 0
             }
+            
+            let hotelThumbnails: [URL] = fetchedHotels.properties.compactMap { hotel in
+                if let urlString = hotel.images?.first?.originalImage {
+                    return URL(string: urlString)
+                }
+                
+                return nil
+            }
+            
+            ImagePrefetcher.instance.startPrefetching(urls: hotelThumbnails)
+            
         } catch {
             print("Error fetching hotels: \(error)")
             self.hotelsResponse = ApiResponse(status: .error, error: error.localizedDescription)

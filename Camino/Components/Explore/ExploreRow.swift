@@ -19,7 +19,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 15) {
                     switch status {
-                    case .loading:
+                    case .loading, .empty:
                         if data.isEmpty {
                             renderFallbackCards(for: contentType)
                         } else {
@@ -35,13 +35,6 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                         } else {
                             renderErrorCards(for: contentType)
 //                            renderCards(for: data) NOTE: Keep for debugging
-                        }
-                        
-                    case .empty:
-                        if data.isEmpty {
-                            renderFallbackCards(for: contentType)
-                        } else {
-                            renderCards(for: data)
                         }
                     }
                 }

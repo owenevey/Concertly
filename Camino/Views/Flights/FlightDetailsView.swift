@@ -20,42 +20,27 @@ struct FlightDetailsView: View {
                                     .fill(.white)
                                     .frame(width: 50, height: 50)
                                     .overlay(
-                                        AsyncImage(url: URL(string: flightItem.flights[0].airlineLogo)) { image in
-                                            image
-                                                .resizable()
-                                        } placeholder: {
-                                            Color.white
-                                        }
-                                            .scaledToFit()
+                                        ImageLoader(url: flightItem.flights[0].airlineLogo, contentMode: .fit)
                                             .frame(width: 30, height: 30)
+                                            .clipped()
                                     )
                                 
                                 Circle()
                                     .fill(.white)
                                     .frame(width: 50, height: 50)
-                                    .overlay(
-                                        AsyncImage(url: URL(string: flightItem.flights[1].airlineLogo)) { image in
-                                            image
-                                                .resizable()
-                                        } placeholder: {
-                                            Color.white
-                                        }
-                                            .scaledToFit()
+                                    .overlay (
+                                        ImageLoader(url: flightItem.flights[1].airlineLogo, contentMode: .fit)
                                             .frame(width: 30, height: 30)
+                                            .clipped()
                                     )
                             } else {
                                 Circle()
                                     .fill(.white)
                                     .frame(width: 50, height: 50)
                                     .overlay(
-                                        AsyncImage(url: URL(string: flightItem.flights.first?.airlineLogo ?? "")) { image in
-                                            image
-                                                .resizable()
-                                        } placeholder: {
-                                            Color.white
-                                        }
-                                            .scaledToFit()
+                                        ImageLoader(url: flightItem.flights.first?.airlineLogo ?? "", contentMode: .fit)
                                             .frame(width: 30, height: 30)
+                                            .clipped()
                                     )
                             }
                             
@@ -184,14 +169,9 @@ struct FlightLeg: View {
                     .fill(.white)
                     .frame(width: 40, height: 40)
                     .overlay(
-                        AsyncImage(url: URL(string: flight.airlineLogo)) { image in
-                            image
-                                .resizable()
-                        } placeholder: {
-                            Color.white
-                        }
-                            .scaledToFit()
+                        ImageLoader(url: flight.airlineLogo, contentMode: .fit)
                             .frame(width: 25, height: 25)
+                            .clipped()
                     )
                 
                 
