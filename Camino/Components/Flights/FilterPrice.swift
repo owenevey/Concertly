@@ -17,24 +17,18 @@ struct FilterPrice: View {
     }
     
     var body: some View {
-        FilterSheet(filter: $priceFilter, title: "Price") {
-            VStack {
-                Spacer()
+        FilterSheet(filter: $priceFilter, defaultFilter: maxPrice, title: "Price") {
+            VStack(spacing: 20) {
+                SliderFilter(values: flightPrices, filter: $priceFilter)
+                    .frame(width: nil, height: 100, alignment: .center)
+                    .padding(.horizontal, 25)
                 
                 
-                VStack(spacing: 20) {
-                    SliderFilter(values: flightPrices, filter: $priceFilter)
-                        .frame(width: nil, height: 100, alignment: .center)
-                        .padding(.horizontal, 25)
-                    
-                    
-                    Text("Max Price: $\(priceFilter)")
-                        .font(.system(size: 20, type: .Medium))
-                        .frame(maxWidth: .infinity, alignment: .center)
-                }
-                
-                Spacer()
+                Text("Max Price: $\(priceFilter)")
+                    .font(.system(size: 20, type: .Regular))
+                    .frame(maxWidth: .infinity, alignment: .center)
             }
+            .padding(.vertical, 10)
         }
     }
 }
@@ -46,5 +40,5 @@ struct FilterPrice: View {
     }
     .background(Color.background)
     .border(Color.red)
-    .frame(maxHeight: 400)
+    //    .frame(maxHeight: 400)
 }

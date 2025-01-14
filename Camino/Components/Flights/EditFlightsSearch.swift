@@ -17,6 +17,7 @@ struct EditFlightsSearch: View {
     @State var tempToAirport: String
     
     private var maxDate: Date {
+        //fix this
         Calendar.current.date(byAdding: .month, value: 6, to: Date.now) ?? Date.now
     }
     
@@ -38,13 +39,11 @@ struct EditFlightsSearch: View {
                 .font(.system(size: 20, type: .SemiBold))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            Spacer()
-            
-            VStack(spacing: 25) {
+            VStack(spacing: 20) {
                 Button {
                     isFromAirport = true
                     showSheet = true
-                } label: {                    
+                } label: {
                     CaminoSearchBar {
                         HStack {
                             Image(systemName: "airplane.departure")
@@ -88,8 +87,6 @@ struct EditFlightsSearch: View {
                 }
             }
             
-            Spacer()
-            
             CaminoButton(label: "Search") {
                 fromDate = tempFromDate
                 toDate = tempToDate
@@ -98,8 +95,7 @@ struct EditFlightsSearch: View {
                 
                 dismiss()
             }
-            .padding(.top)
-            
+            .padding(.top, 10)
         }
         .padding(15)
         .sheet(isPresented: $showSheet) {
@@ -129,5 +125,5 @@ struct EditFlightsSearch: View {
     )
     .background(Color.background)
     .border(Color.red)
-    .frame(maxHeight: 400)
+    //    .frame(maxHeight: 400)
 }

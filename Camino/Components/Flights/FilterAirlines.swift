@@ -8,11 +8,17 @@ struct FilterAirlines: View {
         airlines.values.allSatisfy { $0.isEnabled }
     }
     
+    var defaultFilter: [String: (imageURL: String, isEnabled: Bool)] {
+            airlines.mapValues { (imageURL, _) in
+                (imageURL, true)
+            }
+        }
+    
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        FilterSheet(filter: $airlines, title: "Airlines") {
-            VStack(spacing: 0) {
+        FilterSheet(filter: $airlines, defaultFilter: defaultFilter, title: "Airlines") {
+            VStack(spacing: 10) {
                 Button(action: {
                     let newValue = !allSelected
                     airlines = airlines.mapValues { (imageURL, _) in
@@ -33,53 +39,49 @@ struct FilterAirlines: View {
                     .contentShape(Rectangle())
                 }
                 .buttonStyle(PlainButtonStyle())
-                .padding(.vertical, 10)
                 
                 Divider()
                     .frame(height: 1)
                     .overlay(.gray2)
                 
-                ScrollView(showsIndicators: false) {
-                    VStack(spacing: 10) {
-                        ForEach(Array(airlines.keys).indices, id: \.self) { index in
-                            let airline = Array(airlines.keys)[index]
+                ForEach(Array(airlines.keys).indices, id: \.self) { index in
+                    let airline = Array(airlines.keys)[index]
+                    
+                    Button(action: {
+                        airlines[airline]?.isEnabled.toggle()
+                    }) {
+                        HStack(spacing: 10) {
+                            Image(systemName: airlines[airline]?.isEnabled ?? false ? "checkmark.circle.fill" : "circle")
+                                .font(.system(size: 25))
+                                .foregroundStyle(.accent)
                             
-                            Button(action: {
-                                airlines[airline]?.isEnabled.toggle()
-                            }) {
-                                HStack(spacing: 10) {
-                                    Image(systemName: airlines[airline]?.isEnabled ?? false ? "checkmark.circle.fill" : "circle")
-                                        .font(.system(size: 25))
-                                        .foregroundStyle(.accent)
-                                    
-                                    Circle()
-                                        .fill(.white)
-                                        .frame(width: 35, height: 35)
-                                        .overlay(
-                                            ImageLoader(url: airlines[airline]!.imageURL, contentMode: .fit)
-                                                .frame(width: 20, height: 20)
-                                        )
-                                    
-                                    Text(airline)
-                                        .font(.system(size: 16, type: .Regular))
-                                    
-                                    Spacer()
-                                }
-                                .padding(.vertical, 2)
-                                .contentShape(Rectangle())
-                            }
-                            .buttonStyle(PlainButtonStyle())
+                            Circle()
+                                .fill(.white)
+                                .frame(width: 35, height: 35)
+                                .overlay(
+                                    ImageLoader(url: airlines[airline]!.imageURL, contentMode: .fit)
+                                        .frame(width: 20, height: 20)
+                                )
                             
-                            if index < airlines.keys.count - 1 {
-                                Divider()
-                                    .frame(height: 1)
-                                    .overlay(.gray2)
-                            }
+                            Text(airline)
+                                .font(.system(size: 16, type: .Regular))
+                            
+                            Spacer()
                         }
+                        .padding(.vertical, 2)
+                        .contentShape(Rectangle())
                     }
-                    .padding(.vertical, 10)
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    if index < airlines.keys.count - 1 {
+                        Divider()
+                            .frame(height: 1)
+                            .overlay(.gray2)
+                    }
                 }
             }
+            .padding(.vertical, 10)
+            
         }
     }
     
@@ -97,5 +99,4 @@ struct FilterAirlines: View {
     }
     .background(Color.background)
     .border(Color.red)
-    .frame(maxHeight: 400)
 }

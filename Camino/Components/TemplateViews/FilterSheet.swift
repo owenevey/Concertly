@@ -3,6 +3,7 @@ import SwiftUI
 struct FilterSheet<T, Content: View>: View {
     
     @Binding var filter: T
+    let defaultFilter: T
     let title: String
     let content: () -> Content
     
@@ -15,13 +16,19 @@ struct FilterSheet<T, Content: View>: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             content()
-            
-            Spacer()
-            
-            CaminoButton(label: "Done") {
-                dismiss()
+                        
+            HStack(spacing: 15) {
+                CaminoButton(label: "Clear", style: "secondary") {
+                    filter = defaultFilter
+                    dismiss()
+                }
+                
+                CaminoButton(label: "Done") {
+                    dismiss()
+                }
+                
             }
-            .padding(.top)
+            .padding(.top, 15)
         }
         .padding(15)
     }
@@ -30,11 +37,10 @@ struct FilterSheet<T, Content: View>: View {
     
 }
 
-//#Preview {
-//    VStack {
-//        FilterSheet(stopsFilter: .constant(.any))
-//    }
-//    .background(Color.background)
-//    .border(Color.red)
-//    .frame(maxHeight: 400)
-//}
+#Preview {
+    VStack {
+        FilterRating(ratingFilter: .constant(3))
+    }
+    .background(Color.background)
+    .border(Color.red)
+}

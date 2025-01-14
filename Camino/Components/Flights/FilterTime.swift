@@ -25,29 +25,24 @@ struct FilterTime: View {
         }
         
         let dateTimeFormatter = DateFormatter()
-        dateTimeFormatter.dateFormat = "MMM dd, h:mm a"
+        dateTimeFormatter.dateFormat = "MMM d, h:mm a"
         
         return dateTimeFormatter.string(from: date)
     }
-
+    
     
     var body: some View {
-        FilterSheet(filter: $timeFilter, title: "Time") {
-            VStack {
-                Spacer()
+        FilterSheet(filter: $timeFilter, defaultFilter: latestTime, title: "Time") {
+            VStack(spacing: 20) {
+                SliderFilter(values: flightTimes, filter: $timeFilter)
+                    .frame(width: nil, height: 100, alignment: .center)
+                    .padding(.horizontal, 25)
                 
-                VStack(spacing: 20) {
-                    SliderFilter(values: flightTimes, filter: $timeFilter)
-                        .frame(width: nil, height: 100, alignment: .center)
-                        .padding(.horizontal, 25)
-                    
-                    Text("Arrival Before: \(formattedTime(from: timeFilter))")
-                        .font(.system(size: 20, type: .Medium))
-                        .frame(maxWidth: .infinity, alignment: .center)
-                }
-                
-                Spacer()
+                Text("Arrival Before: \(formattedTime(from: timeFilter))")
+                    .font(.system(size: 20, type: .Regular))
+                    .frame(maxWidth: .infinity, alignment: .center)
             }
+            .padding(.vertical, 10)
         }
     }
 }
@@ -59,5 +54,4 @@ struct FilterTime: View {
     }
     .background(Color.background)
     .border(Color.red)
-    .frame(maxHeight: 400)
 }

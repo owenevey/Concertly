@@ -15,8 +15,9 @@ struct FeaturedEvent: View {
                 Spacer()
             }
             switch status {
-            case .loading:
+            case .loading, .empty:
                 FallbackFeaturedEventItem()
+                    .shadow(color: .black.opacity(0.2), radius: 5)
             case .success:
                 if let event {
                     FeaturedEventItem(event: event)
@@ -24,8 +25,7 @@ struct FeaturedEvent: View {
                 }
             case .error:
                 ErrorFeaturedEventItem()
-            case .empty:
-                FallbackFeaturedEventItem()
+                    .shadow(color: .black.opacity(0.2), radius: 5)
             }
         }
         .padding(.horizontal, 15)

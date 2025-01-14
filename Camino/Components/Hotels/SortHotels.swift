@@ -7,8 +7,7 @@ struct SortHotels: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        FilterSheet(filter: $sortMethod, title: "Sort") {
-            ScrollView(showsIndicators: false) {
+        FilterSheet(filter: $sortMethod, defaultFilter: SortHotelsEnum.recommended, title: "Sort") {
                 VStack(spacing: 10) {
                     ForEach(SortHotelsEnum.allCases.indices, id: \.self) { index in
                         let method = SortHotelsEnum.allCases[index]
@@ -31,7 +30,7 @@ struct SortHotels: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         
-                        if index < SortFlightsEnum.allCases.count - 1 {
+                        if index < SortFlightsEnum.allCases.count - 3 {
                             Divider()
                                 .frame(height: 1)
                                 .overlay(.gray2)
@@ -39,7 +38,7 @@ struct SortHotels: View {
                     }
                 }
                 .padding(.vertical, 10)
-            }
+            
         }
     }
     
@@ -53,5 +52,4 @@ struct SortHotels: View {
     }
     .background(Color.background)
     .border(Color.red)
-    .frame(maxHeight: 400)
 }

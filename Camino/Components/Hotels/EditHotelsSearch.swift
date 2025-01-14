@@ -32,10 +32,8 @@ struct EditHotelsSearch: View {
             Text("Edit Search")
                 .font(.system(size: 20, type: .SemiBold))
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
-            Spacer()
-            
-            VStack(spacing: 35) {
+                        
+            VStack(spacing: 20) {
                 Button {
                     showSheet = true
                 } label: {
@@ -67,10 +65,6 @@ struct EditHotelsSearch: View {
                 }
             }
             
-            
-            
-            Spacer()
-            
             CaminoButton(label: "Search") {
                 fromDate = tempFromDate
                 toDate = tempToDate
@@ -78,7 +72,7 @@ struct EditHotelsSearch: View {
                 
                 dismiss()
             }
-            .padding(.top)
+            .padding(.top, 15)
             
         }
         .padding(15)
@@ -103,5 +97,4 @@ struct EditHotelsSearch: View {
     )
     .background(Color.background)
     .border(Color.red)
-    .frame(maxHeight: 400)
 }

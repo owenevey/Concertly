@@ -16,6 +16,7 @@ struct FlightsFiltersBar: View {
     var flightPrices: [Int]
     
     @State var presentSheet = false
+    @State var detentHeight: CGFloat = 400
     @State var selectedFilter: FlightFilter
     
     init(sortMethod: Binding<SortFlightsEnum>, airlines: Binding<[String: (imageURL: String, isEnabled: Bool)]>, stopsFilter: Binding<FilterStopsEnum>, priceFilter: Binding<Int>, flightPrices: [Int], durationFilter: Binding<Int>, flightDurations: [Int], timeFilter: Binding<Int>, flightTimes: [Int]) {
@@ -125,12 +126,22 @@ struct FlightsFiltersBar: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         .transition(.opacity)
+                        
                     }
+                    
+                    
+                    
                 }
                 .padding(10)
                 .sheet(isPresented: $presentSheet) {
                     selectedFilter.destinationView
-                        .presentationDetents([.medium])
+                        .readHeight()
+                        .onPreferenceChange(BottomSheetHeightPreferenceKey.self) { height in
+                            if let height {
+                                self.detentHeight = height
+                            }
+                        }
+                        .presentationDetents([.height(self.detentHeight)])
                         .presentationBackground(Color.background)
                 }
             }

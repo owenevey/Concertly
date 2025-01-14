@@ -71,6 +71,7 @@ struct HotelDetailsView: View {
                                     .frame(width: 40, height: 40)
                                     .overlay(
                                         Image(systemName: "xmark")
+                                            .fontWeight(.semibold)
                                     )
                                     .padding(15)
                             }
@@ -108,7 +109,7 @@ struct HotelDetailsView: View {
                         
                         if let description = property.description {
                             Text(description)
-                                .font(.system(size: 18, type: .Regular))
+                                .font(.system(size: 16, type: .Regular))
                                 .foregroundStyle(.gray3)
                         }
                     }

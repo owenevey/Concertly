@@ -9,6 +9,7 @@ struct HotelsFilterBar: View {
     @Binding var locationRatingFilter: Int
     
     @State var presentSheet = false
+    @State var detentHeight: CGFloat = 400
     @State var selectedFilter: HotelFilter
     
     init(sortMethod: Binding<SortHotelsEnum>, priceFilter: Binding<Int>, hotelPrices: [Int], ratingFilter: Binding<Int>, locationRatingFilter: Binding<Int>) {
@@ -95,7 +96,14 @@ struct HotelsFilterBar: View {
                 .padding(10)
                 .sheet(isPresented: $presentSheet) {
                     selectedFilter.destinationView
-                        .presentationDetents([.medium])
+                        .readHeight()
+                        .onPreferenceChange(BottomSheetHeightPreferenceKey.self) { height in
+                            if let height {
+                                print("gg", height)
+                                self.detentHeight = height
+                            }
+                        }
+                        .presentationDetents([.height(self.detentHeight)])
                         .presentationBackground(Color.background)
                 }
             }

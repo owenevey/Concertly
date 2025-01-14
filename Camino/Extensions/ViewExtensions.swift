@@ -6,17 +6,21 @@ extension View {
     func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
         clipShape( RoundedCorner(radius: radius, corners: corners) )
     }
+    
+    func readHeight() -> some View {
+        self.modifier(ReadHeightModifier())
+    }
 }
 
 struct RoundedCorner: Shape {
     let radius: CGFloat
     let corners: UIRectCorner
-
+    
     init(radius: CGFloat = .infinity, corners: UIRectCorner = .allCorners) {
         self.radius = radius
         self.corners = corners
     }
-
+    
     func path(in rect: CGRect) -> Path {
         let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         return Path(path.cgPath)
@@ -29,8 +33,31 @@ extension UINavigationController: @retroactive UIGestureRecognizerDelegate {
         super.viewDidLoad()
         interactivePopGestureRecognizer?.delegate = self
     }
-
+    
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return viewControllers.count > 1
+    }
+}
+
+
+struct BottomSheetHeightPreferenceKey: PreferenceKey {
+    static var defaultValue: CGFloat?
+    
+    static func reduce(value: inout CGFloat?, nextValue: () -> CGFloat?) {
+        guard let nextValue = nextValue() else { return }
+        value = nextValue
+    }
+}
+
+private struct ReadHeightModifier: ViewModifier {
+    private var sizeView: some View {
+        GeometryReader { geometry in
+            Color.clear.preference(key: BottomSheetHeightPreferenceKey.self,
+                                   value: geometry.size.height)
+        }
+    }
+    
+    func body(content: Content) -> some View {
+        content.background(sizeView)
     }
 }

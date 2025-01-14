@@ -7,6 +7,7 @@ struct HotelsHeader: View {
     @Binding var location: String
     
     let calendar = Calendar.current
+    @State var detentHeight: CGFloat = 274
     
     @State var presentSheet = false
     
@@ -44,7 +45,14 @@ struct HotelsHeader: View {
         .background(Color.foreground)
         .sheet(isPresented: $presentSheet) {
             EditHotelsSearch(fromDate: $fromDate, toDate: $toDate, location: $location)
-                .presentationDetents([.medium])
+                .readHeight()
+                .onPreferenceChange(BottomSheetHeightPreferenceKey.self) { height in
+                    if let height {
+                        print("F", height)
+                        self.detentHeight = height
+                    }
+                }
+                .presentationDetents([.height(self.detentHeight)])
                 .presentationBackground(Color.background)
         }
     }

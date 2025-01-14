@@ -10,6 +10,7 @@ struct FlightsHeader: View {
     let calendar = Calendar.current
     
     @State var presentSheet = false
+    @State var detentHeight: CGFloat = 339
     
     var body: some View {
         HStack {
@@ -43,7 +44,13 @@ struct FlightsHeader: View {
         .background(Color.foreground)
         .sheet(isPresented: $presentSheet) {
             EditFlightsSearch(fromDate: $fromDate, toDate: $toDate, fromAirport: $fromAirport, toAirport: $toAirport)
-                .presentationDetents([.medium])
+                .readHeight()
+                .onPreferenceChange(BottomSheetHeightPreferenceKey.self) { height in
+                    if let height {
+                        self.detentHeight = height
+                    }
+                }
+                .presentationDetents([.height(self.detentHeight)])
                 .presentationBackground(Color.background)
         }
     }

@@ -2,8 +2,9 @@ import SwiftUI
 
 struct CaminoButton: View {
     let label: String
+    var style: String = "primary"
     let action: () async -> Void
-
+    
     var body: some View {
         Button {
             Task {
@@ -12,12 +13,20 @@ struct CaminoButton: View {
         } label: {
             Text(label)
                 .font(.system(size: 18, type: .Medium))
-                .foregroundStyle(.white)
+                .foregroundStyle(style == "primary" ? .white : .primary)
                 .padding(12)
                 .frame(maxWidth: .infinity)
                 .background(
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(Color.accentColor)
+                    Group {
+                        if style == "primary" {
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(Color.accentColor)
+                        } else if style == "secondary" {
+                            RoundedRectangle(cornerRadius: 15)
+                                .stroke(.primary, lineWidth: 3)
+                        }
+                    }
+                    
                 )
                 .clipShape(RoundedRectangle(cornerRadius: 15))
         }
@@ -27,7 +36,9 @@ struct CaminoButton: View {
 }
 
 #Preview {
-    ErrorView(text: "Error fetching airports", action: {
+    CaminoButton(label: "Clear", style: "secondary", action: {
         try? await Task.sleep(nanoseconds: 1_000_000_000)
     })
+    .padding(40)
+    .background(Color.background)
 }

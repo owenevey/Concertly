@@ -17,23 +17,18 @@ struct FilterDuration: View {
     }
     
     var body: some View {
-        FilterSheet(filter: $durationFilter, title: "Duration") {
-            VStack {
-                Spacer()
+        FilterSheet(filter: $durationFilter, defaultFilter: maxDuration, title: "Duration") {
+            VStack(spacing: 20) {
+                SliderFilter(values: flightDurations, filter: $durationFilter)
+                    .frame(width: nil, height: 100, alignment: .center)
+                    .padding(.horizontal, 25)
                 
-                VStack(spacing: 20) {
-                    SliderFilter(values: flightDurations, filter: $durationFilter)
-                        .frame(width: nil, height: 100, alignment: .center)
-                        .padding(.horizontal, 25)
-                    
-                    
-                    Text("Max Duration: " + minsToHrMins(minutes: durationFilter))
-                        .font(.system(size: 20, type: .Medium))
-                        .frame(maxWidth: .infinity, alignment: .center)
-                }
                 
-                Spacer()
+                Text("Max Duration: " + minsToHrMins(minutes: durationFilter))
+                    .font(.system(size: 20, type: .Regular))
+                    .frame(maxWidth: .infinity, alignment: .center)
             }
+            .padding(.vertical, 10)
         }
     }
 }

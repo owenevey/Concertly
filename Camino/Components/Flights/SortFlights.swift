@@ -7,39 +7,37 @@ struct SortFlights: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        FilterSheet(filter: $sortMethod, title: "Sort") {
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 10) {
-                    ForEach(SortFlightsEnum.allCases.indices, id: \.self) { index in
-                        let method = SortFlightsEnum.allCases[index]
-                        
-                        Button(action: {
-                            sortMethod = method
-                        }) {
-                            HStack(spacing: 10) {
-                                Image(systemName: sortMethod == method ? "checkmark.circle.fill" : "circle")
-                                    .font(.system(size: 25))
-                                    .foregroundStyle(.accent)
-                                
-                                Text(method.title)
-                                    .font(.system(size: 16, type: .Regular))
-                                
-                                Spacer()
-                            }
-                            .padding(.vertical, 2)
-                            .contentShape(Rectangle())
+        FilterSheet(filter: $sortMethod, defaultFilter: SortFlightsEnum.recommended, title: "Sort") {
+            VStack(spacing: 10) {
+                ForEach(SortFlightsEnum.allCases.indices, id: \.self) { index in
+                    let method = SortFlightsEnum.allCases[index]
+                    
+                    Button(action: {
+                        sortMethod = method
+                    }) {
+                        HStack(spacing: 10) {
+                            Image(systemName: sortMethod == method ? "checkmark.circle.fill" : "circle")
+                                .font(.system(size: 25))
+                                .foregroundStyle(.accent)
+                            
+                            Text(method.title)
+                                .font(.system(size: 16, type: .Regular))
+                            
+                            Spacer()
                         }
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        if index < SortFlightsEnum.allCases.count - 1 {
-                            Divider()
-                                .frame(height: 1)
-                                .overlay(.gray2)
-                        }
+                        .padding(.vertical, 2)
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    if index < SortFlightsEnum.allCases.count - 1 {
+                        Divider()
+                            .frame(height: 1)
+                            .overlay(.gray2)
                     }
                 }
-                .padding(.vertical, 10)
             }
+            .padding(.vertical, 10)
         }
     }
     
@@ -53,5 +51,4 @@ struct SortFlights: View {
     }
     .background(Color.background)
     .border(Color.red)
-    .frame(maxHeight: 400)
 }
