@@ -51,13 +51,21 @@ struct GenreView: View {
             
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 15) {
-                    ExploreRow(title: "Trending Concerts", status: viewModel.trendingConcertsResponse.status, data: viewModel.trendingConcerts, contentType: ExploreContentType.concert)
+                    ExploreRow(title: "Trending Concerts", status: viewModel.trendingConcertsResponse.status, data: viewModel.trendingConcerts, contentType: ExploreContentType.concert) {
+                        await viewModel.getTrendingConcerts()
+                    }
                     
-                    ExploreRow(title: "Popular Artists", status: viewModel.popularArtistsResponse.status, data: viewModel.popularArtists, contentType: ExploreContentType.artist)
+                    ExploreRow(title: "Popular Artists", status: viewModel.popularArtistsResponse.status, data: viewModel.popularArtists, contentType: ExploreContentType.artist) {
+                        await viewModel.getPopularArtists()
+                    }
                     
-                    FeaturedEvent(event: viewModel.featuredEvent, status: viewModel.featuredEventResponse.status)
+                    FeaturedEvent(event: viewModel.featuredEvent, status: viewModel.featuredEventResponse.status) {
+                        await viewModel.getFeaturedEvent()
+                    }
                     
-                    ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert)
+                    ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert) {
+                        await viewModel.getSuggestedConcerts()
+                    }
                 }
             }
             .background(Color.background)

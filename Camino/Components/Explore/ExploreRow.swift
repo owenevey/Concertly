@@ -6,6 +6,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
     let status: Status
     let data: [T]
     let contentType: ExploreContentType
+    let onRetry: (() async -> Void)
     
     var body: some View {
         VStack(spacing: 5) {
@@ -15,6 +16,21 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                 Spacer()
             }
             .padding(.horizontal, 15)
+            
+            if status == .error {
+                HStack {
+                    Text("Error fetching \(contentType.title)")
+                    Button("Retry") {
+                        Task {
+                            await onRetry()
+                        }
+                    }
+                }
+                .font(.system(size: 18, type: .Regular))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 15)
+                .transition(.opacity)
+            }
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 15) {
@@ -34,7 +50,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                             renderErrorCards(for: contentType)
                         } else {
                             renderErrorCards(for: contentType)
-//                            renderCards(for: data) NOTE: Keep for debugging
+                            //                            renderCards(for: data) NOTE: Keep for debugging
                         }
                     }
                 }
@@ -45,6 +61,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
             .scrollTargetBehavior(.viewAligned)
             .safeAreaPadding(.horizontal, 15)
         }
+        .animation(.easeInOut, value: status)
     }
     
     @ViewBuilder
@@ -69,6 +86,13 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                     .shadow(color: .black.opacity(0.2), radius: 5)
             }
         }
+        
+        if let venues = data as? [Venue] {
+            ForEach(venues) { venue in
+                VenueCard(venue: venue)
+                    .shadow(color: .black.opacity(0.2), radius: 5)
+            }
+        }
     }
     
     @ViewBuilder
@@ -87,6 +111,11 @@ struct ExploreRow<T: Codable & Identifiable>: View {
         case .artist:
             ForEach(0..<6, id: \.self) { _ in
                 FallbackArtistCard()
+                    .shadow(color: .black.opacity(0.2), radius: 5)
+            }
+        case .venue:
+            ForEach(0..<6, id: \.self) { _ in
+                FallbackVenueCard()
                     .shadow(color: .black.opacity(0.2), radius: 5)
             }
         }
@@ -110,12 +139,41 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                 ErrorArtistCard()
                     .shadow(color: .black.opacity(0.2), radius: 5)
             }
+        case .venue:
+            ForEach(0..<6, id: \.self) { _ in
+                ErrorVenueCard()
+                    .shadow(color: .black.opacity(0.2), radius: 5)
+            }
         }
     }
 }
 
-//#Preview {
-//    NavigationStack {
-//        ExploreRow(title: "Suggested Places", data: suggestedPlaces)
-//    }
-//}
+#Preview {
+    @Previewable @State var status: Status = .error
+    NavigationStack {
+        VStack {
+            Spacer()
+            
+            ExploreRow(
+                title: "Trending Concerts",
+                status: status,
+                data: [
+                    hotConcerts[0], hotConcerts[0], hotConcerts[0],
+                ],
+                contentType: .concert,
+                onRetry: {
+                    Task {
+                        status = .loading
+                        try? await Task.sleep(nanoseconds: 2_000_000_000)
+                        status = .error
+                    }
+                }
+            )
+            
+            Spacer()
+        }
+        .background(Color.background)
+    }
+    .background(Color.background)
+    
+}

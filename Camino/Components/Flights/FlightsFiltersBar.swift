@@ -114,7 +114,9 @@ struct FlightsFiltersBar: View {
                     
                     if isAnyFilterActive {
                         Button {
-                            resetFilters()
+                            withAnimation {
+                                resetFilters()
+                            }
                         } label: {
                             HStack {
                                 Image(systemName: "xmark")

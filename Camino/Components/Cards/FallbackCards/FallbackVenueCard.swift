@@ -1,9 +1,9 @@
 import SwiftUI
 
-struct ErrorArtistCard: View {
+struct FallbackVenueCard: View {
     
     var body: some View {
-        StillShimmerView()
+        ShimmerView()
             .frame(width: 200, height: 230)
             .cornerRadius(20)
         }
@@ -11,7 +11,7 @@ struct ErrorArtistCard: View {
 
 #Preview {
     NavigationStack {
-        ErrorArtistCard()
+        FallbackVenueCard()
             .shadow(color: .black.opacity(0.2), radius: 5)
     }
 }

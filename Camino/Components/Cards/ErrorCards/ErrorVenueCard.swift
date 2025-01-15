@@ -1,17 +1,17 @@
 import SwiftUI
 
-struct ErrorArtistCard: View {
+struct ErrorVenueCard: View {
     
     var body: some View {
         StillShimmerView()
-            .frame(width: 200, height: 230)
+            .frame(width: 250, height: 200)
             .cornerRadius(20)
         }
 }
 
 #Preview {
     NavigationStack {
-        ErrorArtistCard()
+        ErrorVenueCard()
             .shadow(color: .black.opacity(0.2), radius: 5)
     }
 }

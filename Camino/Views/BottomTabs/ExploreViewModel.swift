@@ -12,6 +12,9 @@ final class ExploreViewModel: ObservableObject {
     @Published var popularDestinationsResponse: ApiResponse<[Place]> = ApiResponse<[Place]>()
     @Published var popularDestinations: [Place] = []
     
+    @Published var famousVenuesResponse: ApiResponse<[Venue]> = ApiResponse<[Venue]>()
+    @Published var famousVenues: [Venue] = []
+    
     @Published var popularArtistsResponse: ApiResponse<[SuggestedArtist]> = ApiResponse<[SuggestedArtist]>()
     @Published var popularArtists: [SuggestedArtist] = []
     
@@ -71,6 +74,25 @@ final class ExploreViewModel: ObservableObject {
             print("Error fetching popular destinations: \(error)")
             withAnimation(.easeInOut) {
                 self.popularDestinationsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
+        }
+    }
+    
+    func getFamousVenues() async {
+        withAnimation(.easeInOut) {
+            self.famousVenuesResponse = ApiResponse(status: .loading)
+        }
+        
+        do {
+            let fetchedVenues = try await fetchFamousVenues()
+            withAnimation(.easeInOut) {
+                self.famousVenues = fetchedVenues.venues
+                self.famousVenuesResponse = ApiResponse(status: .success, data: fetchedVenues.venues)
+            }
+        } catch {
+            print("Error fetching famous venues: \(error)")
+            withAnimation(.easeInOut) {
+                self.famousVenuesResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }
     }

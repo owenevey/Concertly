@@ -84,17 +84,29 @@ struct ExploreView: View {
                             
                             ExplorePills()
                             
-                            ExploreRow(title: "Trending Concerts", status: viewModel.trendingConcertsResponse.status, data: viewModel.trendingConcerts, contentType: ExploreContentType.concert)
+                            ExploreRow(title: "Trending Concerts", status: viewModel.trendingConcertsResponse.status, data: viewModel.trendingConcerts, contentType: ExploreContentType.concert) {
+                                await viewModel.getTrendingConcerts()
+                            }
                             
-                            ExploreRow(title: "Popular Artists", status: viewModel.popularArtistsResponse.status, data: viewModel.popularArtists, contentType: ExploreContentType.artist)
+                            ExploreRow(title: "Popular Artists", status: viewModel.popularArtistsResponse.status, data: viewModel.popularArtists, contentType: ExploreContentType.artist) {
+                                await viewModel.getPopularArtists()
+                            }
                             
-                            ExploreRow(title: "Popular Destinations", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.place)
+                            ExploreRow(title: "Popular Destinations", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.place) {
+                                await viewModel.getPopularDestinations()
+                            }
                             
-                            FeaturedEvent(event: viewModel.featuredEvent, status: viewModel.featuredEventResponse.status)
+                            FeaturedEvent(event: viewModel.featuredEvent, status: viewModel.featuredEventResponse.status) {
+                                await viewModel.getFeaturedEvent()
+                            }
                             
-                            ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert)
+                            ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert) {
+                                await viewModel.getSuggestedConcerts()
+                            }
                             
-                            ExploreRow(title: "International Adventures", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.place)
+                            ExploreRow(title: "Famous Venues", status: viewModel.famousVenuesResponse.status, data: viewModel.famousVenues, contentType: ExploreContentType.venue) {
+                                await viewModel.getFamousVenues()
+                            }
                             
                         }
                         .padding(.top, -300)
@@ -128,6 +140,7 @@ struct ExploreView: View {
         .onAppear {
             if !hasAppeared {
                 Task {
+                    await viewModel.getFamousVenues()
                     await viewModel.getTrendingConcerts()
                     await viewModel.getPopularDestinations()
                     await viewModel.getSuggestedConcerts()
@@ -139,6 +152,7 @@ struct ExploreView: View {
         }
         .refreshable {
             Task {
+                await viewModel.getFamousVenues()
                 await viewModel.getTrendingConcerts()
                 await viewModel.getPopularDestinations()
                 await viewModel.getSuggestedConcerts()

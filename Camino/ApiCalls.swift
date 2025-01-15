@@ -135,6 +135,12 @@ func fetchPopularDestination() async throws -> PlacesResponse {
     return response
 }
 
+func fetchFamousVenues() async throws -> VenuesResponse {
+    let endpoint = "\(baseUrl)/famousVenues"
+    let response: VenuesResponse = try await fetchData(endpoint: endpoint)
+    return response
+}
+
 enum CaminoError: Error {
     case invalidURL
     case invalidResponse

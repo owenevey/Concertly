@@ -1,21 +1,21 @@
 import SwiftUI
 
-struct ArtistCard: View {
+struct VenueCard: View {
     @Namespace private var namespace
     let id = "UIElement"
     
     
-    var artist: SuggestedArtist
+    var venue: Venue
     
     var body: some View {
         NavigationLink {
-            ArtistView(artistID: artist.id)
-                .navigationBarHidden(true)
-                .navigationTransition(.zoom(sourceID: id, in: namespace))
+//            ArtistView(artistID: artist.id)
+//                .navigationBarHidden(true)
+//                .navigationTransition(.zoom(sourceID: id, in: namespace))
         }
         label: {
-            ImageLoader(url: artist.imageUrl, contentMode: .fill)
-            .frame(width: 200, height: 230)
+            ImageLoader(url: venue.imageUrl, contentMode: .fill)
+            .frame(width: 250, height: 200)
             .clipped()
             .overlay {
                 ZStack(alignment: .bottom) {
@@ -32,7 +32,7 @@ struct ArtistCard: View {
                     
                     VStack {
                         Spacer()
-                        Text(artist.name)
+                        Text(venue.name)
                             .font(.system(size: 23, type: .SemiBold))
                             .foregroundStyle(.white)
                             .lineLimit(2)
@@ -52,8 +52,22 @@ struct ArtistCard: View {
 
 #Preview {
     NavigationStack {
-        ArtistCard(artist: SuggestedArtist(name: "Morgan Wallen", id: "K8vZ9174qlV", imageUrl: "https://s1.ticketm.net/dam/a/68c/b889729a-9af0-4a79-8c38-1b1ac86a868c_TABLET_LANDSCAPE_3_2.jpg"))
+        VStack {
+            Spacer()
+            VenueCard(venue: Venue(
+                id: "KovZpZA7AAEA",
+                name: "Madison Square Garden",
+                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Madison_Square_Garden_%28MSG%29_-_Full_%2848124330357%29.jpg",
+                cityName: "New York, NY",
+                countryName: "United States",
+                latitude: 40.74970620,
+                longitude: -73.99160060,
+                description: "Located in the heart of Manhattan, this iconic arena has hosted countless legendary performances, unforgettable concerts, and historic events. Known for its electric atmosphere and world-class acoustics, it’s a destination where music lovers and fans gather to witness once-in-a-lifetime moments in entertainment history."
+            ))
             .shadow(color: .black.opacity(0.2), radius: 5)
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
+        .background(Color.background)
     }
-    .border(.red, width: 2)
 }
