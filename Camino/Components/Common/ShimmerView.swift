@@ -9,12 +9,12 @@ struct ShimmerView: View {
     
     var body: some View {
         LinearGradient(colors: gradientColors, startPoint: startPoint, endPoint: endpoint)
-            .onAppear {
-                withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: false)) {
-                    startPoint = .init(x: 1, y: 1)
-                    endpoint = .init(x: 2.2, y: 2.2)
-                }
-            }
+//            .onAppear {
+//                withAnimation(.easeInOut(duration: 1).repeatForever(autoreverses: false)) {
+//                    startPoint = .init(x: 1, y: 1)
+//                    endpoint = .init(x: 2.2, y: 2.2)
+//                }
+//            }
     }
 }
 

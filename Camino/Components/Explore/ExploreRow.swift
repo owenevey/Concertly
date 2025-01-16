@@ -33,7 +33,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
             }
             
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 15) {
+                LazyHStack(spacing: 15) {
                     switch status {
                     case .loading, .empty:
                         if data.isEmpty {

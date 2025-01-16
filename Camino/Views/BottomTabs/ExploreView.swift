@@ -84,28 +84,30 @@ struct ExploreView: View {
                             
                             ExplorePills()
                             
-                            ExploreRow(title: "Trending Concerts", status: viewModel.trendingConcertsResponse.status, data: viewModel.trendingConcerts, contentType: ExploreContentType.concert) {
-                                await viewModel.getTrendingConcerts()
-                            }
-                            
-                            ExploreRow(title: "Popular Artists", status: viewModel.popularArtistsResponse.status, data: viewModel.popularArtists, contentType: ExploreContentType.artist) {
-                                await viewModel.getPopularArtists()
-                            }
-                            
-                            ExploreRow(title: "Popular Destinations", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.place) {
-                                await viewModel.getPopularDestinations()
-                            }
-                            
-                            FeaturedEvent(event: viewModel.featuredEvent, status: viewModel.featuredEventResponse.status) {
-                                await viewModel.getFeaturedEvent()
-                            }
-                            
-                            ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert) {
-                                await viewModel.getSuggestedConcerts()
-                            }
-                            
-                            ExploreRow(title: "Famous Venues", status: viewModel.famousVenuesResponse.status, data: viewModel.famousVenues, contentType: ExploreContentType.venue) {
-                                await viewModel.getFamousVenues()
+                            LazyVStack {
+                                ExploreRow(title: "Trending Concerts", status: viewModel.trendingConcertsResponse.status, data: viewModel.trendingConcerts, contentType: ExploreContentType.concert) {
+                                    await viewModel.getTrendingConcerts()
+                                }
+                                
+                                ExploreRow(title: "Popular Artists", status: viewModel.popularArtistsResponse.status, data: viewModel.popularArtists, contentType: ExploreContentType.artist) {
+                                    await viewModel.getPopularArtists()
+                                }
+                                
+                                ExploreRow(title: "Popular Destinations", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.place) {
+                                    await viewModel.getPopularDestinations()
+                                }
+                                
+                                FeaturedEvent(event: viewModel.featuredEvent, status: viewModel.featuredEventResponse.status) {
+                                    await viewModel.getFeaturedEvent()
+                                }
+                                
+                                ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert) {
+                                    await viewModel.getSuggestedConcerts()
+                                }
+                                
+                                ExploreRow(title: "Famous Venues", status: viewModel.famousVenuesResponse.status, data: viewModel.famousVenues, contentType: ExploreContentType.venue) {
+                                    await viewModel.getFamousVenues()
+                                }
                             }
                             
                         }
