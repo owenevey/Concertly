@@ -6,6 +6,7 @@ class PlaceViewModel: TripViewModelProtocol {
     
     @Published var tripStartDate: Date
     @Published var tripEndDate: Date
+    @Published var placeDetailsResponse: ApiResponse<PlaceDetailsResponse> = ApiResponse<PlaceDetailsResponse>()
     @Published var flightsResponse: ApiResponse<FlightsResponse> = ApiResponse<FlightsResponse>()
     @Published var hotelsResponse: ApiResponse<HotelsResponse> = ApiResponse<HotelsResponse>()
     @Published var flightsPrice: Int = 0
@@ -18,32 +19,54 @@ class PlaceViewModel: TripViewModelProtocol {
         let calendar = Calendar.current
         self.tripStartDate = calendar.date(byAdding: .day, value: -1, to: Date()) ?? Date()
         self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: Date()) ?? Date()
-        self.cityName = place.cityName
     }
-
+    
     
     var totalPrice: Int {
         hotelsPrice + flightsPrice
     }
     
-    func getDepartingFlights() async {
-        self.flightsResponse = ApiResponse(status: .loading)
+    func getPlaceDetails() async {
+        self.placeDetailsResponse = ApiResponse(status: .loading)
         
         do {
-            let fetchedFlights = try await fetchDepartureFlights(lat: place.latitude,
-                                                                 long: place.longitude,
-                                                                 fromAirport: homeAirport,
-                                                                 fromDate: tripStartDate.traditionalFormat(),
-                                                                 toDate: tripEndDate.traditionalFormat())
+            let fetchedDetails = try await fetchDestinationDetails(destinationId: place.name)
             
             withAnimation(.easeInOut) {
-                self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
-                self.flightsPrice = fetchedFlights.bestFlights.first?.price ?? 0
+                self.placeDetailsResponse = ApiResponse(status: .success, data: fetchedDetails)
             }
             
+            await self.getDepartingFlights()
+            await self.getHotels()
+            
         } catch {
-            print("Error fetching flights: \(error)")
-            self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            print("Error fetching place details: \(error)")
+            self.placeDetailsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+        }
+    }
+    
+    func getDepartingFlights() async {
+        if let placeDetails = placeDetailsResponse.data?.placeDetails {
+            
+            
+            self.flightsResponse = ApiResponse(status: .loading)
+            
+            do {
+                let fetchedFlights = try await fetchDepartureFlights(lat: placeDetails.latitude,
+                                                                     long: placeDetails.longitude,
+                                                                     fromAirport: homeAirport,
+                                                                     fromDate: tripStartDate.traditionalFormat(),
+                                                                     toDate: tripEndDate.traditionalFormat())
+                
+                withAnimation(.easeInOut) {
+                    self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
+                    self.flightsPrice = fetchedFlights.bestFlights.first?.price ?? 0
+                }
+                
+            } catch {
+                print("Error fetching flights: \(error)")
+                self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
         }
     }
     

@@ -15,7 +15,7 @@ struct PlaceCard: View {
         }
         label: {
             VStack(alignment: .leading, spacing: 0) {                
-                ImageLoader(url: place.images[0], contentMode: .fill)
+                ImageLoader(url: place.imageUrl, contentMode: .fill)
                     .frame(width: 250, height: 150)
                     .clipped()
                 
@@ -31,7 +31,7 @@ struct PlaceCard: View {
 //                        .minimumScaleFactor(0.75)
                         .lineLimit(1)
                     
-                    Text(place.shortDescription)
+                    Text(place.description)
                         .font(.system(size: 16, type: .Regular))
                         .foregroundStyle(.gray3)
 //                        .minimumScaleFactor(0.75)

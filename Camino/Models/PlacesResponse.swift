@@ -7,22 +7,14 @@ struct PlacesResponse: Codable {
 struct Place: Codable, Identifiable {
     var id = UUID()
     let name: String
-    let shortDescription: String
-    let longDescription: String
-    let images: [String]
-    let cityName: String
+    let description: String
+    let imageUrl: String
     let countryName: String
-    let latitude: Double
-    let longitude: Double
     
     private enum CodingKeys: String, CodingKey {
         case name,
-             shortDescription,
-             longDescription,
-             images,
-             cityName,
-             countryName,
-             latitude,
-             longitude
+             description,
+             imageUrl,
+             countryName
     }
 }

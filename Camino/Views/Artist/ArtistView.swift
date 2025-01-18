@@ -120,7 +120,7 @@ struct ArtistView: View {
                                         ConcertView(concert: concert)
                                             .navigationBarHidden(true)
                                     } label: {
-                                        ConcertRow(concert: concert)
+                                        ConcertRow(concert: concert, screen: "artist")
                                     }
                                     .buttonStyle(PlainButtonStyle())
                                 }
@@ -191,48 +191,4 @@ struct ArtistView: View {
 }
 
 
-struct ConcertRow: View {
-    
-    var concert: Concert
-    
-    var body: some View {
-        HStack(spacing: 15) {
-            VStack {
-                Text(concert.dateTime.dayNumber())
-                    .font(.system(size: 23, type: .Medium))
-                Text(concert.dateTime.shortMonthFormat())
-                    .font(.system(size: 16, type: .Medium))
-                    .foregroundStyle(.gray3)
-            }
-            .frame(width: 60, height: 60)
-            .background(Color.background)
-            .cornerRadius(10)
-            
-            VStack {
-                Text(concert.cityName)
-                    .font(.system(size: 18, type: .Medium))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.75)
-                
-                Text(concert.venueName)
-                    .font(.system(size: 16, type: .Medium))
-                    .foregroundStyle(.gray)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.9)
-            }
-            
-            Image(systemName: "chevron.right")
-                .font(.system(size: 15))
-                .fontWeight(.semibold)
-                .padding(.trailing)
-            
-            
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(5)
-        .background(Color.gray1)
-        .cornerRadius(15)
-    }
-}
+

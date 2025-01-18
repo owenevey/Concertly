@@ -9,7 +9,7 @@ func fetchData<T: Decodable>(endpoint: String, dateDecodingStrategy: JSONDecoder
     
     let (data, response) = try await URLSession.shared.data(from: url)
     
-    if endpoint.contains("venueDetails") {
+    if endpoint.contains("artistSearch") {
         print(response)
         if let rawData = String(data: data, encoding: .utf8) {
             print("Raw Response: \(rawData)")
@@ -132,6 +132,12 @@ func fetchCitySearchResults(query: String) async throws -> CitySearchResponse {
 func fetchPopularDestination() async throws -> PlacesResponse {
     let endpoint = "\(baseUrl)/popularDestinations"
     let response: PlacesResponse = try await fetchData(endpoint: endpoint)
+    return response
+}
+
+func fetchDestinationDetails(destinationId: String) async throws -> PlaceDetailsResponse {
+    let endpoint = "\(baseUrl)/destinationDetails?id=\(destinationId)"
+    let response: PlaceDetailsResponse = try await fetchData(endpoint: endpoint)
     return response
 }
 

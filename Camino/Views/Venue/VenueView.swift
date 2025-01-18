@@ -73,27 +73,30 @@ struct VenueView: View {
                         
                         
                         
-//                        VStack(spacing: 10) {
-//                            if artistDetails.concerts.isEmpty {
-//                                Text("No Upcoming Concerts")
-//                                    .font(.system(size: 20, type: .Medium))
-//                                    .frame(maxWidth: .infinity, alignment: .center)
-//                                    .padding(.vertical, 20)
-//                            } else {
-//                                Text("Upcoming Concerts")
-//                                    .font(.system(size: 23, type: .SemiBold))
-//                                    .frame(maxWidth: .infinity, alignment: .leading)
-//                                ForEach(artistDetails.concerts) { concert in
-//                                    NavigationLink{
-//                                        ConcertView(concert: concert)
-//                                            .navigationBarHidden(true)
-//                                    } label: {
-//                                        ConcertRow(concert: concert)
-//                                    }
-//                                    .buttonStyle(PlainButtonStyle())
-//                                }
-//                            }
-//                        }
+                        VStack(spacing: 10) {
+                            if venueDetails.concerts.isEmpty {
+                                Text("No Upcoming Concerts")
+                                    .font(.system(size: 20, type: .Medium))
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .padding(.vertical, 20)
+                            } else {
+                                Text("Upcoming Concerts")
+                                    .font(.system(size: 23, type: .SemiBold))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                ForEach(venueDetails.concerts) { concert in
+                                    NavigationLink{
+                                        ConcertView(concert: concert)
+                                            .navigationBarHidden(true)
+                                    } label: {
+                                        ConcertRow(concert: concert, screen: "venue")
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                        }
+                        
+                        MapCard(addressToSearch: venueDetails.address, latitude: venueDetails.latitude, longitude: venueDetails.longitude, name: venueDetails.cityName, generalLocation: venueDetails.countryName)
+                            .padding(.vertical, 10)
 
                     }
                     .padding(15)
@@ -115,54 +118,7 @@ struct VenueView: View {
 
 #Preview {
     NavigationStack {
-        ArtistView(artistID: "K8vZ9171r37")
+        VenueView(venueId: "KovZpZA7AAEA")
             .navigationBarHidden(true)
     }
 }
-
-
-//struct ConcertRow: View {
-//    
-//    var concert: Concert
-//    
-//    var body: some View {
-//        HStack(spacing: 15) {
-//            VStack {
-//                Text(concert.dateTime.dayNumber())
-//                    .font(.system(size: 23, type: .Medium))
-//                Text(concert.dateTime.shortMonthFormat())
-//                    .font(.system(size: 16, type: .Medium))
-//                    .foregroundStyle(.gray3)
-//            }
-//            .frame(width: 60, height: 60)
-//            .background(Color.background)
-//            .cornerRadius(10)
-//            
-//            VStack {
-//                Text(concert.cityName)
-//                    .font(.system(size: 18, type: .Medium))
-//                    .frame(maxWidth: .infinity, alignment: .leading)
-//                    .lineLimit(1)
-//                    .minimumScaleFactor(0.75)
-//                
-//                Text(concert.venueName)
-//                    .font(.system(size: 16, type: .Medium))
-//                    .foregroundStyle(.gray)
-//                    .frame(maxWidth: .infinity, alignment: .leading)
-//                    .lineLimit(1)
-//                    .minimumScaleFactor(0.9)
-//            }
-//            
-//            Image(systemName: "chevron.right")
-//                .font(.system(size: 15))
-//                .fontWeight(.semibold)
-//                .padding(.trailing)
-//            
-//            
-//        }
-//        .frame(maxWidth: .infinity, alignment: .leading)
-//        .padding(5)
-//        .background(Color.gray1)
-//        .cornerRadius(15)
-//    }
-//}
