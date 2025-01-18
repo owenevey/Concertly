@@ -5,13 +5,13 @@ struct CaminoSearchBar<Content: View>: View {
     let content: () -> Content
     
     var body: some View {
-        RoundedRectangle(cornerRadius: 25)
-            .fill(.gray1)
-            .frame(maxWidth: .infinity)
-            .frame(height: 50)
-            .overlay(
-                content()
-                    .padding()
+        content()
+            .padding(.vertical, 12)
+            .padding(.horizontal, 15)
+            .background(
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(.gray1)
+                    .frame(maxWidth: .infinity)
             )
     }
 }
@@ -25,4 +25,5 @@ struct CaminoSearchBar<Content: View>: View {
                 .padding(.trailing)
         }
     })
+    .padding()
 }

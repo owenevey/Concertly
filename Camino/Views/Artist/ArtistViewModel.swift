@@ -19,7 +19,7 @@ class ArtistViewModel: ObservableObject {
         do {
             let fetchedDetails = try await fetchArtistDetails(artistId: artistID)
             
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.1)) {
                 self.artistDetailsResponse = ApiResponse(status: .success, data: fetchedDetails)
             }
             

@@ -21,10 +21,9 @@ struct SortFlights: View {
                                 .foregroundStyle(.accent)
                             
                             Text(method.title)
-                                .font(.system(size: 16, type: .Regular))
-                            
-                            Spacer()
+                                .font(.system(size: 17, type: .Regular))
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.vertical, 2)
                         .contentShape(Rectangle())
                     }
@@ -37,12 +36,8 @@ struct SortFlights: View {
                     }
                 }
             }
-            .padding(.vertical, 10)
         }
     }
-    
-    
-    
 }
 
 #Preview {

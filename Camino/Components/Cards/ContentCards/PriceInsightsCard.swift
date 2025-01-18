@@ -5,6 +5,8 @@ struct PriceInsightsCard: View {
     var insights: PriceInsights
     @State private var showPriceHistorySheet = false
     
+    @State var detentHeight: CGFloat = 400
+    
     var advice: String {
         if insights.priceLevel == "high" {
             return "Wait"
@@ -29,6 +31,7 @@ struct PriceInsightsCard: View {
             HStack(spacing: 10) {
                 Image(systemName: advice == "Buy" ? "chart.line.uptrend.xyaxis" : "chart.line.downtrend.xyaxis")
                     .foregroundStyle(color)
+                    .fontWeight(.semibold)
                 HStack(spacing: 5) {
                     Text("Our advice:")
                         .font(.system(size: 18, type: .Medium))
@@ -36,8 +39,11 @@ struct PriceInsightsCard: View {
                         .font(.system(size: 18, type: .Medium))
                         .foregroundStyle(color)
                 }
+                
                 Spacer()
+                
                 Image(systemName: "info.circle")
+                    .fontWeight(.semibold)
             }
             .padding(20)
             .frame(maxWidth: .infinity)
@@ -49,7 +55,13 @@ struct PriceInsightsCard: View {
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .sheet(isPresented: $showPriceHistorySheet) {
                 PriceHistorySheet(insights: insights)
-                    .presentationDetents([.height(470)])
+                    .readHeight()
+                    .onPreferenceChange(BottomSheetHeightPreferenceKey.self) { height in
+                        if let height {
+                            self.detentHeight = height
+                        }
+                    }
+                    .presentationDetents([.height(self.detentHeight)])
                     .background(Color.background)
             }
         }
@@ -127,7 +139,9 @@ struct PriceInsightsCard: View {
         ]
     )
     
-    PriceInsightsCard(insights: examplePriceInsights)
-        .padding()
+    NavigationStack {
+        PriceInsightsCard(insights: examplePriceInsights)
+            .padding()
+    }
 }
 

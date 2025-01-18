@@ -99,8 +99,9 @@ final class FlightsViewModel: ObservableObject {
         let allFlights = data.bestFlights + data.otherFlights
         return allFlights
             .filter { flightItem in
-                guard let firstFlight = flightItem.flights.first else { return false }
-                return airlineFilter[firstFlight.airline]?.isEnabled == true
+                return flightItem.flights.allSatisfy { flight in
+                        airlineFilter[flight.airline]?.isEnabled == true
+                    }
             }
             .filter {
                 switch stopsFilter {
@@ -159,7 +160,7 @@ final class FlightsViewModel: ObservableObject {
     }
     
     func getDepartingFlights() async {
-        withAnimation(.easeInOut) {
+        withAnimation(.easeInOut(duration: 0.3)) {
             self.departingFlight = nil
             self.flightsResponse = ApiResponse(status: .loading)
             self.resetFilters()
@@ -171,14 +172,14 @@ final class FlightsViewModel: ObservableObject {
                                                                  toAirport: toAirport,
                                                                  fromDate: fromDate.traditionalFormat(),
                                                                  toDate: toDate.traditionalFormat())
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.3)) {
                 self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
                 self.priceInsights = fetchedFlights.priceInsights
                 self.resetFilters()
             }
         } catch {
             print("Error fetching flights: \(error)")
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.3)) {
                 self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
                 self.resetFilters()
             }
@@ -186,13 +187,13 @@ final class FlightsViewModel: ObservableObject {
     }
     
     func getReturningFlights() async {
-        withAnimation(.easeInOut) {
+        withAnimation(.easeInOut(duration: 0.3)) {
             self.flightsResponse = ApiResponse(status: .loading)
             self.resetFilters()
         }
         
         do {
-            try await Task.sleep(nanoseconds: 1 * 1_000_000_000)
+            try await Task.sleep(nanoseconds: 3 * 1_000_000_000)
             guard let departureToken = departingFlight?.departureToken else {
                 throw CaminoError.missingDepartureToken
             }
@@ -202,13 +203,13 @@ final class FlightsViewModel: ObservableObject {
                                                               fromDate: fromDate.traditionalFormat(),
                                                               toDate: toDate.traditionalFormat(), departureToken: departureToken)
             
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.3)) {
                 self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
                 self.resetFilters()
             }
         } catch {
             print("Error fetching flights: \(error)")
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.3)) {
                 self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
                 self.resetFilters()
             }

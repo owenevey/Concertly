@@ -25,20 +25,20 @@ class CitySearchViewModel: ObservableObject {
     }
     
     func getSuggestedCities() async {
-        withAnimation(.easeInOut) {
+        withAnimation(.easeInOut(duration: 0.1)) {
             self.citiesResponse = ApiResponse(status: .loading)
         }
     
         do {
             let fetchedCities = try await fetchCitySearchResults(query: searchQuery)
             
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.1)) {
                 self.citiesResponse = ApiResponse(status: .success, data: fetchedCities)
             }
             
         } catch {
             print("Error fetching cities: \(error)")
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.1)) {
                 self.citiesResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
             

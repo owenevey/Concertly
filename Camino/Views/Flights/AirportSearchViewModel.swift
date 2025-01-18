@@ -25,23 +25,22 @@ class AirportSearchViewModel: ObservableObject {
     }
     
     func getSuggestedAirports() async {
-        withAnimation(.easeInOut) {
+        withAnimation(.easeInOut(duration: 0.1)) {
             self.airportsResponse = ApiResponse(status: .loading)
         }
     
         do {
             let fetchedAirports = try await fetchAirportSearchResults(query: searchQuery)
             
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.1)) {
                 self.airportsResponse = ApiResponse(status: .success, data: fetchedAirports)
             }
             
         } catch {
             print("Error fetching airports: \(error)")
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.1)) {
                 self.airportsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
-            
         }
     }
 }

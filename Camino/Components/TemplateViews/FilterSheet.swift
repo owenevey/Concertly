@@ -10,7 +10,7 @@ struct FilterSheet<T, Content: View>: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        VStack {
+        VStack(spacing: 15) {
             Text(title)
                 .font(.system(size: 20, type: .SemiBold))
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -28,7 +28,7 @@ struct FilterSheet<T, Content: View>: View {
                 }
                 
             }
-            .padding(.top, 15)
+            .padding(.top, 10)
         }
         .padding(15)
     }

@@ -2,7 +2,22 @@ import SwiftUI
 
 struct PriceHistorySheet: View {
     
+    @Environment(\.dismiss) var dismiss
+    
     var insights: PriceInsights
+    
+    var color: Color {
+        if insights.priceLevel == "high" {
+            return Color.orange
+        } else {
+            return Color.green
+        }
+    }
+    
+    var smoothedPriceHistory: [[Int]] {
+        let windowSize = 10
+        return movingAverage(insights.priceHistory, windowSize: windowSize)
+    }
     
     var body: some View {
         VStack {
@@ -11,26 +26,48 @@ struct PriceHistorySheet: View {
                     .font(.system(size: 20, type: .SemiBold))
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Text("Current Level: \(insights.priceLevel.capitalized)")
-                    .font(.system(size: 16, type: .Regular))
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                HStack(spacing: 5) {
+                    Text("Current Level:")
+                        .font(.system(size: 17, type: .Regular))
+                    
+                    Text(insights.priceLevel.capitalized)
+                        .font(.system(size: 17, type: .Regular))
+                        .foregroundStyle(color)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text("Typical Price Range: \(insights.typicalPriceRange[0].asDollarString) - \(insights.typicalPriceRange[1].asDollarString)")
-                    .font(.system(size: 16, type: .Regular))
+                    .font(.system(size: 17, type: .Regular))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             
-            Spacer()
-            PriceGraph(prices: insights.priceHistory)
+            PriceGraph(prices: smoothedPriceHistory)
                 .padding(5)
                 .padding(.bottom, 10)
-            Spacer()
             
+            CaminoButton(label: "Done") {
+                dismiss()
+            }
+            .padding(.top, 10)
         }
         .padding(15)
-        
         .background(Color.background)
     }
+}
+
+func movingAverage(_ data: [[Int]], windowSize: Int) -> [[Int]] {
+    var smoothedData: [[Int]] = []
+    
+    for i in 0..<data.count {
+        let start = max(0, i - windowSize + 1)
+        let end = min(data.count, i + 1)
+        let window = data[start..<end]
+        
+        let avgPrice = window.map { $0[1] }.reduce(0, +) / window.count
+        smoothedData.append([data[i][0], avgPrice])
+    }
+    
+    return smoothedData
 }
 
 #Preview {

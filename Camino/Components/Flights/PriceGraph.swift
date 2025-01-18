@@ -27,26 +27,26 @@ struct PriceGraph: View {
                     y: .value("Price", item.animate ? item.price : 0)
                 )
                 .foregroundStyle(.accent.gradient)
-                .interpolationMethod(.catmullRom)
+                .interpolationMethod(.monotone)
                 
                 AreaMark(
                     x: .value("Date", Date(timeIntervalSince1970: item.date)),
                     y: .value("Price", item.animate ? item.price : 0)
                 )
                 .foregroundStyle(.accent.opacity(0.1).gradient)
-                .interpolationMethod(.catmullRom)
+                .interpolationMethod(.monotone)
             }
         }
         .chartYScale(domain: 0...(maxPrice + 100))
         .chartYAxis {
-                    AxisMarks(position: .leading) { value in
-                        AxisValueLabel {
-                            if let intValue = value.as(Int.self) {
-                                Text("$\(intValue)")
-                            }
-                        }
+            AxisMarks(position: .leading) { value in
+                AxisValueLabel {
+                    if let intValue = value.as(Int.self) {
+                        Text("$\(intValue)")
                     }
                 }
+            }
+        }
         .chartXAxis(.hidden)
         .frame(height: 300)
         .onAppear {

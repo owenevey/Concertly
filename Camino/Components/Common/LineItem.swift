@@ -46,7 +46,7 @@ struct LineItem<T: TripViewModelProtocol>: View {
             }
         }
         .onChange(of: status) { oldStatus, newStatus in
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.1)) {
                 currentStatus = newStatus
             }
         }

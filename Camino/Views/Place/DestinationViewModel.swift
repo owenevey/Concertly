@@ -32,7 +32,7 @@ class DestinationViewModel: TripViewModelProtocol {
         do {
             let fetchedDetails = try await fetchDestinationDetails(destinationId: destination.name)
             
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.1)) {
                 self.destinationDetailsResponse = ApiResponse(status: .success, data: fetchedDetails)
             }
             
@@ -58,7 +58,7 @@ class DestinationViewModel: TripViewModelProtocol {
                                                                      fromDate: tripStartDate.traditionalFormat(),
                                                                      toDate: tripEndDate.traditionalFormat())
                 
-                withAnimation(.easeInOut) {
+                withAnimation(.easeInOut(duration: 0.1)) {
                     self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
                     self.flightsPrice = fetchedFlights.bestFlights.first?.price ?? 0
                 }
@@ -77,7 +77,7 @@ class DestinationViewModel: TripViewModelProtocol {
             let fetchedHotels = try await fetchHotels(location: destination.name,
                                                       fromDate: tripStartDate.traditionalFormat(),
                                                       toDate: tripEndDate.traditionalFormat())
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.1)) {
                 self.hotelsResponse = ApiResponse(status: .success, data: fetchedHotels)
                 self.hotelsPrice = fetchedHotels.properties.first?.totalRate.extractedLowest ?? 0
             }

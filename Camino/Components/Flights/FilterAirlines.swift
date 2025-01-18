@@ -9,10 +9,10 @@ struct FilterAirlines: View {
     }
     
     var defaultFilter: [String: (imageURL: String, isEnabled: Bool)] {
-            airlines.mapValues { (imageURL, _) in
-                (imageURL, true)
-            }
+        airlines.mapValues { (imageURL, _) in
+            (imageURL, true)
         }
+    }
     
     @Environment(\.dismiss) var dismiss
     
@@ -31,10 +31,9 @@ struct FilterAirlines: View {
                             .foregroundStyle(.accent)
                         
                         Text("Select all")
-                            .font(.system(size: 16, type: .Regular))
-                        
-                        Spacer()
+                            .font(.system(size: 17, type: .Regular))
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.vertical, 2)
                     .contentShape(Rectangle())
                 }
@@ -59,15 +58,21 @@ struct FilterAirlines: View {
                                 .fill(.white)
                                 .frame(width: 35, height: 35)
                                 .overlay(
-                                    ImageLoader(url: airlines[airline]!.imageURL, contentMode: .fit)
-                                        .frame(width: 20, height: 20)
+                                    Group {
+                                        if let url = airlines[airline]?.imageURL {
+                                            ImageLoader(url: url, contentMode: .fit)
+                                                .frame(width: 20, height: 20)
+                                        } else {
+                                            Color.clear
+                                                .frame(width: 20, height: 20)
+                                        }
+                                    }
                                 )
                             
                             Text(airline)
-                                .font(.system(size: 16, type: .Regular))
-                            
-                            Spacer()
+                                .font(.system(size: 17, type: .Regular))
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.vertical, 2)
                         .contentShape(Rectangle())
                     }
@@ -80,13 +85,8 @@ struct FilterAirlines: View {
                     }
                 }
             }
-            .padding(.vertical, 10)
-            
         }
     }
-    
-    
-    
 }
 
 #Preview {

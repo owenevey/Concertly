@@ -22,7 +22,7 @@ struct FlightsView<T: TripViewModelProtocol>: View {
     var body: some View {
         HidingHeaderView (
             header: {
-                FlightsHeader(fromDate: $viewModel.fromDate, toDate: $viewModel.toDate, fromAirport: $viewModel.fromAirport, toAirport: $viewModel.toAirport)
+                FlightsHeader(fromAirport: $viewModel.fromAirport, toAirport: $viewModel.toAirport, fromDate: $viewModel.fromDate, toDate: $viewModel.toDate)
             },
             filtersBar: {
                 FlightsFiltersBar(sortMethod: $viewModel.sortFlightsMethod, airlines: $viewModel.airlineFilter, stopsFilter: $viewModel.stopsFilter, priceFilter: $viewModel.priceFilter, flightPrices: viewModel.flightPrices, durationFilter: $viewModel.durationFilter, flightDurations: viewModel.flightDurations, timeFilter: $viewModel.arrivalTimeFilter, flightTimes: viewModel.flightArrivalTimes)
@@ -59,7 +59,7 @@ struct FlightsView<T: TripViewModelProtocol>: View {
     }
     
     private var mainContent: some View {
-        VStack(spacing: 15) {
+        LazyVStack(spacing: 15) {
             if viewModel.flightsResponse.status == .success || viewModel.departingFlight != nil {
                 if let prices = viewModel.priceInsights {
                     PriceInsightsCard(insights: prices)
@@ -74,15 +74,15 @@ struct FlightsView<T: TripViewModelProtocol>: View {
                             .font(.system(size: 18, type: .SemiBold))
                         
                         Button {
-                            withAnimation(.easeInOut) {
+                            withAnimation(.easeInOut(duration: 0.3)) {
                                 viewModel.departingFlight = nil
                             }
                         } label: {
                             Text("Remove")
                                 .font(.system(size: 16, type: .Regular))
                         }
-                        Spacer()
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
                     FlightCard(flightItem: departingFlight)
                         .shadow(color: .black.opacity(0.05), radius: 5)
@@ -93,6 +93,7 @@ struct FlightsView<T: TripViewModelProtocol>: View {
                     Text("Returning Flights")
                         .font(.system(size: 18, type: .SemiBold))
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 5)
                 }
                 else {
                     Text("Departing Flights")
@@ -112,6 +113,7 @@ struct FlightsView<T: TripViewModelProtocol>: View {
                     VStack(spacing: 10) {
                         Image(systemName: "airplane.departure")
                             .font(.system(size: 20))
+                            .fontWeight(.semibold)
                         
                         Text("No flights")
                             .font(.system(size: 18, type: .Regular))
@@ -181,7 +183,8 @@ struct FlightsView<T: TripViewModelProtocol>: View {
 }
 
 #Preview {
-    let tripViewModel = ConcertViewModel(concert: hotConcerts[0])
-    
-    FlightsView(tripViewModel: tripViewModel)
+    NavigationStack {
+        ConcertView(concert: hotConcerts[0])
+            .navigationBarHidden(true)
+    }
 }

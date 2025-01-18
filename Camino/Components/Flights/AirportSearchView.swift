@@ -17,6 +17,7 @@ struct AirportSearchView: View {
                 }
                 label: {
                     Image(systemName: "xmark")
+                        .fontWeight(.semibold)
                 }
                 .buttonStyle(PlainButtonStyle())
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -40,60 +41,66 @@ struct AirportSearchView: View {
                         .padding(.trailing)
                 }
             })
-            .padding(.top)
+            .padding(.top, 10)
             .padding(.bottom, 20)
             
-            
-            switch viewModel.airportsResponse.status {
-            case .success:
-                if let airports = viewModel.airportsResponse.data?.suggestedAirports {
-                    
-                    VStack(spacing: 20) {
-                        ForEach(airports, id: \.code) { airportResult in
-                            Button {
-                                airportCode = airportResult.code
-                                dismiss()
-                            }
-                            label: {
-                                HStack(spacing: 0) {
-                                    Image(systemName: "airplane")
-                                        .font(.system(size: 20))
-                                        .padding(.horizontal, 20)
-                                    
-                                    VStack(alignment: .leading) {
-                                        Text(airportResult.name)
-                                            .font(.system(size: 18, type: .Medium))
-                                        Text("\(airportResult.city), \(airportResult.country)")
-                                            .font(.system(size: 16, type: .Regular))
-                                            .foregroundStyle(.gray3)
-                                    }
-                                    
-                                    Spacer()
-                                    
-                                    Text(airportResult.code)
-                                        .font(.system(size: 18, type: .Medium))
-                                        .padding(.horizontal, 20)
+            ScrollView(showsIndicators: false) {
+                switch viewModel.airportsResponse.status {
+                case .success:
+                    if let airports = viewModel.airportsResponse.data?.suggestedAirports {
+                        
+                        VStack(spacing: 20) {
+                            ForEach(airports, id: \.code) { airportResult in
+                                Button {
+                                    airportCode = airportResult.code
+                                    dismiss()
                                 }
-                                .contentShape(Rectangle())
+                                label: {
+                                    HStack(spacing: 0) {
+                                        Image(systemName: "airplane")
+                                            .font(.system(size: 20))
+                                            .padding(.horizontal, 20)
+                                        
+                                        VStack(alignment: .leading) {
+                                            Text(airportResult.name)
+                                                .font(.system(size: 18, type: .Medium))
+                                            Text("\(airportResult.city), \(airportResult.country)")
+                                                .font(.system(size: 16, type: .Regular))
+                                                .foregroundStyle(.gray3)
+                                        }
+                                        
+                                        Spacer()
+                                        
+                                        Text(airportResult.code)
+                                            .font(.system(size: 18, type: .Medium))
+                                            .padding(.horizontal, 20)
+                                    }
+                                    .contentShape(Rectangle())
+                                }
+                                .buttonStyle(PlainButtonStyle())
                             }
-                            .buttonStyle(PlainButtonStyle())
                         }
+                        .frame(maxWidth: .infinity)
+                        .transition(.opacity)
                     }
-                    .transition(.opacity)
+                case .loading:
+                    LoadingView()
+                        .frame(height: 250)
+                        .frame(maxWidth: .infinity)
+                        .transition(.opacity)
+                case .error:
+                    ErrorView(text: "Error fetching airports", action: { await viewModel.getSuggestedAirports() })
+                        .frame(height: 250)
+                        .frame(maxWidth: .infinity)
+                        .transition(.opacity)
+                default:
+                    EmptyView()
+                        .frame(maxWidth: .infinity)
+                        .transition(.opacity)
                 }
-            case .loading:
-                LoadingView()
-                    .frame(height: 250)
-                    .transition(.opacity)
-            case .error:
-                ErrorView(text: "Error fetching airports", action: { await viewModel.getSuggestedAirports() })
-                    .frame(height: 250)
-                    .transition(.opacity)
-            default:
-                EmptyView()
-                    .transition(.opacity)
+                Spacer()
             }
-            Spacer()
+            .frame(maxWidth: .infinity)
         }
         .padding(15)
         .background(Color.background)

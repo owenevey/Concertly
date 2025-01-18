@@ -2,10 +2,10 @@ import SwiftUI
 
 struct FlightsHeader: View {
     
-    @Binding var fromDate: Date
-    @Binding var toDate: Date
     @Binding var fromAirport: String
     @Binding var toAirport: String
+    @Binding var fromDate: Date
+    @Binding var toDate: Date
     
     let calendar = Calendar.current
     
@@ -32,6 +32,7 @@ struct FlightsHeader: View {
                     HStack(spacing: 5) {
                         Image(systemName: "pencil")
                             .font(.system(size: 16))
+                            .fontWeight(.semibold)
                         
                         Text("Edit")
                             .font(.system(size: 16, type: .Medium))
@@ -43,7 +44,7 @@ struct FlightsHeader: View {
         .frame(height: 60)
         .background(Color.foreground)
         .sheet(isPresented: $presentSheet) {
-            EditFlightsSearch(fromDate: $fromDate, toDate: $toDate, fromAirport: $fromAirport, toAirport: $toAirport)
+            EditFlightsSearch(fromAirport: $fromAirport, toAirport: $toAirport, fromDate: $fromDate, toDate: $toDate)
                 .readHeight()
                 .onPreferenceChange(BottomSheetHeightPreferenceKey.self) { height in
                     if let height {
@@ -99,10 +100,10 @@ struct FlightsHeader: View {
     VStack {
         Spacer()
         FlightsHeader(
-            fromDate: .constant(fromDate),
-            toDate: .constant(toDate),
             fromAirport: .constant(fromAirport),
-            toAirport: .constant(toAirport)
+            toAirport: .constant(toAirport),
+            fromDate: .constant(fromDate),
+            toDate: .constant(toDate)
         )
         Spacer()
     }

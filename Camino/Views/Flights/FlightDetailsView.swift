@@ -10,44 +10,30 @@ struct FlightDetailsView: View {
     @Binding var returningFlight: FlightItem?
     
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 15) {
+        
+        VStack(spacing: 0) {
+            VStack {
                 HStack {
+                    let uniqueAirlines = Array(Set(flightItem.flights.map { $0.airlineLogo }))
+                    
+                    ForEach(0..<uniqueAirlines.count, id: \.self) { index in
+                        Circle()
+                            .fill(.white)
+                            .frame(width: 45, height: 45)
+                            .overlay(
+                                ImageLoader(url: uniqueAirlines[index], contentMode: .fit)
+                                    .frame(width: 25, height: 25)
+                                    .clipped()
+                            )
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                
+                HStack(alignment: .bottom) {
                     VStack(alignment: .leading) {
-                        HStack {
-                            if flightItem.flights.count > 1 && flightItem.flights[0].airline != flightItem.flights[1].airline {
-                                Circle()
-                                    .fill(.white)
-                                    .frame(width: 50, height: 50)
-                                    .overlay(
-                                        ImageLoader(url: flightItem.flights[0].airlineLogo, contentMode: .fit)
-                                            .frame(width: 30, height: 30)
-                                            .clipped()
-                                    )
-                                
-                                Circle()
-                                    .fill(.white)
-                                    .frame(width: 50, height: 50)
-                                    .overlay (
-                                        ImageLoader(url: flightItem.flights[1].airlineLogo, contentMode: .fit)
-                                            .frame(width: 30, height: 30)
-                                            .clipped()
-                                    )
-                            } else {
-                                Circle()
-                                    .fill(.white)
-                                    .frame(width: 50, height: 50)
-                                    .overlay(
-                                        ImageLoader(url: flightItem.flights.first?.airlineLogo ?? "", contentMode: .fit)
-                                            .frame(width: 30, height: 30)
-                                            .clipped()
-                                    )
-                            }
-                            
-                        }
                         
                         Text("\(flightItem.flights.first?.departureAirport.id ?? "") - \(flightItem.flights.last?.arrivalAirport.id ?? "")")
-                            .font(.system(size: 24, type: .SemiBold))
+                            .font(.system(size: 23, type: .SemiBold))
                         
                         Text(flightItem.flights.first?.departureAirport.time.mediumFormat() ?? "")
                             .font(.system(size: 18, type: .Regular))
@@ -55,87 +41,95 @@ struct FlightDetailsView: View {
                     
                     Spacer()
                     
-                    VStack {
-                        Spacer()
-                        Text(flightItem.price, format: .currency(code: "USD").precision(.fractionLength(0)))
-                            .font(.system(size: 24, type: .Medium))
-                    }
+                    Text(flightItem.price, format: .currency(code: "USD").precision(.fractionLength(0)))
+                        .font(.system(size: 23, type: .Medium))
                 }
-                                
-                Divider()
-                    .frame(height: 2)
-                    .overlay(.gray2)
-                    .padding(.horizontal, -15)
-                
-                CaminoButton(label: departingFlight == flightItem ? "Remove" : "Select Flight") {
-                    if departingFlight == nil {
-                        departingFlight = flightItem
-                    } else if departingFlight == flightItem {
-                        departingFlight = nil
-                    } else {
-                        returningFlight = flightItem
-                    }
-                    
-                    dismiss()
-                }
-                
-                
-                                
-                Text("Itinerary")
-                    .font(.system(size: 20, type: .SemiBold))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                VStack(spacing: 20) {
-                    ForEach(flightItem.flights.indices, id: \.self) { index in
-                        FlightLeg(flight: flightItem.flights[index])
-                        
-                        if index < flightItem.layovers?.count ?? 0 {
-                            LayoverView(layover: flightItem.layovers![index])
-                        }
-                    }
-                }
-                .padding(.bottom, 10)
-                                
-                Text("Route Details")
-                    .font(.system(size: 20, type: .SemiBold))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                
-                VStack(alignment: .leading, spacing: 8) {
-                    HStack {
-                        Image(systemName: "clock.fill")
-                            .font(.system(size: 16))
-                            .frame(width: 20)
-                        Text("Total Duration: \(minsToHrMins(minutes: flightItem.totalDuration))")
-                            .font(.system(size: 16, type: .Regular))
-                    }
-                    
-                    HStack {
-                        Image(systemName: "airplane.departure")
-                            .font(.system(size: 16))
-                            .frame(width: 20)
-                        Text("Departure Airport:\n\(flightItem.flights.first!.departureAirport.name)")
-                            .font(.system(size: 16, type: .Regular))
-                    }
-                    
-                    HStack {
-                        Image(systemName: "airplane.arrival")
-                            .font(.system(size: 16))
-                            .frame(width: 20)
-                        Text("Arrival Airport:\n\(flightItem.flights.last!.arrivalAirport.name)")
-                            .font(.system(size: 16, type: .Regular))
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(15)
-                .background(
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.foreground)
-                        .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
-                )
-                .clipShape(RoundedRectangle(cornerRadius: 20))
             }
             .padding(15)
-            .padding(.top, 30)
+            
+            Divider()
+                .frame(height: 2)
+                .overlay(.gray2)
+                .padding(.horizontal, -15)
+            
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 15) {
+                    CaminoButton(label: departingFlight == flightItem ? "Remove" : "Select Flight") {
+                        if departingFlight == nil {
+                            departingFlight = flightItem
+                        } else if departingFlight == flightItem {
+                            departingFlight = nil
+                        } else {
+                            returningFlight = flightItem
+                        }
+                        
+                        dismiss()
+                    }
+                    
+                    VStack(spacing: 10) {
+                        Text("Itinerary")
+                            .font(.system(size: 20, type: .SemiBold))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        VStack(spacing: 15) {
+                            ForEach(flightItem.flights.indices, id: \.self) { index in
+                                FlightLeg(flight: flightItem.flights[index])
+                                
+                                if index < flightItem.layovers?.count ?? 0 {
+                                    LayoverView(layover: flightItem.layovers![index])
+                                }
+                            }
+                        }
+                    }
+                    
+                    VStack(spacing: 10) {
+                        Text("Route Details")
+                            .font(.system(size: 20, type: .SemiBold))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.top, 5)
+                        
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack {
+                                Image(systemName: "clock.fill")
+                                    .font(.system(size: 17))
+                                    .frame(width: 22)
+                                Text("Total Duration: \(minsToHrMins(minutes: flightItem.totalDuration))")
+                                    .font(.system(size: 17, type: .Regular))
+                            }
+                            
+                            if let departureAirport = flightItem.flights.first?.departureAirport.name {
+                                HStack {
+                                    Image(systemName: "airplane.departure")
+                                        .font(.system(size: 17))
+                                        .frame(width: 22)
+                                    Text("Departure Airport:\n\(departureAirport)")
+                                        .font(.system(size: 17, type: .Regular))
+                                }
+                            }
+                            
+                            if let arrivalAirport = flightItem.flights.last?.arrivalAirport.name {
+                                HStack {
+                                    Image(systemName: "airplane.arrival")
+                                        .font(.system(size: 17))
+                                        .frame(width: 22)
+                                    Text("Arrival Airport:\n\(arrivalAirport)")
+                                        .font(.system(size: 17, type: .Regular))
+                                }
+                            }
+                            
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(15)
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.foreground)
+                                .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                    }
+                }
+                .padding(15)
+            }
         }
         .background(Color.background)
     }
@@ -148,10 +142,10 @@ struct LayoverView: View {
     var body: some View {
         HStack {
             Image(systemName: "clock.fill")
-                .font(.system(size: 16))
+                .font(.system(size: 17))
                 .foregroundStyle(.gray3)
             Text("\(minsToHrMins(minutes: layover.duration)) Layover at \(layover.id)")
-                .font(.system(size: 16, type: .Regular))
+                .font(.system(size: 17, type: .Regular))
                 .foregroundStyle(.gray3)
         }
     }
@@ -173,7 +167,6 @@ struct FlightLeg: View {
                             .frame(width: 25, height: 25)
                             .clipped()
                     )
-                
                 
                 VStack(alignment: .leading) {
                     Text(flight.airline)
@@ -200,7 +193,6 @@ struct FlightLeg: View {
                             .font(.system(size: 14, type: .Regular))
                     }
                 }
-                
                 
                 HStack(spacing: 5) {
                     Rectangle()
@@ -237,31 +229,29 @@ struct FlightLeg: View {
                 if let airplane = flight.airplane {
                     HStack {
                         Image(systemName: "airplane")
-                            .font(.system(size: 16))
-                            .frame(width: 20)
+                            .font(.system(size: 17))
+                            .frame(width: 22)
                         Text(airplane)
-                            .font(.system(size: 16, type: .Regular))
+                            .font(.system(size: 17, type: .Regular))
                     }
                 }
                 
                 HStack {
                     Image(systemName: "ticket.fill")
-                        .font(.system(size: 16))
-                        .frame(width: 20)
+                        .font(.system(size: 17))
+                        .frame(width: 22)
                     Text(flight.travelClass)
-                        .font(.system(size: 16, type: .Regular))
+                        .font(.system(size: 17, type: .Regular))
                 }
                 
                 HStack {
                     Image(systemName: "carseat.right.fill")
-                        .font(.system(size: 16))
-                        .frame(width: 20)
+                        .font(.system(size: 17))
+                        .frame(width: 22)
                     Text("\(flight.legroom) legroom")
-                        .font(.system(size: 16, type: .Regular))
+                        .font(.system(size: 17, type: .Regular))
                 }
             }
-            
-            
         }
         .padding(15)
         .background(
@@ -277,7 +267,7 @@ struct FlightLeg: View {
 #Preview {
     @Previewable @State var departingFlight: FlightItem? = nil
     @Previewable @State var returningFlight: FlightItem? = nil
-
+    
     let jsonData = """
     {
         "flights": [

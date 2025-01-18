@@ -25,20 +25,20 @@ class ExploreSearchViewModel: ObservableObject {
     }
     
     func getSuggestedArtists() async {
-        withAnimation(.easeInOut) {
+        withAnimation(.easeInOut(duration: 0.1)) {
             self.artistsResponse = ApiResponse(status: .loading)
         }
     
         do {
             let fetchedArtists = try await fetchArtistSearchResults(query: searchQuery)
             
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.1)) {
                 self.artistsResponse = ApiResponse(status: .success, data: fetchedArtists)
             }
             
         } catch {
             print("Error fetching search results: \(error)")
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.1)) {
                 self.artistsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
             

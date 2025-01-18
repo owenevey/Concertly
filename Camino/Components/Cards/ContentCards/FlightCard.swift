@@ -4,16 +4,6 @@ struct FlightCard: View {
     
     let flightItem: FlightItem
     
-    var layoverText: String {
-        if flightItem.flights.count == 1 {
-            return "Nonstop"
-        } else if flightItem.flights.count == 2 {
-            return "1 Layover"
-        } else {
-            return "\(flightItem.flights.count) Layovers"
-        }
-    }
-    
     var body: some View {
         VStack(spacing: 10) {
             HStack(alignment: .center) {
@@ -53,12 +43,18 @@ struct FlightCard: View {
                             .fill(.white)
                             .frame(width: 40, height: 40)
                             .overlay(
-                                ImageLoader(url: flightItem.flights.first?.airlineLogo ?? "", contentMode: .fit)
-                                    .frame(width: 25, height: 25)
-                                    .clipped()
+                                Group {
+                                    if let url = flightItem.flights.first?.airlineLogo {
+                                        ImageLoader(url: url, contentMode: .fit)
+                                            .frame(width: 25, height: 25)
+                                            .clipped()
+                                    } else {
+                                        Color.clear
+                                            .frame(width: 25, height: 25)
+                                    }
+                                }
                             )
                     }
-                    
                 }
                 .frame(width: 40, height: 40)
                 
@@ -92,9 +88,8 @@ struct FlightCard: View {
                             .font(.system(size: 14, type: .Regular))
                             .foregroundStyle(.gray3)
                     }
-                    Spacer()
                 }
-                
+                .frame(maxHeight: .infinity, alignment: .top)
             }
             .frame(height: 45)
             
@@ -111,7 +106,7 @@ struct FlightCard: View {
                         HStack(spacing: 5) {
                             Image(systemName: "arrow.up.right.circle.fill")
                                 .font(.system(size: 13))
-                            Text(flightItem.flights.first!.departureAirport.id)
+                            Text(flightItem.flights.first?.departureAirport.id ?? "")
                                 .font(.system(size: 14, type: .Regular))
                         }
                     }
@@ -143,7 +138,7 @@ struct FlightCard: View {
                         HStack(spacing: 5) {
                             Image(systemName: "arrow.down.right.circle.fill")
                                 .font(.system(size: 13))
-                            Text(flightItem.flights.last!.arrivalAirport.id)
+                            Text(flightItem.flights.last?.arrivalAirport.id ?? "")
                                 .font(.system(size: 14, type: .Regular))
                         }
                     }
@@ -158,6 +153,7 @@ struct FlightCard: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.foreground)
                 .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
+                .padding(1)
         )
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }

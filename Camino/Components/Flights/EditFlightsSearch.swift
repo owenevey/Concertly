@@ -6,31 +6,30 @@ struct EditFlightsSearch: View {
     @State private var showSheet = false
     @State private var isFromAirport: Bool = true
     
-    @Binding var fromDate: Date
-    @Binding var toDate: Date
     @Binding var fromAirport: String
     @Binding var toAirport: String
+    @Binding var fromDate: Date
+    @Binding var toDate: Date
     
-    @State var tempFromDate: Date
-    @State var tempToDate: Date
     @State var tempFromAirport: String
     @State var tempToAirport: String
+    @State var tempFromDate: Date
+    @State var tempToDate: Date
     
-    private var maxDate: Date {
-        //fix this
-        Calendar.current.date(byAdding: .month, value: 6, to: Date.now) ?? Date.now
+    private var maxDate: Date? {
+        Calendar.current.date(byAdding: .month, value: 6, to: Date.now)
     }
     
-    init(fromDate: Binding<Date>, toDate: Binding<Date>, fromAirport: Binding<String>, toAirport: Binding<String>) {
-        _fromDate = fromDate
-        _toDate = toDate
+    init(fromAirport: Binding<String>, toAirport: Binding<String>, fromDate: Binding<Date>, toDate: Binding<Date>) {
         _fromAirport = fromAirport
         _toAirport = toAirport
+        _fromDate = fromDate
+        _toDate = toDate
         
-        _tempFromDate = State(initialValue: fromDate.wrappedValue)
-        _tempToDate = State(initialValue: toDate.wrappedValue)
         _tempFromAirport = State(initialValue: fromAirport.wrappedValue)
         _tempToAirport = State(initialValue: toAirport.wrappedValue)
+        _tempFromDate = State(initialValue: fromDate.wrappedValue)
+        _tempToDate = State(initialValue: toDate.wrappedValue)
     }
     
     var body: some View {
@@ -39,39 +38,41 @@ struct EditFlightsSearch: View {
                 .font(.system(size: 20, type: .SemiBold))
                 .frame(maxWidth: .infinity, alignment: .leading)
             
-            VStack(spacing: 20) {
-                Button {
-                    isFromAirport = true
-                    showSheet = true
-                } label: {
-                    CaminoSearchBar {
-                        HStack {
-                            Image(systemName: "airplane.departure")
-                            Text(tempFromAirport != "" ? tempFromAirport : "Departure Airport")
-                                .font(.system(size: 18, type: .Regular))
-                                .foregroundStyle(tempFromAirport != "" ? .primary : .secondary)
-                            Spacer()
-                        }
+            Button {
+                isFromAirport = true
+                showSheet = true
+            } label: {
+                CaminoSearchBar {
+                    HStack {
+                        Image(systemName: "airplane.departure")
+                            .fontWeight(.semibold)
+                        Text(tempFromAirport)
+                            .font(.system(size: 18, type: .Regular))
+                            .foregroundStyle(.primary)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .buttonStyle(PlainButtonStyle())
-                
-                Button {
-                    isFromAirport = false
-                    showSheet = true
-                } label: {
-                    CaminoSearchBar {
-                        HStack {
-                            Image(systemName: "airplane.arrival")
-                            Text(tempToAirport != "" ? tempToAirport : "Arrival Airport")
-                                .font(.system(size: 18, type: .Regular))
-                                .foregroundStyle(tempFromAirport != "" ? .primary : .secondary)
-                            Spacer()
-                        }
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            Button {
+                isFromAirport = false
+                showSheet = true
+            } label: {
+                CaminoSearchBar {
+                    HStack {
+                        Image(systemName: "airplane.arrival")
+                            .fontWeight(.semibold)
+                        Text(tempToAirport)
+                            .font(.system(size: 18, type: .Regular))
+                            .foregroundStyle(.primary)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .buttonStyle(PlainButtonStyle())
-                
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            if let maxDate = maxDate {
                 Divider()
                     .frame(height: 2)
                     .overlay(.gray2)
@@ -81,6 +82,7 @@ struct EditFlightsSearch: View {
                         .labelsHidden()
                     
                     Image(systemName: "arrow.right")
+                        .fontWeight(.semibold)
                     
                     DatePicker("", selection: $tempToDate, in: tempFromDate...maxDate, displayedComponents: .date)
                         .labelsHidden()
@@ -112,18 +114,17 @@ struct EditFlightsSearch: View {
 
 
 #Preview {
-    @Previewable @State var fromDate = Date.now
-    @Previewable @State var toDate = Date.now
     @Previewable @State var fromAirport = "JFK"
     @Previewable @State var toAirport = "LAX"
+    @Previewable @State var fromDate = Date.now
+    @Previewable @State var toDate = Date.now
     
     return EditFlightsSearch(
-        fromDate: $fromDate,
-        toDate: $toDate,
         fromAirport: $fromAirport,
-        toAirport: $toAirport
+        toAirport: $toAirport,
+        fromDate: $fromDate,
+        toDate: $toDate
     )
     .background(Color.background)
     .border(Color.red)
-    //    .frame(maxHeight: 400)
 }

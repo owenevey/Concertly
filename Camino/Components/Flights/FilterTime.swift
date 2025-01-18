@@ -33,7 +33,7 @@ struct FilterTime: View {
     
     var body: some View {
         FilterSheet(filter: $timeFilter, defaultFilter: latestTime, title: "Time") {
-            VStack(spacing: 20) {
+            VStack(spacing: 25) {
                 SliderFilter(values: flightTimes, filter: $timeFilter)
                     .frame(width: nil, height: 100, alignment: .center)
                     .padding(.horizontal, 25)
@@ -42,7 +42,6 @@ struct FilterTime: View {
                     .font(.system(size: 20, type: .Regular))
                     .frame(maxWidth: .infinity, alignment: .center)
             }
-            .padding(.vertical, 10)
         }
     }
 }

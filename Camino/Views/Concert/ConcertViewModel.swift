@@ -35,14 +35,26 @@ class ConcertViewModel: TripViewModelProtocol {
                                                                  fromDate: tripStartDate.traditionalFormat(),
                                                                  toDate: tripEndDate.traditionalFormat())
             
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.3)) {
                 self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
                 self.flightsPrice = fetchedFlights.bestFlights.first?.price ?? 0
             }
             
+            let airlineLogoURLs: [URL] = (fetchedFlights.bestFlights + fetchedFlights.otherFlights).compactMap { flightItem in
+                flightItem.flights.compactMap { flight in
+                    URL(string: flight.airlineLogo)
+                }
+            }.flatMap { $0 }
+
+            let uniqueAirlineLogoURLs = Array(Set(airlineLogoURLs))
+
+            ImagePrefetcher.instance.startPrefetching(urls: uniqueAirlineLogoURLs)
+            
         } catch {
             print("Error fetching flights: \(error)")
-            self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            withAnimation(.easeInOut(duration: 0.3)) {
+                self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
         }
     }
     
@@ -53,7 +65,7 @@ class ConcertViewModel: TripViewModelProtocol {
             let fetchedHotels = try await fetchHotels(location: concert.cityName,
                                                       fromDate: tripStartDate.traditionalFormat(),
                                                       toDate: tripEndDate.traditionalFormat())
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.3)) {
                 self.hotelsResponse = ApiResponse(status: .success, data: fetchedHotels)
                 self.hotelsPrice = fetchedHotels.properties.first?.totalRate.extractedLowest ?? 0
             }
@@ -62,7 +74,6 @@ class ConcertViewModel: TripViewModelProtocol {
                 if let urlString = hotel.images?.first?.originalImage {
                     return URL(string: urlString)
                 }
-                
                 return nil
             }
             
@@ -70,7 +81,9 @@ class ConcertViewModel: TripViewModelProtocol {
             
         } catch {
             print("Error fetching hotels: \(error)")
-            self.hotelsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            withAnimation(.easeInOut(duration: 0.3)) {
+                self.hotelsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
         }
     }
 }

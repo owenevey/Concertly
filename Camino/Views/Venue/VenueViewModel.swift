@@ -19,13 +19,15 @@ class VenueViewModel: ObservableObject {
         do {
             let fetchedDetails = try await fetchVenueDetails(venueId: venueId)
             
-            withAnimation(.easeInOut) {
+            withAnimation(.easeInOut(duration: 0.1)) {
                 self.venueDetailsResponse = ApiResponse(status: .success, data: fetchedDetails)
             }
             
         } catch {
             print("Error fetching venue details: \(error)")
-            self.venueDetailsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            withAnimation(.easeInOut(duration: 0.1)) {
+                self.venueDetailsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
         }
     }
 }
