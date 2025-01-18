@@ -13,9 +13,9 @@ struct ExploreRow<T: Codable & Identifiable>: View {
             HStack {
                 Text(title)
                     .font(.system(size: 23, type: .SemiBold))
-                Spacer()
             }
             .padding(.horizontal, 15)
+            .frame(maxWidth: .infinity, alignment: .leading)
             
             if status == .error {
                 HStack {
@@ -26,7 +26,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                         }
                     }
                 }
-                .font(.system(size: 18, type: .Regular))
+                .font(.system(size: 17, type: .Regular))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 15)
                 .transition(.opacity)
@@ -73,9 +73,9 @@ struct ExploreRow<T: Codable & Identifiable>: View {
             }
         }
         
-        if let places = data as? [Place] {
-            ForEach(places) { place in
-                PlaceCard(place: place)
+        if let destinations = data as? [Destination] {
+            ForEach(destinations) { destination in
+                DestinationCard(destination: destination)
                     .shadow(color: .black.opacity(0.2), radius: 5)
             }
         }
@@ -103,9 +103,9 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                 FallbackConcertCard()
                     .shadow(color: .black.opacity(0.2), radius: 5)
             }
-        case .place:
+        case .destination:
             ForEach(0..<6, id: \.self) { _ in
-                FallbackPlaceCard()
+                FallbackDestinationCard()
                     .shadow(color: .black.opacity(0.2), radius: 5)
             }
         case .artist:
@@ -129,9 +129,9 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                 ErrorConcertCard()
                     .shadow(color: .black.opacity(0.2), radius: 5)
             }
-        case .place:
+        case .destination:
             ForEach(0..<6, id: \.self) { _ in
-                ErrorPlaceCard()
+                ErrorDestinationCard()
                     .shadow(color: .black.opacity(0.2), radius: 5)
             }
         case .artist:
@@ -152,7 +152,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
     @Previewable @State var status: Status = .error
     NavigationStack {
         VStack {
-            Spacer()
+//            Spacer()
             
             ExploreRow(
                 title: "Trending Concerts",
@@ -170,7 +170,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                 }
             )
             
-            Spacer()
+//            Spacer()
         }
         .background(Color.background)
     }

@@ -4,7 +4,6 @@ struct VenueCard: View {
     @Namespace private var namespace
     let id = "UIElement"
     
-    
     var venue: Venue
     
     var body: some View {
@@ -31,18 +30,18 @@ struct VenueCard: View {
                     .frame(maxWidth: .infinity)
                     
                     VStack {
-                        Spacer()
                         Text(venue.name)
                             .font(.system(size: 23, type: .SemiBold))
                             .foregroundStyle(.white)
+                            .minimumScaleFactor(0.85)
                             .lineLimit(2)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(15)
                     }
+                    .frame(maxHeight: .infinity, alignment: .bottom)
                 }
             }
-            .cornerRadius(20)
-            .contentShape(Rectangle())
+            .clipShape(RoundedRectangle(cornerRadius: 20))
         }
         .buttonStyle(PlainButtonStyle())
         .matchedTransitionSource(id: id, in: namespace)

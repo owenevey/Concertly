@@ -23,20 +23,19 @@ struct FeaturedEventItem: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text(event.artistName)
                         .font(.system(size: 23, type: .SemiBold))
-                    //                        .minimumScaleFactor(0.75)
+                        .minimumScaleFactor(0.85)
                         .lineLimit(1)
-                    
                     
                     Text(event.cityName)
                         .font(.system(size: 18, type: .Regular))
                         .foregroundStyle(.gray3)
-                    //                        .minimumScaleFactor(0.75)
+                        .minimumScaleFactor(0.85)
                         .lineLimit(1)
                     
                     Text(event.dateTime.formatted(date: .abbreviated, time: .omitted))
                         .font(.system(size: 18, type: .Regular))
                         .foregroundStyle(.gray3)
-                        .minimumScaleFactor(0.75)
+                        .minimumScaleFactor(0.85)
                         .lineLimit(1)
                 }
             }

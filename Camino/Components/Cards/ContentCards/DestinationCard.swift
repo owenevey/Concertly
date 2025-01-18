@@ -1,40 +1,40 @@
 import SwiftUI
 
-struct PlaceCard: View {
+struct DestinationCard: View {
     @Namespace private var namespace
     let id = "UIElement"
     
-    var place: Place
+    var destination: Destination
     
     var body: some View {
         
         NavigationLink {
-            PlaceView(place: place)
+            DestinationView(destination: destination)
                 .navigationBarHidden(true)
                 .navigationTransition(.zoom(sourceID: id, in: namespace))
         }
         label: {
             VStack(alignment: .leading, spacing: 0) {                
-                ImageLoader(url: place.imageUrl, contentMode: .fill)
+                ImageLoader(url: destination.imageUrl, contentMode: .fill)
                     .frame(width: 250, height: 150)
                     .clipped()
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(place.name)
+                    Text(destination.name)
                         .font(.system(size: 20, type: .SemiBold))
-//                        .minimumScaleFactor(0.75)
+                        .minimumScaleFactor(0.85)
                         .lineLimit(1)
                     
-                    Text(place.countryName)
-                        .font(.system(size: 16, type: .Regular))
+                    Text(destination.countryName)
+                        .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
-//                        .minimumScaleFactor(0.75)
+                        .minimumScaleFactor(0.85)
                         .lineLimit(1)
                     
-                    Text(place.description)
-                        .font(.system(size: 16, type: .Regular))
+                    Text(destination.description)
+                        .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
-//                        .minimumScaleFactor(0.75)
+                        .minimumScaleFactor(0.85)
                         .lineLimit(2, reservesSpace: true)
                 }
                 .padding(15)
@@ -50,7 +50,6 @@ struct PlaceCard: View {
         }
         .buttonStyle(PlainButtonStyle())
         .matchedTransitionSource(id: id, in: namespace)
-        
     }
 }
 

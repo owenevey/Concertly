@@ -22,12 +22,11 @@ struct ExploreView: View {
                     VStack(spacing: 0) {
                         Rectangle()
                             .fill(Color.clear)
-                            .frame(height: 300)
+                            .frame(width: UIScreen.main.bounds.width, height: 300)
                         
                         VStack(spacing: 15) {
                             VStack {
                                 HStack {
-                                    Spacer()
                                     Image(systemName: "bell")
                                         .font(.system(size: 20))
                                         .fontWeight(.semibold)
@@ -38,21 +37,22 @@ struct ExploreView: View {
                                         )
                                     
                                 }
+                                .frame(maxWidth: .infinity, alignment: .trailing)
                                 .padding(.horizontal, 30)
                                 .padding(.top, geometry.safeAreaInsets.top)
                                 .offset(y: min(offset, 0))
                                 
                                 Spacer()
                                 
-                                VStack {
+                                VStack(spacing: 15) {
                                     HStack {
                                         Text("What adventures\nawait?")
                                             .font(.system(size: 30, type: .Bold))
                                             .foregroundStyle(.white)
                                             .frame(alignment: .leading)
                                             .shadow(color: .black.opacity(0.6), radius: 3)
-                                        Spacer()
                                     }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                                     
                                     NavigationLink {
                                         ExploreSearchView()
@@ -62,7 +62,7 @@ struct ExploreView: View {
                                             Image(systemName: "magnifyingglass")
                                                 .fontWeight(.semibold)
                                             Text("Search Artists")
-                                                .font(.system(size: 18, type: .Regular))
+                                                .font(.system(size: 17, type: .Regular))
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                         }
                                         .padding(.vertical, 12)
@@ -74,17 +74,17 @@ struct ExploreView: View {
                                         )
                                     }
                                     .buttonStyle(PlainButtonStyle())
-                                    
                                 }
                                 .padding(15)
                                 .frame(maxWidth: 800)
                                 
                             }
-                            .frame(height: 300)
+                            .frame(width: UIScreen.main.bounds.width, height: 300)
                             
-                            ExplorePills()
-                            
-                            LazyVStack {
+                            LazyVStack(spacing: 15) {
+                                
+                                GenrePills()
+                                
                                 ExploreRow(title: "Trending Concerts", status: viewModel.trendingConcertsResponse.status, data: viewModel.trendingConcerts, contentType: ExploreContentType.concert) {
                                     await viewModel.getTrendingConcerts()
                                 }
@@ -93,7 +93,7 @@ struct ExploreView: View {
                                     await viewModel.getPopularArtists()
                                 }
                                 
-                                ExploreRow(title: "Popular Destinations", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.place) {
+                                ExploreRow(title: "Popular Destinations", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.destination) {
                                     await viewModel.getPopularDestinations()
                                 }
                                 
@@ -109,16 +109,10 @@ struct ExploreView: View {
                                     await viewModel.getFamousVenues()
                                 }
                             }
-                            
                         }
                         .padding(.top, -300)
-                        .background(Color.background)
-                    }
-                    .containerRelativeFrame(.horizontal) { size, axis in
-                        size
                     }
                 }
-                .ignoresSafeArea(edges: .top)
                 .onScrollGeometryChange(for: CGFloat.self) { geo in
                     return geo.contentOffset.y
                 } action: { oldValue, newValue in
@@ -133,7 +127,6 @@ struct ExploreView: View {
                 }
                 ExploreHeader()
                     .opacity(isSearchBarVisible ? 0 : 1)
-                    .animation(.linear(duration: 0.1), value: isSearchBarVisible)
                     .padding(.top, geometry.safeAreaInsets.top)
             }
             .ignoresSafeArea(edges: .top)
@@ -142,24 +135,24 @@ struct ExploreView: View {
         .onAppear {
             if !hasAppeared {
                 Task {
-                    await viewModel.getFamousVenues()
                     await viewModel.getTrendingConcerts()
-                    await viewModel.getPopularDestinations()
-                    await viewModel.getSuggestedConcerts()
                     await viewModel.getPopularArtists()
+                    await viewModel.getPopularDestinations()
                     await viewModel.getFeaturedEvent()
+                    await viewModel.getSuggestedConcerts()
+                    await viewModel.getFamousVenues()
                 }
                 hasAppeared = true
             }
         }
         .refreshable {
             Task {
-                await viewModel.getFamousVenues()
                 await viewModel.getTrendingConcerts()
-                await viewModel.getPopularDestinations()
-                await viewModel.getSuggestedConcerts()
                 await viewModel.getPopularArtists()
+                await viewModel.getPopularDestinations()
                 await viewModel.getFeaturedEvent()
+                await viewModel.getSuggestedConcerts()
+                await viewModel.getFamousVenues()
             }
         }
     }

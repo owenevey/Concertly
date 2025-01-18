@@ -1,15 +1,15 @@
 import SwiftUI
 import MapKit
 
-struct PlaceView: View {
+struct DestinationView: View {
     
-    var place: Place
+    var destination: Destination
     
-    @StateObject var viewModel: PlaceViewModel
+    @StateObject var viewModel: DestinationViewModel
     
-    init(place: Place) {
-        self.place = place
-        _viewModel = StateObject(wrappedValue: PlaceViewModel(place: place))
+    init(destination: Destination) {
+        self.destination = destination
+        _viewModel = StateObject(wrappedValue: DestinationViewModel(destination: destination))
     }
     
     @State var hasAppeared: Bool = false
@@ -18,7 +18,7 @@ struct PlaceView: View {
     var body: some View {
         ZStack(alignment: .top) {
             VStack {
-                switch viewModel.placeDetailsResponse.status {
+                switch viewModel.destinationDetailsResponse.status {
                 case .loading, .empty:
                     VStack {
                         Spacer()
@@ -30,7 +30,7 @@ struct PlaceView: View {
                 case .error:
                     Spacer()
                     ErrorView(text: "Error fetching destination details", action: {
-                        await viewModel.getPlaceDetails()
+                        await viewModel.getDestinationDetails()
                     })
                     .frame(height: 250)
                     .transition(.opacity)
@@ -44,7 +44,7 @@ struct PlaceView: View {
             .onAppear {
                 if !hasAppeared {
                     Task {
-                        await viewModel.getPlaceDetails()
+                        await viewModel.getDestinationDetails()
                     }
                     hasAppeared = true
                 }
@@ -59,13 +59,13 @@ struct PlaceView: View {
     private var mainContent: some View {
         
         Group {
-            if let placeDetails = viewModel.placeDetailsResponse.data?.placeDetails {
+            if let destinationDetails = viewModel.destinationDetailsResponse.data?.destinationDetails {
                 GeometryReader { geometry in
                     ZStack(alignment: .top) {
                         ScrollView(showsIndicators: false) {
                             VStack(spacing: 0) {
                                 TabView {
-                                    ForEach(placeDetails.images, id: \.self) { imageUrl in
+                                    ForEach(destinationDetails.images, id: \.self) { imageUrl in
                                         ImageLoader(url: imageUrl, contentMode: .fill)
                                             .frame(width: UIScreen.main.bounds.width, height: 300)
                                             .clipped()
@@ -76,10 +76,10 @@ struct PlaceView: View {
                                 
                                 VStack(spacing: 20) {
                                     VStack(alignment: .leading, spacing: 5) {
-                                        Text(placeDetails.name)
+                                        Text(destinationDetails.name)
                                             .font(.system(size: 30, type: .SemiBold))
                                         
-                                        Text(placeDetails.description)
+                                        Text(destinationDetails.description)
                                             .font(.system(size: 16, type: .Regular))
                                             .foregroundStyle(.gray3)
                                     }
@@ -98,12 +98,12 @@ struct PlaceView: View {
                                     
                                     
                                     VStack(spacing: 15) {
-                                        ForEach((LineItemType.placeItems(placeViewModel: viewModel)), id: \.title) { item in
+                                        ForEach((LineItemType.destinationItems(destinationViewModel: viewModel)), id: \.title) { item in
                                             switch item {
                                             case .flights:
-                                                LineItem(item: item, price: viewModel.flightsPrice, status: viewModel.flightsResponse.status)
+                                                LineItem(item: item, status: viewModel.flightsResponse.status, price: viewModel.flightsPrice)
                                             case .hotel:
-                                                LineItem(item: item, price: viewModel.hotelsPrice, status: viewModel.hotelsResponse.status)
+                                                LineItem(item: item, status: viewModel.hotelsResponse.status, price: viewModel.hotelsPrice)
                                             default:
                                                 EmptyView()
                                             }
@@ -137,7 +137,7 @@ struct PlaceView: View {
                                     }
                                     
                                     VStack(spacing: 10) {
-                                        if placeDetails.concerts.isEmpty {
+                                        if destinationDetails.concerts.isEmpty {
                                             Text("No Upcoming Concerts")
                                                 .font(.system(size: 20, type: .Medium))
                                                 .frame(maxWidth: .infinity, alignment: .center)
@@ -146,7 +146,7 @@ struct PlaceView: View {
                                             Text("Upcoming Concerts")
                                                 .font(.system(size: 23, type: .SemiBold))
                                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                            ForEach(placeDetails.concerts) { concert in
+                                            ForEach(destinationDetails.concerts) { concert in
                                                 NavigationLink{
                                                     ConcertView(concert: concert)
                                                         .navigationBarHidden(true)
@@ -158,7 +158,7 @@ struct PlaceView: View {
                                         }
                                     }
                                     
-                                    MapCard(addressToSearch: "\(placeDetails.cityName), \(placeDetails.countryName)", latitude: placeDetails.latitude, longitude: placeDetails.longitude, name: placeDetails.cityName, generalLocation: placeDetails.countryName)
+                                    MapCard(addressToSearch: "\(destinationDetails.cityName), \(destinationDetails.countryName)", latitude: destinationDetails.latitude, longitude: destinationDetails.longitude, name: destinationDetails.cityName, generalLocation: destinationDetails.countryName)
                                         .padding(.vertical, 10)
                                     
                                     Button {
@@ -203,7 +203,7 @@ struct PlaceView: View {
                             }
                         }
                         
-                        GeneralHeader(title: place.name)
+                        GeneralHeader(title: destination.name)
                             .opacity(isTitleVisible ? 0 : 1)
                             .animation(.linear(duration: 0.1), value: isTitleVisible)
 //                            .padding(.top, geometry.safeAreaInsets.top)
@@ -211,8 +211,8 @@ struct PlaceView: View {
                 }
             }
             else {
-                ErrorView(text: "Error fetching place details", action: {
-                    await viewModel.getPlaceDetails()
+                ErrorView(text: "Error fetching destination details", action: {
+                    await viewModel.getDestinationDetails()
                 })
             }
         }
@@ -224,7 +224,7 @@ struct PlaceView: View {
 }
 
 #Preview {
-    let testPlace = Place(
+    let testDestination = Destination(
         name: "Seattle",
         description: "Known for its iconic Space Needle, vibrant coffee culture, and stunning natural surroundings.",
         imageUrl: "https://uploads.visitseattle.org/2024/02/26114037/VS_base.jpg",
@@ -232,7 +232,7 @@ struct PlaceView: View {
     )
     
     NavigationStack {
-        PlaceView(place: testPlace)
+        DestinationView(destination: testDestination)
             .navigationBarHidden(true)
     }
 }

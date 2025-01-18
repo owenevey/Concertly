@@ -9,9 +9,6 @@ final class GenreViewModel: ObservableObject {
         self.genre = genre
     }
     
-    @Published var suggestedConcertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
-    @Published var suggestedConcerts: [Concert] = []
-    
     @Published var trendingConcertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
     @Published var trendingConcerts: [Concert] = []
     
@@ -21,25 +18,9 @@ final class GenreViewModel: ObservableObject {
     @Published var featuredEventResponse: ApiResponse<Concert> = ApiResponse<Concert>()
     @Published var featuredEvent: Concert?
     
-    func getSuggestedConcerts() async {
-        withAnimation(.easeInOut) {
-            self.suggestedConcertsResponse = ApiResponse(status: .loading)
-        }
-        
-        do {
-            let fetchedConcerts = try await fetchSuggestedConcerts(genre: genre.title)
-            withAnimation(.easeInOut) {
-                self.suggestedConcerts = fetchedConcerts.concerts.reversed()
-                self.suggestedConcertsResponse = ApiResponse(status: .success, data: fetchedConcerts.concerts)
-            }
-        } catch {
-            print("Error fetching suggested concerts: \(error)")
-            withAnimation(.easeInOut) {
-                self.suggestedConcertsResponse = ApiResponse(status: .error, error: error.localizedDescription)
-            }
-        }
-    }
-    
+    @Published var suggestedConcertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
+    @Published var suggestedConcerts: [Concert] = []
+
     func getTrendingConcerts() async {
         withAnimation(.easeInOut) {
             self.trendingConcertsResponse = ApiResponse(status: .loading)
@@ -97,5 +78,23 @@ final class GenreViewModel: ObservableObject {
         }
     }
     
+    func getSuggestedConcerts() async {
+        withAnimation(.easeInOut) {
+            self.suggestedConcertsResponse = ApiResponse(status: .loading)
+        }
+        
+        do {
+            let fetchedConcerts = try await fetchSuggestedConcerts(genre: genre.title)
+            withAnimation(.easeInOut) {
+                self.suggestedConcerts = fetchedConcerts.concerts.reversed()
+                self.suggestedConcertsResponse = ApiResponse(status: .success, data: fetchedConcerts.concerts)
+            }
+        } catch {
+            print("Error fetching suggested concerts: \(error)")
+            withAnimation(.easeInOut) {
+                self.suggestedConcertsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
+        }
+    }
 }
 

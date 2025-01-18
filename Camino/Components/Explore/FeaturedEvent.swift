@@ -9,12 +9,12 @@ struct FeaturedEvent: View {
     let onRetry: (() async -> Void)
     
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: 5) {
             HStack {
                 Text("Featured Event")
                     .font(.system(size: 23, type: .SemiBold))
-                Spacer()
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             
             if status == .error {
                 HStack {
@@ -25,27 +25,30 @@ struct FeaturedEvent: View {
                         }
                     }
                 }
-                .font(.system(size: 18, type: .Regular))
+                .font(.system(size: 17, type: .Regular))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .transition(.opacity)
             }
             
-            switch status {
-            case .loading, .empty:
-                FallbackFeaturedEventItem()
-                    .shadow(color: .black.opacity(0.2), radius: 5)
-            case .success:
-                if let event {
-                    FeaturedEventItem(event: event)
+            Group {
+                switch status {
+                case .loading, .empty:
+                    FallbackFeaturedEventItem()
+                        .shadow(color: .black.opacity(0.2), radius: 5)
+                case .success:
+                    if let event {
+                        FeaturedEventItem(event: event)
+                            .shadow(color: .black.opacity(0.2), radius: 5)
+                    }
+                case .error:
+                    ErrorFeaturedEventItem()
                         .shadow(color: .black.opacity(0.2), radius: 5)
                 }
-            case .error:
-                ErrorFeaturedEventItem()
-                    .shadow(color: .black.opacity(0.2), radius: 5)
             }
+            .padding(.top, 10)
+            .padding(.bottom, 15)
         }
         .padding(.horizontal, 15)
-        .padding(.bottom, 5)
         .animation(.easeInOut, value: status)
     }
 }

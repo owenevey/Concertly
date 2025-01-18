@@ -3,7 +3,7 @@ import Foundation
 enum ExploreContentType {
     case concert
     case artist
-    case place
+    case destination
     case venue
     
     var title: String {
@@ -12,8 +12,8 @@ enum ExploreContentType {
             return "concerts"
         case .artist:
             return "artists"
-        case .place:
-            return "places"
+        case .destination:
+            return "destinations"
         case .venue:
             return "venues"
         }

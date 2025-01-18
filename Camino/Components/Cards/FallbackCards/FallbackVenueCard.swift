@@ -4,7 +4,7 @@ struct FallbackVenueCard: View {
     
     var body: some View {
         ShimmerView()
-            .frame(width: 200, height: 230)
+            .frame(width: 250, height: 200)
             .cornerRadius(20)
         }
 }

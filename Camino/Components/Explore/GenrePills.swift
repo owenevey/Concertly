@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ExplorePills: View {
+struct GenrePills: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
@@ -22,15 +22,15 @@ struct ExplorePills: View {
 }
 
 #Preview {
-    ExplorePills()
+    GenrePills()
 }
 
 struct GenrePill: View {
     var genre: MusicGenre
     
     var body: some View {
-        Text("\(genre.emoji)   \(genre.title)")
-            .font(.system(size: 14, type: .Medium))
+        Text("\(genre.emoji)  \(genre.title)")
+            .font(.system(size: 15, type: .Medium))
             .padding(.vertical, 10)
             .padding(.horizontal, 15)
             .background(

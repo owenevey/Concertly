@@ -21,12 +21,8 @@ class ConcertViewModel: TripViewModelProtocol {
         self.cityName = concert.cityName
     }
     
-    var ticketPrice: Int {
-        Int(concert.minPrice)
-    }
-    
     var totalPrice: Int {
-        ticketPrice + hotelsPrice + flightsPrice
+        hotelsPrice + flightsPrice
     }
     
     func getDepartingFlights() async {

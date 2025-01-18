@@ -10,7 +10,7 @@ struct ErrorConcertCard: View {
             
             VStack(alignment: .leading, spacing: 5) {
                 StillShimmerView()
-                    .frame(width: 200, height: 25)
+                    .frame(width: 200, height: 23)
                     .cornerRadius(5)
                 
                 StillShimmerView()

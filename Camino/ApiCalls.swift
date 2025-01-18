@@ -127,17 +127,17 @@ func fetchCitySearchResults(query: String) async throws -> CitySearchResponse {
     return response
 }
 
-// Places
+// Destinations
 
-func fetchPopularDestination() async throws -> PlacesResponse {
+func fetchPopularDestinations() async throws -> DestinationsResponse {
     let endpoint = "\(baseUrl)/popularDestinations"
-    let response: PlacesResponse = try await fetchData(endpoint: endpoint)
+    let response: DestinationsResponse = try await fetchData(endpoint: endpoint)
     return response
 }
 
-func fetchDestinationDetails(destinationId: String) async throws -> PlaceDetailsResponse {
+func fetchDestinationDetails(destinationId: String) async throws -> DestinationDetailsResponse {
     let endpoint = "\(baseUrl)/destinationDetails?id=\(destinationId)"
-    let response: PlaceDetailsResponse = try await fetchData(endpoint: endpoint)
+    let response: DestinationDetailsResponse = try await fetchData(endpoint: endpoint)
     return response
 }
 

@@ -1,10 +1,10 @@
 import Foundation
 
-struct PlacesResponse: Codable {
-    let places: [Place]
+struct DestinationsResponse: Codable {
+    let destinations: [Destination]
 }
 
-struct Place: Codable, Identifiable {
+struct Destination: Codable, Identifiable {
     var id = UUID()
     let name: String
     let description: String

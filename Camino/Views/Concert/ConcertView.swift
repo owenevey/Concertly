@@ -17,7 +17,6 @@ struct ConcertView: View {
     var body: some View {
         ImageHeaderScrollView(title: concert.artistName, imageUrl: concert.imageUrl) {
             VStack(spacing: 20) {
-                
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
                         Text(concert.artistName)
@@ -47,8 +46,7 @@ struct ConcertView: View {
                             .foregroundStyle(.gray3)
                     }
                     
-                    
-                    Text(concert.dateTime.formatted(date: .complete, time: .omitted))
+                    Text(concert.dateTime.formatted(date: .complete, time: .omitted) + ", " + concert.dateTime.timeFormatAMPM())
                         .font(.system(size: 18, type: .Regular))
                         .foregroundStyle(.gray3)
                 }
@@ -56,26 +54,26 @@ struct ConcertView: View {
                 
                 
                 VStack(alignment: .leading, spacing: 5) {
-                    Text("Minimum Price Summary")
+                    Text("Price Summary")
                         .font(.system(size: 20, type: .SemiBold))
                     
                     Text("\(viewModel.tripStartDate.mediumFormat()) - \(viewModel.tripEndDate.mediumFormat())")
-                        .font(.system(size: 16, type: .Regular))
+                        .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
                 
                 VStack(spacing: 10) {
-                    ForEach((LineItemType.eventItems(eventViewModel: viewModel, link: concert.url)), id: \.title) { item in
+                    ForEach((LineItemType.concertItems(concertViewModel: viewModel, link: concert.url)), id: \.title) { item in
                         switch item {
                         case .flights:
-                            LineItem(item: item, price: viewModel.flightsPrice, status: viewModel.flightsResponse.status)
+                            LineItem(item: item, status: viewModel.flightsResponse.status, price: viewModel.flightsPrice)
                         case .hotel:
-                            LineItem(item: item, price: viewModel.hotelsPrice, status: viewModel.hotelsResponse.status)
+                            LineItem(item: item, status: viewModel.hotelsResponse.status, price: viewModel.hotelsPrice)
                             
                         case .ticket:
-                            LineItem(item: item, price: viewModel.ticketPrice, status: Status.success)
+                            LineItem(item: item, status: Status.success)
                         }
                     }
                     
@@ -103,37 +101,17 @@ struct ConcertView: View {
                         .animation(.easeInOut, value: viewModel.totalPrice)
                     }
                     .padding(.horizontal, 10)
-                    
                 }
                 
                 MapCard(addressToSearch: concert.venueAddress, latitude: concert.latitude, longitude: concert.longitude, name: concert.venueName, generalLocation: concert.cityName)
                     .padding(.vertical, 10)
                 
-                Button {
+                CaminoButton(label: "Plan Trip") {
                     print("Plan trip tapped")
-                } label: {
-                    Text("Plan Trip")
-                        .font(.system(size: 18, type: .Medium))
-                        .foregroundStyle(.white)
-                        .padding(12)
-                        .containerRelativeFrame(.horizontal) { size, axis in
-                            size - 100
-                        }
-                        .clipShape(RoundedRectangle(cornerRadius: 15))
-                        .background(
-                            RoundedRectangle(cornerRadius: 15)
-                                .fill(.accent)
-                        )
-                    
                 }
-                .buttonStyle(PlainButtonStyle())
+                .frame(width: UIScreen.main.bounds.width - 100)
             }
             .padding(15)
-            .background(Color.background)
-            
-            .containerRelativeFrame(.horizontal) { size, axis in
-                size
-            }
         }
         .background(Color.background)
         .onAppear {
@@ -146,8 +124,6 @@ struct ConcertView: View {
             }
         }
     }
-    
-    
 }
 
 #Preview {

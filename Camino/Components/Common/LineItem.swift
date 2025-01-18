@@ -3,16 +3,16 @@ import SwiftUI
 struct LineItem<T: TripViewModelProtocol>: View {
     
     let item: LineItemType<T>
-    let price: Int
     let status: Status
+    let price: Int
     
     @State private var showSafariView = false
     @State private var currentStatus: Status
     
-    init(item: LineItemType<T>, price: Int, status: Status) {
+    init(item: LineItemType<T>, status: Status, price: Int = 0) {
         self.item = item
-        self.price = price
         self.status = status
+        self.price = price
         _currentStatus = State(initialValue: status)
     }
     
@@ -106,18 +106,18 @@ enum LineItemType<T: TripViewModelProtocol> {
     case hotel(tripViewModel: T)
     case ticket(link: String)
     
-    static func eventItems(eventViewModel: T, link: String) -> [LineItemType] {
+    static func concertItems(concertViewModel: T, link: String) -> [LineItemType] {
         return [
-            .flights(tripViewModel: eventViewModel),
-            .hotel(tripViewModel: eventViewModel),
+            .flights(tripViewModel: concertViewModel),
+            .hotel(tripViewModel: concertViewModel),
             .ticket(link: link)
         ]
     }
     
-    static func placeItems(placeViewModel: T) -> [LineItemType] {
+    static func destinationItems(destinationViewModel: T) -> [LineItemType] {
         return [
-            .flights(tripViewModel: placeViewModel),
-            .hotel(tripViewModel: placeViewModel),
+            .flights(tripViewModel: destinationViewModel),
+            .hotel(tripViewModel: destinationViewModel),
         ]
     }
     
@@ -163,13 +163,13 @@ enum LineItemType<T: TripViewModelProtocol> {
     
     NavigationStack {
         VStack(spacing: 20) {
-            LineItem(item: LineItemType.flights(tripViewModel: concertViewModel), price: 55, status: Status.loading)
+            LineItem(item: LineItemType.flights(tripViewModel: concertViewModel), status: Status.loading, price: 55)
                 .padding()
             
-            LineItem(item: LineItemType.hotel(tripViewModel: concertViewModel), price: 100, status: Status.success)
+            LineItem(item: LineItemType.hotel(tripViewModel: concertViewModel), status: Status.success, price: 100)
                 .padding()
             
-            LineItem(item: LineItemType<ConcertViewModel>.ticket(link: link), price: 25, status: Status.success)
+            LineItem(item: LineItemType<ConcertViewModel>.ticket(link: link), status: Status.success, price: 25)
                 .padding()
         }
     }

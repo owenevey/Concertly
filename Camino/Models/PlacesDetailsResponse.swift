@@ -1,10 +1,10 @@
 import Foundation
 
-struct PlaceDetailsResponse: Codable {
-    let placeDetails: PlaceDetails
+struct DestinationDetailsResponse: Codable {
+    let destinationDetails: DestinationDetails
 }
 
-struct PlaceDetails: Codable {
+struct DestinationDetails: Codable {
     let name: String
     let description: String
     let images: [String]

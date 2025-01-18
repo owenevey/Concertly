@@ -3,14 +3,13 @@ import SwiftUI
 struct FallbackConcertCard: View {
     
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 0) {
             ShimmerView()
                 .frame(width: 250, height: 150)
             
             VStack(alignment: .leading, spacing: 5) {
                 ShimmerView()
-                    .frame(width: 200, height: 25)
+                    .frame(width: 200, height: 23)
                     .cornerRadius(5)
                 
                 ShimmerView()

@@ -19,6 +19,12 @@ extension Date {
         return Date.dateFormatter.string(from: self)
     }
     
+    // 9:41
+    func timeFormatAMPM() -> String {
+        Date.dateFormatter.dateFormat = "h:mm a"
+        return Date.dateFormatter.string(from: self)
+    }
+    
     // Oct 18
     func shortFormat() -> String {
         Date.dateFormatter.dateFormat = "MMM d"

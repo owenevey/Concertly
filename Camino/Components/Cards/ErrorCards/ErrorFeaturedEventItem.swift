@@ -11,17 +11,16 @@ struct ErrorFeaturedEventItem: View {
             
             VStack(alignment: .leading, spacing: 5) {
                 StillShimmerView()
-                    .frame(width: 250, height: 30)
+                    .frame(width: 250, height: 26)
                     .cornerRadius(5)
                 
                 StillShimmerView()
-                    .frame(width: 175, height: 25)
+                    .frame(width: 175, height: 21)
                     .cornerRadius(5)
                 StillShimmerView()
-                    .frame(width: 175, height: 25)
+                    .frame(width: 175, height: 21)
                     .cornerRadius(5)
             }
-
         }
         .frame(maxWidth: .infinity)
     }

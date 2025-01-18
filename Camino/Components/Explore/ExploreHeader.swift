@@ -20,7 +20,13 @@ struct ExploreHeader: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     
-                    Image(systemName: "bell")
+                    NavigationLink {
+                        ExploreSearchView()
+                            .navigationBarHidden(true)
+                    } label: {
+                        Image(systemName: "bell")
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
                 .font(.system(size: 20))
                 .fontWeight(.semibold)
@@ -38,5 +44,12 @@ struct ExploreHeader: View {
 }
 
 #Preview {
-    ExploreHeader()
+    NavigationStack {
+        VStack {
+            Spacer()
+            ExploreHeader()
+            Spacer()
+        }
+        .background(.green)
+    }
 }
