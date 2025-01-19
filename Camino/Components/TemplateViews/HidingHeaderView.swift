@@ -21,7 +21,7 @@ struct HidingHeaderView<Header: View, FiltersBar: View, ScrollContent: View>: Vi
             
             ScrollView {
                 scrollContent()
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .background(Color.contrastBackground)
             .safeAreaInset(edge: .top, spacing: 0) {

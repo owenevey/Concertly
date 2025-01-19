@@ -55,10 +55,7 @@ struct HotelDetailsView: View {
                             }
                         }
                         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
-                        .frame(height: 300)
-                        .containerRelativeFrame(.horizontal) { size, axis in
-                            size
-                        }
+                        .frame(width: UIScreen.main.bounds.width, height: 300)
                         .scrollTargetBehavior(.viewAligned)
                         VStack {
                             Button(
@@ -77,8 +74,8 @@ struct HotelDetailsView: View {
                             }
                             .buttonStyle(PlainButtonStyle())
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            Spacer()
                         }
+                        .frame(maxHeight: .infinity, alignment: .top)
                     }
                 }
                 
@@ -87,11 +84,12 @@ struct HotelDetailsView: View {
                         Text(property.name)
                             .font(.system(size: 30, type: .SemiBold))
                         
-                        HStack {
+                        HStack(spacing: 10) {
                             if let rating = property.overallRating {
                                 HStack(spacing: 5) {
                                     Text("\(rating, specifier: "%.1f")")
                                         .font(.system(size: 20, type: .Medium))
+                                    
                                     Image(systemName: "star.fill")
                                         .font(.system(size: 15))
                                         .foregroundStyle(Color.yellow)
@@ -109,7 +107,7 @@ struct HotelDetailsView: View {
                         
                         if let description = property.description {
                             Text(description)
-                                .font(.system(size: 16, type: .Regular))
+                                .font(.system(size: 17, type: .Regular))
                                 .foregroundStyle(.gray3)
                         }
                     }
@@ -144,32 +142,29 @@ struct HotelDetailsView: View {
                     if let amenities = property.amenities {
                         VStack(alignment: .leading, spacing: 6) {
                             Text("Amenities")
-                                .font(.system(size: 20, type: .Medium))
+                                .font(.system(size: 20, type: .SemiBold))
                             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
                                 ForEach(amenities, id: \.self) { amenity in
                                     HStack(spacing: 5) {
                                         Image(systemName: determineIcon(for: amenity))
-                                            .font(.system(size: 16))
-                                            .frame(width: 25)
+                                            .font(.system(size: 17))
+                                            .frame(width: 22)
                                         
                                         Text(amenity)
-                                            .font(.system(size: 16))
+                                            .font(.system(size: 17))
                                     }
                                     .foregroundColor(.gray)
-                                }.frame(maxWidth: .infinity, alignment: .leading)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
                     }
                     
                     if let gpsCoordinates = property.gpsCoordinates {
                         MapCard(addressToSearch: "\(property.name) \(gpsCoordinates.latitude) \(gpsCoordinates.longitude)", latitude: gpsCoordinates.latitude, longitude: gpsCoordinates.longitude, name: property.name, generalLocation: generalLocation)
-                            .padding(.vertical)
+                            .padding(.vertical, 10)
                     }
-                    
-                    
-                    
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(15)
                 Spacer()
             }
@@ -179,7 +174,7 @@ struct HotelDetailsView: View {
             var propertyImages: [URL] = []
             if let images = property.images {
                 propertyImages = images.compactMap { propertyImage in
-                    if let urlString = propertyImage.thumbnail {
+                    if let urlString = propertyImage.originalImage {
                         return URL(string: urlString)
                     }
                     return nil

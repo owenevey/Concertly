@@ -33,6 +33,7 @@ struct AirportSearchView: View {
             CaminoSearchBar(content: {
                 HStack {
                     Image(systemName: "magnifyingglass")
+                        .fontWeight(.semibold)
                     TextField("Search", text: $viewModel.searchQuery)
                         .submitLabel(.done)
                         .disableAutocorrection(true)

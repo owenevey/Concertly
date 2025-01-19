@@ -45,13 +45,13 @@ struct FlightsFiltersBar: View {
         case .stops:
             return stopsFilter != FilterStopsEnum.any
         case .price:
-            let maxPrice = flightPrices.max() ?? 0
+            let maxPrice = flightPrices.max() ?? Int.max
             return priceFilter < maxPrice
         case .duration:
-            let maxDuration = flightDurations.max() ?? 0
+            let maxDuration = flightDurations.max() ?? Int.max
             return durationFilter < maxDuration
         case .time:
-            let maxTime = flightTimes.max() ?? 0
+            let maxTime = flightTimes.max() ?? Int.max
             return timeFilter < maxTime
         }
     }
@@ -131,9 +131,6 @@ struct FlightsFiltersBar: View {
                         .transition(.opacity)
                         
                     }
-                    
-                    
-                    
                 }
                 .padding(10)
                 .sheet(isPresented: $presentSheet) {

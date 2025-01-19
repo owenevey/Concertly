@@ -13,8 +13,8 @@ struct EditHotelsSearch: View {
     @State var tempToDate: Date
     @State var tempLocation: String
     
-    private var maxDate: Date {
-        Calendar.current.date(byAdding: .month, value: 6, to: Date.now) ?? Date.now
+    private var maxDate: Date? {
+        Calendar.current.date(byAdding: .month, value: 6, to: Date.now)
     }
     
     init(fromDate: Binding<Date>, toDate: Binding<Date>, location: Binding<String>) {
@@ -32,24 +32,25 @@ struct EditHotelsSearch: View {
             Text("Edit Search")
                 .font(.system(size: 20, type: .SemiBold))
                 .frame(maxWidth: .infinity, alignment: .leading)
-                        
-            VStack(spacing: 20) {
-                Button {
-                    showSheet = true
-                } label: {
-                    CaminoSearchBar {
-                        HStack {
-                            Image(systemName: "mappin.and.ellipse")
-                            Text(tempLocation)
-                                .font(.system(size: 18, type: .Regular))
-                                .foregroundStyle(.primary)
-                            Spacer()
-                        }
+            
+            Button {
+                showSheet = true
+            } label: {
+                CaminoSearchBar {
+                    HStack {
+                        Image(systemName: "mappin.and.ellipse")
+                            .fontWeight(.semibold)
+                        Text(tempLocation)
+                            .font(.system(size: 18, type: .Regular))
+                            .foregroundStyle(.primary)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .buttonStyle(PlainButtonStyle())
-                
-                
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            
+            if let maxDate = maxDate {
                 Divider()
                     .frame(height: 2)
                     .overlay(.gray2)
@@ -59,11 +60,13 @@ struct EditHotelsSearch: View {
                         .labelsHidden()
                     
                     Image(systemName: "arrow.right")
+                        .fontWeight(.semibold)
                     
                     DatePicker("", selection: $tempToDate, in: tempFromDate...maxDate, displayedComponents: .date)
                         .labelsHidden()
                 }
             }
+            
             
             CaminoButton(label: "Search") {
                 fromDate = tempFromDate
@@ -72,7 +75,7 @@ struct EditHotelsSearch: View {
                 
                 dismiss()
             }
-            .padding(.top, 15)
+            .padding(.top, 10)
             
         }
         .padding(15)

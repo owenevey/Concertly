@@ -8,42 +8,36 @@ struct SortHotels: View {
     
     var body: some View {
         FilterSheet(filter: $sortMethod, defaultFilter: SortHotelsEnum.recommended, title: "Sort") {
-                VStack(spacing: 10) {
-                    ForEach(SortHotelsEnum.allCases.indices, id: \.self) { index in
-                        let method = SortHotelsEnum.allCases[index]
-                        
-                        Button(action: {
-                            sortMethod = method
-                        }) {
-                            HStack(spacing: 10) {
-                                Image(systemName: sortMethod == method ? "checkmark.circle.fill" : "circle")
-                                    .font(.system(size: 25))
-                                    .foregroundStyle(.accent)
-                                
-                                Text(method.title)
-                                    .font(.system(size: 16, type: .Regular))
-                                
-                                Spacer()
-                            }
-                            .padding(.vertical, 2)
-                            .contentShape(Rectangle())
+            VStack(spacing: 10) {
+                ForEach(SortHotelsEnum.allCases.indices, id: \.self) { index in
+                    let method = SortHotelsEnum.allCases[index]
+                    
+                    Button(action: {
+                        sortMethod = method
+                    }) {
+                        HStack(spacing: 10) {
+                            Image(systemName: sortMethod == method ? "checkmark.circle.fill" : "circle")
+                                .font(.system(size: 25))
+                                .foregroundStyle(.accent)
+                            
+                            Text(method.title)
+                                .font(.system(size: 17, type: .Regular))
                         }
-                        .buttonStyle(PlainButtonStyle())
-                        
-                        if index < SortFlightsEnum.allCases.count - 3 {
-                            Divider()
-                                .frame(height: 1)
-                                .overlay(.gray2)
-                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.vertical, 2)
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    if index < SortFlightsEnum.allCases.count - 3 {
+                        Divider()
+                            .frame(height: 1)
+                            .overlay(.gray2)
                     }
                 }
-                .padding(.vertical, 10)
-            
+            }
         }
-    }
-    
-    
-    
+    } 
 }
 
 #Preview {

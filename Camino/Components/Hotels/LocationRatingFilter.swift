@@ -18,16 +18,15 @@ struct LocationRatingFilter: View {
                                 .font(.system(size: 25))
                                 .foregroundStyle(.accent)
                             
-                            HStack {
+                            HStack(spacing: 2) {
                                 ForEach(1...number, id: \.self) { _ in
                                     Image(systemName: "star.fill")
                                         .foregroundColor(.yellow)
                                         .font(.system(size: 18))
                                 }
                             }
-                            
-                            Spacer()
                         }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.vertical, 2)
                         .contentShape(Rectangle())
                     }
@@ -40,12 +39,8 @@ struct LocationRatingFilter: View {
                     }
                 }
             }
-            .padding(.vertical, 10)
         }
     }
-    
-    
-    
 }
 
 #Preview {

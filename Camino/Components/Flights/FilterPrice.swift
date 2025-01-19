@@ -8,7 +8,7 @@ struct FilterPrice: View {
     var flightPrices: [Int]
     
     var maxPrice: Int {
-        return flightPrices.max() ?? 0
+        return flightPrices.max() ?? Int.max
     }
     
     init(priceFilter: Binding<Int>, flightPrices: [Int]) {

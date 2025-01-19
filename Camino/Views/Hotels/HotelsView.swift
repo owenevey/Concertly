@@ -58,8 +58,7 @@ struct HotelsView<T: TripViewModelProtocol>: View {
     }
     
     private var mainContent: some View {
-        VStack(spacing: 15) {
-            
+        LazyVStack(spacing: 15) {
             if viewModel.hotelsResponse.status == Status.loading {
                 LoadingView()
                     .frame(height: 250)
@@ -70,6 +69,7 @@ struct HotelsView<T: TripViewModelProtocol>: View {
                     VStack(spacing: 10) {
                         Image(systemName: "bed.double.fill")
                             .font(.system(size: 20))
+                            .fontWeight(.semibold)
                         
                         Text("No hotels")
                             .font(.system(size: 18, type: .Regular))
@@ -128,7 +128,8 @@ struct HotelsView<T: TripViewModelProtocol>: View {
 }
 
 #Preview {
-    let tripViewModel = ConcertViewModel(concert: hotConcerts[0])
-    
-    HotelsView(tripViewModel: tripViewModel)
+    NavigationStack {
+        ConcertView(concert: hotConcerts[0])
+            .navigationBarHidden(true)
+    }
 }

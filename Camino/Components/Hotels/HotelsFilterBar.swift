@@ -27,14 +27,12 @@ struct HotelsFilterBar: View {
         case .sort:
             return sortMethod != .recommended
         case .price:
-            let maxPrice = hotelPrices.max() ?? 0
+            let maxPrice = hotelPrices.max() ?? Int.max
             return priceFilter < maxPrice
         case .rating:
             return ratingFilter != 1
         case .locationRating:
             return locationRatingFilter != 1
-        default:
-            return false
         }
     }
     
@@ -72,6 +70,7 @@ struct HotelsFilterBar: View {
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(isFilterActive(filter) ? Color.primary : .gray2, style: StrokeStyle(lineWidth: 2))
                                     .padding(2)
+                                    .animation(.easeInOut(duration: 0.1), value: isFilterActive(filter))
                             )
                         }
                         .buttonStyle(PlainButtonStyle())
@@ -79,7 +78,7 @@ struct HotelsFilterBar: View {
                     
                     if isAnyFilterActive {
                         Button {
-                            withAnimation {
+                            withAnimation(.easeInOut(duration: 0.1)) {
                                 resetFilters()
                             }
                         } label: {
@@ -101,7 +100,6 @@ struct HotelsFilterBar: View {
                         .readHeight()
                         .onPreferenceChange(BottomSheetHeightPreferenceKey.self) { height in
                             if let height {
-                                print("gg", height)
                                 self.detentHeight = height
                             }
                         }

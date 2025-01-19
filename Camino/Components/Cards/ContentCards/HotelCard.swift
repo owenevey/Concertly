@@ -22,7 +22,7 @@ struct HotelCard: View {
                             Text("\(rating, specifier: "%.1f")")
                                 .font(.system(size: 16, type: .Medium))
                             Image(systemName: "star.fill")
-                                .font(.system(size: 12))
+                                .font(.system(size: 13))
                                 .foregroundStyle(Color.yellow)
                         }
                     }
@@ -48,15 +48,12 @@ struct HotelCard: View {
                 Spacer()
                 
                 HStack {
-                    Spacer()
                     Text(property.totalRate.extractedLowest, format: .currency(code: "USD").precision(.fractionLength(0)))
                         .font(.system(size: 25, type: .Medium))
                         .frame(alignment: .trailing)
                 }
+                .frame(maxWidth: .infinity, alignment: .trailing)
             }
-            
-            .frame(maxWidth: .infinity)
-            
         }
         .padding(15)
         .frame(height: 170)
@@ -64,53 +61,10 @@ struct HotelCard: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.foreground)
                 .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
+                .padding(1)
         )
         .clipShape(RoundedRectangle(cornerRadius: 20))
     }
-    
-    func determineIcon(for amenity: String) -> String {
-        let amenityIcons: [String: String] = [
-            "wi-fi": "wifi",
-            "pool": "water.waves",
-            "hot tub": "water.waves",
-            "balcony": "sun.horizon.fill",
-            "patio": "sun.horizon.fill",
-            "air conditioning": "air.conditioner.vertical.fill",
-            "shuttle": "bus.fill",
-            "breakfast": "fork.knife",
-            "kitchen": "fork.knife",
-            "smoke-free": "nosign",
-            "washer": "washer",
-            "laundry": "washer",
-            "dryer": "washer",
-            "wheelchair": "wheelchair",
-            "parking": "parkingsign.square.fill",
-            "fitness": "dumbbell.fill",
-            "crib": "bed.double.fill",
-            "tv": "tv.fill",
-            "bar": "wineglass.fill",
-            "spa": "drop.fill",
-            "beach": "beach.umbrella.fill",
-            "restaurant": "takeoutbag.and.cup.and.straw.fill",
-            "room service": "bell.fill",
-            "accessible": "figure.roll",
-            "business": "briefcase.roll",
-            "kid": "figure.and.child.holdinghands",
-            "elevator": "arrow.up.arrow.down.circle.fill",
-            "golf": "figure.golf",
-            "pet": "pawprint.fill",
-            "ironing": "tshirt.fill"
-        ]
-        
-        for (key, icon) in amenityIcons {
-            if amenity.lowercased().contains(key) {
-                return icon
-            }
-        }
-        
-        return "minus"
-    }
-    
 }
 
 #Preview {
@@ -124,7 +78,7 @@ struct HotelCard: View {
         PropertyImage(thumbnail: "https://lh5.googleusercontent.com/proxy/zFMn7qACckgRpyozGnkeToVLKg3cFWUH4im8Fcvnqj98M2_K6nmXhnhfx_7ONIRHD8X_Ach4CysJEsVN_a1DC-TxuShkwUoo39z-vdjgBo_cREkb4cR6CfItMRfEBephdm7es8koyf71CFJea7ZcfVsVoESvNA=s287-w287-h192-n-k-no-v1", originalImage: "https://q-xx.bstatic.com/xdata/images/hotel/max1440x1080/87109112.jpg?k=cd26a8a738927ac91438710ec15ea7c6a93761e64b5017f38f09f2bd359bc5c3&o="),
         PropertyImage(thumbnail: "https://lh6.googleusercontent.com/proxy/k06rXDTc9aOQwRSjWlUWA1cf7uQMq0L_wquhVYvXh23bZB6JDqzDFWGIs6UdMGIcTl33OngRfShazkFGUecEnG9BNMpzBkIrl2NKhxF9QHiqQUSxW8uiR3d7Rpzk3EOwMBf5MqgbZV39HTstc4gK-XY-9tpcC8M=s287-w287-h192-n-k-no-v1", originalImage: "https://q-xx.bstatic.com/xdata/images/hotel/max1440x1080/87112300.jpg?k=d53e7c3c9fc8485308138cbfb498e4d338a0cd81b2d08e22227dfc1376db5414&o=")
     ]
-
+    
     HotelCard(property: Property(
         type: "vacation rental",
         name: "Le Sabot Ubud",

@@ -16,6 +16,7 @@ struct CitySearchView: View {
                 }
                 label: {
                     Image(systemName: "xmark")
+                        .fontWeight(.semibold)
                 }
                 .buttonStyle(PlainButtonStyle())
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -31,6 +32,7 @@ struct CitySearchView: View {
             CaminoSearchBar(content: {
                 HStack {
                     Image(systemName: "magnifyingglass")
+                        .fontWeight(.semibold)
                     TextField("Search", text: $viewModel.searchQuery)
                         .submitLabel(.done)
                         .disableAutocorrection(true)
@@ -39,66 +41,71 @@ struct CitySearchView: View {
                         .padding(.trailing)
                 }
             })
-            .padding(.top)
+            .padding(.top, 10)
             .padding(.bottom, 20)
             
-            
-            switch viewModel.citiesResponse.status {
-            case .success:
-                if let cities = viewModel.citiesResponse.data?.suggestedCities {
-                    
-                    VStack(spacing: 20) {
-                        ForEach(cities, id: \.name) { city in
-                            Button {
-                                if let state = city.stateCode {
-                                    location = "\(city.name), \(state)"
-                                } else {
-                                    location = "\(city.name), \(city.countryCode)"
-                                }
-                                dismiss()
-                            }
-                            label: {
-                                HStack(spacing: 0) {
-                                    Image(systemName: "building.2.fill")
-                                        .font(.system(size: 20))
-                                        .padding(.horizontal, 20)
-                                    
-                                    VStack(alignment: .leading) {
-                                        if let state = city.stateCode {
-                                            Text("\(city.name), \(state)")
-                                                .font(.system(size: 18, type: .Medium))
-                                        } else {
-                                            Text(city.name)
-                                                .font(.system(size: 18, type: .Medium))
-                                        }
-                                        
-                                        Text(city.countryName)
-                                            .font(.system(size: 16, type: .Regular))
-                                            .foregroundStyle(.gray3)
+            ScrollView(showsIndicators: false) {
+                switch viewModel.citiesResponse.status {
+                case .success:
+                    if let cities = viewModel.citiesResponse.data?.suggestedCities {
+                        
+                        VStack(spacing: 20) {
+                            ForEach(cities, id: \.name) { city in
+                                Button {
+                                    if let state = city.stateCode {
+                                        location = "\(city.name), \(state)"
+                                    } else {
+                                        location = "\(city.name), \(city.countryCode)"
                                     }
-                                    
-                                    Spacer()
+                                    dismiss()
                                 }
-                                .contentShape(Rectangle())
+                                label: {
+                                    HStack(spacing: 0) {
+                                        Image(systemName: "building.2.fill")
+                                            .font(.system(size: 20))
+                                            .padding(.horizontal, 20)
+                                        
+                                        VStack(alignment: .leading) {
+                                            if let state = city.stateCode {
+                                                Text("\(city.name), \(state)")
+                                                    .font(.system(size: 18, type: .Medium))
+                                            } else {
+                                                Text(city.name)
+                                                    .font(.system(size: 18, type: .Medium))
+                                            }
+                                            
+                                            Text(city.countryName)
+                                                .font(.system(size: 16, type: .Regular))
+                                                .foregroundStyle(.gray3)
+                                        }
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .contentShape(Rectangle())
+                                }
+                                .buttonStyle(PlainButtonStyle())
                             }
-                            .buttonStyle(PlainButtonStyle())
                         }
+                        .frame(maxWidth: .infinity)
+                        .transition(.opacity)
                     }
-                    .transition(.opacity)
+                case .loading:
+                    LoadingView()
+                        .frame(height: 250)
+                        .frame(maxWidth: .infinity)
+                        .transition(.opacity)
+                case .error:
+                    ErrorView(text: "Error fetching cities", action: { await viewModel.getSuggestedCities() })
+                        .frame(height: 250)
+                        .frame(maxWidth: .infinity)
+                        .transition(.opacity)
+                default:
+                    EmptyView()
+                        .frame(maxWidth: .infinity)
+                        .transition(.opacity)
                 }
-            case .loading:
-                LoadingView()
-                    .frame(height: 250)
-                    .transition(.opacity)
-            case .error:
-                ErrorView(text: "Error fetching cities", action: { await viewModel.getSuggestedCities() })
-                    .frame(height: 250)
-                    .transition(.opacity)
-            default:
-                EmptyView()
-                    .transition(.opacity)
+                Spacer()
             }
-            Spacer()
+            .frame(maxWidth: .infinity)
         }
         .padding(15)
         .background(Color.background)

@@ -8,7 +8,7 @@ struct FilterDuration: View {
     var flightDurations: [Int]
     
     var maxDuration: Int {
-        return flightDurations.max() ?? 0
+        return flightDurations.max() ?? Int.max
     }
     
     init(durationFilter: Binding<Int>, flightDurations: [Int]) {

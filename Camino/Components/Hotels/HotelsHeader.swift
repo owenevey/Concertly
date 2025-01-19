@@ -32,6 +32,7 @@ struct HotelsHeader: View {
                     HStack(spacing: 5) {
                         Image(systemName: "pencil")
                             .font(.system(size: 16))
+                            .fontWeight(.semibold)
                         
                         Text("Edit")
                             .font(.system(size: 16, type: .Medium))
@@ -48,7 +49,6 @@ struct HotelsHeader: View {
                 .readHeight()
                 .onPreferenceChange(BottomSheetHeightPreferenceKey.self) { height in
                     if let height {
-                        print("F", height)
                         self.detentHeight = height
                     }
                 }

@@ -8,7 +8,7 @@ struct FilterTime: View {
     var flightTimes: [Int]
     
     var latestTime: Int {
-        return flightTimes.max() ?? 0
+        return flightTimes.max() ?? Int.max
     }
     
     var timeFormatter: DateFormatter {
