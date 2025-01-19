@@ -93,6 +93,10 @@ struct ExploreView: View {
                                     await viewModel.getPopularArtists()
                                 }
                                 
+                                ExploreRow(title: "Concerts Near You", status: viewModel.nearbyConcertsResponse.status, data: viewModel.nearbyConcerts, contentType: ExploreContentType.concert) {
+                                    await viewModel.getTrendingConcerts()
+                                }
+                                
                                 ExploreRow(title: "Popular Destinations", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.destination) {
                                     await viewModel.getPopularDestinations()
                                 }
@@ -137,6 +141,7 @@ struct ExploreView: View {
                 Task {
                     await viewModel.getTrendingConcerts()
                     await viewModel.getPopularArtists()
+                    await viewModel.getNearbyConcerts()
                     await viewModel.getPopularDestinations()
                     await viewModel.getFeaturedEvent()
                     await viewModel.getSuggestedConcerts()
@@ -149,6 +154,7 @@ struct ExploreView: View {
             Task {
                 await viewModel.getTrendingConcerts()
                 await viewModel.getPopularArtists()
+                await viewModel.getNearbyConcerts()
                 await viewModel.getPopularDestinations()
                 await viewModel.getFeaturedEvent()
                 await viewModel.getSuggestedConcerts()

@@ -9,6 +9,9 @@ final class ExploreViewModel: ObservableObject {
     @Published var popularArtistsResponse: ApiResponse<[SuggestedArtist]> = ApiResponse<[SuggestedArtist]>()
     @Published var popularArtists: [SuggestedArtist] = []
     
+    @Published var nearbyConcertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
+    @Published var nearbyConcerts: [Concert] = []
+    
     @Published var popularDestinationsResponse: ApiResponse<[Destination]> = ApiResponse<[Destination]>()
     @Published var popularDestinations: [Destination] = []
     
@@ -55,6 +58,25 @@ final class ExploreViewModel: ObservableObject {
             print("Error fetching popular artists: \(error)")
             withAnimation(.easeInOut(duration: 0.1)) {
                 self.popularArtistsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
+        }
+    }
+    
+    func getNearbyConcerts() async {
+        withAnimation(.easeInOut(duration: 0.1)) {
+            self.nearbyConcertsResponse = ApiResponse(status: .loading)
+        }
+        
+        do {
+            let fetchedConcerts = try await fetchNearbyConcerts()
+            withAnimation(.easeInOut(duration: 0.1)) {
+                self.nearbyConcerts = fetchedConcerts.concerts
+                self.nearbyConcertsResponse = ApiResponse(status: .success, data: fetchedConcerts.concerts)
+            }
+        } catch {
+            print("Error fetching nearby concerts: \(error)")
+            withAnimation(.easeInOut(duration: 0.1)) {
+                self.nearbyConcertsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }
     }

@@ -62,7 +62,7 @@ struct ExploreSearchView: View {
                                         Text(artistResult.name)
                                             .font(.system(size: 20, type: .Regular))
                                             .lineLimit(2)
-                                            .minimumScaleFactor(0.85)
+                                            .minimumScaleFactor(0.9)
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                         
                                         Image(systemName: "chevron.right")
@@ -98,7 +98,7 @@ struct ExploreSearchView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .padding(15)
+        .padding([.top, .leading, .trailing], 15)
         .background(Color.background)
         .onAppear {
             isTextFieldFocused = true

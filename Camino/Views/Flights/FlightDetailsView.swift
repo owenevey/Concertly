@@ -75,8 +75,8 @@ struct FlightDetailsView: View {
                             ForEach(flightItem.flights.indices, id: \.self) { index in
                                 FlightLeg(flight: flightItem.flights[index])
                                 
-                                if index < flightItem.layovers?.count ?? 0 {
-                                    LayoverView(layover: flightItem.layovers![index])
+                                if let layovers = flightItem.layovers, index < layovers.count {
+                                    LayoverView(layover: layovers[index])
                                 }
                             }
                         }

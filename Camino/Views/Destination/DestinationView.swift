@@ -66,7 +66,7 @@ struct DestinationView: View {
                 GeometryReader { geometry in
                     ZStack(alignment: .top) {
                         ScrollView(showsIndicators: false) {
-                            LazyVStack(spacing: 0) {
+                            VStack(spacing: 0) {
                                 TabView {
                                     ForEach(destinationDetails.images, id: \.self) { imageUrl in
                                         ImageLoader(url: imageUrl, contentMode: .fill)
@@ -166,7 +166,6 @@ struct DestinationView: View {
                                     }
                                     
                                     MapCard(addressToSearch: "\(destinationDetails.cityName), \(destinationDetails.countryName)", latitude: destinationDetails.latitude, longitude: destinationDetails.longitude, name: destinationDetails.cityName, generalLocation: destinationDetails.countryName)
-                                        .padding(.vertical, 10)
                                     
                                     CaminoButton(label: "Plan Trip") {
                                         print("Plan trip tapped")

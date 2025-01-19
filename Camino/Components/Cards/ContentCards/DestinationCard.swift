@@ -22,19 +22,19 @@ struct DestinationCard: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text(destination.name)
                         .font(.system(size: 20, type: .SemiBold))
-                        .minimumScaleFactor(0.85)
+                        .minimumScaleFactor(0.9)
                         .lineLimit(1)
                     
                     Text(destination.countryName)
                         .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
-                        .minimumScaleFactor(0.85)
+                        .minimumScaleFactor(0.9)
                         .lineLimit(1)
                     
                     Text(destination.description)
                         .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
-                        .minimumScaleFactor(0.85)
+                        .minimumScaleFactor(0.9)
                         .lineLimit(2, reservesSpace: true)
                 }
                 .padding(15)

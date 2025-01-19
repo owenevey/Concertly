@@ -16,9 +16,9 @@ struct ConcertView: View {
     
     var body: some View {
         ImageHeaderScrollView(title: concert.artistName, imageUrl: concert.imageUrl) {
-            LazyVStack(spacing: 20) {
+            VStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 5) {
-                    HStack {
+                    HStack(alignment: .top) {
                         Text(concert.artistName)
                             .font(.system(size: 30, type: .SemiBold))
                         
@@ -35,7 +35,8 @@ struct ConcertView: View {
                             Image(systemName: "ellipsis")
                                 .font(.system(size: 20))
                                 .fontWeight(.semibold)
-                                .padding(.vertical)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 5)
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
@@ -108,7 +109,6 @@ struct ConcertView: View {
                 }
                 
                 MapCard(addressToSearch: concert.venueAddress, latitude: concert.latitude, longitude: concert.longitude, name: concert.venueName, generalLocation: concert.cityName)
-                    .padding(.vertical, 10)
                 
                 CaminoButton(label: "Plan Trip") {
                     print("Plan trip tapped")

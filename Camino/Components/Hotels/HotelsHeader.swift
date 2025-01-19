@@ -18,7 +18,7 @@ struct HotelsHeader: View {
             VStack {
                 Text(location)
                     .font(.system(size: 18, type: .SemiBold))
-                    .minimumScaleFactor(0.8)
+                    .minimumScaleFactor(0.9)
                     .frame(maxWidth: .infinity)
                 
                 Text("\(fromDate.shortFormat()) - \(toDate.shortFormat())")

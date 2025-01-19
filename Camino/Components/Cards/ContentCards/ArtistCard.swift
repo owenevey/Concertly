@@ -33,7 +33,7 @@ struct ArtistCard: View {
                         Text(artist.name)
                             .font(.system(size: 23, type: .SemiBold))
                             .foregroundStyle(.white)
-                            .minimumScaleFactor(0.85)
+                            .minimumScaleFactor(0.9)
                             .lineLimit(2)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(15)

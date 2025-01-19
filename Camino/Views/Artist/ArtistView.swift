@@ -63,7 +63,7 @@ struct ArtistView: View {
         Group {
             if let artistDetails = viewModel.artistDetailsResponse.data?.artistDetails {
                 ImageHeaderScrollView(title: artistDetails.name, imageUrl: artistDetails.imageUrl, showBackButton: false) {
-                    LazyVStack(spacing: 20) {
+                    VStack(spacing: 20) {
                         VStack(alignment: .leading, spacing: 5) {
                             Text(artistDetails.name)
                                 .font(.system(size: 30, type: .SemiBold))
@@ -144,7 +144,7 @@ struct ArtistView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
                                 ScrollView(.horizontal, showsIndicators: false) {
-                                    LazyHStack(spacing: 15) {
+                                    HStack(spacing: 15) {
                                         ForEach(artistDetails.similarArtists) { artist in
                                             NavigationLink{
                                                 ArtistView(artistID: artist.id)
@@ -160,7 +160,7 @@ struct ArtistView: View {
                                                         .font(.system(size: 18, type: .Medium))
                                                         .frame(width: 100)
                                                         .lineLimit(2, reservesSpace: true)
-                                                        .minimumScaleFactor(0.75)
+                                                        .minimumScaleFactor(0.9)
                                                         .multilineTextAlignment(.center)
                                                 }
                                             }

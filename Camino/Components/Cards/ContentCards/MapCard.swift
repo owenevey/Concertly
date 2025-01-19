@@ -21,13 +21,13 @@ struct MapCard: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text(name)
                         .font(.system(size: 20, type: .SemiBold))
-                        .minimumScaleFactor(0.85)
+                        .minimumScaleFactor(0.9)
                         .lineLimit(1)
                     
                     Text(generalLocation)
                         .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
-                        .minimumScaleFactor(0.85)
+                        .minimumScaleFactor(0.9)
                         .lineLimit(1)
                     
                 }
@@ -41,20 +41,21 @@ struct MapCard: View {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.foreground)
                     .shadow(color: .black.opacity(0.2), radius: 5)
-                    
+                
             )
         }
         .buttonStyle(PlainButtonStyle())
     }
     
     func openAddressInMaps(address: String) {
-            let formattedAddress = address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-            let url = URL(string: "http://maps.apple.com/?q=\(formattedAddress)")!
-            
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url)
+        if let formattedAddress = address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            if let url = URL(string: "http://maps.apple.com/?q=\(formattedAddress)") {
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url)
+                }
             }
         }
+    }
 }
 
 #Preview {

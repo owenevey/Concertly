@@ -52,9 +52,7 @@ struct ImageHeaderScrollView<HeaderContent: View, Content: View>: View {
                         content()
                             .background(Color.background)
                     }
-                    .containerRelativeFrame(.horizontal) { size, axis in
-                        size
-                    }
+                    .frame(width: UIScreen.main.bounds.width)
                 }
                 .ignoresSafeArea(edges: .top)
                 .onScrollGeometryChange(for: CGFloat.self) { geo in

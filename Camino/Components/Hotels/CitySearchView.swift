@@ -108,7 +108,7 @@ struct CitySearchView: View {
             }
             .frame(maxWidth: .infinity)
         }
-        .padding(15)
+        .padding([.top, .leading, .trailing], 15)
         .background(Color.background)
         .onAppear {
             isTextFieldFocused = true

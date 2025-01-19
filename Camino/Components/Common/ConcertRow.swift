@@ -46,14 +46,14 @@ struct ConcertRow: View {
                     .font(.system(size: 18, type: .Medium))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.85)
+                    .minimumScaleFactor(0.9)
                 
                 Text(subtitle)
                     .font(.system(size: 16, type: .Medium))
                     .foregroundStyle(.gray)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.85)
+                    .minimumScaleFactor(0.9)
             }
             
             Image(systemName: "chevron.right")

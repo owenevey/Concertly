@@ -21,19 +21,19 @@ struct ConcertCard: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text(concert.artistName)
                         .font(.system(size: 20, type: .SemiBold))
-                        .minimumScaleFactor(0.85)
+                        .minimumScaleFactor(0.9)
                         .lineLimit(1)
                     
                     Text(concert.cityName)
                         .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
-                        .minimumScaleFactor(0.85)
+                        .minimumScaleFactor(0.9)
                         .lineLimit(1)
                     
                     Text(concert.dateTime.formatted(date: .abbreviated, time: .omitted))
                         .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
-                        .minimumScaleFactor(0.85)
+                        .minimumScaleFactor(0.9)
                         .lineLimit(1)
                 }
                 .padding(15)

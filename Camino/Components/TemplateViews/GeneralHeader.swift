@@ -14,7 +14,7 @@ struct GeneralHeader: View {
                     .font(.system(size: 23, type: .Medium))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.85)
+                    .minimumScaleFactor(0.9)
 
             }
             .padding(.trailing, 20)
