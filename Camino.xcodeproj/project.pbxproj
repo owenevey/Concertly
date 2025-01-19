@@ -330,6 +330,7 @@
 				F1CD3C8A2D25FB88004E3041 /* ExploreViewModel.swift */,
 				F11640212C8BA8270040C95D /* TripsView.swift */,
 				F13186282CB1EBD9003DBCC5 /* ProfileView.swift */,
+				F1CD3CC52D31F1D6004E3041 /* ExploreSearchView.swift */,
 				F1CD3CC72D31F9F1004E3041 /* ExploreSearchViewModel.swift */,
 			);
 			path = BottomTabs;
@@ -406,7 +407,6 @@
 				F11640232C8BAD140040C95D /* GenrePills.swift */,
 				F11640252C8BB4F00040C95D /* ExploreRow.swift */,
 				F1CD3CB72D2CBA0F004E3041 /* FeaturedEvent.swift */,
-				F1CD3CC52D31F1D6004E3041 /* ExploreSearchView.swift */,
 			);
 			path = Explore;
 			sourceTree = "<group>";
@@ -436,7 +436,7 @@
 				F1FACFF12D39D04500D53A7D /* Venue */,
 				F1FACFF02D39D03400D53A7D /* Genre */,
 				F1FACFEF2D39D02A00D53A7D /* Artist */,
-				F1CD3C9C2D275618004E3041 /* Place */,
+				F1CD3C9C2D275618004E3041 /* Destination */,
 				F116401E2C8AAA2C0040C95D /* BottomTabs */,
 				F19C726C2CC7496200390BD6 /* Concert */,
 				F19C726D2CC7498E00390BD6 /* Flights */,
@@ -579,13 +579,13 @@
 			path = ErrorCards;
 			sourceTree = "<group>";
 		};
-		F1CD3C9C2D275618004E3041 /* Place */ = {
+		F1CD3C9C2D275618004E3041 /* Destination */ = {
 			isa = PBXGroup;
 			children = (
 				F1CD3C9A2D2755DA004E3041 /* DestinationView.swift */,
 				F1CD3C9D2D275628004E3041 /* DestinationViewModel.swift */,
 			);
-			path = Place;
+			path = Destination;
 			sourceTree = "<group>";
 		};
 		F1FACFEF2D39D02A00D53A7D /* Artist */ = {

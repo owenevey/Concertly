@@ -1,12 +1,10 @@
 import SwiftUI
 
-struct CitySearchView: View {
+struct ExploreSearchView: View {
     
     @Environment(\.dismiss) var dismiss
     @FocusState private var isTextFieldFocused: Bool
-    @StateObject private var viewModel = CitySearchViewModel()
-    
-    @Binding var location: String
+    @StateObject private var viewModel = ExploreSearchViewModel()
     
     var body: some View {
         VStack(spacing: 0) {
@@ -15,13 +13,13 @@ struct CitySearchView: View {
                     dismiss()
                 }
                 label: {
-                    Image(systemName: "xmark")
+                    Image(systemName: "arrow.backward")
                         .font(.system(size: 18, weight: .semibold))
                 }
                 .buttonStyle(PlainButtonStyle())
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Text("City Search")
+                Text("Artist Search")
                     .font(.system(size: 18, type: .Medium))
                 
                 Color.clear
@@ -45,42 +43,34 @@ struct CitySearchView: View {
             .padding(.bottom, 20)
             
             ScrollView(showsIndicators: false) {
-                switch viewModel.citiesResponse.status {
+                switch viewModel.artistsResponse.status {
                 case .success:
-                    if let cities = viewModel.citiesResponse.data?.suggestedCities {
-                        
+                    if let artists = viewModel.artistsResponse.data?.suggestedArtists {
                         VStack(spacing: 5) {
-                            ForEach(cities, id: \.name) { city in
-                                Button {
-                                    if let state = city.stateCode {
-                                        location = "\(city.name), \(state)"
-                                    } else {
-                                        location = "\(city.name), \(city.countryCode)"
-                                    }
-                                    dismiss()
+                            ForEach(artists) { artistResult in
+                                NavigationLink {
+                                    ArtistView(artistID: artistResult.id)
+                                        .navigationBarHidden(true)
                                 }
                                 label: {
-                                    HStack(spacing: 0) {
-                                        Image(systemName: "building.2.fill")
-                                            .font(.system(size: 20))
-                                            .padding(.horizontal, 20)
+                                    HStack(spacing: 15) {
+                                        ImageLoader(url: artistResult.imageUrl, contentMode: .fill)
+                                            .frame(width: 60, height: 60)
+                                            .cornerRadius(40)
+                                            .clipped()
                                         
-                                        VStack(alignment: .leading) {
-                                            if let state = city.stateCode {
-                                                Text("\(city.name), \(state)")
-                                                    .font(.system(size: 18, type: .Medium))
-                                            } else {
-                                                Text(city.name)
-                                                    .font(.system(size: 18, type: .Medium))
-                                            }
-                                            
-                                            Text(city.countryName)
-                                                .font(.system(size: 16, type: .Regular))
-                                                .foregroundStyle(.gray3)
-                                        }
+                                        Text(artistResult.name)
+                                            .font(.system(size: 20, type: .Regular))
+                                            .lineLimit(2)
+                                            .minimumScaleFactor(0.85)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                        
+                                        Image(systemName: "chevron.right")
+                                            .font(.system(size: 15))
+                                            .fontWeight(.semibold)
+                                            .padding(.trailing, 5)
                                     }
                                     .padding(.vertical, 5)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
                                     .contentShape(Rectangle())
                                 }
                                 .buttonStyle(PlainButtonStyle())
@@ -95,7 +85,7 @@ struct CitySearchView: View {
                         .frame(maxWidth: .infinity)
                         .transition(.opacity)
                 case .error:
-                    ErrorView(text: "Error fetching cities", action: { await viewModel.getSuggestedCities() })
+                    ErrorView(text: "Error fetching artists", action: { await viewModel.getSuggestedArtists() })
                         .frame(height: 250)
                         .frame(maxWidth: .infinity)
                         .transition(.opacity)
@@ -106,7 +96,7 @@ struct CitySearchView: View {
                 }
                 Spacer()
             }
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .padding(15)
         .background(Color.background)
@@ -117,9 +107,9 @@ struct CitySearchView: View {
 }
 
 #Preview {
-    @Previewable @State var city: String = "SAN"
-    
-    CitySearchView(location: $city)
+    NavigationStack {
+        ExploreSearchView()
+    }
 }
 
 

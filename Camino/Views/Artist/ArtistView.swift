@@ -26,14 +26,18 @@ struct ArtistView: View {
                             .transition(.opacity)
                         Spacer()
                     }
+                    
                 case .error:
-                    Spacer()
-                    ErrorView(text: "Error fetching artist details", action: {
-                        await viewModel.getArtistDetails()
-                    })
-                    .frame(height: 250)
-                    .transition(.opacity)
-                    Spacer()
+                    VStack {
+                        Spacer()
+                        ErrorView(text: "Error fetching artist details", action: {
+                            await viewModel.getArtistDetails()
+                        })
+                        .frame(height: 250)
+                        .transition(.opacity)
+                        Spacer()
+                    }
+                    
                 case .success:
                     mainContent
                 }
@@ -50,8 +54,8 @@ struct ArtistView: View {
             }
             HStack {
                 TranslucentBackButton()
-                Spacer()
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
     
@@ -59,18 +63,17 @@ struct ArtistView: View {
         Group {
             if let artistDetails = viewModel.artistDetailsResponse.data?.artistDetails {
                 ImageHeaderScrollView(title: artistDetails.name, imageUrl: artistDetails.imageUrl, showBackButton: false) {
-                    VStack(spacing: 20) {
+                    LazyVStack(spacing: 20) {
                         VStack(alignment: .leading, spacing: 5) {
                             Text(artistDetails.name)
                                 .font(.system(size: 30, type: .SemiBold))
                             
                             Text(artistDetails.bio)
-                                .font(.system(size: 16, type: .Regular))
+                                .font(.system(size: 17, type: .Regular))
                                 .foregroundStyle(.gray3)
                             
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        
                         
                         if !artistDetails.socials.isEmpty {
                             WrappingCollectionView(
@@ -78,16 +81,22 @@ struct ArtistView: View {
                                 spacing: 5,
                                 singleItemHeight: 43
                             ) { social in
+                                
                                 HStack {
-                                    Image(determineSocialImage(for: social))
-                                        .resizable()
-                                        .frame(width: 20, height: 20)
-                                        .scaledToFit()
-                                    
                                     if let url = URL(string: social.url) {
-                                        Link(social.name, destination: url)
-                                            .font(.system(size: 16, type: .Medium))
-                                            .buttonStyle(PlainButtonStyle())
+                                        Link(destination: url) {
+                                            HStack {
+                                                Image(determineSocialImage(for: social))
+                                                    .resizable()
+                                                    .frame(width: 20, height: 20)
+                                                    .scaledToFit()
+                                                
+                                                Text(social.name)
+                                                    .font(.system(size: 16, type: .Medium))
+                                                    .buttonStyle(PlainButtonStyle())
+                                            }
+                                        }
+                                        .buttonStyle(PlainButtonStyle())
                                     }
                                 }
                                 .padding(.vertical, 10)
@@ -101,49 +110,50 @@ struct ArtistView: View {
                                 .frame(height: 43)
                                 .fixedSize(horizontal: true, vertical: true) // This is necessary for each item to be as tight as possible
                             }
+                            .padding(.top, -10)
                         }
-                        
-                        
                         
                         VStack(spacing: 10) {
                             if artistDetails.concerts.isEmpty {
                                 Text("No Upcoming Concerts")
-                                    .font(.system(size: 20, type: .Medium))
+                                    .font(.system(size: 23, type: .Medium))
                                     .frame(maxWidth: .infinity, alignment: .center)
                                     .padding(.vertical, 20)
                             } else {
                                 Text("Upcoming Concerts")
                                     .font(.system(size: 23, type: .SemiBold))
                                     .frame(maxWidth: .infinity, alignment: .leading)
+                                
                                 ForEach(artistDetails.concerts) { concert in
                                     NavigationLink{
                                         ConcertView(concert: concert)
                                             .navigationBarHidden(true)
                                     } label: {
-                                        ConcertRow(concert: concert, screen: "artist")
+                                        ConcertRow(concert: concert, screen: .artist)
                                     }
                                     .buttonStyle(PlainButtonStyle())
                                 }
                             }
                         }
                         
-                        VStack(spacing: 10) {
-                            if !artistDetails.similarArtists.isEmpty {
+                        
+                        if !artistDetails.similarArtists.isEmpty {
+                            VStack(spacing: 10) {
                                 Text("Similar Artists")
                                     .font(.system(size: 23, type: .SemiBold))
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
                                 ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: 15) {
+                                    LazyHStack(spacing: 15) {
                                         ForEach(artistDetails.similarArtists) { artist in
                                             NavigationLink{
                                                 ArtistView(artistID: artist.id)
                                                     .navigationBarHidden(true)
                                             } label: {
-                                                VStack {                                                    
+                                                VStack {
                                                     ImageLoader(url: artist.imageUrl, contentMode: .fill)
                                                         .frame(width: 90, height: 90)
-                                                        .cornerRadius(50)
+                                                        .cornerRadius(45)
                                                         .clipped()
                                                     
                                                     Text(artist.name)
@@ -156,10 +166,9 @@ struct ArtistView: View {
                                             }
                                             .buttonStyle(PlainButtonStyle())
                                         }
-                                        .scrollTargetLayout()
                                     }
+                                    .scrollTargetLayout()
                                 }
-                                
                                 .scrollTargetBehavior(.viewAligned)
                                 .safeAreaPadding(.horizontal, 15)
                                 .padding(.horizontal, -15)
@@ -167,9 +176,6 @@ struct ArtistView: View {
                         }
                     }
                     .padding(15)
-                    .containerRelativeFrame(.horizontal) { size, axis in
-                        size
-                    }
                 }
                 .background(Color.background)
             } else {

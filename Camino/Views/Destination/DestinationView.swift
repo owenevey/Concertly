@@ -27,14 +27,18 @@ struct DestinationView: View {
                             .transition(.opacity)
                         Spacer()
                     }
+                    
                 case .error:
-                    Spacer()
-                    ErrorView(text: "Error fetching destination details", action: {
-                        await viewModel.getDestinationDetails()
-                    })
-                    .frame(height: 250)
-                    .transition(.opacity)
-                    Spacer()
+                    VStack {
+                        Spacer()
+                        ErrorView(text: "Error fetching destination details", action: {
+                            await viewModel.getDestinationDetails()
+                        })
+                        .frame(height: 250)
+                        .transition(.opacity)
+                        Spacer()
+                    }
+                    
                 case .success:
                     mainContent
                 }
@@ -51,19 +55,18 @@ struct DestinationView: View {
             }
             HStack {
                 TranslucentBackButton()
-                Spacer()
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
     
     private var mainContent: some View {
-        
         Group {
             if let destinationDetails = viewModel.destinationDetailsResponse.data?.destinationDetails {
                 GeometryReader { geometry in
                     ZStack(alignment: .top) {
                         ScrollView(showsIndicators: false) {
-                            VStack(spacing: 0) {
+                            LazyVStack(spacing: 0) {
                                 TabView {
                                     ForEach(destinationDetails.images, id: \.self) { imageUrl in
                                         ImageLoader(url: imageUrl, contentMode: .fill)
@@ -80,24 +83,24 @@ struct DestinationView: View {
                                             .font(.system(size: 30, type: .SemiBold))
                                         
                                         Text(destinationDetails.description)
-                                            .font(.system(size: 16, type: .Regular))
+                                            .font(.system(size: 17, type: .Regular))
                                             .foregroundStyle(.gray3)
                                     }
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     
                                     
                                     VStack(alignment: .leading, spacing: 5) {
-                                        Text("Minimum Price Summary")
-                                            .font(.system(size: 20, type: .SemiBold))
+                                        Text("Price Summary")
+                                            .font(.system(size: 23, type: .SemiBold))
                                         
                                         Text("\(viewModel.tripStartDate.mediumFormat()) - \(viewModel.tripEndDate.mediumFormat())")
-                                            .font(.system(size: 16, type: .Regular))
+                                            .font(.system(size: 17, type: .Regular))
                                             .foregroundStyle(.gray3)
                                     }
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     
                                     
-                                    VStack(spacing: 15) {
+                                    VStack(spacing: 10) {
                                         ForEach((LineItemType.destinationItems(destinationViewModel: viewModel)), id: \.title) { item in
                                             switch item {
                                             case .flights:
@@ -116,15 +119,19 @@ struct DestinationView: View {
                                         HStack {
                                             Text("Total:")
                                                 .font(.system(size: 18, type: .Medium))
+                                            
                                             Spacer()
+                                            
                                             Group {
                                                 if viewModel.flightsResponse.status == .loading || viewModel.hotelsResponse.status == .loading {
                                                     CircleLoadingView(ringSize: 20)
                                                         .padding(.trailing, 10)
-                                                } else if viewModel.flightsResponse.status == .success && viewModel.hotelsResponse.status == .success {
+                                                }
+                                                else if viewModel.flightsResponse.status == .success && viewModel.hotelsResponse.status == .success {
                                                     Text("$\(viewModel.totalPrice)")
                                                         .font(.system(size: 18, type: .Medium))
-                                                } else if viewModel.flightsResponse.status == .error || viewModel.hotelsResponse.status == .error {
+                                                }
+                                                else if viewModel.flightsResponse.status == .error || viewModel.hotelsResponse.status == .error {
                                                     Text("Error")
                                                         .font(.system(size: 18, type: .Medium))
                                                 }
@@ -133,25 +140,25 @@ struct DestinationView: View {
                                             .animation(.easeInOut, value: viewModel.totalPrice)
                                         }
                                         .padding(.horizontal, 10)
-                                        
                                     }
                                     
                                     VStack(spacing: 10) {
                                         if destinationDetails.concerts.isEmpty {
                                             Text("No Upcoming Concerts")
-                                                .font(.system(size: 20, type: .Medium))
+                                                .font(.system(size: 23, type: .Medium))
                                                 .frame(maxWidth: .infinity, alignment: .center)
                                                 .padding(.vertical, 20)
                                         } else {
                                             Text("Upcoming Concerts")
                                                 .font(.system(size: 23, type: .SemiBold))
                                                 .frame(maxWidth: .infinity, alignment: .leading)
+                                            
                                             ForEach(destinationDetails.concerts) { concert in
                                                 NavigationLink{
                                                     ConcertView(concert: concert)
                                                         .navigationBarHidden(true)
                                                 } label: {
-                                                    ConcertRow(concert: concert, screen: "destination")
+                                                    ConcertRow(concert: concert, screen: .destination)
                                                 }
                                                 .buttonStyle(PlainButtonStyle())
                                             }
@@ -161,44 +168,28 @@ struct DestinationView: View {
                                     MapCard(addressToSearch: "\(destinationDetails.cityName), \(destinationDetails.countryName)", latitude: destinationDetails.latitude, longitude: destinationDetails.longitude, name: destinationDetails.cityName, generalLocation: destinationDetails.countryName)
                                         .padding(.vertical, 10)
                                     
-                                    Button {
+                                    CaminoButton(label: "Plan Trip") {
                                         print("Plan trip tapped")
-                                    } label: {
-                                        Text("Plan Trip")
-                                            .font(.system(size: 18, type: .Medium))
-                                            .foregroundStyle(.white)
-                                            .padding(12)
-                                            .containerRelativeFrame(.horizontal) { size, axis in
-                                                size - 100
-                                            }
-                                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                                            .background(
-                                                RoundedRectangle(cornerRadius: 15)
-                                                    .fill(.accent)
-                                            )
-                                        
                                     }
-                                    .buttonStyle(PlainButtonStyle())
+                                    .frame(width: UIScreen.main.bounds.width - 100)
+                                    
                                 }
                                 .padding(15)
                                 .background(Color.background)
-                                .containerRelativeFrame(.horizontal) { size, axis in
-                                    size
-                                }
+                                .frame(width: UIScreen.main.bounds.width)
                             }
                         }
                         .ignoresSafeArea(edges: .top)
                         .onScrollGeometryChange(for: CGFloat.self) { geo in
                             return geo.contentOffset.y
-                        } action: { oldValue, newValue in                            
-                            // Threshold for toggling title visibility
+                        } action: { oldValue, newValue in
                             let threshold = 300 - 50 + 15 + 10 - geometry.safeAreaInsets.top
                             
                             withAnimation(.linear(duration: 0.3)) {
                                 if newValue > threshold && isTitleVisible {
-                                    isTitleVisible = false // Hide title
+                                    isTitleVisible = false
                                 } else if newValue <= threshold && !isTitleVisible {
-                                    isTitleVisible = true // Show title
+                                    isTitleVisible = true
                                 }
                             }
                         }
@@ -206,7 +197,6 @@ struct DestinationView: View {
                         GeneralHeader(title: destination.name)
                             .opacity(isTitleVisible ? 0 : 1)
                             .animation(.linear(duration: 0.1), value: isTitleVisible)
-//                            .padding(.top, geometry.safeAreaInsets.top)
                     }
                 }
             }
@@ -217,10 +207,6 @@ struct DestinationView: View {
             }
         }
     }
-    
-    
-    
-    
 }
 
 #Preview {

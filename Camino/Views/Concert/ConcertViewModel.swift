@@ -26,7 +26,9 @@ class ConcertViewModel: TripViewModelProtocol {
     }
     
     func getDepartingFlights() async {
-        self.flightsResponse = ApiResponse(status: .loading)
+        withAnimation(.easeInOut(duration: 0.3)) {
+            self.flightsResponse = ApiResponse(status: .loading)
+        }
         
         do {
             let fetchedFlights = try await fetchDepartureFlights(lat: concert.latitude,
@@ -59,7 +61,9 @@ class ConcertViewModel: TripViewModelProtocol {
     }
     
     func getHotels() async {
-        self.hotelsResponse = ApiResponse(status: .loading)
+        withAnimation(.easeInOut(duration: 0.3)) {
+            self.hotelsResponse = ApiResponse(status: .loading)
+        }
         
         do {
             let fetchedHotels = try await fetchHotels(location: concert.cityName,
@@ -70,14 +74,14 @@ class ConcertViewModel: TripViewModelProtocol {
                 self.hotelsPrice = fetchedHotels.properties.first?.totalRate.extractedLowest ?? 0
             }
             
-            let hotelThumbnails: [URL] = fetchedHotels.properties.compactMap { hotel in
+            let hotelPhotos: [URL] = fetchedHotels.properties.compactMap { hotel in
                 if let urlString = hotel.images?.first?.originalImage {
                     return URL(string: urlString)
                 }
                 return nil
             }
             
-            ImagePrefetcher.instance.startPrefetching(urls: hotelThumbnails)
+            ImagePrefetcher.instance.startPrefetching(urls: hotelPhotos)
             
         } catch {
             print("Error fetching hotels: \(error)")

@@ -17,7 +17,7 @@ struct AirportSearchView: View {
                 }
                 label: {
                     Image(systemName: "xmark")
-                        .fontWeight(.semibold)
+                        .font(.system(size: 18, weight: .semibold))
                 }
                 .buttonStyle(PlainButtonStyle())
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -50,7 +50,7 @@ struct AirportSearchView: View {
                 case .success:
                     if let airports = viewModel.airportsResponse.data?.suggestedAirports {
                         
-                        VStack(spacing: 20) {
+                        VStack(spacing: 5) {
                             ForEach(airports, id: \.code) { airportResult in
                                 Button {
                                     airportCode = airportResult.code
@@ -76,6 +76,7 @@ struct AirportSearchView: View {
                                             .font(.system(size: 18, type: .Medium))
                                             .padding(.horizontal, 20)
                                     }
+                                    .padding(.vertical, 5)
                                     .contentShape(Rectangle())
                                 }
                                 .buttonStyle(PlainButtonStyle())
@@ -94,7 +95,7 @@ struct AirportSearchView: View {
                         .frame(height: 250)
                         .frame(maxWidth: .infinity)
                         .transition(.opacity)
-                default:
+                case .empty:
                     EmptyView()
                         .frame(maxWidth: .infinity)
                         .transition(.opacity)

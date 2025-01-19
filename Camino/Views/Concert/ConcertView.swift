@@ -16,7 +16,7 @@ struct ConcertView: View {
     
     var body: some View {
         ImageHeaderScrollView(title: concert.artistName, imageUrl: concert.imageUrl) {
-            VStack(spacing: 20) {
+            LazyVStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 5) {
                     HStack {
                         Text(concert.artistName)
@@ -40,7 +40,7 @@ struct ConcertView: View {
                         .buttonStyle(PlainButtonStyle())
                     }
                     
-                    if concert.name != concert.artistName {
+                    if concert.name.lowercased() != concert.artistName.lowercased() {
                         Text(concert.name)
                             .font(.system(size: 18, type: .Regular))
                             .foregroundStyle(.gray3)
@@ -55,7 +55,7 @@ struct ConcertView: View {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Price Summary")
-                        .font(.system(size: 20, type: .SemiBold))
+                        .font(.system(size: 23, type: .SemiBold))
                     
                     Text("\(viewModel.tripStartDate.mediumFormat()) - \(viewModel.tripEndDate.mediumFormat())")
                         .font(.system(size: 17, type: .Regular))
@@ -84,15 +84,19 @@ struct ConcertView: View {
                     HStack {
                         Text("Total:")
                             .font(.system(size: 18, type: .Medium))
+                        
                         Spacer()
+                        
                         Group {
                             if viewModel.flightsResponse.status == .loading || viewModel.hotelsResponse.status == .loading {
                                 CircleLoadingView(ringSize: 20)
                                     .padding(.trailing, 10)
-                            } else if viewModel.flightsResponse.status == .success && viewModel.hotelsResponse.status == .success {
+                            }
+                            else if viewModel.flightsResponse.status == .success && viewModel.hotelsResponse.status == .success {
                                 Text("$\(viewModel.totalPrice)")
                                     .font(.system(size: 18, type: .Medium))
-                            } else if viewModel.flightsResponse.status == .error || viewModel.hotelsResponse.status == .error {
+                            }
+                            else if viewModel.flightsResponse.status == .error || viewModel.hotelsResponse.status == .error {
                                 Text("Error")
                                     .font(.system(size: 18, type: .Medium))
                             }

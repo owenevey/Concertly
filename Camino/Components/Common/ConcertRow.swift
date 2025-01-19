@@ -4,28 +4,28 @@ import SwiftUI
 struct ConcertRow: View {
     
     var concert: Concert
-    var screen: String
+    var screen: ConcertScreenType
     
     var title: String {
-        if screen == "artist" {
+        switch screen {
+        case .artist:
             return concert.cityName
-        } else if screen == "destination" {
+        case .destination:
             return concert.artistName
-        } else if screen == "venue" {
+        case .venue:
             return concert.artistName
         }
-        return ""
     }
     
     var subtitle: String {
-        if screen == "artist" {
-            return concert.venueName
-        } else if screen == "destination" {
+        switch screen {
+        case .artist:
+            return  concert.venueName
+        case .destination:
             return concert.name
-        } else if screen == "venue" {
+        case .venue:
             return concert.name
         }
-        return ""
     }
     
     var body: some View {
@@ -46,22 +46,20 @@ struct ConcertRow: View {
                     .font(.system(size: 18, type: .Medium))
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.75)
+                    .minimumScaleFactor(0.85)
                 
                 Text(subtitle)
                     .font(.system(size: 16, type: .Medium))
                     .foregroundStyle(.gray)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(1)
-                    .minimumScaleFactor(0.9)
+                    .minimumScaleFactor(0.85)
             }
             
             Image(systemName: "chevron.right")
                 .font(.system(size: 15))
                 .fontWeight(.semibold)
                 .padding(.trailing)
-            
-            
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(5)
@@ -70,6 +68,12 @@ struct ConcertRow: View {
     }
 }
 
+enum ConcertScreenType {
+    case artist
+    case venue
+    case destination
+}
+
 #Preview {
-    ConcertRow(concert: hotConcerts[0], screen: "artist")
+    ConcertRow(concert: hotConcerts[0], screen: .artist)
 }

@@ -88,7 +88,7 @@ struct VenueView: View {
                                         ConcertView(concert: concert)
                                             .navigationBarHidden(true)
                                     } label: {
-                                        ConcertRow(concert: concert, screen: "venue")
+                                        ConcertRow(concert: concert, screen: .venue)
                                     }
                                     .buttonStyle(PlainButtonStyle())
                                 }
