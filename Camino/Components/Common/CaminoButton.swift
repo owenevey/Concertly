@@ -28,6 +28,7 @@ struct CaminoButton: View {
                     }
                     
                 )
+                .contentShape(RoundedRectangle(cornerRadius: 15))
                 .clipShape(RoundedRectangle(cornerRadius: 15))
         }
         .buttonStyle(PlainButtonStyle())

@@ -60,11 +60,10 @@ struct CitySearchView: View {
                                     dismiss()
                                 }
                                 label: {
-                                    HStack(spacing: 0) {
+                                    HStack(spacing: 20) {
                                         Image(systemName: "building.2.fill")
                                             .font(.system(size: 20))
-                                            .padding(.horizontal, 20)
-                                        
+
                                         VStack(alignment: .leading) {
                                             if let state = city.stateCode {
                                                 Text("\(city.name), \(state)")
@@ -80,6 +79,7 @@ struct CitySearchView: View {
                                         }
                                     }
                                     .padding(.vertical, 5)
+                                    .padding(.horizontal, 10)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .contentShape(Rectangle())
                                 }

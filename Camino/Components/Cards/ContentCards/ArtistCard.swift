@@ -16,6 +16,7 @@ struct ArtistCard: View {
             ImageLoader(url: artist.imageUrl, contentMode: .fill)
             .frame(width: 200, height: 230)
             .clipped()
+            .contentShape(RoundedRectangle(cornerRadius: 20))
             .overlay {
                 ZStack(alignment: .bottom) {
                     LinearGradient(

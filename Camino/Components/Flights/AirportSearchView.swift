@@ -57,10 +57,9 @@ struct AirportSearchView: View {
                                     dismiss()
                                 }
                                 label: {
-                                    HStack(spacing: 0) {
+                                    HStack(spacing: 20) {
                                         Image(systemName: "airplane")
                                             .font(.system(size: 20))
-                                            .padding(.horizontal, 20)
                                         
                                         VStack(alignment: .leading) {
                                             Text(airportResult.name)
@@ -74,9 +73,9 @@ struct AirportSearchView: View {
                                         
                                         Text(airportResult.code)
                                             .font(.system(size: 18, type: .Medium))
-                                            .padding(.horizontal, 20)
                                     }
                                     .padding(.vertical, 5)
+                                    .padding(.horizontal, 10)
                                     .contentShape(Rectangle())
                                 }
                                 .buttonStyle(PlainButtonStyle())
