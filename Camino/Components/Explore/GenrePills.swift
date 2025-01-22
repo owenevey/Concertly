@@ -45,41 +45,60 @@ struct GenrePill: View {
 
 enum MusicGenre: Int, CaseIterable {
     case pop
-    case rock
     case country
     case hipHop
+    case rock
+    case alternative
+    case dance
     case rAndB
-    case rap
-    case latin
     
     var title: String {
         switch self {
         case .pop:
             return "Pop"
-        case .rock:
-            return "Rock"
         case .country:
             return "Country"
         case .hipHop:
             return "Hip Hop"
+        case .rock:
+            return "Rock"
+        case .alternative:
+            return "Alternative"
+        case .dance:
+            return "Dance"
         case .rAndB:
             return "R&B"
-        case .latin:
-            return "Latin"
-        case .rap:
-            return "Rap"
+        }
+    }
+    
+    var apiLabel: String {
+        switch self {
+        case .pop:
+            return "pop"
+        case .country:
+            return "country"
+        case .hipHop:
+            return "hipHop"
+        case .rock:
+            return "rock"
+        case .alternative:
+            return "alternative"
+        case .dance:
+            return "dance"
+        case .rAndB:
+            return "rAndB"
         }
     }
     
     var emoji: String {
             switch self {
             case .pop: return "🎉"
-            case .rock: return "🎸"
             case .country: return "🤠"
             case .hipHop: return "🎧"
+            case .rock: return "🎸"
+            case .alternative: return "🌿"
+            case .dance: return "🎛️"
             case .rAndB: return "🎶"
-            case .latin: return "💃"
-            case .rap: return "🎙️"
             }
         }
 }

@@ -9,14 +9,14 @@ func fetchData<T: Decodable>(endpoint: String, dateDecodingStrategy: JSONDecoder
     
     let (data, response) = try await URLSession.shared.data(from: url)
     
-    if endpoint.contains("nearbyConcerts") {
-        print(response)
-        if let rawData = String(data: data, encoding: .utf8) {
-            print("Raw Response: \(rawData)")
-        } else {
-            print("Unable to convert data to string")
-        }
-    }
+//    if endpoint.contains("explore_trending") {
+//        print(response)
+//        if let rawData = String(data: data, encoding: .utf8) {
+//            print("Raw Response: \(rawData)")
+//        } else {
+//            print("Unable to convert data to string")
+//        }
+//    }
     
     guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
         throw CaminoError.invalidResponse
@@ -39,6 +39,21 @@ func customDateFormatter() -> DateFormatter {
 }
 
 // Concerts
+////////////////////////////////////////////////////////
+func fetchConcerts(category: String) async throws -> ApiResponse<ConcertsResponse> {
+    let endpoint = "\(baseUrl)/concerts?category=\(category)"
+    let response: ApiResponse<ConcertsResponse> = try await fetchData(endpoint: endpoint)
+    return response
+}
+
+func fetchPopularArtists(category: String) async throws -> ApiResponse<PopularArtistsResponse> {
+    let endpoint = "\(baseUrl)/popularArtists?category=\(category)"
+    let response: ApiResponse<PopularArtistsResponse> = try await fetchData(endpoint: endpoint)
+    return response
+}
+
+////////////////////////////////////////////////////////
+
 
 func fetchSuggestedConcerts(genre: String = "") async throws -> ConcertsResponse {
     let endpoint = genre.isEmpty ? "\(baseUrl)/suggestedConcerts" : "\(baseUrl)/suggestedConcerts?genre=\(genre)"

@@ -32,7 +32,7 @@ struct FeaturedEventItem: View {
                         .minimumScaleFactor(0.9)
                         .lineLimit(1)
                     
-                    Text(event.dateTime.formatted(date: .abbreviated, time: .omitted))
+                    Text(event.date.formatted(date: .abbreviated, time: .omitted))
                         .font(.system(size: 18, type: .Regular))
                         .foregroundStyle(.gray3)
                         .minimumScaleFactor(0.9)

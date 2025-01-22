@@ -30,7 +30,7 @@ struct ConcertCard: View {
                         .minimumScaleFactor(0.9)
                         .lineLimit(1)
                     
-                    Text(concert.dateTime.formatted(date: .abbreviated, time: .omitted))
+                    Text(concert.date.formatted(date: .abbreviated, time: .omitted))
                         .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
                         .minimumScaleFactor(0.9)

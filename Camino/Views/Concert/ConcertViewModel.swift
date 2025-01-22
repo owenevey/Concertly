@@ -16,8 +16,8 @@ class ConcertViewModel: TripViewModelProtocol {
         self.concert = concert
         
         let calendar = Calendar.current
-        self.tripStartDate = calendar.date(byAdding: .day, value: -1, to: concert.dateTime) ?? Date()
-        self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.dateTime) ?? Date()
+        self.tripStartDate = calendar.date(byAdding: .day, value: -1, to: concert.date) ?? Date()
+        self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.date) ?? Date()
         self.cityName = concert.cityName
     }
     

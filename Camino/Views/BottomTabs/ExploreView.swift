@@ -141,11 +141,11 @@ struct ExploreView: View {
                 Task {
                     await viewModel.getTrendingConcerts()
                     await viewModel.getPopularArtists()
-                    await viewModel.getNearbyConcerts()
-                    await viewModel.getPopularDestinations()
-                    await viewModel.getFeaturedEvent()
+//                    await viewModel.getNearbyConcerts()
+//                    await viewModel.getPopularDestinations()
+//                    await viewModel.getFeaturedEvent()
                     await viewModel.getSuggestedConcerts()
-                    await viewModel.getFamousVenues()
+//                    await viewModel.getFamousVenues()
                 }
                 hasAppeared = true
             }

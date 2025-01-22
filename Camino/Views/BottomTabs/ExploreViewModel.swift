@@ -30,15 +30,46 @@ final class ExploreViewModel: ObservableObject {
         }
         
         do {
-            let fetchedConcerts = try await fetchSuggestedConcerts()
-            withAnimation(.easeInOut(duration: 0.1)) {
-                self.trendingConcerts = fetchedConcerts.concerts
-                self.trendingConcertsResponse = ApiResponse(status: .success, data: fetchedConcerts.concerts)
+            let fetchedConcerts = try await fetchConcerts(category: "explore_trending")
+            
+            if let concerts = fetchedConcerts.data?.concerts {
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    self.trendingConcerts = concerts
+                    self.trendingConcertsResponse = ApiResponse(status: .success, data: concerts)
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    self.trendingConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
+                }
             }
         } catch {
-            print("Error fetching trending concerts: \(error)")
             withAnimation(.easeInOut(duration: 0.1)) {
                 self.trendingConcertsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
+        }
+    }
+    
+    func getSuggestedConcerts() async {
+        withAnimation(.easeInOut(duration: 0.1)) {
+            self.suggestedConcertsResponse = ApiResponse(status: .loading)
+        }
+        
+        do {
+            let fetchedConcerts = try await fetchConcerts(category: "explore_suggested")
+            
+            if let concerts = fetchedConcerts.data?.concerts {
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    self.suggestedConcerts = concerts
+                    self.suggestedConcertsResponse = ApiResponse(status: .success, data: concerts)
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    self.suggestedConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
+                }
+            }
+        } catch {
+            withAnimation(.easeInOut(duration: 0.1)) {
+                self.suggestedConcertsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }
     }
@@ -49,13 +80,19 @@ final class ExploreViewModel: ObservableObject {
         }
         
         do {
-            let fetchedArtists = try await fetchPopularArtists()
-            withAnimation(.easeInOut(duration: 0.1)) {
-                self.popularArtists = fetchedArtists.artists
-                self.popularArtistsResponse = ApiResponse(status: .success, data: fetchedArtists.artists)
+            let fetchedArtists = try await fetchPopularArtists(category: "explore")
+            
+            if let artists = fetchedArtists.data?.artists {
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    self.popularArtists = artists
+                    self.popularArtistsResponse = ApiResponse(status: .success, data: artists)
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    self.popularArtistsResponse = ApiResponse(status: .error, error: "Couldn't fetch artists")
+                }
             }
         } catch {
-            print("Error fetching popular artists: \(error)")
             withAnimation(.easeInOut(duration: 0.1)) {
                 self.popularArtistsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
@@ -118,26 +155,7 @@ final class ExploreViewModel: ObservableObject {
             }
         }
     }
-
-    func getSuggestedConcerts() async {
-        withAnimation(.easeInOut(duration: 0.1)) {
-            self.suggestedConcertsResponse = ApiResponse(status: .loading)
-        }
-        
-        do {
-            let fetchedConcerts = try await fetchSuggestedConcerts()
-            withAnimation(.easeInOut(duration: 0.1)) {
-                self.suggestedConcerts = fetchedConcerts.concerts.reversed()
-                self.suggestedConcertsResponse = ApiResponse(status: .success, data: fetchedConcerts.concerts)
-            }
-        } catch {
-            print("Error fetching suggested concerts: \(error)")
-            withAnimation(.easeInOut(duration: 0.1)) {
-                self.suggestedConcertsResponse = ApiResponse(status: .error, error: error.localizedDescription)
-            }
-        }
-    }
-
+    
     func getFamousVenues() async {
         withAnimation(.easeInOut(duration: 0.1)) {
             self.famousVenuesResponse = ApiResponse(status: .loading)

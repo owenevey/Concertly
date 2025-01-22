@@ -47,7 +47,7 @@ struct ConcertView: View {
                             .foregroundStyle(.gray3)
                     }
                     
-                    Text(concert.dateTime.formatted(date: .complete, time: .omitted) + ", " + concert.dateTime.timeFormatAMPM())
+                    Text(concert.date.formatted(date: .complete, time: .omitted) + ", " + concert.date.timeFormatAMPM())
                         .font(.system(size: 18, type: .Regular))
                         .foregroundStyle(.gray3)
                 }

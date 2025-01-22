@@ -11,10 +11,11 @@ struct Concert: Codable, Identifiable {
     let artistId: String
     let url: String
     let imageUrl: String
-    let dateTime: Date
+    let date: Date
     let venueName: String
     let venueAddress: String
     let cityName: String
     let latitude: Double
     let longitude: Double
+    let closestAirport: String
 }

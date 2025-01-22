@@ -31,9 +31,9 @@ struct ConcertRow: View {
     var body: some View {
         HStack(spacing: 15) {
             VStack {
-                Text(concert.dateTime.dayNumber())
+                Text(concert.date.dayNumber())
                     .font(.system(size: 23, type: .Medium))
-                Text(concert.dateTime.shortMonthFormat())
+                Text(concert.date.shortMonthFormat())
                     .font(.system(size: 16, type: .Medium))
                     .foregroundStyle(.gray3)
             }

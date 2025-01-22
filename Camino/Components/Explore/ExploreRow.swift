@@ -43,7 +43,11 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                         }
                         
                     case .success:
-                        renderCards(for: data)
+                        if data.isEmpty {
+                            renderErrorCards(for: contentType)
+                        } else {
+                            renderCards(for: data)
+                        }
                         
                     case .error:
                         if data.isEmpty {
