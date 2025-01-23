@@ -5,7 +5,7 @@ import SwiftUI
 class ArtistViewModel: ObservableObject {
     var artistId: String
     
-    @Published var artistDetailsResponse: ApiResponse<ArtistDetailsResponse> = ApiResponse<ArtistDetailsResponse>()
+    @Published var artistDetailsResponse: ApiResponse<Artist> = ApiResponse<Artist>()
 
     
     init(artistID: String) {
@@ -19,14 +19,18 @@ class ArtistViewModel: ObservableObject {
         }
         
         do {
-            let fetchedDetails = try await fetchArtistDetails(artistId: artistId)
+            let fetchedDetails = try await fetchArtistDetails(id: artistId)
             
-            withAnimation(.easeInOut(duration: 0.1)) {
-                self.artistDetailsResponse = ApiResponse(status: .success, data: fetchedDetails)
+            if let artist = fetchedDetails.data?.artist {
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    self.artistDetailsResponse = ApiResponse(status: .success, data: artist)
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    self.artistDetailsResponse = ApiResponse(status: .error, error: "Couldn't fetch artist details")
+                }
             }
-            
         } catch {
-            print("Error fetching artist details: \(error)")
             withAnimation(.easeInOut(duration: 0.1)) {
                 self.artistDetailsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }

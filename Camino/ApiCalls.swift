@@ -9,14 +9,14 @@ func fetchData<T: Decodable>(endpoint: String, dateDecodingStrategy: JSONDecoder
     
     let (data, response) = try await URLSession.shared.data(from: url)
     
-//    if endpoint.contains("explore_trending") {
-//        print(response)
-//        if let rawData = String(data: data, encoding: .utf8) {
-//            print("Raw Response: \(rawData)")
-//        } else {
-//            print("Unable to convert data to string")
-//        }
-//    }
+    if endpoint.contains("_featured") {
+        print(response)
+        if let rawData = String(data: data, encoding: .utf8) {
+            print("Raw Response: \(rawData)")
+        } else {
+            print("Unable to convert data to string")
+        }
+    }
     
     guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
         throw CaminoError.invalidResponse
@@ -40,15 +40,28 @@ func customDateFormatter() -> DateFormatter {
 
 // Concerts
 ////////////////////////////////////////////////////////
+///NEW API CALLS
 func fetchConcerts(category: String) async throws -> ApiResponse<ConcertsResponse> {
     let endpoint = "\(baseUrl)/concerts?category=\(category)"
     let response: ApiResponse<ConcertsResponse> = try await fetchData(endpoint: endpoint)
     return response
 }
 
+func fetchFeaturedConcert(category: String) async throws -> ApiResponse<FeaturedConcertResponse> {
+    let endpoint = "\(baseUrl)/concerts?category=\(category)_featured"
+    let response: ApiResponse<FeaturedConcertResponse> = try await fetchData(endpoint: endpoint)
+    return response
+}
+
 func fetchPopularArtists(category: String) async throws -> ApiResponse<PopularArtistsResponse> {
     let endpoint = "\(baseUrl)/popularArtists?category=\(category)"
     let response: ApiResponse<PopularArtistsResponse> = try await fetchData(endpoint: endpoint)
+    return response
+}
+
+func fetchArtistDetails(id: String) async throws -> ApiResponse<ArtistDetailsResponse> {
+    let endpoint = "\(baseUrl)/artistDetails?id=\(id)"
+    let response: ApiResponse<ArtistDetailsResponse> = try await fetchData(endpoint: endpoint)
     return response
 }
 
@@ -73,9 +86,9 @@ func fetchNearbyConcerts() async throws -> ConcertsResponse {
     return response
 }
 
-func fetchFeaturedEvent(genre: String = "") async throws -> FeaturedEventResponse {
+func fetchFeaturedEvent(genre: String = "") async throws -> FeaturedConcertResponse {
     let endpoint = genre.isEmpty ? "\(baseUrl)/featuredEvent" : "\(baseUrl)/featuredEvent?genre=\(genre)"
-    let response: FeaturedEventResponse = try await fetchData(endpoint: endpoint)
+    let response: FeaturedConcertResponse = try await fetchData(endpoint: endpoint)
     return response
 }
 
@@ -87,11 +100,7 @@ func fetchArtistSearchResults(query: String) async throws -> ArtistSearchRespons
     return response
 }
 
-func fetchArtistDetails(artistId: String) async throws -> ArtistDetailsResponse {
-    let endpoint = "\(baseUrl)/artistDetails?artistId=\(artistId)"
-    let response: ArtistDetailsResponse = try await fetchData(endpoint: endpoint)
-    return response
-}
+
 
 func fetchPopularArtists(genre: String = "") async throws -> PopularArtistsResponse {
     let endpoint = genre.isEmpty ? "\(baseUrl)/popularArtists" : "\(baseUrl)/popularArtists?genre=\(genre)"

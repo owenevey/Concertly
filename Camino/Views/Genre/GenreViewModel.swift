@@ -15,8 +15,8 @@ final class GenreViewModel: ObservableObject {
     @Published var popularArtistsResponse: ApiResponse<[SuggestedArtist]> = ApiResponse<[SuggestedArtist]>()
     @Published var popularArtists: [SuggestedArtist] = []
     
-    @Published var featuredEventResponse: ApiResponse<Concert> = ApiResponse<Concert>()
-    @Published var featuredEvent: Concert?
+    @Published var featuredConcertResponse: ApiResponse<Concert> = ApiResponse<Concert>()
+    @Published var featuredConcert: Concert?
     
     @Published var suggestedConcertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
     @Published var suggestedConcerts: [Concert] = []
@@ -54,7 +54,7 @@ final class GenreViewModel: ObservableObject {
         }
         
         do {
-            let category = genre.title.lowercased() + "_suggested"
+            let category = genre.apiLabel + "_suggested"
             let fetchedConcerts = try await fetchConcerts(category: category)
             
             if let concerts = fetchedConcerts.data?.concerts {
@@ -80,7 +80,7 @@ final class GenreViewModel: ObservableObject {
         }
         
         do {
-            let category = genre.title.lowercased()
+            let category = genre.apiLabel
             let fetchedArtists = try await fetchPopularArtists(category: category)
             
             if let artists = fetchedArtists.data?.artists {
@@ -100,21 +100,28 @@ final class GenreViewModel: ObservableObject {
         }
     }
     
-    func getFeaturedEvent() async {
+    func getFeaturedConcert() async {
         withAnimation(.easeInOut(duration: 0.1)) {
-            self.featuredEventResponse = ApiResponse(status: .loading)
+            self.featuredConcertResponse = ApiResponse(status: .loading)
         }
         
         do {
-            let fetchedEvent = try await fetchFeaturedEvent(genre: genre.title)
-            withAnimation(.easeInOut(duration: 0.1)) {
-                self.featuredEvent = fetchedEvent.event
-                self.featuredEventResponse = ApiResponse(status: .success, data: fetchedEvent.event)
+            let category = genre.apiLabel
+            let fetchedConcert = try await fetchFeaturedConcert(category: category)
+            
+            if let concert = fetchedConcert.data?.concert {
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    self.featuredConcert = concert
+                    self.featuredConcertResponse = ApiResponse(status: .success, data: concert)
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    self.featuredConcertResponse = ApiResponse(status: .error, error: "Couldn't fetch concert")
+                }
             }
         } catch {
-            print("Error fetching featured event: \(error)")
             withAnimation(.easeInOut(duration: 0.1)) {
-                self.featuredEventResponse = ApiResponse(status: .error, error: error.localizedDescription)
+                self.featuredConcertResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }
     }

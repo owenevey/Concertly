@@ -108,7 +108,7 @@ struct ConcertView: View {
                     .padding(.horizontal, 10)
                 }
                 
-                MapCard(addressToSearch: concert.venueAddress, latitude: concert.latitude, longitude: concert.longitude, name: concert.venueName, generalLocation: concert.cityName)
+                MapCard(addressToSearch: "\(concert.venueName), \(concert.venueAddress)", latitude: concert.latitude, longitude: concert.longitude, name: concert.venueName, generalLocation: concert.cityName)
                 
                 CaminoButton(label: "Plan Trip") {
                     print("Plan trip tapped")

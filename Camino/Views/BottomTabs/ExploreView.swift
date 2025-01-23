@@ -101,8 +101,8 @@ struct ExploreView: View {
                                     await viewModel.getPopularDestinations()
                                 }
                                 
-                                FeaturedEvent(event: viewModel.featuredEvent, status: viewModel.featuredEventResponse.status) {
-                                    await viewModel.getFeaturedEvent()
+                                FeaturedEvent(event: viewModel.featuredConcert, status: viewModel.featuredConcertResponse.status) {
+                                    await viewModel.getFeaturedConcert()
                                 }
                                 
                                 ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert) {
@@ -143,7 +143,7 @@ struct ExploreView: View {
                     await viewModel.getPopularArtists()
 //                    await viewModel.getNearbyConcerts()
 //                    await viewModel.getPopularDestinations()
-//                    await viewModel.getFeaturedEvent()
+                    await viewModel.getFeaturedConcert()
                     await viewModel.getSuggestedConcerts()
 //                    await viewModel.getFamousVenues()
                 }
@@ -154,11 +154,11 @@ struct ExploreView: View {
             Task {
                 await viewModel.getTrendingConcerts()
                 await viewModel.getPopularArtists()
-                await viewModel.getNearbyConcerts()
-                await viewModel.getPopularDestinations()
-                await viewModel.getFeaturedEvent()
+//                await viewModel.getNearbyConcerts()
+//                await viewModel.getPopularDestinations()
+                await viewModel.getFeaturedConcert()
                 await viewModel.getSuggestedConcerts()
-                await viewModel.getFamousVenues()
+//                await viewModel.getFamousVenues()
             }
         }
     }

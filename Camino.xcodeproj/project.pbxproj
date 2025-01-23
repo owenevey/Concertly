@@ -105,7 +105,7 @@
 		F1CD3CAF2D2A2488004E3041 /* GamesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CAE2D2A2488004E3041 /* GamesResponse.swift */; };
 		F1CD3CB22D2A35F2004E3041 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CB12D2A35F2004E3041 /* ColorExtensions.swift */; };
 		F1CD3CB82D2CBA0F004E3041 /* FeaturedEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CB72D2CBA0F004E3041 /* FeaturedEvent.swift */; };
-		F1CD3CBA2D2CC18A004E3041 /* FeaturedEventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CB92D2CC18A004E3041 /* FeaturedEventResponse.swift */; };
+		F1CD3CBA2D2CC18A004E3041 /* FeaturedConcertResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CB92D2CC18A004E3041 /* FeaturedConcertResponse.swift */; };
 		F1CD3CBC2D2CC40B004E3041 /* FeaturedEventItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CBB2D2CC40B004E3041 /* FeaturedEventItem.swift */; };
 		F1CD3CBE2D2CC449004E3041 /* FallbackFeaturedEventItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CBD2D2CC449004E3041 /* FallbackFeaturedEventItem.swift */; };
 		F1CD3CC02D2CC60C004E3041 /* ErrorFeaturedEventItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CBF2D2CC60C004E3041 /* ErrorFeaturedEventItem.swift */; };
@@ -234,7 +234,7 @@
 		F1CD3CAE2D2A2488004E3041 /* GamesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesResponse.swift; sourceTree = "<group>"; };
 		F1CD3CB12D2A35F2004E3041 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		F1CD3CB72D2CBA0F004E3041 /* FeaturedEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedEvent.swift; sourceTree = "<group>"; };
-		F1CD3CB92D2CC18A004E3041 /* FeaturedEventResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedEventResponse.swift; sourceTree = "<group>"; };
+		F1CD3CB92D2CC18A004E3041 /* FeaturedConcertResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedConcertResponse.swift; sourceTree = "<group>"; };
 		F1CD3CBB2D2CC40B004E3041 /* FeaturedEventItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedEventItem.swift; sourceTree = "<group>"; };
 		F1CD3CBD2D2CC449004E3041 /* FallbackFeaturedEventItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallbackFeaturedEventItem.swift; sourceTree = "<group>"; };
 		F1CD3CBF2D2CC60C004E3041 /* ErrorFeaturedEventItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorFeaturedEventItem.swift; sourceTree = "<group>"; };
@@ -484,7 +484,7 @@
 				F1CD3C832D24CAEB004E3041 /* CitySearchResponse.swift */,
 				F1CD3C942D263C3F004E3041 /* DestinationsResponse.swift */,
 				F1FACFF82D3B681100D53A7D /* PlacesDetailsResponse.swift */,
-				F1CD3CB92D2CC18A004E3041 /* FeaturedEventResponse.swift */,
+				F1CD3CB92D2CC18A004E3041 /* FeaturedConcertResponse.swift */,
 				F1CD3CD12D323194004E3041 /* ArtistDetailsResponse.swift */,
 			);
 			path = Models;
@@ -748,7 +748,7 @@
 				F1CD3CD62D32EBD2004E3041 /* StringExtensions.swift in Sources */,
 				F10F94262CD45849007EE947 /* FilterPrice.swift in Sources */,
 				F19C72732CCB394300390BD6 /* FlightsFiltersBar.swift in Sources */,
-				F1CD3CBA2D2CC18A004E3041 /* FeaturedEventResponse.swift in Sources */,
+				F1CD3CBA2D2CC18A004E3041 /* FeaturedConcertResponse.swift in Sources */,
 				F1A8586A2D027AF6009A37E8 /* AirportSearchView.swift in Sources */,
 				F12B95182D375E9600EFD489 /* VenueCard.swift in Sources */,
 				F11640262C8BB4F00040C95D /* ExploreRow.swift in Sources */,

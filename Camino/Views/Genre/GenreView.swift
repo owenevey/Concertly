@@ -59,8 +59,8 @@ struct GenreView: View {
                         await viewModel.getPopularArtists()
                     }
                     
-                    FeaturedEvent(event: viewModel.featuredEvent, status: viewModel.featuredEventResponse.status) {
-                        await viewModel.getFeaturedEvent()
+                    FeaturedEvent(event: viewModel.featuredConcert, status: viewModel.featuredConcertResponse.status) {
+                        await viewModel.getFeaturedConcert()
                     }
                     
                     ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert) {
@@ -82,7 +82,7 @@ struct GenreView: View {
                 Task {
                     await viewModel.getTrendingConcerts()
                     await viewModel.getPopularArtists()
-                    await viewModel.getFeaturedEvent()
+                    await viewModel.getFeaturedConcert()
                     await viewModel.getSuggestedConcerts()
                 }
                 hasAppeared = true
@@ -92,7 +92,7 @@ struct GenreView: View {
             Task {
                 await viewModel.getTrendingConcerts()
                 await viewModel.getPopularArtists()
-                await viewModel.getFeaturedEvent()
+                await viewModel.getFeaturedConcert()
                 await viewModel.getSuggestedConcerts()
             }
         }

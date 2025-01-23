@@ -61,14 +61,14 @@ struct ArtistView: View {
     
     private var mainContent: some View {
         Group {
-            if let artistDetails = viewModel.artistDetailsResponse.data?.artistDetails {
+            if let artistDetails = viewModel.artistDetailsResponse.data {
                 ImageHeaderScrollView(title: artistDetails.name, imageUrl: artistDetails.imageUrl, showBackButton: false) {
                     VStack(spacing: 20) {
                         VStack(alignment: .leading, spacing: 5) {
                             Text(artistDetails.name)
                                 .font(.system(size: 30, type: .SemiBold))
                             
-                            Text(artistDetails.bio)
+                            Text(artistDetails.description)
                                 .font(.system(size: 17, type: .Regular))
                                 .foregroundStyle(.gray3)
                             

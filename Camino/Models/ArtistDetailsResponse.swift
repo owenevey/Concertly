@@ -1,7 +1,7 @@
 import Foundation
 
 struct ArtistDetailsResponse: Codable {
-    let artistDetails: Artist
+    let artist: Artist
 }
 
 struct Artist: Codable, Identifiable {
@@ -10,7 +10,7 @@ struct Artist: Codable, Identifiable {
     let imageUrl: String
     let socials: [Social]
     let concerts: [Concert]
-    let bio: String
+    let description: String
     let similarArtists: [SuggestedArtist]
 }
 

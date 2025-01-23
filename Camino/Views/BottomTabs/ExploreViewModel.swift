@@ -15,8 +15,8 @@ final class ExploreViewModel: ObservableObject {
     @Published var popularDestinationsResponse: ApiResponse<[Destination]> = ApiResponse<[Destination]>()
     @Published var popularDestinations: [Destination] = []
     
-    @Published var featuredEventResponse: ApiResponse<Concert> = ApiResponse<Concert>()
-    @Published var featuredEvent: Concert?
+    @Published var featuredConcertResponse: ApiResponse<Concert> = ApiResponse<Concert>()
+    @Published var featuredConcert: Concert?
     
     @Published var suggestedConcertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
     @Published var suggestedConcerts: [Concert] = []
@@ -99,6 +99,33 @@ final class ExploreViewModel: ObservableObject {
         }
     }
     
+    func getFeaturedConcert() async {
+        withAnimation(.easeInOut(duration: 0.1)) {
+            self.featuredConcertResponse = ApiResponse(status: .loading)
+        }
+        
+        do {
+            let fetchedConcert = try await fetchFeaturedConcert(category: "explore")
+            
+            if let concert = fetchedConcert.data?.concert {
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    self.featuredConcert = concert
+                    self.featuredConcertResponse = ApiResponse(status: .success, data: concert)
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    self.featuredConcertResponse = ApiResponse(status: .error, error: "Couldn't fetch concert")
+                }
+            }
+        } catch {
+            withAnimation(.easeInOut(duration: 0.1)) {
+                self.featuredConcertResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
+        }
+    }
+    
+    ///////////////////////////////////////
+    
     func getNearbyConcerts() async {
         withAnimation(.easeInOut(duration: 0.1)) {
             self.nearbyConcertsResponse = ApiResponse(status: .loading)
@@ -133,25 +160,6 @@ final class ExploreViewModel: ObservableObject {
             print("Error fetching popular destinations: \(error)")
             withAnimation(.easeInOut(duration: 0.1)) {
                 self.popularDestinationsResponse = ApiResponse(status: .error, error: error.localizedDescription)
-            }
-        }
-    }
-    
-    func getFeaturedEvent() async {
-        withAnimation(.easeInOut(duration: 0.1)) {
-            self.featuredEventResponse = ApiResponse(status: .loading)
-        }
-        
-        do {
-            let fetchedEvent = try await fetchFeaturedEvent()
-            withAnimation(.easeInOut(duration: 0.1)) {
-                self.featuredEvent = fetchedEvent.event
-                self.featuredEventResponse = ApiResponse(status: .success, data: fetchedEvent.event)
-            }
-        } catch {
-            print("Error fetching featured event: \(error)")
-            withAnimation(.easeInOut(duration: 0.1)) {
-                self.featuredEventResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }
     }
