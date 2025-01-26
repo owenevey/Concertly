@@ -57,56 +57,55 @@ struct FlightsHeader: View {
     }
 }
 
-#Preview {
-    let fromDate = Date()
-    let toDate = Calendar.current.date(byAdding: .day, value: 7, to: Date())!
-    let fromAirport = "JFK"
-    let toAirport = "LAX"
-    
-    let mockAirports = [
-        AirportInfo(
-            departure: [
-                AirportDetail(
-                    airport: AirportSummary(id: "JFK", name: "John F. Kennedy International"),
-                    city: "New York",
-                    country: "USA",
-                    countryCode: "US",
-                    image: "",
-                    thumbnail: ""
-                )
-            ],
-            arrival: [
-                AirportDetail(
-                    airport: AirportSummary(id: "LAX", name: "Los Angeles International"),
-                    city: "Los Angeles",
-                    country: "USA",
-                    countryCode: "US",
-                    image: "",
-                    thumbnail: ""
-                )
-            ]
-        )
-    ]
-    
-    let flightsResponse = ApiResponse(
-        status: .success,
-        data: FlightsResponse(
-            bestFlights: [],
-            otherFlights: [],
-            airports: mockAirports
-        )
-    )
-    
-    VStack {
-        Spacer()
-        FlightsHeader(
-            fromAirport: .constant(fromAirport),
-            toAirport: .constant(toAirport),
-            fromDate: .constant(fromDate),
-            toDate: .constant(toDate)
-        )
-        Spacer()
-    }
-    .background(.gray3)
-}
+//#Preview {
+//    let fromDate = Date()
+//    let toDate = Calendar.current.date(byAdding: .day, value: 7, to: Date())!
+//    let fromAirport = "JFK"
+//    let toAirport = "LAX"
+//    
+//    let mockAirports = [
+//        AirportInfo(
+//            departure: [
+//                AirportDetail(
+//                    airport: AirportSummary(id: "JFK", name: "John F. Kennedy International"),
+//                    city: "New York",
+//                    country: "USA",
+//                    countryCode: "US",
+//                    image: "",
+//                    thumbnail: ""
+//                )
+//            ],
+//            arrival: [
+//                AirportDetail(
+//                    airport: AirportSummary(id: "LAX", name: "Los Angeles International"),
+//                    city: "Los Angeles",
+//                    country: "USA",
+//                    countryCode: "US",
+//                    image: "",
+//                    thumbnail: ""
+//                )
+//            ]
+//        )
+//    ]
+//    
+//    let flightsResponse = ApiResponse(
+//        status: .success,
+//        data: FlightsResponse(
+//            flights: [],
+//            airports: mockAirports
+//        )
+//    )
+//    
+//    VStack {
+//        Spacer()
+//        FlightsHeader(
+//            fromAirport: .constant(fromAirport),
+//            toAirport: .constant(toAirport),
+//            fromDate: .constant(fromDate),
+//            toDate: .constant(toDate)
+//        )
+//        Spacer()
+//    }
+//    .background(.gray3)
+//}
 

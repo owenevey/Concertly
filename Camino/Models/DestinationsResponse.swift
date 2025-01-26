@@ -5,16 +5,28 @@ struct DestinationsResponse: Codable {
 }
 
 struct Destination: Codable, Identifiable {
-    var id = UUID()
-    let name: String
-    let description: String
-    let imageUrl: String
-    let countryName: String
-    
-    private enum CodingKeys: String, CodingKey {
-        case name,
-             description,
-             imageUrl,
-             countryName
+    var id: String {
+        return name
     }
+    let name: String
+    let shortDescription: String
+    let longDescription: String
+    let images: [String]
+    let cityName: String
+    let countryName: String
+    let latitude: Double
+    let longitude: Double
+    let geoHash: String
+    
+//    private enum CodingKeys: String, CodingKey {
+//        case name,
+//             shortDescription,
+//             longDescription,
+//             images,
+//             cityName,
+//             countryName,
+//             geoHash,
+//             latitude,
+//             longitude
+//    }
 }

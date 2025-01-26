@@ -142,10 +142,10 @@ struct ExploreView: View {
                     await viewModel.getTrendingConcerts()
                     await viewModel.getPopularArtists()
 //                    await viewModel.getNearbyConcerts()
-//                    await viewModel.getPopularDestinations()
+                    await viewModel.getPopularDestinations()
                     await viewModel.getFeaturedConcert()
                     await viewModel.getSuggestedConcerts()
-//                    await viewModel.getFamousVenues()
+                    await viewModel.getFamousVenues()
                 }
                 hasAppeared = true
             }
@@ -155,10 +155,10 @@ struct ExploreView: View {
                 await viewModel.getTrendingConcerts()
                 await viewModel.getPopularArtists()
 //                await viewModel.getNearbyConcerts()
-//                await viewModel.getPopularDestinations()
+                await viewModel.getPopularDestinations()
                 await viewModel.getFeaturedConcert()
                 await viewModel.getSuggestedConcerts()
-//                await viewModel.getFamousVenues()
+                await viewModel.getFamousVenues()
             }
         }
     }

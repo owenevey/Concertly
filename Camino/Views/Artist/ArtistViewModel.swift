@@ -14,7 +14,7 @@ class ArtistViewModel: ObservableObject {
     
     
     func getArtistDetails() async {
-        withAnimation(.easeInOut(duration: 0.1)) {
+        withAnimation(.easeInOut(duration: 0.2)) {
             self.artistDetailsResponse = ApiResponse(status: .loading)
         }
         
@@ -22,16 +22,16 @@ class ArtistViewModel: ObservableObject {
             let fetchedDetails = try await fetchArtistDetails(id: artistId)
             
             if let artist = fetchedDetails.data?.artist {
-                withAnimation(.easeInOut(duration: 0.1)) {
+                withAnimation(.easeInOut(duration: 0.2)) {
                     self.artistDetailsResponse = ApiResponse(status: .success, data: artist)
                 }
             } else {
-                withAnimation(.easeInOut(duration: 0.1)) {
+                withAnimation(.easeInOut(duration: 0.2)) {
                     self.artistDetailsResponse = ApiResponse(status: .error, error: "Couldn't fetch artist details")
                 }
             }
         } catch {
-            withAnimation(.easeInOut(duration: 0.1)) {
+            withAnimation(.easeInOut(duration: 0.2)) {
                 self.artistDetailsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }

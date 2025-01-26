@@ -1,32 +1,121 @@
 import Foundation
 import SwiftUI
 
-@MainActor
-class VenueViewModel: ObservableObject {
-    var venueId: String
+class VenueViewModel: TripViewModelProtocol {
+    var venue: Venue
     
-    @Published var venueDetailsResponse: ApiResponse<VenueDetailsResponse> = ApiResponse<VenueDetailsResponse>()
-
+    @Published var tripStartDate: Date
+    @Published var tripEndDate: Date
+    @Published var concertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
+    @Published var flightsResponse: ApiResponse<FlightsResponse> = ApiResponse<FlightsResponse>()
+    @Published var hotelsResponse: ApiResponse<HotelsResponse> = ApiResponse<HotelsResponse>()
+    @Published var flightsPrice: Int = 0
+    @Published var hotelsPrice: Int = 0
+    @Published var cityName: String = ""
     
-    init(venueId: String) {
-        self.venueId = venueId
+    init(venue: Venue) {
+        self.venue = venue
+        self.cityName = venue.cityName
+        
+        let calendar = Calendar.current
+        self.tripStartDate = calendar.date(byAdding: .day, value: -1, to: Date()) ?? Date()
+        self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: Date()) ?? Date()
     }
     
+    var totalPrice: Int {
+        hotelsPrice + flightsPrice
+    }
     
-    func getVenueDetails() async {
-        self.venueDetailsResponse = ApiResponse(status: .loading)
+    func getConcerts() async {
+        withAnimation(.easeInOut(duration: 0.2)) {
+            self.concertsResponse = ApiResponse(status: .loading)
+        }
         
         do {
-            let fetchedDetails = try await fetchVenueDetails(venueId: venueId)
+            let fetchedConcerts = try await fetchConcertsForVenue(venueId: venue.id)
             
-            withAnimation(.easeInOut(duration: 0.1)) {
-                self.venueDetailsResponse = ApiResponse(status: .success, data: fetchedDetails)
+            if let concerts = fetchedConcerts.data?.concerts {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.concertsResponse = ApiResponse(status: .success, data: concerts)
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.concertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
+                }
+            }
+        } catch {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                self.concertsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
+        }
+    }
+    
+    func getDepartingFlights() async {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            self.flightsResponse = ApiResponse(status: .loading)
+        }
+        
+        do {
+            var fetchedFlights = try await fetchDepartureFlights(fromAirport: homeAirport,
+                                                                 toAirport: "LAX",
+                                                                 fromDate: tripStartDate.EuropeanFormat(),
+                                                                 toDate: tripEndDate.EuropeanFormat())
+            
+            if let retrievedFlights = fetchedFlights.data {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    self.flightsResponse = ApiResponse(status: .success, data: retrievedFlights)
+                    self.flightsPrice = retrievedFlights.flights.first?.price ?? 0
+                }
+                
+                let airlineLogoURLs: [URL] = (retrievedFlights.flights).compactMap { flightItem in
+                    flightItem.flights.compactMap { flight in
+                        URL(string: flight.airlineLogo)
+                    }
+                }.flatMap { $0 }
+
+                let uniqueAirlineLogoURLs = Array(Set(airlineLogoURLs))
+
+                ImagePrefetcher.instance.startPrefetching(urls: uniqueAirlineLogoURLs)
+            } else {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.flightsResponse = ApiResponse(status: .error, error: "Couldn't fetch flights")
+                }
+            }
+        } catch {
+            print("Error fetching flights: \(error)")
+            withAnimation(.easeInOut(duration: 0.3)) {
+                self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
+        }
+    }
+    
+    func getHotels() async {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            self.hotelsResponse = ApiResponse(status: .loading)
+        }
+        
+        do {
+            let fetchedHotels = try await fetchHotels(location: venue.cityName,
+                                                      fromDate: tripStartDate.traditionalFormat(),
+                                                      toDate: tripEndDate.traditionalFormat())
+            withAnimation(.easeInOut(duration: 0.3)) {
+                self.hotelsResponse = ApiResponse(status: .success, data: fetchedHotels)
+                self.hotelsPrice = fetchedHotels.properties.first?.totalRate.extractedLowest ?? 0
             }
             
+            let hotelPhotos: [URL] = fetchedHotels.properties.compactMap { hotel in
+                if let urlString = hotel.images?.first?.originalImage {
+                    return URL(string: urlString)
+                }
+                return nil
+            }
+            
+            ImagePrefetcher.instance.startPrefetching(urls: hotelPhotos)
+            
         } catch {
-            print("Error fetching venue details: \(error)")
-            withAnimation(.easeInOut(duration: 0.1)) {
-                self.venueDetailsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            print("Error fetching hotels: \(error)")
+            withAnimation(.easeInOut(duration: 0.3)) {
+                self.hotelsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }
     }

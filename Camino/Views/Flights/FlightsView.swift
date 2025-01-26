@@ -153,7 +153,7 @@ struct FlightsView<T: TripViewModelProtocol>: View {
                 await viewModel.getReturningFlights()
             }
             tripViewModel.flightsResponse = viewModel.flightsResponse
-            tripViewModel.flightsPrice = viewModel.flightsResponse.data?.bestFlights.first?.price ?? 0
+            tripViewModel.flightsPrice = viewModel.flightsResponse.data?.flights.first?.price ?? 0
         } else {
             refetchDepartingFlights()
         }
@@ -169,7 +169,7 @@ struct FlightsView<T: TripViewModelProtocol>: View {
             await viewModel.getDepartingFlights()
         }
         tripViewModel.flightsResponse = viewModel.flightsResponse
-        tripViewModel.flightsPrice = viewModel.flightsResponse.data?.bestFlights.first?.price ?? 0
+        tripViewModel.flightsPrice = viewModel.flightsResponse.data?.flights.first?.price ?? 0
     }
     
     private func handleDateChange() {

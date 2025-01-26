@@ -15,7 +15,7 @@ struct DestinationCard: View {
         }
         label: {
             VStack(alignment: .leading, spacing: 0) {                
-                ImageLoader(url: destination.imageUrl, contentMode: .fill)
+                ImageLoader(url: destination.images[0], contentMode: .fill)
                     .frame(width: 250, height: 150)
                     .clipped()
                 
@@ -31,7 +31,7 @@ struct DestinationCard: View {
                         .minimumScaleFactor(0.9)
                         .lineLimit(1)
                     
-                    Text(destination.description)
+                    Text(destination.shortDescription)
                         .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
                         .minimumScaleFactor(0.9)

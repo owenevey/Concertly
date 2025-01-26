@@ -9,7 +9,7 @@ func fetchData<T: Decodable>(endpoint: String, dateDecodingStrategy: JSONDecoder
     
     let (data, response) = try await URLSession.shared.data(from: url)
     
-    if endpoint.contains("_featured") {
+    if endpoint.contains("flights") {
         print(response)
         if let rawData = String(data: data, encoding: .utf8) {
             print("Raw Response: \(rawData)")
@@ -20,14 +20,18 @@ func fetchData<T: Decodable>(endpoint: String, dateDecodingStrategy: JSONDecoder
     
     guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
         throw CaminoError.invalidResponse
-    }    
+    }
     
     let decoder = JSONDecoder()
     decoder.dateDecodingStrategy = dateDecodingStrategy
     
     do {
         return try decoder.decode(T.self, from: data)
+    } catch let DecodingError.keyNotFound(key, _) {
+        print("Missing key: \(key.stringValue)") // Print the missing key
+        throw CaminoError.invalidData
     } catch {
+        print("Decoding error: \(error)")
         throw CaminoError.invalidData
     }
 }
@@ -38,7 +42,6 @@ func customDateFormatter() -> DateFormatter {
     return formatter
 }
 
-// Concerts
 ////////////////////////////////////////////////////////
 ///NEW API CALLS
 func fetchConcerts(category: String) async throws -> ApiResponse<ConcertsResponse> {
@@ -65,83 +68,69 @@ func fetchArtistDetails(id: String) async throws -> ApiResponse<ArtistDetailsRes
     return response
 }
 
+func fetchPopularDestinations() async throws -> ApiResponse<DestinationsResponse> {
+    let endpoint = "\(baseUrl)/popularDestinations"
+    let response: ApiResponse<DestinationsResponse> = try await fetchData(endpoint: endpoint)
+    return response
+}
+
+func fetchFamousVenues() async throws -> ApiResponse<VenuesResponse> {
+    let endpoint = "\(baseUrl)/famousVenues"
+    let response: ApiResponse<VenuesResponse> = try await fetchData(endpoint: endpoint)
+    return response
+}
+
+func fetchConcertsForDestination(geoHash: String) async throws -> ApiResponse<ConcertsResponse> {
+    let endpoint = "\(baseUrl)/concerts?geoHash=\(geoHash)"
+    let response: ApiResponse<ConcertsResponse> = try await fetchData(endpoint: endpoint)
+    return response
+}
+
+func fetchConcertsForVenue(venueId: String) async throws -> ApiResponse<ConcertsResponse> {
+    let endpoint = "\(baseUrl)/concerts?venueId=\(venueId)"
+    let response: ApiResponse<ConcertsResponse> = try await fetchData(endpoint: endpoint)
+    return response
+}
+
+func fetchAirportSearchResults(query: String) async throws -> ApiResponse<AirportSearchResponse> {
+    let endpoint = "\(baseUrl)/airportSearch?query=\(query)"
+    let response: ApiResponse<AirportSearchResponse> = try await fetchData(endpoint: endpoint)
+    return response
+}
+
+func fetchCitySearchResults(query: String) async throws -> ApiResponse<CitySearchResponse> {
+    let endpoint = "\(baseUrl)/citySearch?query=\(query)"
+    let response: ApiResponse<CitySearchResponse> = try await fetchData(endpoint: endpoint)
+    return response
+}
+
+func fetchArtistSearchResults(query: String) async throws -> ApiResponse<ArtistSearchResponse> {
+    let endpoint = "\(baseUrl)/artistSearch?query=\(query)"
+    let response: ApiResponse<ArtistSearchResponse> = try await fetchData(endpoint: endpoint)
+    return response
+}
+
+func fetchDepartureFlights(lat: Double, long: Double, fromAirport: String, fromDate: String, toDate: String) async throws -> ApiResponse<FlightsResponse> {
+    let endpoint = "\(baseUrl)/flights?lat=\(lat)&long=\(long)&fromAirport=\(fromAirport)&fromDate=\(fromDate)&toDate=\(toDate)"
+    let response: ApiResponse<FlightsResponse> = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
+    return response
+}
+
+func fetchDepartureFlights(fromAirport: String, toAirport: String, fromDate: String, toDate: String) async throws -> ApiResponse<FlightsResponse> {
+    let endpoint = "\(baseUrl)/flights?fromAirport=\(fromAirport)&toAirport=\(toAirport)&fromDate=\(fromDate)&toDate=\(toDate)"
+    let response: ApiResponse<FlightsResponse> = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
+    return response
+}
+
+func fetchReturnFlights(fromAirport: String, toAirport: String, fromDate: String, toDate: String, departureToken: String) async throws -> ApiResponse<FlightsResponse> {
+    let endpoint = "\(baseUrl)/flights?fromAirport=\(fromAirport)&toAirport=\(toAirport)&fromDate=\(fromDate)&toDate=\(toDate)&departureToken=\(departureToken)"
+    let response: ApiResponse<FlightsResponse> = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
+    return response
+}
 ////////////////////////////////////////////////////////
 
 
-func fetchSuggestedConcerts(genre: String = "") async throws -> ConcertsResponse {
-    let endpoint = genre.isEmpty ? "\(baseUrl)/suggestedConcerts" : "\(baseUrl)/suggestedConcerts?genre=\(genre)"
-    let response: ConcertsResponse = try await fetchData(endpoint: endpoint)
-    return response
-}
 
-func fetchTrendingConcerts(genre: String = "") async throws -> ConcertsResponse {
-    let endpoint = genre.isEmpty ? "\(baseUrl)/trendingConcerts" : "\(baseUrl)/trendingConcerts?genre=\(genre)"
-    let response: ConcertsResponse = try await fetchData(endpoint: endpoint)
-    return response
-}
-
-func fetchNearbyConcerts() async throws -> ConcertsResponse {
-    let endpoint = "\(baseUrl)/nearbyConcerts?lat=12&long=34"
-    let response: ConcertsResponse = try await fetchData(endpoint: endpoint)
-    return response
-}
-
-func fetchFeaturedEvent(genre: String = "") async throws -> FeaturedConcertResponse {
-    let endpoint = genre.isEmpty ? "\(baseUrl)/featuredEvent" : "\(baseUrl)/featuredEvent?genre=\(genre)"
-    let response: FeaturedConcertResponse = try await fetchData(endpoint: endpoint)
-    return response
-}
-
-// Artists
-
-func fetchArtistSearchResults(query: String) async throws -> ArtistSearchResponse {
-    let endpoint = "\(baseUrl)/artistSearch?query=\(query)"
-    let response: ArtistSearchResponse = try await fetchData(endpoint: endpoint)
-    return response
-}
-
-
-
-func fetchPopularArtists(genre: String = "") async throws -> PopularArtistsResponse {
-    let endpoint = genre.isEmpty ? "\(baseUrl)/popularArtists" : "\(baseUrl)/popularArtists?genre=\(genre)"
-    let response: PopularArtistsResponse = try await fetchData(endpoint: endpoint)
-    return response
-}
-
-// Games
-
-func fetchUpcomingGames() async throws -> GamesResponse {
-    let endpoint = "\(baseUrl)/upcomingGames"
-    let response: GamesResponse = try await fetchData(endpoint: endpoint)
-    return response
-}
-
-
-// Flights
-
-func fetchDepartureFlights(lat: Double, long: Double, fromAirport: String, fromDate: String, toDate: String) async throws -> FlightsResponse {
-    let endpoint = "\(baseUrl)/flights?lat=\(lat)&long=\(long)&fromAirport=\(fromAirport)&fromDate=\(fromDate)&toDate=\(toDate)"
-    let response: FlightsResponse = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
-    return response
-}
-
-func fetchDepartureFlights(fromAirport: String, toAirport: String, fromDate: String, toDate: String) async throws -> FlightsResponse {
-    let endpoint = "\(baseUrl)/flights?fromAirport=\(fromAirport)&toAirport=\(toAirport)&fromDate=\(fromDate)&toDate=\(toDate)"
-    let response: FlightsResponse = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
-    return response
-}
-
-func fetchReturnFlights(fromAirport: String, toAirport: String, fromDate: String, toDate: String, departureToken: String) async throws -> FlightsResponse {
-    let endpoint = "\(baseUrl)/flights?fromAirport=\(fromAirport)&toAirport=\(toAirport)&fromDate=\(fromDate)&toDate=\(toDate)&departureToken=\(departureToken)"
-    let response: FlightsResponse = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
-    return response
-}
-
-func fetchAirportSearchResults(query: String) async throws -> AirportSearchResponse {
-    let endpoint = "\(baseUrl)/airportSearch?query=\(query)"
-    let response: AirportSearchResponse = try await fetchData(endpoint: endpoint)
-    return response
-}
 
 // Hotels
 
@@ -151,31 +140,7 @@ func fetchHotels(location: String, fromDate: String, toDate: String) async throw
     return response
 }
 
-func fetchCitySearchResults(query: String) async throws -> CitySearchResponse {
-    let endpoint = "\(baseUrl)/citySearch?query=\(query)"
-    let response: CitySearchResponse = try await fetchData(endpoint: endpoint)
-    return response
-}
-
 // Destinations
-
-func fetchPopularDestinations() async throws -> DestinationsResponse {
-    let endpoint = "\(baseUrl)/popularDestinations"
-    let response: DestinationsResponse = try await fetchData(endpoint: endpoint)
-    return response
-}
-
-func fetchDestinationDetails(destinationId: String) async throws -> DestinationDetailsResponse {
-    let endpoint = "\(baseUrl)/destinationDetails?id=\(destinationId)"
-    let response: DestinationDetailsResponse = try await fetchData(endpoint: endpoint)
-    return response
-}
-
-func fetchFamousVenues() async throws -> VenuesResponse {
-    let endpoint = "\(baseUrl)/famousVenues"
-    let response: VenuesResponse = try await fetchData(endpoint: endpoint)
-    return response
-}
 
 func fetchVenueDetails(venueId: String) async throws -> VenueDetailsResponse {
     let endpoint = "\(baseUrl)/venueDetails?id=\(venueId)"

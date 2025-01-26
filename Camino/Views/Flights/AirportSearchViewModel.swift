@@ -4,7 +4,7 @@ import Combine
 @MainActor
 class AirportSearchViewModel: ObservableObject {
     @Published var searchQuery: String = ""
-    @Published var airportsResponse: ApiResponse<AirportSearchResponse> = ApiResponse<AirportSearchResponse>()
+    @Published var airportsResponse: ApiResponse<[SuggestedAirport]> = ApiResponse<[SuggestedAirport]>()
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -25,20 +25,25 @@ class AirportSearchViewModel: ObservableObject {
     }
     
     func getSuggestedAirports() async {
-        withAnimation(.easeInOut(duration: 0.1)) {
+        withAnimation(.easeInOut(duration: 0.2)) {
             self.airportsResponse = ApiResponse(status: .loading)
         }
     
         do {
             let fetchedAirports = try await fetchAirportSearchResults(query: searchQuery)
             
-            withAnimation(.easeInOut(duration: 0.1)) {
-                self.airportsResponse = ApiResponse(status: .success, data: fetchedAirports)
+            if let airports = fetchedAirports.data?.suggestedAirports {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.airportsResponse = ApiResponse(status: .success, data: airports)
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.airportsResponse = ApiResponse(status: .error, error: "Couldn't fetch airports")
+                }
             }
             
         } catch {
-            print("Error fetching airports: \(error)")
-            withAnimation(.easeInOut(duration: 0.1)) {
+            withAnimation(.easeInOut(duration: 0.2)) {
                 self.airportsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }

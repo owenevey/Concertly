@@ -1,24 +1,14 @@
 import Foundation
 
 struct FlightsResponse: Codable {
-    let bestFlights: [FlightItem]
-    let otherFlights: [FlightItem]
+    let flights: [FlightItem]
     let priceInsights: PriceInsights?
     let airports: [AirportInfo]
     
-    enum CodingKeys: String, CodingKey {
-        case bestFlights = "best_flights"
-        case otherFlights = "other_flights"
-        case priceInsights = "price_insights"
-        case airports
-    }
-    
-    init(bestFlights: [FlightItem] = [],
-         otherFlights: [FlightItem] = [],
+    init(flights: [FlightItem] = [],
          priceInsights: PriceInsights = PriceInsights(),
          airports: [AirportInfo] = []) {
-        self.bestFlights = bestFlights
-        self.otherFlights = otherFlights
+        self.flights = flights
         self.priceInsights = priceInsights
         self.airports = airports
     }
@@ -33,7 +23,7 @@ struct FlightItem: Codable, Identifiable, Equatable {
     let price: Int
     let type: String
     let airlineLogo: String
-    let extensions: [String]
+    let extensions: [String]?
     let departureToken: String?
     let bookingToken: String?
     

@@ -95,7 +95,7 @@
 		F1CD3C8D2D260876004E3041 /* ExploreContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C8C2D260876004E3041 /* ExploreContentType.swift */; };
 		F1CD3C912D2618A7004E3041 /* ErrorConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C902D2618A7004E3041 /* ErrorConcertCard.swift */; };
 		F1CD3C932D2618D5004E3041 /* StillShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C922D2618D5004E3041 /* StillShimmerView.swift */; };
-		F1CD3C952D263C3F004E3041 /* DestinationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C942D263C3F004E3041 /* DestinationsResponse.swift */; };
+		F1CD3C952D263C3F004E3041 /* PopularDestinationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C942D263C3F004E3041 /* PopularDestinationsResponse.swift */; };
 		F1CD3C972D26419C004E3041 /* FallbackDestinationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C962D26419C004E3041 /* FallbackDestinationCard.swift */; };
 		F1CD3C992D264208004E3041 /* ErrorDestinationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C982D264208004E3041 /* ErrorDestinationCard.swift */; };
 		F1CD3C9B2D2755DA004E3041 /* DestinationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C9A2D2755DA004E3041 /* DestinationView.swift */; };
@@ -130,7 +130,7 @@
 		F1FACFF32D39D05C00D53A7D /* VenueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF22D39D05C00D53A7D /* VenueView.swift */; };
 		F1FACFF52D39D36300D53A7D /* VenueDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF42D39D35F00D53A7D /* VenueDetailsResponse.swift */; };
 		F1FACFF72D39D3F600D53A7D /* VenueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF62D39D3F200D53A7D /* VenueViewModel.swift */; };
-		F1FACFF92D3B681600D53A7D /* PlacesDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF82D3B681100D53A7D /* PlacesDetailsResponse.swift */; };
+		F1FACFF92D3B681600D53A7D /* DestinationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF82D3B681100D53A7D /* DestinationsResponse.swift */; };
 		F1FACFFB2D3B80C400D53A7D /* ConcertRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFFA2D3B80C000D53A7D /* ConcertRow.swift */; };
 /* End PBXBuildFile section */
 
@@ -224,7 +224,7 @@
 		F1CD3C8C2D260876004E3041 /* ExploreContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreContentType.swift; sourceTree = "<group>"; };
 		F1CD3C902D2618A7004E3041 /* ErrorConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorConcertCard.swift; sourceTree = "<group>"; };
 		F1CD3C922D2618D5004E3041 /* StillShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StillShimmerView.swift; sourceTree = "<group>"; };
-		F1CD3C942D263C3F004E3041 /* DestinationsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationsResponse.swift; sourceTree = "<group>"; };
+		F1CD3C942D263C3F004E3041 /* PopularDestinationsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularDestinationsResponse.swift; sourceTree = "<group>"; };
 		F1CD3C962D26419C004E3041 /* FallbackDestinationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallbackDestinationCard.swift; sourceTree = "<group>"; };
 		F1CD3C982D264208004E3041 /* ErrorDestinationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorDestinationCard.swift; sourceTree = "<group>"; };
 		F1CD3C9A2D2755DA004E3041 /* DestinationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationView.swift; sourceTree = "<group>"; };
@@ -259,7 +259,7 @@
 		F1FACFF22D39D05C00D53A7D /* VenueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueView.swift; sourceTree = "<group>"; };
 		F1FACFF42D39D35F00D53A7D /* VenueDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailsResponse.swift; sourceTree = "<group>"; };
 		F1FACFF62D39D3F200D53A7D /* VenueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueViewModel.swift; sourceTree = "<group>"; };
-		F1FACFF82D3B681100D53A7D /* PlacesDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesDetailsResponse.swift; sourceTree = "<group>"; };
+		F1FACFF82D3B681100D53A7D /* DestinationsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationsResponse.swift; sourceTree = "<group>"; };
 		F1FACFFA2D3B80C000D53A7D /* ConcertRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -482,8 +482,8 @@
 				F11714A42D13A0E3007A0052 /* HotelsResponse.swift */,
 				F1A858652D0140F0009A37E8 /* AirportSearchResponse.swift */,
 				F1CD3C832D24CAEB004E3041 /* CitySearchResponse.swift */,
-				F1CD3C942D263C3F004E3041 /* DestinationsResponse.swift */,
-				F1FACFF82D3B681100D53A7D /* PlacesDetailsResponse.swift */,
+				F1CD3C942D263C3F004E3041 /* PopularDestinationsResponse.swift */,
+				F1FACFF82D3B681100D53A7D /* DestinationsResponse.swift */,
 				F1CD3CB92D2CC18A004E3041 /* FeaturedConcertResponse.swift */,
 				F1CD3CD12D323194004E3041 /* ArtistDetailsResponse.swift */,
 			);
@@ -704,7 +704,7 @@
 				F176C9262CB5E7F9006BAE35 /* FlightFilter.swift in Sources */,
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
 				F1CD3C8B2D25FB88004E3041 /* ExploreViewModel.swift in Sources */,
-				F1FACFF92D3B681600D53A7D /* PlacesDetailsResponse.swift in Sources */,
+				F1FACFF92D3B681600D53A7D /* DestinationsResponse.swift in Sources */,
 				F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */,
 				F1CD3CD22D323194004E3041 /* ArtistDetailsResponse.swift in Sources */,
 				F1CD3CA02D275907004E3041 /* TripViewModelProtocol.swift in Sources */,
@@ -759,7 +759,7 @@
 				F1F3A6492D0694E50042F4F2 /* PriceHistorySheet.swift in Sources */,
 				F11714A02D126C90007A0052 /* CaminoSearchBar.swift in Sources */,
 				F1CD3C7E2D24C828004E3041 /* EditHotelsSearch.swift in Sources */,
-				F1CD3C952D263C3F004E3041 /* DestinationsResponse.swift in Sources */,
+				F1CD3C952D263C3F004E3041 /* PopularDestinationsResponse.swift in Sources */,
 				F1CD3CBE2D2CC449004E3041 /* FallbackFeaturedEventItem.swift in Sources */,
 				F117149E2D126787007A0052 /* TranslucentBackButton.swift in Sources */,
 				F1FACFF52D39D36300D53A7D /* VenueDetailsResponse.swift in Sources */,

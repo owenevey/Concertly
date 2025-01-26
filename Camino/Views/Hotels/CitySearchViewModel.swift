@@ -4,7 +4,7 @@ import Combine
 @MainActor
 class CitySearchViewModel: ObservableObject {
     @Published var searchQuery: String = ""
-    @Published var citiesResponse: ApiResponse<CitySearchResponse> = ApiResponse<CitySearchResponse>()
+    @Published var citiesResponse: ApiResponse<[SuggestedCity]> = ApiResponse<[SuggestedCity]>()
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -25,23 +25,27 @@ class CitySearchViewModel: ObservableObject {
     }
     
     func getSuggestedCities() async {
-        withAnimation(.easeInOut(duration: 0.1)) {
+        withAnimation(.easeInOut(duration: 0.2)) {
             self.citiesResponse = ApiResponse(status: .loading)
         }
     
         do {
             let fetchedCities = try await fetchCitySearchResults(query: searchQuery)
             
-            withAnimation(.easeInOut(duration: 0.1)) {
-                self.citiesResponse = ApiResponse(status: .success, data: fetchedCities)
+            if let cities = fetchedCities.data?.suggestedCities {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.citiesResponse = ApiResponse(status: .success, data: cities)
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.citiesResponse = ApiResponse(status: .error, error: "Couldn't fetch cities")
+                }
             }
             
         } catch {
-            print("Error fetching cities: \(error)")
-            withAnimation(.easeInOut(duration: 0.1)) {
+            withAnimation(.easeInOut(duration: 0.2)) {
                 self.citiesResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
-            
         }
     }
 }

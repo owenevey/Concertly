@@ -4,7 +4,7 @@ import Combine
 @MainActor
 class ExploreSearchViewModel: ObservableObject {
     @Published var searchQuery: String = ""
-    @Published var artistsResponse: ApiResponse<ArtistSearchResponse> = ApiResponse<ArtistSearchResponse>()
+    @Published var artistsResponse: ApiResponse<[SuggestedArtist]> = ApiResponse<[SuggestedArtist]>()
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -25,23 +25,27 @@ class ExploreSearchViewModel: ObservableObject {
     }
     
     func getSuggestedArtists() async {
-        withAnimation(.easeInOut(duration: 0.1)) {
+        withAnimation(.easeInOut(duration: 0.2)) {
             self.artistsResponse = ApiResponse(status: .loading)
         }
     
         do {
             let fetchedArtists = try await fetchArtistSearchResults(query: searchQuery)
             
-            withAnimation(.easeInOut(duration: 0.1)) {
-                self.artistsResponse = ApiResponse(status: .success, data: fetchedArtists)
+            if let artists = fetchedArtists.data?.suggestedArtists {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.artistsResponse = ApiResponse(status: .success, data: artists)
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.artistsResponse = ApiResponse(status: .error, error: "Couldn't fetch artists")
+                }
             }
             
         } catch {
-            print("Error fetching search results: \(error)")
-            withAnimation(.easeInOut(duration: 0.1)) {
+            withAnimation(.easeInOut(duration: 0.2)) {
                 self.artistsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
-            
         }
     }
 }

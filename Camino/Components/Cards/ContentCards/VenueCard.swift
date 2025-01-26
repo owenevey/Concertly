@@ -8,7 +8,7 @@ struct VenueCard: View {
     
     var body: some View {
         NavigationLink {
-            VenueView(venueId: venue.id)
+            VenueView(venue: venue)
                 .navigationBarHidden(true)
                 .navigationTransition(.zoom(sourceID: id, in: namespace))
         }
@@ -49,18 +49,18 @@ struct VenueCard: View {
     }
 }
 
-#Preview {
-    NavigationStack {
-        VStack {
-            Spacer()
-            VenueCard(venue: Venue(
-                id: "KovZpZA7AAEA",
-                name: "Madison Square Garden",
-                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Madison_Square_Garden_%28MSG%29_-_Full_%2848124330357%29.jpg"))
-            .shadow(color: .black.opacity(0.2), radius: 5)
-            Spacer()
-        }
-        .frame(maxWidth: .infinity)
-        .background(Color.background)
-    }
-}
+//#Preview {
+//    NavigationStack {
+//        VStack {
+//            Spacer()
+//            VenueCard(venue: Venue(
+//                id: "KovZpZA7AAEA",
+//                name: "Madison Square Garden",
+//                imageUrl: "https://upload.wikimedia.org/wikipedia/commons/4/4b/Madison_Square_Garden_%28MSG%29_-_Full_%2848124330357%29.jpg"))
+//            .shadow(color: .black.opacity(0.2), radius: 5)
+//            Spacer()
+//        }
+//        .frame(maxWidth: .infinity)
+//        .background(Color.background)
+//    }
+//}

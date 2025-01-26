@@ -43,6 +43,12 @@ extension Date {
         return Date.dateFormatter.string(from: self)
     }
     
+    // 2024-10-18
+    func EuropeanFormat() -> String {
+        Date.dateFormatter.dateFormat = "yyyy-MM-dd"
+        return Date.dateFormatter.string(from: self)
+    }
+    
     // Oct
     func shortMonthFormat() -> String {
         Date.dateFormatter.dateFormat = "MMM"

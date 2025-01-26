@@ -45,7 +45,7 @@ struct ExploreSearchView: View {
             ScrollView(showsIndicators: false) {
                 switch viewModel.artistsResponse.status {
                 case .success:
-                    if let artists = viewModel.artistsResponse.data?.suggestedArtists {
+                    if let artists = viewModel.artistsResponse.data {
                         VStack(spacing: 5) {
                             ForEach(artists) { artistResult in
                                 NavigationLink {

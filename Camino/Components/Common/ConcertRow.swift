@@ -22,7 +22,7 @@ struct ConcertRow: View {
         case .artist:
             return  concert.venueName
         case .destination:
-            return concert.name
+            return concert.venueName
         case .venue:
             return concert.name
         }

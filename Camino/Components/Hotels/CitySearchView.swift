@@ -47,15 +47,15 @@ struct CitySearchView: View {
             ScrollView(showsIndicators: false) {
                 switch viewModel.citiesResponse.status {
                 case .success:
-                    if let cities = viewModel.citiesResponse.data?.suggestedCities {
+                    if let cities = viewModel.citiesResponse.data {
                         
                         VStack(spacing: 5) {
-                            ForEach(cities, id: \.name) { city in
+                            ForEach(cities) { city in
                                 Button {
-                                    if let state = city.stateCode {
-                                        location = "\(city.name), \(state)"
+                                    if let stateCode = city.stateCode {
+                                        location = "\(city.name), \(stateCode)"
                                     } else {
-                                        location = "\(city.name), \(city.countryCode)"
+                                        location = "\(city.name), \(city.countryName)"
                                     }
                                     dismiss()
                                 }

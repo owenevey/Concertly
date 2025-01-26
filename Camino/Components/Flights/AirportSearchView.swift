@@ -48,7 +48,7 @@ struct AirportSearchView: View {
             ScrollView(showsIndicators: false) {
                 switch viewModel.airportsResponse.status {
                 case .success:
-                    if let airports = viewModel.airportsResponse.data?.suggestedAirports {
+                    if let airports = viewModel.airportsResponse.data {
                         
                         VStack(spacing: 5) {
                             ForEach(airports, id: \.code) { airportResult in

@@ -6,7 +6,7 @@ class DestinationViewModel: TripViewModelProtocol {
     
     @Published var tripStartDate: Date
     @Published var tripEndDate: Date
-    @Published var destinationDetailsResponse: ApiResponse<DestinationDetailsResponse> = ApiResponse<DestinationDetailsResponse>()
+    @Published var concertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
     @Published var flightsResponse: ApiResponse<FlightsResponse> = ApiResponse<FlightsResponse>()
     @Published var hotelsResponse: ApiResponse<HotelsResponse> = ApiResponse<HotelsResponse>()
     @Published var flightsPrice: Int = 0
@@ -15,6 +15,7 @@ class DestinationViewModel: TripViewModelProtocol {
     
     init(destination: Destination) {
         self.destination = destination
+        self.cityName = destination.cityName
         
         let calendar = Calendar.current
         self.tripStartDate = calendar.date(byAdding: .day, value: -1, to: Date()) ?? Date()
@@ -25,49 +26,48 @@ class DestinationViewModel: TripViewModelProtocol {
         hotelsPrice + flightsPrice
     }
     
-    func getDestinationDetails() async {
-        withAnimation(.easeInOut(duration: 0.1)) {
-            self.destinationDetailsResponse = ApiResponse(status: .loading)
+    func getConcerts() async {
+        withAnimation(.easeInOut(duration: 0.2)) {
+            self.concertsResponse = ApiResponse(status: .loading)
         }
         
         do {
-            let fetchedDetails = try await fetchDestinationDetails(destinationId: destination.name)
+            let fetchedConcerts = try await fetchConcertsForDestination(geoHash: destination.geoHash)
             
-            withAnimation(.easeInOut(duration: 0.1)) {
-                self.destinationDetailsResponse = ApiResponse(status: .success, data: fetchedDetails)
+            if let concerts = fetchedConcerts.data?.concerts {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.concertsResponse = ApiResponse(status: .success, data: concerts)
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.concertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
+                }
             }
-            
-            self.cityName = fetchedDetails.destinationDetails.cityName
-            await self.getDepartingFlights()
-            await self.getHotels()
-            
         } catch {
-            print("Error fetching destination details: \(error)")
-            withAnimation(.easeInOut(duration: 0.1)) {
-                self.destinationDetailsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            withAnimation(.easeInOut(duration: 0.2)) {
+                self.concertsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }
     }
     
     func getDepartingFlights() async {
-        if let destinationDetails = destinationDetailsResponse.data?.destinationDetails {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                self.flightsResponse = ApiResponse(status: .loading)
-            }
+        withAnimation(.easeInOut(duration: 0.3)) {
+            self.flightsResponse = ApiResponse(status: .loading)
+        }
+        
+        do {
+            var fetchedFlights = try await fetchDepartureFlights(fromAirport: homeAirport,
+                                                                 toAirport: "LAX",
+                                                                 fromDate: tripStartDate.EuropeanFormat(),
+                                                                 toDate: tripEndDate.EuropeanFormat())
             
-            do {
-                let fetchedFlights = try await fetchDepartureFlights(lat: destinationDetails.latitude,
-                                                                     long: destinationDetails.longitude,
-                                                                     fromAirport: homeAirport,
-                                                                     fromDate: tripStartDate.traditionalFormat(),
-                                                                     toDate: tripEndDate.traditionalFormat())
-                
+            if let retrievedFlights = fetchedFlights.data {
                 withAnimation(.easeInOut(duration: 0.3)) {
-                    self.flightsResponse = ApiResponse(status: .success, data: fetchedFlights)
-                    self.flightsPrice = fetchedFlights.bestFlights.first?.price ?? 0
+                    self.flightsResponse = ApiResponse(status: .success, data: retrievedFlights)
+                    self.flightsPrice = retrievedFlights.flights.first?.price ?? 0
                 }
                 
-                let airlineLogoURLs: [URL] = (fetchedFlights.bestFlights + fetchedFlights.otherFlights).compactMap { flightItem in
+                let airlineLogoURLs: [URL] = (retrievedFlights.flights).compactMap { flightItem in
                     flightItem.flights.compactMap { flight in
                         URL(string: flight.airlineLogo)
                     }
@@ -76,12 +76,15 @@ class DestinationViewModel: TripViewModelProtocol {
                 let uniqueAirlineLogoURLs = Array(Set(airlineLogoURLs))
 
                 ImagePrefetcher.instance.startPrefetching(urls: uniqueAirlineLogoURLs)
-                
-            } catch {
-                print("Error fetching flights: \(error)")
-                withAnimation(.easeInOut(duration: 0.3)) {
-                    self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            } else {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.flightsResponse = ApiResponse(status: .error, error: "Couldn't fetch flights")
                 }
+            }
+        } catch {
+            print("Error fetching flights: \(error)")
+            withAnimation(.easeInOut(duration: 0.3)) {
+                self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }
     }
@@ -92,7 +95,7 @@ class DestinationViewModel: TripViewModelProtocol {
         }
         
         do {
-            let fetchedHotels = try await fetchHotels(location: destination.name,
+            let fetchedHotels = try await fetchHotels(location: destination.cityName,
                                                       fromDate: tripStartDate.traditionalFormat(),
                                                       toDate: tripEndDate.traditionalFormat())
             withAnimation(.easeInOut(duration: 0.3)) {

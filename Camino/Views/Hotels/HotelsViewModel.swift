@@ -83,7 +83,7 @@ final class HotelsViewModel: ObservableObject {
     }
     
     func getHotels() async {
-        withAnimation(.easeInOut(duration: 0.1)) {
+        withAnimation(.easeInOut(duration: 0.2)) {
             self.hotelsResponse = ApiResponse(status: .loading)
             self.resetFilters()
         }
@@ -92,13 +92,13 @@ final class HotelsViewModel: ObservableObject {
             try await Task.sleep(nanoseconds: 1 * 1_000_000_000)
             let fetchedHotels = try await fetchHotels(location: location, fromDate: fromDate.traditionalFormat(), toDate: toDate.traditionalFormat())
             
-            withAnimation(.easeInOut(duration: 0.1)) {
+            withAnimation(.easeInOut(duration: 0.2)) {
                 self.hotelsResponse = ApiResponse(status: .success, data: fetchedHotels)
                 self.resetFilters()
             }
         } catch {
             print("Error fetching hotels: \(error)")
-            withAnimation(.easeInOut(duration: 0.1)) {
+            withAnimation(.easeInOut(duration: 0.2)) {
                 self.hotelsResponse = ApiResponse(status: .error, error: error.localizedDescription)
                 self.resetFilters()
             }

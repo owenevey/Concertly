@@ -50,6 +50,30 @@ struct ConcertView: View {
                     Text(concert.date.formatted(date: .complete, time: .omitted) + ", " + concert.date.timeFormatAMPM())
                         .font(.system(size: 18, type: .Regular))
                         .foregroundStyle(.gray3)
+                    
+                    if concert.featuredArtists.count > 0 {
+                        VStack {
+                            Text("Featuring")
+                                .font(.system(size: 18, type: .SemiBold))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            ForEach(concert.featuredArtists.prefix(3), id: \.self) { artist in
+                                Text(artist)
+                                    .font(.system(size: 18, type: .Regular))
+                                    .foregroundStyle(.gray3)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                            
+                            if concert.featuredArtists.count > 3 {
+                                Text("+ \(concert.featuredArtists.count - 3) more")
+                                    .font(.system(size: 18, type: .Regular))
+                                    .foregroundStyle(.gray3)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
