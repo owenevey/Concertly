@@ -46,38 +46,52 @@ struct ExploreSearchView: View {
                 switch viewModel.artistsResponse.status {
                 case .success:
                     if let artists = viewModel.artistsResponse.data {
-                        VStack(spacing: 5) {
-                            ForEach(artists) { artistResult in
-                                NavigationLink {
-                                    ArtistView(artistID: artistResult.id)
-                                        .navigationBarHidden(true)
-                                }
-                                label: {
-                                    HStack(spacing: 15) {
-                                        ImageLoader(url: artistResult.imageUrl, contentMode: .fill)
-                                            .frame(width: 60, height: 60)
-                                            .cornerRadius(40)
-                                            .clipped()
-                                        
-                                        Text(artistResult.name)
-                                            .font(.system(size: 20, type: .Regular))
-                                            .lineLimit(2)
-                                            .minimumScaleFactor(0.9)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                        
-                                        Image(systemName: "chevron.right")
-                                            .font(.system(size: 15))
-                                            .fontWeight(.semibold)
-                                            .padding(.trailing, 5)
-                                    }
-                                    .padding(.vertical, 5)
-                                    .contentShape(Rectangle())
-                                }
-                                .buttonStyle(PlainButtonStyle())
+                        if artists.isEmpty {
+                            VStack(spacing: 10) {
+                                Image(systemName: "person.fill")
+                                    .font(.system(size: 20))
+                                    .fontWeight(.semibold)
+                                
+                                Text("No Artists")
+                                    .font(.system(size: 18, type: .Regular))
                             }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 250)
+                            .transition(.opacity)
+                        } else {
+                            VStack(spacing: 5) {
+                                ForEach(artists) { artistResult in
+                                    NavigationLink {
+                                        ArtistView(artistID: artistResult.id)
+                                            .navigationBarHidden(true)
+                                    }
+                                    label: {
+                                        HStack(spacing: 15) {
+                                            ImageLoader(url: artistResult.imageUrl, contentMode: .fill)
+                                                .frame(width: 60, height: 60)
+                                                .cornerRadius(40)
+                                                .clipped()
+                                            
+                                            Text(artistResult.name)
+                                                .font(.system(size: 20, type: .Regular))
+                                                .lineLimit(2)
+                                                .minimumScaleFactor(0.9)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                            
+                                            Image(systemName: "chevron.right")
+                                                .font(.system(size: 15))
+                                                .fontWeight(.semibold)
+                                                .padding(.trailing, 5)
+                                        }
+                                        .padding(.vertical, 5)
+                                        .contentShape(Rectangle())
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
+                            .transition(.opacity)
                         }
-                        .frame(maxWidth: .infinity)
-                        .transition(.opacity)
                     }
                 case .loading:
                     LoadingView()

@@ -141,7 +141,7 @@ struct FlightsFiltersBar: View {
                                 self.detentHeight = height
                             }
                         }
-                        .presentationDetents([.height(self.detentHeight)])
+                        .presentationDetents([.height(min(self.detentHeight, 500))])
                         .presentationBackground(Color.background)
                 }
             }

@@ -48,46 +48,59 @@ struct CitySearchView: View {
                 switch viewModel.citiesResponse.status {
                 case .success:
                     if let cities = viewModel.citiesResponse.data {
-                        
-                        VStack(spacing: 5) {
-                            ForEach(cities) { city in
-                                Button {
-                                    if let stateCode = city.stateCode {
-                                        location = "\(city.name), \(stateCode)"
-                                    } else {
-                                        location = "\(city.name), \(city.countryName)"
-                                    }
-                                    dismiss()
-                                }
-                                label: {
-                                    HStack(spacing: 20) {
-                                        Image(systemName: "building.2.fill")
-                                            .font(.system(size: 20))
-
-                                        VStack(alignment: .leading) {
-                                            if let state = city.stateCode {
-                                                Text("\(city.name), \(state)")
-                                                    .font(.system(size: 18, type: .Medium))
-                                            } else {
-                                                Text(city.name)
-                                                    .font(.system(size: 18, type: .Medium))
-                                            }
-                                            
-                                            Text(city.countryName)
-                                                .font(.system(size: 16, type: .Regular))
-                                                .foregroundStyle(.gray3)
-                                        }
-                                    }
-                                    .padding(.vertical, 5)
-                                    .padding(.horizontal, 10)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .contentShape(Rectangle())
-                                }
-                                .buttonStyle(PlainButtonStyle())
+                        if cities.isEmpty {
+                            VStack(spacing: 10) {
+                                Image(systemName: "building.2.fill")
+                                    .font(.system(size: 20))
+                                    .fontWeight(.semibold)
+                                
+                                Text("No Cities")
+                                    .font(.system(size: 18, type: .Regular))
                             }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 250)
+                            .transition(.opacity)
+                        } else {
+                            VStack(spacing: 5) {
+                                ForEach(cities) { city in
+                                    Button {
+                                        if let stateCode = city.stateCode {
+                                            location = "\(city.name), \(stateCode)"
+                                        } else {
+                                            location = "\(city.name), \(city.countryName)"
+                                        }
+                                        dismiss()
+                                    }
+                                    label: {
+                                        HStack(spacing: 20) {
+                                            Image(systemName: "building.2.fill")
+                                                .font(.system(size: 20))
+                                            
+                                            VStack(alignment: .leading) {
+                                                if let state = city.stateCode {
+                                                    Text("\(city.name), \(state)")
+                                                        .font(.system(size: 18, type: .Medium))
+                                                } else {
+                                                    Text(city.name)
+                                                        .font(.system(size: 18, type: .Medium))
+                                                }
+                                                
+                                                Text(city.countryName)
+                                                    .font(.system(size: 16, type: .Regular))
+                                                    .foregroundStyle(.gray3)
+                                            }
+                                        }
+                                        .padding(.vertical, 5)
+                                        .padding(.horizontal, 10)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .contentShape(Rectangle())
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
+                            .transition(.opacity)
                         }
-                        .frame(maxWidth: .infinity)
-                        .transition(.opacity)
                     }
                 case .loading:
                     LoadingView()

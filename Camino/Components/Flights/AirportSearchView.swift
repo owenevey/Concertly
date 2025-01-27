@@ -49,40 +49,53 @@ struct AirportSearchView: View {
                 switch viewModel.airportsResponse.status {
                 case .success:
                     if let airports = viewModel.airportsResponse.data {
-                        
-                        VStack(spacing: 5) {
-                            ForEach(airports, id: \.code) { airportResult in
-                                Button {
-                                    airportCode = airportResult.code
-                                    dismiss()
-                                }
-                                label: {
-                                    HStack(spacing: 20) {
-                                        Image(systemName: "airplane")
-                                            .font(.system(size: 20))
-                                        
-                                        VStack(alignment: .leading) {
-                                            Text(airportResult.name)
-                                                .font(.system(size: 18, type: .Medium))
-                                            Text("\(airportResult.city), \(airportResult.country)")
-                                                .font(.system(size: 16, type: .Regular))
-                                                .foregroundStyle(.gray3)
-                                        }
-                                        
-                                        Spacer()
-                                        
-                                        Text(airportResult.code)
-                                            .font(.system(size: 18, type: .Medium))
-                                    }
-                                    .padding(.vertical, 5)
-                                    .padding(.horizontal, 10)
-                                    .contentShape(Rectangle())
-                                }
-                                .buttonStyle(PlainButtonStyle())
+                        if airports.isEmpty {
+                            VStack(spacing: 10) {
+                                Image(systemName: "airplane")
+                                    .font(.system(size: 20))
+                                    .fontWeight(.semibold)
+                                
+                                Text("No Airports")
+                                    .font(.system(size: 18, type: .Regular))
                             }
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 250)
+                            .transition(.opacity)
+                        } else {
+                            VStack(spacing: 5) {
+                                ForEach(airports, id: \.code) { airportResult in
+                                    Button {
+                                        airportCode = airportResult.code
+                                        dismiss()
+                                    }
+                                    label: {
+                                        HStack(spacing: 20) {
+                                            Image(systemName: "airplane")
+                                                .font(.system(size: 20))
+                                            
+                                            VStack(alignment: .leading) {
+                                                Text(airportResult.name)
+                                                    .font(.system(size: 18, type: .Medium))
+                                                Text("\(airportResult.city), \(airportResult.country)")
+                                                    .font(.system(size: 16, type: .Regular))
+                                                    .foregroundStyle(.gray3)
+                                            }
+                                            
+                                            Spacer()
+                                            
+                                            Text(airportResult.code)
+                                                .font(.system(size: 18, type: .Medium))
+                                        }
+                                        .padding(.vertical, 5)
+                                        .padding(.horizontal, 10)
+                                        .contentShape(Rectangle())
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
+                            .transition(.opacity)
                         }
-                        .frame(maxWidth: .infinity)
-                        .transition(.opacity)
                     }
                 case .loading:
                     LoadingView()
