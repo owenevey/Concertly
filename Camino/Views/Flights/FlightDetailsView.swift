@@ -91,33 +91,34 @@ struct FlightDetailsView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             HStack {
                                 Image(systemName: "clock.fill")
-                                    .font(.system(size: 17))
+                                    .font(.system(size: 16))
                                     .frame(width: 22)
                                 Text("Total Duration: \(minsToHrMins(minutes: flightItem.totalDuration))")
-                                    .font(.system(size: 17, type: .Regular))
+                                    .font(.system(size: 16, type: .Regular))
                             }
                             
                             if let departureAirport = flightItem.flights.first?.departureAirport.name {
                                 HStack {
                                     Image(systemName: "airplane.departure")
-                                        .font(.system(size: 17))
+                                        .font(.system(size: 16))
                                         .frame(width: 22)
                                     Text("Departure Airport:\n\(departureAirport)")
-                                        .font(.system(size: 17, type: .Regular))
+                                        .font(.system(size: 16, type: .Regular))
                                 }
                             }
                             
                             if let arrivalAirport = flightItem.flights.last?.arrivalAirport.name {
                                 HStack {
                                     Image(systemName: "airplane.arrival")
-                                        .font(.system(size: 17))
+                                        .font(.system(size: 16))
                                         .frame(width: 22)
                                     Text("Arrival Airport:\n\(arrivalAirport)")
-                                        .font(.system(size: 17, type: .Regular))
+                                        .font(.system(size: 16, type: .Regular))
                                 }
                             }
                             
                         }
+//                        .foregroundStyle(.gray3)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(15)
                         .background(
@@ -142,10 +143,10 @@ struct LayoverView: View {
     var body: some View {
         HStack {
             Image(systemName: "clock.fill")
-                .font(.system(size: 17))
+                .font(.system(size: 16))
                 .foregroundStyle(.gray3)
             Text("\(minsToHrMins(minutes: layover.duration)) Layover at \(layover.id)")
-                .font(.system(size: 17, type: .Regular))
+                .font(.system(size: 16, type: .Regular))
                 .foregroundStyle(.gray3)
         }
     }
@@ -229,29 +230,30 @@ struct FlightLeg: View {
                 if let airplane = flight.airplane {
                     HStack {
                         Image(systemName: "airplane")
-                            .font(.system(size: 17))
+                            .font(.system(size: 16))
                             .frame(width: 22)
                         Text(airplane)
-                            .font(.system(size: 17, type: .Regular))
+                            .font(.system(size: 16, type: .Regular))
                     }
                 }
                 
                 HStack {
                     Image(systemName: "ticket.fill")
-                        .font(.system(size: 17))
+                        .font(.system(size: 16))
                         .frame(width: 22)
                     Text(flight.travelClass)
-                        .font(.system(size: 17, type: .Regular))
+                        .font(.system(size: 16, type: .Regular))
                 }
                 
                 HStack {
                     Image(systemName: "carseat.right.fill")
-                        .font(.system(size: 17))
+                        .font(.system(size: 16))
                         .frame(width: 22)
                     Text("\(flight.legroom) legroom")
-                        .font(.system(size: 17, type: .Regular))
+                        .font(.system(size: 16, type: .Regular))
                 }
             }
+            .foregroundStyle(.gray3)
         }
         .padding(15)
         .background(

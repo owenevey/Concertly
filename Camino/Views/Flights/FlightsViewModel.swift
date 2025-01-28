@@ -173,11 +173,10 @@ final class FlightsViewModel: ObservableObject {
                 }
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
-                    self.flightsResponse = ApiResponse(status: .error, error: "Couldn't fetch flights")
+                    self.flightsResponse = ApiResponse(status: .error, error: fetchedFlights.error ?? "Couldn't fetch flights")
                 }
             }
         } catch {
-            print("Error fetching flights: \(error)")
             withAnimation(.easeInOut(duration: 0.3)) {
                 self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
@@ -197,7 +196,8 @@ final class FlightsViewModel: ObservableObject {
             let fetchedFlights = try await fetchReturnFlights(fromAirport: homeAirport,
                                                               toAirport: toAirport,
                                                               fromDate: fromDate.EuropeanFormat(),
-                                                              toDate: toDate.EuropeanFormat(), departureToken: departureToken)
+                                                              toDate: toDate.EuropeanFormat(),
+                                                              departureToken: departureToken)
             
             if let retrievedFlights = fetchedFlights.data {
                 withAnimation(.easeInOut(duration: 0.3)) {
@@ -207,11 +207,10 @@ final class FlightsViewModel: ObservableObject {
                 }
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
-                    self.flightsResponse = ApiResponse(status: .error, error: "Couldn't fetch flights")
+                    self.flightsResponse = ApiResponse(status: .error, error: fetchedFlights.error ?? "Couldn't fetch flights")
                 }
             }
         } catch {
-            print("Error fetching flights: \(error)")
             withAnimation(.easeInOut(duration: 0.3)) {
                 self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }

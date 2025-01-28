@@ -59,7 +59,7 @@ struct FlightsView<T: TripViewModelProtocol>: View {
     }
     
     private var mainContent: some View {
-        LazyVStack(spacing: 15) {
+        VStack(spacing: 15) {
             if viewModel.flightsResponse.status == .success || viewModel.departingFlight != nil {
                 if let prices = viewModel.priceInsights {
                     PriceInsightsCard(insights: prices)
@@ -121,15 +121,17 @@ struct FlightsView<T: TripViewModelProtocol>: View {
                     .frame(height: 250)
                     .transition(.opacity)
                 } else {
-                    ForEach(viewModel.filteredFlights) { flightItem in
-                        FlightCard(flightItem: flightItem)
-                            .shadow(color: .black.opacity(0.05), radius: 5)
-                            .transition(.opacity)
-                            .onTapGesture {
-                                selectedFlight = flightItem
-                            }
+                    LazyVStack(spacing: 15) {
+                        ForEach(viewModel.filteredFlights) { flightItem in
+                            FlightCard(flightItem: flightItem)
+                                .shadow(color: .black.opacity(0.05), radius: 5)
+                                .transition(.opacity)
+                                .onTapGesture {
+                                    selectedFlight = flightItem
+                                }
+                        }
                     }
-                    .transition(.opacity)
+//                    .transition(.opacity)
                 }
             }
             else if viewModel.flightsResponse.status == Status.error {
@@ -152,24 +154,18 @@ struct FlightsView<T: TripViewModelProtocol>: View {
             Task {
                 await viewModel.getReturningFlights()
             }
-            tripViewModel.flightsResponse = viewModel.flightsResponse
-            tripViewModel.flightsPrice = viewModel.flightsResponse.data?.flights.first?.price ?? 0
         } else {
-            refetchDepartingFlights()
+            Task {
+                await viewModel.getDepartingFlights()
+            }
         }
+        tripViewModel.flightsResponse = viewModel.flightsResponse
+        tripViewModel.flightsPrice = viewModel.flightsResponse.data?.flights.last?.price ?? 0
     }
     
     private func handleReturningFlightChange() {
         tripViewModel.flightsPrice = viewModel.returningFlight?.price ?? 0
         dismiss()
-    }
-    
-    private func refetchDepartingFlights() {
-        Task {
-            await viewModel.getDepartingFlights()
-        }
-        tripViewModel.flightsResponse = viewModel.flightsResponse
-        tripViewModel.flightsPrice = viewModel.flightsResponse.data?.flights.first?.price ?? 0
     }
     
     private func handleDateChange() {
@@ -179,6 +175,14 @@ struct FlightsView<T: TripViewModelProtocol>: View {
         Task {
             await tripViewModel.getHotels()
         }
+    }
+    
+    private func refetchDepartingFlights() {
+        Task {
+            await viewModel.getDepartingFlights()
+        }
+        tripViewModel.flightsResponse = viewModel.flightsResponse
+        tripViewModel.flightsPrice = viewModel.flightsResponse.data?.flights.last?.price ?? 0
     }
 }
 

@@ -34,21 +34,21 @@ class ConcertViewModel: TripViewModelProtocol {
             var fetchedFlights = ApiResponse<FlightsResponse>()
             if let destinationAirport = concert.closestAirport {
                 fetchedFlights = try await fetchDepartureFlights(fromAirport: homeAirport,
-                                                                     toAirport: destinationAirport,
-                                                                     fromDate: tripStartDate.EuropeanFormat(),
-                                                                     toDate: tripEndDate.EuropeanFormat())
+                                                                 toAirport: destinationAirport,
+                                                                 fromDate: tripStartDate.EuropeanFormat(),
+                                                                 toDate: tripEndDate.EuropeanFormat())
             } else {
-                fetchedFlights = try await fetchDepartureFlights(lat: concert.latitude,
-                                                                     long: concert.longitude,
-                                                                     fromAirport: homeAirport,
-                                                                     fromDate: tripStartDate.EuropeanFormat(),
-                                                                     toDate: tripEndDate.EuropeanFormat())
+                fetchedFlights = try await fetchDepartureFlights(fromAirport: homeAirport,
+                                                                 lat: concert.latitude,
+                                                                 long: concert.longitude,
+                                                                 fromDate: tripStartDate.EuropeanFormat(),
+                                                                 toDate: tripEndDate.EuropeanFormat())
             }
             
             if let retrievedFlights = fetchedFlights.data {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     self.flightsResponse = ApiResponse(status: .success, data: retrievedFlights)
-                    self.flightsPrice = retrievedFlights.flights.first?.price ?? 0
+                    self.flightsPrice = retrievedFlights.flights.last?.price ?? 0
                 }
                 
                 let airlineLogoURLs: [URL] = (retrievedFlights.flights).compactMap { flightItem in
@@ -56,17 +56,16 @@ class ConcertViewModel: TripViewModelProtocol {
                         URL(string: flight.airlineLogo)
                     }
                 }.flatMap { $0 }
-
+                
                 let uniqueAirlineLogoURLs = Array(Set(airlineLogoURLs))
-
+                
                 ImagePrefetcher.instance.startPrefetching(urls: uniqueAirlineLogoURLs)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
-                    self.flightsResponse = ApiResponse(status: .error, error: "Couldn't fetch flights")
+                    self.flightsResponse = ApiResponse(status: .error, error: fetchedFlights.error ?? "Couldn't fetch flights")
                 }
             }
         } catch {
-            print("Error fetching flights: \(error)")
             withAnimation(.easeInOut(duration: 0.3)) {
                 self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }

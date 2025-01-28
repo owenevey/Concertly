@@ -110,7 +110,7 @@ func fetchArtistSearchResults(query: String) async throws -> ApiResponse<ArtistS
     return response
 }
 
-func fetchDepartureFlights(lat: Double, long: Double, fromAirport: String, fromDate: String, toDate: String) async throws -> ApiResponse<FlightsResponse> {
+func fetchDepartureFlights(fromAirport: String, lat: Double, long: Double, fromDate: String, toDate: String) async throws -> ApiResponse<FlightsResponse> {
     let endpoint = "\(baseUrl)/flights?lat=\(lat)&long=\(long)&fromAirport=\(fromAirport)&fromDate=\(fromDate)&toDate=\(toDate)"
     let response: ApiResponse<FlightsResponse> = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
     return response

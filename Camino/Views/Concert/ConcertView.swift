@@ -14,6 +14,24 @@ struct ConcertView: View {
     
     @State var hasAppeared: Bool = false
     
+    var featuringText: String {
+        var text = ""
+        
+        for artist in concert.featuredArtists.prefix(3) {
+            text += artist + ", "
+        }
+        
+        if !text.isEmpty {
+            text = String(text.dropLast(2)) // Remove the last comma and space
+        }
+        
+        if concert.featuredArtists.count > 3 {
+            text += " + \(concert.featuredArtists.count - 3) more"
+        }
+        
+        return text
+    }
+    
     var body: some View {
         ImageHeaderScrollView(title: concert.artistName, imageUrl: concert.imageUrl) {
             VStack(spacing: 20) {
@@ -52,24 +70,16 @@ struct ConcertView: View {
                         .foregroundStyle(.gray3)
                     
                     if concert.featuredArtists.count > 0 {
-                        VStack {
+                        VStack(spacing: 5) {
                             Text("Featuring")
                                 .font(.system(size: 18, type: .SemiBold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            ForEach(concert.featuredArtists.prefix(3), id: \.self) { artist in
-                                Text(artist)
-                                    .font(.system(size: 18, type: .Regular))
-                                    .foregroundStyle(.gray3)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                            }
+                            Text(featuringText)
+                                .font(.system(size: 18, type: .Regular))
+                                .foregroundStyle(.gray3)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            if concert.featuredArtists.count > 3 {
-                                Text("+ \(concert.featuredArtists.count - 3) more")
-                                    .font(.system(size: 18, type: .Regular))
-                                    .foregroundStyle(.gray3)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                            }
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                     }

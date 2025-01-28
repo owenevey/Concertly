@@ -60,10 +60,10 @@ struct FlightCard: View {
                 
                 
                 VStack(alignment: .leading) {
-                    if let airplane = flightItem.flights.first?.airplane {
+                    if let flightNumber = flightItem.flights.first?.flightNumber {
                         Text(flightItem.flights.first?.airline ?? "")
                             .font(.system(size: 18, type: .Medium))
-                        Text(airplane)
+                        Text(flightNumber)
                             .font(.system(size: 16, type: .Regular))
                             .foregroundStyle(.gray3)
                     }
