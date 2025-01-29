@@ -6,35 +6,49 @@ struct PriceGraph: View {
         let id = UUID()
         let date: TimeInterval
         var price: Int
-        var animate: Bool = false
     }
     
     @State private var prices: [PriceData]
     
     init(prices: [[Int]]) {
-        self._prices = State(initialValue: prices.map { PriceData(date: TimeInterval($0[0]), price: $0[1]) })
+        let rawData = prices.map { PriceData(date: TimeInterval($0[0]), price: $0[1]) }
+                
+                let downsampledData = rawData.enumerated().reduce(into: [PriceData]()) { result, entry in
+                    let (index, item) = entry
+                    if index % 3 == 0 { // Take every 3rd item
+                        let chunk = rawData[index..<min(index + 3, rawData.count)]
+                        let avgPrice = chunk.map(\.price).reduce(0, +) / chunk.count
+                        result.append(PriceData(date: item.date, price: avgPrice))
+                    }
+                }
+                
+                self._prices = State(initialValue: downsampledData)
     }
     
     var maxPrice: Double {
         prices.map(\.price).max().map(Double.init) ?? 0
     }
     
+    private var areaBackground: Gradient {
+        return Gradient(colors: [Color.accentColor.opacity(0.5), Color.accentColor.opacity(0.1)])
+      }
+    
     var body: some View {
         Chart {
             ForEach(prices) { item in
                 LineMark(
                     x: .value("Date", Date(timeIntervalSince1970: item.date)),
-                    y: .value("Price", item.animate ? item.price : 0)
+                    y: .value("Price", item.price)
                 )
                 .foregroundStyle(.accent.gradient)
-                .interpolationMethod(.monotone)
+                .interpolationMethod(.catmullRom)
                 
                 AreaMark(
                     x: .value("Date", Date(timeIntervalSince1970: item.date)),
-                    y: .value("Price", item.animate ? item.price : 0)
+                    y: .value("Price", item.price)
                 )
-                .foregroundStyle(.accent.opacity(0.1).gradient)
-                .interpolationMethod(.monotone)
+                .foregroundStyle(areaBackground)
+                .interpolationMethod(.catmullRom)
             }
         }
         .chartYScale(domain: 0...(maxPrice + 100))
@@ -47,17 +61,16 @@ struct PriceGraph: View {
                 }
             }
         }
-        .chartXAxis(.hidden)
-        .frame(height: 300)
-        .onAppear {
-            for (index, _) in prices.enumerated() {
-                DispatchQueue.main.asyncAfter(deadline: .now() + Double(index) * 0.005) {
-                    withAnimation(.interactiveSpring(response: 0.8, dampingFraction: 0.8, blendDuration: 0.8)) {
-                        prices[index].animate = true
+        .chartXAxis {
+            AxisMarks { value in
+                AxisValueLabel {
+                    if let dateValue = value.as(Date.self) {
+                        Text(dateValue, format: .dateTime.day().month())
                     }
                 }
             }
         }
+        .frame(height: 300)
     }
 }
 

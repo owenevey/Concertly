@@ -237,20 +237,24 @@ struct FlightLeg: View {
                     }
                 }
                 
-                HStack {
-                    Image(systemName: "ticket.fill")
-                        .font(.system(size: 16))
-                        .frame(width: 22)
-                    Text(flight.travelClass)
-                        .font(.system(size: 16, type: .Regular))
+                if let travelClass = flight.travelClass {
+                    HStack {
+                        Image(systemName: "ticket.fill")
+                            .font(.system(size: 16))
+                            .frame(width: 22)
+                        Text(travelClass)
+                            .font(.system(size: 16, type: .Regular))
+                    }
                 }
                 
-                HStack {
-                    Image(systemName: "carseat.right.fill")
-                        .font(.system(size: 16))
-                        .frame(width: 22)
-                    Text("\(flight.legroom) legroom")
-                        .font(.system(size: 16, type: .Regular))
+                if let legroom = flight.legroom {
+                    HStack {
+                        Image(systemName: "carseat.right.fill")
+                            .font(.system(size: 16))
+                            .frame(width: 22)
+                        Text("\(legroom) legroom")
+                            .font(.system(size: 16, type: .Regular))
+                    }
                 }
             }
             .foregroundStyle(.gray3)

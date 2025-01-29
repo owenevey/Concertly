@@ -14,5 +14,5 @@ struct Venue: Codable, Identifiable {
     let latitude: Double
     let longitude: Double
     let address: String
-    let closesAirport: String = "LAX"
+    let closestAirport: String = "LAX"
 }

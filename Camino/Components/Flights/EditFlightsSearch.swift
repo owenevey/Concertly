@@ -72,22 +72,20 @@ struct EditFlightsSearch: View {
             }
             .buttonStyle(PlainButtonStyle())
             
-            if let maxDate = maxDate {
                 Divider()
                     .frame(height: 2)
                     .overlay(.gray2)
                 
                 HStack(spacing: 30) {
-                    DatePicker("", selection: $tempFromDate, in: Date.now...maxDate, displayedComponents: .date)
+                    DatePicker("", selection: $tempFromDate, in: Date.now..., displayedComponents: .date)
                         .labelsHidden()
                     
                     Image(systemName: "arrow.right")
                         .fontWeight(.semibold)
                     
-                    DatePicker("", selection: $tempToDate, in: tempFromDate...maxDate, displayedComponents: .date)
+                    DatePicker("", selection: $tempToDate, in: tempFromDate..., displayedComponents: .date)
                         .labelsHidden()
                 }
-            }
             
             CaminoButton(label: "Search") {
                 fromDate = tempFromDate

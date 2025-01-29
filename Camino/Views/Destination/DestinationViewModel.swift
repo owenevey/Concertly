@@ -56,7 +56,7 @@ class DestinationViewModel: TripViewModelProtocol {
         }
         
         do {
-            var fetchedFlights = try await fetchDepartureFlights(fromAirport: homeAirport,
+            let fetchedFlights = try await fetchDepartureFlights(fromAirport: homeAirport,
                                                                  toAirport: "LAX",
                                                                  fromDate: tripStartDate.EuropeanFormat(),
                                                                  toDate: tripEndDate.EuropeanFormat())

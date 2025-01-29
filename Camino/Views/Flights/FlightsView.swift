@@ -5,12 +5,13 @@ struct FlightsView<T: TripViewModelProtocol>: View {
     @Environment(\.dismiss) var dismiss
     
     @ObservedObject var tripViewModel: T
-    @StateObject var viewModel: FlightsViewModel
+    @StateObject var viewModel: FlightsViewModel<T>
     
     init(tripViewModel: T) {
         self.tripViewModel = tripViewModel
         
         _viewModel = StateObject(wrappedValue: FlightsViewModel(
+            tripViewModel: tripViewModel,
             fromDate: tripViewModel.tripStartDate,
             toDate: tripViewModel.tripEndDate,
             flightsResponse: tripViewModel.flightsResponse
@@ -31,12 +32,7 @@ struct FlightsView<T: TripViewModelProtocol>: View {
                 mainContent
             }
         )
-        .onChange(of: viewModel.departingFlight) { handleDepartingFlightChange() }
         .onChange(of: viewModel.returningFlight) { handleReturningFlightChange() }
-        .onChange(of: viewModel.fromDate) { handleDateChange() }
-        .onChange(of: viewModel.toDate) { handleDateChange() }
-        .onChange(of: viewModel.fromAirport) { refetchDepartingFlights() }
-        .onChange(of: viewModel.toAirport) { refetchDepartingFlights() }
         
         .sheet(isPresented: Binding<Bool>(
             get: { selectedFlight != nil },
@@ -131,7 +127,6 @@ struct FlightsView<T: TripViewModelProtocol>: View {
                                 }
                         }
                     }
-//                    .transition(.opacity)
                 }
             }
             else if viewModel.flightsResponse.status == Status.error {
@@ -149,40 +144,9 @@ struct FlightsView<T: TripViewModelProtocol>: View {
         .padding(15)
     }
     
-    private func handleDepartingFlightChange() {
-        if viewModel.departingFlight != nil {
-            Task {
-                await viewModel.getReturningFlights()
-            }
-        } else {
-            Task {
-                await viewModel.getDepartingFlights()
-            }
-        }
-        tripViewModel.flightsResponse = viewModel.flightsResponse
-        tripViewModel.flightsPrice = viewModel.flightsResponse.data?.flights.last?.price ?? 0
-    }
-    
     private func handleReturningFlightChange() {
         tripViewModel.flightsPrice = viewModel.returningFlight?.price ?? 0
         dismiss()
-    }
-    
-    private func handleDateChange() {
-        tripViewModel.tripStartDate = viewModel.fromDate
-        tripViewModel.tripEndDate = viewModel.toDate
-        refetchDepartingFlights()
-        Task {
-            await tripViewModel.getHotels()
-        }
-    }
-    
-    private func refetchDepartingFlights() {
-        Task {
-            await viewModel.getDepartingFlights()
-        }
-        tripViewModel.flightsResponse = viewModel.flightsResponse
-        tripViewModel.flightsPrice = viewModel.flightsResponse.data?.flights.last?.price ?? 0
     }
 }
 

@@ -56,10 +56,10 @@ struct Flight: Codable, Identifiable, Equatable {
     let airplane: String?
     let airline: String
     let airlineLogo: String
-    let travelClass: String
+    let travelClass: String?
     let flightNumber: String
-    let legroom: String
-    let extensions: [String]
+    let legroom: String?
+    let extensions: [String]?
     let oftenDelayedByOver30Min: Bool?
     
     enum CodingKeys: String, CodingKey {

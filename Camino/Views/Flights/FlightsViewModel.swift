@@ -1,14 +1,16 @@
 import Foundation
+import Combine
 import SwiftUI
 
 @MainActor
-final class FlightsViewModel: ObservableObject {
+final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
     
+    @ObservedObject var tripViewModel: T
     @Published var fromDate: Date
     @Published var toDate: Date
     
     @Published var fromAirport = homeAirport
-    @Published var toAirport: String = ""
+    @Published var toAirport: String
     
     @Published var flightsResponse: ApiResponse<FlightsResponse>
     @Published var priceInsights: PriceInsights?
@@ -23,7 +25,13 @@ final class FlightsViewModel: ObservableObject {
     @Published var departingFlight: FlightItem?
     @Published var returningFlight: FlightItem?
     
-    init(fromDate: Date, toDate: Date, flightsResponse: ApiResponse<FlightsResponse>) {
+    private var cancellables = Set<AnyCancellable>()
+    private var combinedPublisher: AnyPublisher<(Date, Date, String, String), Never>?
+    private var isFirstEmissionSink1 = true
+    private var isFirstEmissionSink2 = true
+    
+    init(tripViewModel: T, fromDate: Date, toDate: Date, flightsResponse: ApiResponse<FlightsResponse>) {
+        self.tripViewModel = tripViewModel
         self.fromDate = fromDate
         self.toDate = toDate
         self.toAirport = flightsResponse.data?.airports.first?.arrival.first?.airport.id ?? ""
@@ -31,6 +39,57 @@ final class FlightsViewModel: ObservableObject {
         self.priceInsights = flightsResponse.data?.priceInsights
         
         resetFilters()
+        setupCombineLatest()
+    }
+    
+    private func setupCombineLatest() {
+        combinedPublisher = Publishers.CombineLatest4($fromDate, $toDate, $fromAirport, $toAirport)
+            .eraseToAnyPublisher()
+        
+        combinedPublisher?
+            .removeDuplicates { (lhs, rhs) in
+                return lhs.0 == rhs.0 && lhs.1 == rhs.1 && lhs.2 == rhs.2 && lhs.3 == rhs.3
+            }
+            .filter { [weak self] _ in
+                guard let self = self else { return false }
+                if self.isFirstEmissionSink1 {
+                    self.isFirstEmissionSink1 = false
+                    return false
+                }
+                return true
+            }
+            .sink { [weak self] (fromDate, toDate, fromAirport, toAirport) in
+                self?.tripViewModel.tripStartDate = fromDate
+                self?.tripViewModel.tripEndDate = toDate
+                Task {
+                    await self?.getDepartingFlights()
+                    await self?.tripViewModel.getHotels()
+                }
+            }
+            .store(in: &cancellables)
+        
+        $departingFlight
+            .removeDuplicates()
+            .filter { [weak self] _ in
+                guard let self = self else { return false }
+                if self.isFirstEmissionSink2 {
+                    self.isFirstEmissionSink2 = false
+                    return false
+                }
+                return true
+            }
+            .sink { [weak self] departingFlight in
+                if departingFlight != nil {
+                    Task {
+                        await self?.getReturningFlights()
+                    }
+                } else {
+                    Task {
+                        await self?.getDepartingFlights()
+                    }
+                }
+            }
+            .store(in: &cancellables)
     }
     
     func resetFilters() {
@@ -153,6 +212,7 @@ final class FlightsViewModel: ObservableObject {
     }
     
     func getDepartingFlights() async {
+        print("running getDepartingFlights")
         withAnimation(.easeInOut(duration: 0.3)) {
             self.departingFlight = nil
             self.flightsResponse = ApiResponse(status: .loading)
@@ -168,6 +228,8 @@ final class FlightsViewModel: ObservableObject {
             if let retrievedFlights = fetchedFlights.data {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     self.flightsResponse = ApiResponse(status: .success, data: retrievedFlights)
+                    self.tripViewModel.flightsResponse = ApiResponse(status: .success, data: retrievedFlights)
+                    tripViewModel.flightsPrice = retrievedFlights.flights.last?.price ?? 0
                     self.priceInsights = retrievedFlights.priceInsights
                     self.resetFilters()
                 }
@@ -184,6 +246,7 @@ final class FlightsViewModel: ObservableObject {
     }
     
     func getReturningFlights() async {
+        print("running getReturningFlights")
         withAnimation(.easeInOut(duration: 0.3)) {
             self.flightsResponse = ApiResponse(status: .loading)
             self.resetFilters()
@@ -199,10 +262,14 @@ final class FlightsViewModel: ObservableObject {
                                                               toDate: toDate.EuropeanFormat(),
                                                               departureToken: departureToken)
             
+            if departingFlight == nil {
+//                await getDepartingFlights()
+                return
+            }
+            
             if let retrievedFlights = fetchedFlights.data {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     self.flightsResponse = ApiResponse(status: .success, data: retrievedFlights)
-//                    self.priceInsights = retrievedFlights.priceInsights
                     self.resetFilters()
                 }
             } else {

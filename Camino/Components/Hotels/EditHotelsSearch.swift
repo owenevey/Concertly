@@ -13,10 +13,6 @@ struct EditHotelsSearch: View {
     @State var tempToDate: Date
     @State var tempLocation: String
     
-    private var maxDate: Date? {
-        Calendar.current.date(byAdding: .month, value: 6, to: Date.now)
-    }
-    
     init(fromDate: Binding<Date>, toDate: Binding<Date>, location: Binding<String>) {
         _fromDate = fromDate
         _toDate = toDate
@@ -50,22 +46,21 @@ struct EditHotelsSearch: View {
             .buttonStyle(PlainButtonStyle())
             
             
-            if let maxDate = maxDate {
-                Divider()
-                    .frame(height: 2)
-                    .overlay(.gray2)
+            Divider()
+                .frame(height: 2)
+                .overlay(.gray2)
+            
+            HStack(spacing: 30) {
+                DatePicker("", selection: $tempFromDate, in: Date.now..., displayedComponents: .date)
+                    .labelsHidden()
                 
-                HStack(spacing: 30) {
-                    DatePicker("", selection: $tempFromDate, in: Date.now...maxDate, displayedComponents: .date)
-                        .labelsHidden()
-                    
-                    Image(systemName: "arrow.right")
-                        .fontWeight(.semibold)
-                    
-                    DatePicker("", selection: $tempToDate, in: tempFromDate...maxDate, displayedComponents: .date)
-                        .labelsHidden()
-                }
+                Image(systemName: "arrow.right")
+                    .fontWeight(.semibold)
+                
+                DatePicker("", selection: $tempToDate, in: tempFromDate..., displayedComponents: .date)
+                    .labelsHidden()
             }
+            
             
             
             CaminoButton(label: "Search") {
