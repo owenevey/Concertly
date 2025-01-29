@@ -11,7 +11,7 @@ struct HotelDetailsView: View {
     
     var locationRating: String {
         if let rating = property.locationRating {
-            if rating >= 4 {
+            if rating >= 4.5 {
                 return "Great Location"
             }
             else if rating >= 2 {

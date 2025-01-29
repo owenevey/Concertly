@@ -82,7 +82,6 @@ class VenueViewModel: TripViewModelProtocol {
                 }
             }
         } catch {
-            print("Error fetching flights: \(error)")
             withAnimation(.easeInOut(duration: 0.3)) {
                 self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
@@ -98,22 +97,28 @@ class VenueViewModel: TripViewModelProtocol {
             let fetchedHotels = try await fetchHotels(location: venue.cityName,
                                                       fromDate: tripStartDate.traditionalFormat(),
                                                       toDate: tripEndDate.traditionalFormat())
-            withAnimation(.easeInOut(duration: 0.3)) {
-                self.hotelsResponse = ApiResponse(status: .success, data: fetchedHotels)
-                self.hotelsPrice = fetchedHotels.properties.first?.totalRate.extractedLowest ?? 0
-            }
             
-            let hotelPhotos: [URL] = fetchedHotels.properties.compactMap { hotel in
-                if let urlString = hotel.images?.first?.originalImage {
-                    return URL(string: urlString)
+            
+            if let retrievedHotels = fetchedHotels.data {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    self.hotelsResponse = ApiResponse(status: .success, data: retrievedHotels)
+                    self.hotelsPrice = retrievedHotels.properties.first?.totalRate.extractedLowest ?? 0
                 }
-                return nil
+                
+                let hotelPhotos: [URL] = retrievedHotels.properties.compactMap { hotel in
+                    if let urlString = hotel.images?.first?.originalImage {
+                        return URL(string: urlString)
+                    }
+                    return nil
+                }
+                
+                ImagePrefetcher.instance.startPrefetching(urls: hotelPhotos)
+            } else {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.hotelsResponse = ApiResponse(status: .error, error: fetchedHotels.error ?? "Couldn't fetch hotels")
+                }
             }
-            
-            ImagePrefetcher.instance.startPrefetching(urls: hotelPhotos)
-            
         } catch {
-            print("Error fetching hotels: \(error)")
             withAnimation(.easeInOut(duration: 0.3)) {
                 self.hotelsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }

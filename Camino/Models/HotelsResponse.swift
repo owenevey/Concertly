@@ -1,19 +1,7 @@
 import Foundation
 
 struct HotelsResponse: Codable {
-    let brands: [Brand]
     let properties: [Property]
-}
-
-struct Brand: Codable {
-    let id: Int
-    let name: String
-    let children: [ChildBrand]?
-}
-
-struct ChildBrand: Codable {
-    let id: Int
-    let name: String
 }
 
 struct Property: Codable, Identifiable, Equatable {

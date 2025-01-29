@@ -14,6 +14,15 @@ struct ConcertView: View {
     
     @State var hasAppeared: Bool = false
     
+    var concertName: String {
+        if concert.name.count > 1 {
+            return ""
+        } else if concert.name.count == 1 && (concert.name[0].lowercased() != concert.artistName.lowercased()) {
+            return concert.name[0]
+        }
+        return ""
+    }
+    
     var featuringText: String {
         var text = ""
         
@@ -59,8 +68,8 @@ struct ConcertView: View {
                         .buttonStyle(PlainButtonStyle())
                     }
                     
-                    if concert.name.lowercased() != concert.artistName.lowercased() {
-                        Text(concert.name)
+                    if concertName != "" {
+                        Text(concertName)
                             .font(.system(size: 18, type: .Regular))
                             .foregroundStyle(.gray3)
                     }
@@ -100,7 +109,7 @@ struct ConcertView: View {
                 
                 
                 VStack(spacing: 10) {
-                    ForEach((LineItemType.concertItems(concertViewModel: viewModel, link: concert.url)), id: \.title) { item in
+                    ForEach((LineItemType.concertItems(concertViewModel: viewModel, link: concert.url[0])), id: \.title) { item in
                         switch item {
                         case .flights:
                             LineItem(item: item, status: viewModel.flightsResponse.status, price: viewModel.flightsPrice)

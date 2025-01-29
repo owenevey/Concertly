@@ -5,11 +5,11 @@ struct ConcertsResponse: Codable {
 }
 
 struct Concert: Codable, Identifiable {
-    let name: String
+    let name: [String]
     let id: String
     let artistName: String
     let artistId: String
-    let url: String
+    let url: [String]
     let imageUrl: String
     let date: Date
     let venueName: String

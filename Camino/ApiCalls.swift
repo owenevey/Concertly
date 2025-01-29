@@ -9,7 +9,7 @@ func fetchData<T: Decodable>(endpoint: String, dateDecodingStrategy: JSONDecoder
     
     let (data, response) = try await URLSession.shared.data(from: url)
     
-    if endpoint.contains("flights") {
+    if endpoint.contains("hotels") {
         print(response)
         if let rawData = String(data: data, encoding: .utf8) {
             print("Raw Response: \(rawData)")
@@ -127,18 +127,13 @@ func fetchReturnFlights(fromAirport: String, toAirport: String, fromDate: String
     let response: ApiResponse<FlightsResponse> = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
     return response
 }
-////////////////////////////////////////////////////////
 
-
-
-
-// Hotels
-
-func fetchHotels(location: String, fromDate: String, toDate: String) async throws -> HotelsResponse {
+func fetchHotels(location: String, fromDate: String, toDate: String) async throws -> ApiResponse<HotelsResponse> {
     let endpoint = "\(baseUrl)/hotels?location=\(location)&fromDate=\(fromDate)&toDate=\(toDate)"
-    let response: HotelsResponse = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
+    let response: ApiResponse<HotelsResponse> = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
     return response
 }
+////////////////////////////////////////////////////////
 
 // Destinations
 

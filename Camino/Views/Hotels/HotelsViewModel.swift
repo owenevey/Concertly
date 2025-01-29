@@ -1,9 +1,11 @@
 import Foundation
+import Combine
 import SwiftUI
 
 @MainActor
-final class HotelsViewModel: ObservableObject {
+final class HotelsViewModel<T: TripViewModelProtocol>: ObservableObject {
     
+    @ObservedObject var tripViewModel: T
     @Published var location: String
     @Published var fromDate: Date
     @Published var toDate: Date
@@ -17,14 +19,54 @@ final class HotelsViewModel: ObservableObject {
     
     @Published var selectedHotel: Property?
     
+    private var cancellables = Set<AnyCancellable>()
+    private var combinedPublisher: AnyPublisher<(Date, Date, String), Never>?
+    private var isFirstEmissionSink = true
     
-    init(location: String, fromDate: Date, toDate: Date, hotelsResponse: ApiResponse<HotelsResponse>) {
+    
+    init(tripViewModel: T, location: String, fromDate: Date, toDate: Date, hotelsResponse: ApiResponse<HotelsResponse>) {
+        self.tripViewModel = tripViewModel
         self.location = location
         self.fromDate = fromDate
         self.toDate = toDate
         self.hotelsResponse = hotelsResponse
         
         resetFilters()
+        setupCombineLatest()
+    }
+    
+    private func setupCombineLatest() {
+        combinedPublisher = Publishers.CombineLatest3($fromDate, $toDate, $location)
+            .eraseToAnyPublisher()
+        
+        combinedPublisher?
+            .removeDuplicates { (lhs, rhs) in
+                return lhs.0 == rhs.0 && lhs.1 == rhs.1 && lhs.2 == rhs.2
+            }
+            .filter { [weak self] _ in
+                guard let self = self else { return false }
+                if self.isFirstEmissionSink {
+                    self.isFirstEmissionSink = false
+                    return false
+                }
+                return true
+            }
+            .sink { [weak self] (fromDate, toDate, location) in
+                self?.tripViewModel.tripStartDate = fromDate
+                self?.tripViewModel.tripEndDate = toDate
+                
+                if self?.fromDate != fromDate || self?.toDate != toDate {
+                    Task {
+                        await self?.getHotels()
+                        await self?.tripViewModel.getDepartingFlights()
+                    }
+                } else {
+                    Task {
+                        await self?.getHotels()
+                    }
+                }
+            }
+            .store(in: &cancellables)
     }
     
     func resetFilters() {
@@ -83,24 +125,38 @@ final class HotelsViewModel: ObservableObject {
     }
     
     func getHotels() async {
-        withAnimation(.easeInOut(duration: 0.2)) {
+        withAnimation(.easeInOut(duration: 0.3)) {
             self.hotelsResponse = ApiResponse(status: .loading)
             self.resetFilters()
         }
         
         do {
-            try await Task.sleep(nanoseconds: 1 * 1_000_000_000)
-            let fetchedHotels = try await fetchHotels(location: location, fromDate: fromDate.traditionalFormat(), toDate: toDate.traditionalFormat())
+            let fetchedHotels = try await fetchHotels(location: location,
+                                                      fromDate: fromDate.EuropeanFormat(),
+                                                      toDate: toDate.EuropeanFormat())
             
-            withAnimation(.easeInOut(duration: 0.2)) {
-                self.hotelsResponse = ApiResponse(status: .success, data: fetchedHotels)
-                self.resetFilters()
+            
+            if let retrievedHotels = fetchedHotels.data {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    self.hotelsResponse = ApiResponse(status: .success, data: retrievedHotels)
+                }
+                
+                let hotelPhotos: [URL] = retrievedHotels.properties.compactMap { hotel in
+                    if let urlString = hotel.images?.first?.originalImage {
+                        return URL(string: urlString)
+                    }
+                    return nil
+                }
+                
+                ImagePrefetcher.instance.startPrefetching(urls: hotelPhotos)
+            } else {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.hotelsResponse = ApiResponse(status: .error, error: fetchedHotels.error ?? "Couldn't fetch hotels")
+                }
             }
         } catch {
-            print("Error fetching hotels: \(error)")
-            withAnimation(.easeInOut(duration: 0.2)) {
+            withAnimation(.easeInOut(duration: 0.3)) {
                 self.hotelsResponse = ApiResponse(status: .error, error: error.localizedDescription)
-                self.resetFilters()
             }
         }
     }
@@ -132,13 +188,13 @@ func determineIcon(for amenity: String) -> String {
         "restaurant": "takeoutbag.and.cup.and.straw.fill",
         "room service": "bell.fill",
         "accessible": "figure.roll",
-        "business": "briefcase.roll",
+        "business": "briefcase.fill",
         "kid": "figure.and.child.holdinghands",
         "child": "figure.and.child.holdinghands",
         "elevator": "arrow.up.arrow.down.circle.fill",
         "golf": "figure.golf",
         "pet": "pawprint.fill",
-        "ironing": "tshirt.fill"
+        "ironing": "tshirt.fill",
     ]
     
     for (key, icon) in amenityIcons {

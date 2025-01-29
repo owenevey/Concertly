@@ -24,7 +24,7 @@ struct ConcertRow: View {
         case .destination:
             return concert.venueName
         case .venue:
-            return concert.name
+            return concert.name[0]
         }
     }
     

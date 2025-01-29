@@ -5,12 +5,13 @@ struct HotelsView<T: TripViewModelProtocol>: View {
     @Environment(\.dismiss) var dismiss
     
     @ObservedObject var tripViewModel: T
-    @StateObject var viewModel: HotelsViewModel
+    @StateObject var viewModel: HotelsViewModel<T>
     
     init(tripViewModel: T) {
         self.tripViewModel = tripViewModel
         
         _viewModel = StateObject(wrappedValue: HotelsViewModel(
+            tripViewModel: tripViewModel,
             location: tripViewModel.cityName,
             fromDate: tripViewModel.tripStartDate,
             toDate: tripViewModel.tripEndDate,
@@ -32,10 +33,10 @@ struct HotelsView<T: TripViewModelProtocol>: View {
                 mainContent
             }
         )
-        .onChange(of: viewModel.location, { handleLocationChange() })
+//        .onChange(of: viewModel.location, { handleLocationChange() })
         .onChange(of: viewModel.selectedHotel, { handleSelectedHotelChange() })
-        .onChange(of: viewModel.fromDate, { handleDateChange() })
-        .onChange(of: viewModel.toDate, { handleDateChange() })
+//        .onChange(of: viewModel.fromDate, { handleDateChange() })
+//        .onChange(of: viewModel.toDate, { handleDateChange() })
         
         .sheet(isPresented: Binding<Bool>(
             get: { selectedHotel != nil },
@@ -103,27 +104,6 @@ struct HotelsView<T: TripViewModelProtocol>: View {
     private func handleSelectedHotelChange() {
         tripViewModel.hotelsPrice = viewModel.selectedHotel?.totalRate.extractedLowest ?? 0
         dismiss()
-    }
-    
-    private func refetchHotels() {
-        Task {
-            await viewModel.getHotels()
-        }
-        tripViewModel.hotelsResponse = viewModel.hotelsResponse
-        tripViewModel.hotelsPrice = viewModel.hotelsResponse.data?.properties.first?.totalRate.extractedLowest ?? 0
-    }
-    
-    private func handleLocationChange() {
-        refetchHotels()
-    }
-    
-    private func handleDateChange() {
-        tripViewModel.tripStartDate = viewModel.fromDate
-        tripViewModel.tripEndDate = viewModel.toDate
-        refetchHotels()
-        Task {
-            await tripViewModel.getDepartingFlights()
-        }
     }
 }
 

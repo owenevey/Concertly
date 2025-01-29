@@ -61,9 +61,16 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
             .sink { [weak self] (fromDate, toDate, fromAirport, toAirport) in
                 self?.tripViewModel.tripStartDate = fromDate
                 self?.tripViewModel.tripEndDate = toDate
-                Task {
-                    await self?.getDepartingFlights()
-                    await self?.tripViewModel.getHotels()
+                
+                if self?.fromDate != fromDate || self?.toDate != toDate {
+                    Task {
+                        await self?.getDepartingFlights()
+                        await self?.tripViewModel.getHotels()
+                    }
+                } else {
+                    Task {
+                        await self?.getDepartingFlights()
+                    }
                 }
             }
             .store(in: &cancellables)
@@ -212,7 +219,6 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
     }
     
     func getDepartingFlights() async {
-        print("running getDepartingFlights")
         withAnimation(.easeInOut(duration: 0.3)) {
             self.departingFlight = nil
             self.flightsResponse = ApiResponse(status: .loading)
@@ -246,7 +252,6 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
     }
     
     func getReturningFlights() async {
-        print("running getReturningFlights")
         withAnimation(.easeInOut(duration: 0.3)) {
             self.flightsResponse = ApiResponse(status: .loading)
             self.resetFilters()
@@ -263,7 +268,6 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
                                                               departureToken: departureToken)
             
             if departingFlight == nil {
-//                await getDepartingFlights()
                 return
             }
             
