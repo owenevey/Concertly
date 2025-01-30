@@ -162,16 +162,17 @@ enum LineItemType<T: TripViewModelProtocol> {
     let link = "https://example.com"
     
     NavigationStack {
-        VStack(spacing: 20) {
+        VStack(spacing: 10) {
+            Spacer()
             LineItem(item: LineItemType.flights(tripViewModel: concertViewModel), status: Status.loading, price: 55)
-                .padding()
             
             LineItem(item: LineItemType.hotel(tripViewModel: concertViewModel), status: Status.success, price: 100)
-                .padding()
             
             LineItem(item: LineItemType<ConcertViewModel>.ticket(link: link), status: Status.success, price: 25)
-                .padding()
+            Spacer()
         }
+        .padding(15)
+        .background(Color.background)
     }
 }
 

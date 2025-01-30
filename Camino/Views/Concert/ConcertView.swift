@@ -23,50 +23,12 @@ struct ConcertView: View {
         return ""
     }
     
-    var featuringText: String {
-        var text = ""
-        
-        for artist in concert.featuredArtists.prefix(3) {
-            text += artist + ", "
-        }
-        
-        if !text.isEmpty {
-            text = String(text.dropLast(2)) // Remove the last comma and space
-        }
-        
-        if concert.featuredArtists.count > 3 {
-            text += " + \(concert.featuredArtists.count - 3) more"
-        }
-        
-        return text
-    }
-    
     var body: some View {
         ImageHeaderScrollView(title: concert.artistName, imageUrl: concert.imageUrl) {
             VStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 5) {
-                    HStack(alignment: .top) {
-                        Text(concert.artistName)
-                            .font(.system(size: 30, type: .SemiBold))
-                        
-                        Spacer()
-                        
-                        Menu {
-                            NavigationLink {
-                                ArtistView(artistID: concert.artistId)
-                                    .navigationBarHidden(true)
-                            } label: {
-                                Label("View Artist", systemImage: "person.fill")
-                            }
-                        } label: {
-                            Image(systemName: "ellipsis")
-                                .font(.system(size: 20))
-                                .fontWeight(.semibold)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 5)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    }
+                    Text(concert.artistName)
+                        .font(.system(size: 30, type: .SemiBold))
                     
                     if concertName != "" {
                         Text(concertName)
@@ -74,84 +36,134 @@ struct ConcertView: View {
                             .foregroundStyle(.gray3)
                     }
                     
-                    Text(concert.date.formatted(date: .complete, time: .omitted) + ", " + concert.date.timeFormatAMPM())
-                        .font(.system(size: 18, type: .Regular))
-                        .foregroundStyle(.gray3)
-                    
-                    if concert.featuredArtists.count > 0 {
-                        VStack(spacing: 5) {
-                            Text("Featuring")
-                                .font(.system(size: 18, type: .SemiBold))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                            Text(featuringText)
-                                .font(.system(size: 18, type: .Regular))
-                                .foregroundStyle(.gray3)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    HStack(spacing: 5) {
+                        Image(systemName: "calendar")
+                        Text(concert.date.formatted(date: .complete, time: .omitted))
+                            .font(.system(size: 18, type: .Regular))
                     }
+                    .foregroundStyle(.gray3)
+                    
+                    HStack(spacing: 5) {
+                        Image(systemName: "mappin.and.ellipse")
+                        Text(concert.cityName)
+                            .font(.system(size: 18, type: .Regular))
+                    }
+                    .foregroundStyle(.gray3)
                     
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                
-                
-                VStack(alignment: .leading, spacing: 5) {
-                    Text("Price Summary")
-                        .font(.system(size: 23, type: .SemiBold))
-                    
-                    Text("\(viewModel.tripStartDate.mediumFormat()) - \(viewModel.tripEndDate.mediumFormat())")
-                        .font(.system(size: 17, type: .Regular))
-                        .foregroundStyle(.gray3)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                
                 
                 VStack(spacing: 10) {
-                    ForEach((LineItemType.concertItems(concertViewModel: viewModel, link: concert.url[0])), id: \.title) { item in
-                        switch item {
-                        case .flights:
-                            LineItem(item: item, status: viewModel.flightsResponse.status, price: viewModel.flightsPrice)
-                        case .hotel:
-                            LineItem(item: item, status: viewModel.hotelsResponse.status, price: viewModel.hotelsPrice)
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text("Price Summary")
+                            .font(.system(size: 23, type: .SemiBold))
+                        
+                        Text("\(viewModel.tripStartDate.mediumFormat()) - \(viewModel.tripEndDate.mediumFormat())")
+                            .font(.system(size: 17, type: .Regular))
+                            .foregroundStyle(.gray3)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    
+                    VStack(spacing: 10) {
+                        ForEach((LineItemType.concertItems(concertViewModel: viewModel, link: concert.url[0])), id: \.title) { item in
+                            switch item {
+                            case .flights:
+                                LineItem(item: item, status: viewModel.flightsResponse.status, price: viewModel.flightsPrice)
+                            case .hotel:
+                                LineItem(item: item, status: viewModel.hotelsResponse.status, price: viewModel.hotelsPrice)
+                                
+                            case .ticket:
+                                LineItem(item: item, status: Status.success)
+                            }
+                        }
+                        
+                        Divider()
+                            .frame(height: 2)
+                            .overlay(.gray2)
+                        
+                        HStack {
+                            Text("Total:")
+                                .font(.system(size: 18, type: .Medium))
                             
-                        case .ticket:
-                            LineItem(item: item, status: Status.success)
+                            Spacer()
+                            
+                            Group {
+                                if viewModel.flightsResponse.status == .loading || viewModel.hotelsResponse.status == .loading {
+                                    CircleLoadingView(ringSize: 20)
+                                        .padding(.trailing, 10)
+                                }
+                                else if viewModel.flightsResponse.status == .success && viewModel.hotelsResponse.status == .success {
+                                    Text("$\(viewModel.totalPrice)")
+                                        .font(.system(size: 18, type: .Medium))
+                                }
+                                else if viewModel.flightsResponse.status == .error || viewModel.hotelsResponse.status == .error {
+                                    Text("Error")
+                                        .font(.system(size: 18, type: .Medium))
+                                }
+                            }
+                            .transition(.opacity)
+                            .animation(.easeInOut, value: viewModel.totalPrice)
                         }
+                        .padding(.horizontal, 10)
                     }
-                    
-                    Divider()
-                        .frame(height: 2)
-                        .overlay(.gray2)
-                    
-                    HStack {
-                        Text("Total:")
-                            .font(.system(size: 18, type: .Medium))
-                        
-                        Spacer()
-                        
-                        Group {
-                            if viewModel.flightsResponse.status == .loading || viewModel.hotelsResponse.status == .loading {
-                                CircleLoadingView(ringSize: 20)
-                                    .padding(.trailing, 10)
-                            }
-                            else if viewModel.flightsResponse.status == .success && viewModel.hotelsResponse.status == .success {
-                                Text("$\(viewModel.totalPrice)")
-                                    .font(.system(size: 18, type: .Medium))
-                            }
-                            else if viewModel.flightsResponse.status == .error || viewModel.hotelsResponse.status == .error {
-                                Text("Error")
-                                    .font(.system(size: 18, type: .Medium))
-                            }
-                        }
-                        .transition(.opacity)
-                        .animation(.easeInOut, value: viewModel.totalPrice)
-                    }
-                    .padding(.horizontal, 10)
                 }
                 
-                MapCard(addressToSearch: "\(concert.venueName), \(concert.venueAddress)", latitude: concert.latitude, longitude: concert.longitude, name: concert.venueName, generalLocation: concert.cityName)
+                VStack(spacing: 10) {
+                    Text("Lineup")
+                        .font(.system(size: 23, type: .SemiBold))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    ForEach(concert.lineup.prefix(3)) { artist in
+                        LineupArtistRow(artist: artist)
+                    }
+                    
+                    if concert.lineup.count > 3 {
+                        NavigationLink {
+                            FullLineupView(lineup: concert.lineup)
+                                .navigationBarHidden(true)
+                        } label: {
+                            HStack(spacing: 5) {
+                                Text("View all \(concert.lineup.count) artists")
+                                    .font(.system(size: 18, type: .Regular))
+                                
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 12))
+                                    .fontWeight(.semibold)
+                                    .padding(.top, 2)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                }
+                
+                VStack(spacing: 5) {
+                    Text("Event Details")
+                        .font(.system(size: 23, type: .SemiBold))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    HStack(spacing: 5) {
+                        Image(systemName: "clock")
+                            .frame(width: 22)
+                        Text(concert.date.timeFormatAMPM())
+                            .font(.system(size: 18, type: .Regular))
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(.gray3)
+                    
+                    HStack(spacing: 5) {
+                        Image(systemName: "building.2")
+                            .frame(width: 22)
+                        Text(concert.venueName)
+                            .font(.system(size: 18, type: .Regular))
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(.gray3)
+                    .padding(.bottom, 5)
+                    
+                    MapCard(addressToSearch: "\(concert.venueName), \(concert.venueAddress)", latitude: concert.latitude, longitude: concert.longitude, name: concert.venueName, generalLocation: concert.cityName)
+                }
                 
                 CaminoButton(label: "Plan Trip") {
                     print("Plan trip tapped")
@@ -171,6 +183,8 @@ struct ConcertView: View {
             }
         }
     }
+    
+    
 }
 
 #Preview {

@@ -17,6 +17,6 @@ struct Concert: Codable, Identifiable {
     let cityName: String
     let latitude: Double
     let longitude: Double
-    let featuredArtists: [String]
+    let lineup: [SuggestedArtist]
     let closestAirport: String?
 }

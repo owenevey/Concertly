@@ -65,8 +65,25 @@ struct ArtistView: View {
                 ImageHeaderScrollView(title: artistDetails.name, imageUrl: artistDetails.imageUrl, showBackButton: false) {
                     VStack(spacing: 20) {
                         VStack(alignment: .leading, spacing: 5) {
-                            Text(artistDetails.name)
-                                .font(.system(size: 30, type: .SemiBold))
+                            HStack(alignment: .top) {
+                                Text(artistDetails.name)
+                                    .font(.system(size: 30, type: .SemiBold))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                Button(action: {
+                                    print("Follow tapped")
+                                }) {
+                                    Text("Follow")
+                                    .font(.system(size: 16, type: .Medium))
+                                    .padding(.vertical, 5)
+                                    .padding(.horizontal, 10)
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(Color.gray1)
+                                    )
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
                             
                             Text(artistDetails.description)
                                 .font(.system(size: 17, type: .Regular))

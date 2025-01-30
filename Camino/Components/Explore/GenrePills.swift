@@ -5,13 +5,14 @@ struct GenrePills: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 15) {
                 ForEach((MusicGenre.allCases), id: \.self) { genre in
-                    NavigationLink{
+                    NavigationLink {
                         GenreView(genre: genre)
                             .navigationBarHidden(true)
                     }
                     label: {
                         GenrePill(genre: genre)
-                    }.buttonStyle(PlainButtonStyle())
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
                 .scrollTargetLayout()
             }
