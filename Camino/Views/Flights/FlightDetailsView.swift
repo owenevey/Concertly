@@ -13,6 +13,10 @@ struct FlightDetailsView: View {
         
         VStack(spacing: 0) {
             VStack {
+                BackButton(showBackground: true, showX: true)
+                .padding(.leading, -15)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                
                 HStack {
                     let uniqueAirlines = Array(Set(flightItem.flights.map { $0.airlineLogo }))
                     

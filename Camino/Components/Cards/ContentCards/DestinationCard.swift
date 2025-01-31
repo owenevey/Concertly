@@ -10,7 +10,6 @@ struct DestinationCard: View {
         
         NavigationLink {
             DestinationView(destination: destination)
-                .navigationBarHidden(true)
                 .navigationTransition(.zoom(sourceID: id, in: namespace))
         }
         label: {

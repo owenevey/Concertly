@@ -14,7 +14,6 @@ struct ExploreHeader: View {
                 HStack(spacing: 25) {
                     NavigationLink {
                         ExploreSearchView()
-                            .navigationBarHidden(true)
                     } label: {
                         Image(systemName: "magnifyingglass")
                     }
@@ -22,7 +21,6 @@ struct ExploreHeader: View {
                     
                     NavigationLink {
                         ExploreSearchView()
-                            .navigationBarHidden(true)
                     } label: {
                         Image(systemName: "bell")
                     }

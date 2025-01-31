@@ -116,7 +116,6 @@ struct DestinationView: View {
                                                 ForEach(concerts) { concert in
                                                     NavigationLink{
                                                         ConcertView(concert: concert)
-                                                            .navigationBarHidden(true)
                                                     } label: {
                                                         ConcertRow(concert: concert, screen: .destination)
                                                     }
@@ -130,8 +129,23 @@ struct DestinationView: View {
                                 }
                                 
                                 
-                                
-                                MapCard(addressToSearch: "\(destination.cityName), \(destination.countryName)", latitude: destination.latitude, longitude: destination.longitude, name: destination.cityName, generalLocation: destination.countryName)
+                                VStack(spacing: 5) {
+                                    Text("Location")
+                                        .font(.system(size: 23, type: .SemiBold))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    HStack(spacing: 5) {
+                                        Image(systemName: "mappin")
+                                            .frame(width: 22)
+                                        Text("\(destination.cityName), \(destination.countryName)")
+                                            .font(.system(size: 18, type: .Regular))
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .foregroundStyle(.gray3)
+                                    .padding(.bottom, 5)
+                                    
+                                    MapCard(addressToSearch: "\(destination.cityName), \(destination.countryName)", latitude: destination.latitude, longitude: destination.longitude)
+                                }
                                 
                                 CaminoButton(label: "Plan Trip") {
                                     print("Plan trip tapped")
@@ -159,7 +173,7 @@ struct DestinationView: View {
                         }
                     }
                     
-                    GeneralHeader(title: destination.name)
+                    ImageViewHeader(title: destination.name)
                         .opacity(isTitleVisible ? 0 : 1)
                         .animation(.linear(duration: 0.1), value: isTitleVisible)
                 }
@@ -179,10 +193,11 @@ struct DestinationView: View {
                 }
             }
             HStack {
-                TranslucentBackButton()
+                BackButton(showBackground: true)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .navigationBarHidden(true)
     }
 }
 
@@ -207,6 +222,5 @@ struct DestinationView: View {
     
     NavigationStack {
         DestinationView(destination: lasVegas)
-            .navigationBarHidden(true)
     }
 }

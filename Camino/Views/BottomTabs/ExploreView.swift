@@ -56,7 +56,6 @@ struct ExploreView: View {
                                     
                                     NavigationLink {
                                         ExploreSearchView()
-                                            .navigationBarHidden(true)
                                     } label: {
                                         HStack {
                                             Image(systemName: "magnifyingglass")

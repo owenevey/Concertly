@@ -101,7 +101,6 @@ struct VenueView: View {
                                 ForEach(concerts) { concert in
                                     NavigationLink{
                                         ConcertView(concert: concert)
-                                            .navigationBarHidden(true)
                                     } label: {
                                         ConcertRow(concert: concert, screen: .destination)
                                     }
@@ -114,8 +113,23 @@ struct VenueView: View {
                     ErrorView(text: "Error fetching concerts", action: viewModel.getConcerts)
                 }
                 
-                MapCard(addressToSearch: venue.address, latitude: venue.latitude, longitude: venue.longitude, name: venue.cityName, generalLocation: venue.countryName)
-                    .padding(.vertical, 10)
+                VStack(spacing: 5) {
+                    Text("Location")
+                        .font(.system(size: 23, type: .SemiBold))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    HStack(spacing: 5) {
+                        Image(systemName: "mappin")
+                            .frame(width: 22)
+                        Text("\(venue.cityName), \(venue.countryName)")
+                            .font(.system(size: 18, type: .Regular))
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(.gray3)
+                    .padding(.bottom, 5)
+                    
+                    MapCard(addressToSearch: venue.address, latitude: venue.latitude, longitude: venue.longitude)
+                }
 
             }
             .padding(15)
@@ -134,14 +148,12 @@ struct VenueView: View {
                 hasAppeared = true
             }
         }
+        .navigationBarHidden(true)
     }
-    
-    
 }
 
 //#Preview {
 //    NavigationStack {
 //        VenueView(venueId: "KovZpZA7AAEA")
-//            .navigationBarHidden(true)
 //    }
 //}

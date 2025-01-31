@@ -7,7 +7,6 @@ struct GenrePills: View {
                 ForEach((MusicGenre.allCases), id: \.self) { genre in
                     NavigationLink {
                         GenreView(genre: genre)
-                            .navigationBarHidden(true)
                     }
                     label: {
                         GenrePill(genre: genre)

@@ -17,16 +17,4 @@ struct Destination: Codable, Identifiable {
     let latitude: Double
     let longitude: Double
     let geoHash: String
-    
-//    private enum CodingKeys: String, CodingKey {
-//        case name,
-//             shortDescription,
-//             longDescription,
-//             images,
-//             cityName,
-//             countryName,
-//             geoHash,
-//             latitude,
-//             longitude
-//    }
 }

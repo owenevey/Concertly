@@ -9,15 +9,9 @@ struct ExploreSearchView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Button {
-                    dismiss()
-                }
-                label: {
-                    Image(systemName: "arrow.backward")
-                        .font(.system(size: 18, weight: .semibold))
-                }
-                .buttonStyle(PlainButtonStyle())
-                .frame(maxWidth: .infinity, alignment: .leading)
+                BackButton()
+                    .padding(.leading, -15)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text("Artist Search")
                     .font(.system(size: 18, type: .Medium))
@@ -63,7 +57,6 @@ struct ExploreSearchView: View {
                                 ForEach(artists) { artistResult in
                                     NavigationLink {
                                         ArtistView(artistID: artistResult.id)
-                                            .navigationBarHidden(true)
                                     }
                                     label: {
                                         HStack(spacing: 15) {
@@ -112,11 +105,13 @@ struct ExploreSearchView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
-        .padding([.top, .leading, .trailing], 15)
+        .padding([.leading, .trailing], 15)
+        .padding(.top, 5)
         .background(Color.background)
         .onAppear {
             isTextFieldFocused = true
         }
+        .navigationBarHidden(true)
     }
 }
 

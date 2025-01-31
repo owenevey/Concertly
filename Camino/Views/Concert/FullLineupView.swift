@@ -15,7 +15,7 @@ struct FullLineupView: View {
                         dismiss()
                     }
                     label: {
-                        Image(systemName: "arrow.backward")
+                        Image(systemName: "chevron.backward")
                             .font(.system(size: 20))
                             .fontWeight(.semibold)
                             .padding(.horizontal, 15)
@@ -53,6 +53,7 @@ struct FullLineupView: View {
                 }
             }
         }
+        .navigationBarHidden(true)
     }
 }
 

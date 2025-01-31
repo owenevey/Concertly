@@ -12,6 +12,7 @@ struct Concert: Codable, Identifiable {
     let url: [String]
     let imageUrl: String
     let date: Date
+    let timezone: String
     let venueName: String
     let venueAddress: String
     let cityName: String

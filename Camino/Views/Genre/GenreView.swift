@@ -19,17 +19,8 @@ struct GenreView: View {
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
-                HStack(spacing: 0) {
-                    Button {
-                        dismiss()
-                    }
-                    label: {
-                        Image(systemName: "arrow.backward")
-                            .font(.system(size: 20))
-                            .fontWeight(.semibold)
-                            .padding(.horizontal, 15)
-                    }
-                    .buttonStyle(PlainButtonStyle())
+                HStack(spacing: 15) {
+                    BackButton()
                     
                     HStack {
                         Text(genre.title)
@@ -96,6 +87,7 @@ struct GenreView: View {
                 await viewModel.getSuggestedConcerts()
             }
         }
+        .navigationBarHidden(true)
     }
 }
 

@@ -9,7 +9,6 @@ struct VenueCard: View {
     var body: some View {
         NavigationLink {
             VenueView(venue: venue)
-                .navigationBarHidden(true)
                 .navigationTransition(.zoom(sourceID: id, in: namespace))
         }
         label: {

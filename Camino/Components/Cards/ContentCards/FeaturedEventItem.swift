@@ -11,7 +11,6 @@ struct FeaturedEventItem: View {
     var body: some View {
         NavigationLink{
             ConcertView(concert: event)
-                .navigationBarHidden(true)
                 .navigationTransition(.zoom(sourceID: id, in: namespace))
         }
         label: {

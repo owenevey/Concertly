@@ -6,7 +6,6 @@ struct LineupArtistRow: View {
     var body: some View {
         NavigationLink {
             ArtistView(artistID: artist.id)
-                .navigationBarHidden(true)
         }
         label: {
             HStack(spacing: 15) {

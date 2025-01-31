@@ -13,7 +13,7 @@ struct HotelsHeader: View {
     
     var body: some View {
         HStack {
-                TranslucentBackButton()
+                BackButton()
    
             VStack {
                 Text(location)

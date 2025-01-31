@@ -6,7 +6,11 @@ struct LineItem<T: TripViewModelProtocol>: View {
     let status: Status
     let price: Int
     
-    @State private var showSafariView = false
+    @State private var selectedLinks: [(String, String)] = []
+    @State private var showSheet = false
+    @State private var isSafariView = false
+    
+    @State var detentHeight: CGFloat = 400
     @State private var currentStatus: Status
     
     init(item: LineItemType<T>, status: Status, price: Int = 0) {
@@ -18,23 +22,18 @@ struct LineItem<T: TripViewModelProtocol>: View {
     
     var body: some View {
         Group {
-            if case .ticket = item {
+            if case let .ticket(links) = item {
                 Button(action: {
-                    showSafariView.toggle()
+                    selectedLinks = links
+                    isSafariView = links.count == 1
+                    showSheet.toggle()
                 }) {
                     lineItemContent
-                }
-                .sheet(isPresented: $showSafariView) {
-                    if case let .ticket(link) = item {
-                        if let url = URL(string: link) {
-                            SFSafariView(url: url)
-                        }
-                    }
                 }
                 .buttonStyle(PlainButtonStyle())
             } else {
                 if status == Status.success {
-                    NavigationLink(destination: item.destinationView.navigationBarHidden(true)) {
+                    NavigationLink(destination: item.destinationView) {
                         lineItemContent
                     }
                     .buttonStyle(PlainButtonStyle())
@@ -48,6 +47,21 @@ struct LineItem<T: TripViewModelProtocol>: View {
         .onChange(of: status) { oldStatus, newStatus in
             withAnimation(.easeInOut(duration: 0.2)) {
                 currentStatus = newStatus
+            }
+        }
+        .sheet(isPresented: $showSheet) {
+            if isSafariView, let url = URL(string: selectedLinks.first?.1 ?? "") {
+                SFSafariView(url: url)
+            } else {
+                ConcertLinksSheet(links: selectedLinks)
+                    .readHeight()
+                    .onPreferenceChange(BottomSheetHeightPreferenceKey.self) { height in
+                        if let height {
+                            self.detentHeight = height
+                        }
+                    }
+                    .presentationDetents([.height(self.detentHeight)])
+                    .presentationBackground(Color.background)
             }
         }
     }
@@ -104,13 +118,13 @@ enum LineItemType<T: TripViewModelProtocol> {
     
     case flights(tripViewModel: T)
     case hotel(tripViewModel: T)
-    case ticket(link: String)
+    case ticket(links: [(String, String)])
     
-    static func concertItems(concertViewModel: T, link: String) -> [LineItemType] {
+    static func concertItems(concertViewModel: T, links: [(String, String)]) -> [LineItemType] {
         return [
             .flights(tripViewModel: concertViewModel),
             .hotel(tripViewModel: concertViewModel),
-            .ticket(link: link)
+            .ticket(links: links)
         ]
     }
     
@@ -150,8 +164,9 @@ enum LineItemType<T: TripViewModelProtocol> {
             FlightsView(tripViewModel: tripViewModel)
         case let .hotel(tripViewModel):
             HotelsView(tripViewModel: tripViewModel)
-        case let .ticket(link):
-            SFSafariView(url: URL(string: link)!)
+        case let .ticket(links):
+            ConcertLinksSheet(links: links)
+            //            SFSafariView(url: URL(string: link)!)
         }
     }
 }
@@ -159,7 +174,7 @@ enum LineItemType<T: TripViewModelProtocol> {
 
 #Preview {
     let concertViewModel = ConcertViewModel(concert: hotConcerts[0])
-    let link = "https://example.com"
+    let links = [("first", "https://example.com")]
     
     NavigationStack {
         VStack(spacing: 10) {
@@ -168,7 +183,7 @@ enum LineItemType<T: TripViewModelProtocol> {
             
             LineItem(item: LineItemType.hotel(tripViewModel: concertViewModel), status: Status.success, price: 100)
             
-            LineItem(item: LineItemType<ConcertViewModel>.ticket(link: link), status: Status.success, price: 25)
+            LineItem(item: LineItemType<ConcertViewModel>.ticket(links: links), status: Status.success, price: 25)
             Spacer()
         }
         .padding(15)

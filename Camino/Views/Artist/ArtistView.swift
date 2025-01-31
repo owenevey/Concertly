@@ -1,5 +1,5 @@
 import SwiftUI
-import MapKit
+import CoreLocation
 
 struct ArtistView: View {
     
@@ -13,6 +13,17 @@ struct ArtistView: View {
     }
     
     @State var hasAppeared: Bool = false
+    
+    let userLocation = CLLocation(latitude: userLatitude, longitude: userLongitude)
+    
+    private var nearbyConcerts: [Concert] {
+        guard let artistDetails = viewModel.artistDetailsResponse.data else { return [] }
+        return artistDetails.concerts.filter { concert in
+            let concertLocation = CLLocation(latitude: concert.latitude, longitude: concert.longitude)
+            let distanceInMeters = userLocation.distance(from: concertLocation)
+            return distanceInMeters <= 50 * 1609.344 // 50 miles to meters
+        }
+    }
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -53,10 +64,11 @@ struct ArtistView: View {
                 }
             }
             HStack {
-                TranslucentBackButton()
+                BackButton(showBackground: true)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .navigationBarHidden(true)
     }
     
     private var mainContent: some View {
@@ -74,13 +86,13 @@ struct ArtistView: View {
                                     print("Follow tapped")
                                 }) {
                                     Text("Follow")
-                                    .font(.system(size: 16, type: .Medium))
-                                    .padding(.vertical, 5)
-                                    .padding(.horizontal, 10)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .fill(Color.gray1)
-                                    )
+                                        .font(.system(size: 16, type: .Medium))
+                                        .padding(.vertical, 5)
+                                        .padding(.horizontal, 10)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .fill(Color.gray1)
+                                        )
                                 }
                                 .buttonStyle(PlainButtonStyle())
                             }
@@ -130,12 +142,36 @@ struct ArtistView: View {
                             .padding(.top, -10)
                         }
                         
+                        if !artistDetails.concerts.isEmpty {
+                        VStack(spacing: 10) {
+                            if nearbyConcerts.isEmpty {
+                                Text("No Nearby Concerts")
+                                    .font(.system(size: 23, type: .Medium))
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .padding(.vertical, 5)
+                            } else {
+                                Text("Nearby Concerts")
+                                    .font(.system(size: 23, type: .SemiBold))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                ForEach(nearbyConcerts) { concert in
+                                    NavigationLink{
+                                        ConcertView(concert: concert)
+                                    } label: {
+                                        ConcertRow(concert: concert, screen: .artist)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                        }
+                    }
+                        
                         VStack(spacing: 10) {
                             if artistDetails.concerts.isEmpty {
                                 Text("No Upcoming Concerts")
                                     .font(.system(size: 23, type: .Medium))
                                     .frame(maxWidth: .infinity, alignment: .center)
-                                    .padding(.vertical, 20)
+                                    .padding(.vertical, 5)
                             } else {
                                 Text("Upcoming Concerts")
                                     .font(.system(size: 23, type: .SemiBold))
@@ -144,7 +180,6 @@ struct ArtistView: View {
                                 ForEach(artistDetails.concerts) { concert in
                                     NavigationLink{
                                         ConcertView(concert: concert)
-                                            .navigationBarHidden(true)
                                     } label: {
                                         ConcertRow(concert: concert, screen: .artist)
                                     }
@@ -165,7 +200,6 @@ struct ArtistView: View {
                                         ForEach(artistDetails.similarArtists) { artist in
                                             NavigationLink{
                                                 ArtistView(artistID: artist.id)
-                                                    .navigationBarHidden(true)
                                             } label: {
                                                 VStack {
                                                     ImageLoader(url: artist.imageUrl, contentMode: .fill)
@@ -209,7 +243,6 @@ struct ArtistView: View {
 #Preview {
     NavigationStack {
         ArtistView(artistID: "K8vZ9171r37")
-            .navigationBarHidden(true)
     }
 }
 

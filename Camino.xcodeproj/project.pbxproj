@@ -23,7 +23,7 @@
 		F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F116402B2C8C274E0040C95D /* ExploreHeader.swift */; };
 		F116402E2C8C2F3E0040C95D /* DestinationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F116402D2C8C2F3E0040C95D /* DestinationCard.swift */; };
 		F117149C2D1253B0007A0052 /* CaminoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117149B2D1253B0007A0052 /* CaminoButton.swift */; };
-		F117149E2D126787007A0052 /* TranslucentBackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117149D2D126787007A0052 /* TranslucentBackButton.swift */; };
+		F117149E2D126787007A0052 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117149D2D126787007A0052 /* BackButton.swift */; };
 		F11714A02D126C90007A0052 /* CaminoSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F117149F2D126C90007A0052 /* CaminoSearchBar.swift */; };
 		F11714A32D1274DA007A0052 /* FilterSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11714A22D1274DA007A0052 /* FilterSheet.swift */; };
 		F11714A52D13A0E3007A0052 /* HotelsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11714A42D13A0E3007A0052 /* HotelsResponse.swift */; };
@@ -47,7 +47,7 @@
 		F13186322CB2F198003DBCC5 /* LineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13186312CB2F198003DBCC5 /* LineItem.swift */; };
 		F1659C012CBF252400586212 /* FilterAirlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C002CBF252400586212 /* FilterAirlines.swift */; };
 		F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C042CC1E99800586212 /* FlightsResponse.swift */; };
-		F17252BC2D344192006C3454 /* GeneralHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17252BB2D344192006C3454 /* GeneralHeader.swift */; };
+		F17252BC2D344192006C3454 /* ImageViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17252BB2D344192006C3454 /* ImageViewHeader.swift */; };
 		F17252BF2D345581006C3454 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F17252BE2D345581006C3454 /* SDWebImageSwiftUI */; };
 		F17252C12D3455B2006C3454 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17252C02D3455B2006C3454 /* ImageLoader.swift */; };
 		F17252C32D346F96006C3454 /* GenreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17252C22D346F96006C3454 /* GenreView.swift */; };
@@ -85,6 +85,7 @@
 		F1A858662D0140F0009A37E8 /* AirportSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A858652D0140F0009A37E8 /* AirportSearchResponse.swift */; };
 		F1A858682D0142C9009A37E8 /* AirportSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A858672D0142C9009A37E8 /* AirportSearchViewModel.swift */; };
 		F1A8586A2D027AF6009A37E8 /* AirportSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A858692D027AF6009A37E8 /* AirportSearchView.swift */; };
+		F1ADB6662D4C7B87000527F3 /* ConcertLinksSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ADB6652D4C7B87000527F3 /* ConcertLinksSheet.swift */; };
 		F1CA04CB2CFFDEC3003C78AE /* EditFlightsSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CA04CA2CFFDEC3003C78AE /* EditFlightsSearch.swift */; };
 		F1CCE0D22CB0B96600D15696 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCE0D12CB0B96600D15696 /* ViewExtensions.swift */; };
 		F1CD3C7E2D24C828004E3041 /* EditHotelsSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C7D2D24C828004E3041 /* EditHotelsSearch.swift */; };
@@ -154,7 +155,7 @@
 		F116402B2C8C274E0040C95D /* ExploreHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreHeader.swift; sourceTree = "<group>"; };
 		F116402D2C8C2F3E0040C95D /* DestinationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationCard.swift; sourceTree = "<group>"; };
 		F117149B2D1253B0007A0052 /* CaminoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaminoButton.swift; sourceTree = "<group>"; };
-		F117149D2D126787007A0052 /* TranslucentBackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslucentBackButton.swift; sourceTree = "<group>"; };
+		F117149D2D126787007A0052 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		F117149F2D126C90007A0052 /* CaminoSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaminoSearchBar.swift; sourceTree = "<group>"; };
 		F11714A22D1274DA007A0052 /* FilterSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSheet.swift; sourceTree = "<group>"; };
 		F11714A42D13A0E3007A0052 /* HotelsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelsResponse.swift; sourceTree = "<group>"; };
@@ -178,7 +179,7 @@
 		F13186312CB2F198003DBCC5 /* LineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineItem.swift; sourceTree = "<group>"; };
 		F1659C002CBF252400586212 /* FilterAirlines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAirlines.swift; sourceTree = "<group>"; };
 		F1659C042CC1E99800586212 /* FlightsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsResponse.swift; sourceTree = "<group>"; };
-		F17252BB2D344192006C3454 /* GeneralHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralHeader.swift; sourceTree = "<group>"; };
+		F17252BB2D344192006C3454 /* ImageViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewHeader.swift; sourceTree = "<group>"; };
 		F17252C02D3455B2006C3454 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		F17252C22D346F96006C3454 /* GenreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreView.swift; sourceTree = "<group>"; };
 		F17252C42D34A4DC006C3454 /* GenreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreViewModel.swift; sourceTree = "<group>"; };
@@ -216,6 +217,7 @@
 		F1A858652D0140F0009A37E8 /* AirportSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportSearchResponse.swift; sourceTree = "<group>"; };
 		F1A858672D0142C9009A37E8 /* AirportSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportSearchViewModel.swift; sourceTree = "<group>"; };
 		F1A858692D027AF6009A37E8 /* AirportSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportSearchView.swift; sourceTree = "<group>"; };
+		F1ADB6652D4C7B87000527F3 /* ConcertLinksSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertLinksSheet.swift; sourceTree = "<group>"; };
 		F1CA04CA2CFFDEC3003C78AE /* EditFlightsSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlightsSearch.swift; sourceTree = "<group>"; };
 		F1CCE0D12CB0B96600D15696 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		F1CD3C7D2D24C828004E3041 /* EditHotelsSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHotelsSearch.swift; sourceTree = "<group>"; };
@@ -427,7 +429,7 @@
 				F180752A2D04FF2B00D67622 /* ErrorView.swift */,
 				F180752C2D052E3F00D67622 /* CircleLoadingView.swift */,
 				F117149B2D1253B0007A0052 /* CaminoButton.swift */,
-				F117149D2D126787007A0052 /* TranslucentBackButton.swift */,
+				F117149D2D126787007A0052 /* BackButton.swift */,
 				F117149F2D126C90007A0052 /* CaminoSearchBar.swift */,
 				F1CD3C922D2618D5004E3041 /* StillShimmerView.swift */,
 				F114AA8D2D4B0991004F9C66 /* LineupArtistRow.swift */,
@@ -501,6 +503,7 @@
 				F114AA8F2D4B147E004F9C66 /* FullLineupView.swift */,
 				F181551E2C8D5D1F00E25003 /* ConcertView.swift */,
 				F19C72682CC7249E00390BD6 /* ConcertViewModel.swift */,
+				F1ADB6652D4C7B87000527F3 /* ConcertLinksSheet.swift */,
 			);
 			path = Concert;
 			sourceTree = "<group>";
@@ -555,7 +558,7 @@
 				F1DAE69F2CC3849D00901914 /* ImageHeaderScrollView.swift */,
 				F19C726E2CCB27D900390BD6 /* HidingHeaderView.swift */,
 				F1E786282CB36CAB00F4E462 /* SFSafariView.swift */,
-				F17252BB2D344192006C3454 /* GeneralHeader.swift */,
+				F17252BB2D344192006C3454 /* ImageViewHeader.swift */,
 				F17252C02D3455B2006C3454 /* ImageLoader.swift */,
 			);
 			path = TemplateViews;
@@ -721,7 +724,7 @@
 				F19C726B2CC726BD00390BD6 /* GlobalVars.swift in Sources */,
 				F11640132C8A8A2F0040C95D /* ContentView.swift in Sources */,
 				F11714B52D14FFBB007A0052 /* SortHotels.swift in Sources */,
-				F17252BC2D344192006C3454 /* GeneralHeader.swift in Sources */,
+				F17252BC2D344192006C3454 /* ImageViewHeader.swift in Sources */,
 				F1FACFFB2D3B80C400D53A7D /* ConcertRow.swift in Sources */,
 				F1DAE69A2CC34D4700901914 /* ApiResponse.swift in Sources */,
 				F1DAE6A22CC42EA500901914 /* ApiCalls.swift in Sources */,
@@ -768,7 +771,7 @@
 				F1CD3C7E2D24C828004E3041 /* EditHotelsSearch.swift in Sources */,
 				F1CD3C952D263C3F004E3041 /* PopularDestinationsResponse.swift in Sources */,
 				F1CD3CBE2D2CC449004E3041 /* FallbackFeaturedEventItem.swift in Sources */,
-				F117149E2D126787007A0052 /* TranslucentBackButton.swift in Sources */,
+				F117149E2D126787007A0052 /* BackButton.swift in Sources */,
 				F1FACFF52D39D36300D53A7D /* VenueDetailsResponse.swift in Sources */,
 				F1CD3CD02D323154004E3041 /* ArtistViewModel.swift in Sources */,
 				F1659C012CBF252400586212 /* FilterAirlines.swift in Sources */,
@@ -791,6 +794,7 @@
 				F19C727D2CD0808B00390BD6 /* FilterStopsEnum.swift in Sources */,
 				F11714BB2D1526AB007A0052 /* HotelDetailsView.swift in Sources */,
 				F114AA8E2D4B0991004F9C66 /* LineupArtistRow.swift in Sources */,
+				F1ADB6662D4C7B87000527F3 /* ConcertLinksSheet.swift in Sources */,
 				F1CD3C932D2618D5004E3041 /* StillShimmerView.swift in Sources */,
 				F17252C32D346F96006C3454 /* GenreView.swift in Sources */,
 				F1CD3CCA2D31FE04004E3041 /* ArtistSearchResponse.swift in Sources */,

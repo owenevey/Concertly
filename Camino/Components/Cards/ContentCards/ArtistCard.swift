@@ -9,7 +9,6 @@ struct ArtistCard: View {
     var body: some View {
         NavigationLink {
             ArtistView(artistID: artist.id)
-                .navigationBarHidden(true)
                 .navigationTransition(.zoom(sourceID: id, in: namespace))
         }
         label: {

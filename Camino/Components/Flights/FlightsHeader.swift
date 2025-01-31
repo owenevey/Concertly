@@ -14,7 +14,7 @@ struct FlightsHeader: View {
     
     var body: some View {
         HStack {
-            TranslucentBackButton()
+            BackButton()
             
             VStack {
                 Text("\(fromAirport) - \(toAirport)")

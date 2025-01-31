@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct GeneralHeader: View {
+struct ImageViewHeader: View {
     
     var title: String
     
@@ -8,7 +8,7 @@ struct GeneralHeader: View {
         
         VStack(spacing: 0) {
             HStack(spacing: 15) {
-                TranslucentBackButton()
+                BackButton(showBackground: true)
                 
                 Text(title)
                     .font(.system(size: 23, type: .Medium))
@@ -32,7 +32,7 @@ struct GeneralHeader: View {
 #Preview {
     VStack {
         Spacer()
-        GeneralHeader(title: "Dua Lipa")
+        ImageViewHeader(title: "Dua Lipa")
         Spacer()
     }
     .background(Color.green)

@@ -56,6 +56,7 @@ struct HotelsView<T: TripViewModelProtocol>: View {
                 .presentationBackground(Color.background)
             }
         }
+        .navigationBarHidden(true)
     }
     
     private var mainContent: some View {
@@ -110,6 +111,5 @@ struct HotelsView<T: TripViewModelProtocol>: View {
 #Preview {
     NavigationStack {
         ConcertView(concert: hotConcerts[0])
-            .navigationBarHidden(true)
     }
 }

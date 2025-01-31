@@ -57,25 +57,9 @@ struct HotelDetailsView: View {
                         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
                         .frame(width: UIScreen.main.bounds.width, height: 300)
                         .scrollTargetBehavior(.viewAligned)
-                        VStack {
-                            Button(
-                                action: {
-                                    dismiss()
-                                }
-                            ) {
-                                RoundedRectangle(cornerRadius: 20, style: .continuous)
-                                    .fill(.ultraThinMaterial)
-                                    .frame(width: 40, height: 40)
-                                    .overlay(
-                                        Image(systemName: "xmark")
-                                            .fontWeight(.semibold)
-                                    )
-                                    .padding(15)
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                        .frame(maxHeight: .infinity, alignment: .top)
+                        BackButton(showBackground: true, showX: true)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                            .padding(.top, 15)
                     }
                 }
                 
@@ -161,7 +145,7 @@ struct HotelDetailsView: View {
                     }
                     
                     if let gpsCoordinates = property.gpsCoordinates {
-                        MapCard(addressToSearch: "\(property.name) \(gpsCoordinates.latitude) \(gpsCoordinates.longitude)", latitude: gpsCoordinates.latitude, longitude: gpsCoordinates.longitude, name: property.name, generalLocation: generalLocation)
+                        MapCard(addressToSearch: "\(property.name) \(gpsCoordinates.latitude) \(gpsCoordinates.longitude)", latitude: gpsCoordinates.latitude, longitude: gpsCoordinates.longitude)
                             .padding(.vertical, 10)
                     }
                 }

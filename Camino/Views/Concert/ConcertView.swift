@@ -66,7 +66,8 @@ struct ConcertView: View {
                     
                     
                     VStack(spacing: 10) {
-                        ForEach((LineItemType.concertItems(concertViewModel: viewModel, link: concert.url[0])), id: \.title) { item in
+                        let pairedArray = zip(concert.name, concert.url).map { ($0, $1) }
+                        ForEach((LineItemType.concertItems(concertViewModel: viewModel, links: pairedArray)), id: \.title) { item in
                             switch item {
                             case .flights:
                                 LineItem(item: item, status: viewModel.flightsResponse.status, price: viewModel.flightsPrice)
@@ -119,22 +120,26 @@ struct ConcertView: View {
                     }
                     
                     if concert.lineup.count > 3 {
-                        NavigationLink {
-                            FullLineupView(lineup: concert.lineup)
-                                .navigationBarHidden(true)
-                        } label: {
-                            HStack(spacing: 5) {
-                                Text("View all \(concert.lineup.count) artists")
-                                    .font(.system(size: 18, type: .Regular))
+                        HStack {
+                            NavigationLink {
+                                FullLineupView(lineup: concert.lineup)
+                            } label: {
+                                HStack(spacing: 5) {
+                                    Text("View all \(concert.lineup.count) artists")
+                                        .font(.system(size: 18, type: .Regular))
+                                    
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 12))
+                                        .fontWeight(.semibold)
+                                        .padding(.top, 2)
+                                }
                                 
-                                Image(systemName: "chevron.right")
-                                    .font(.system(size: 12))
-                                    .fontWeight(.semibold)
-                                    .padding(.top, 2)
                             }
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .buttonStyle(PlainButtonStyle())
+                            
+                            
+                            Spacer()
                         }
-                        .buttonStyle(PlainButtonStyle())
                     }
                 }
                 
@@ -162,7 +167,7 @@ struct ConcertView: View {
                     .foregroundStyle(.gray3)
                     .padding(.bottom, 5)
                     
-                    MapCard(addressToSearch: "\(concert.venueName), \(concert.venueAddress)", latitude: concert.latitude, longitude: concert.longitude, name: concert.venueName, generalLocation: concert.cityName)
+                    MapCard(addressToSearch: "\(concert.venueName), \(concert.venueAddress)", latitude: concert.latitude, longitude: concert.longitude)
                 }
                 
                 CaminoButton(label: "Plan Trip") {
@@ -182,6 +187,7 @@ struct ConcertView: View {
                 hasAppeared = true
             }
         }
+        .navigationBarHidden(true)
     }
     
     
@@ -190,7 +196,6 @@ struct ConcertView: View {
 #Preview {
     NavigationStack {
         ConcertView(concert: hotConcerts[0])
-            .navigationBarHidden(true)
     }
 }
 

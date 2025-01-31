@@ -74,13 +74,13 @@ struct ImageHeaderScrollView<HeaderContent: View, Content: View>: View {
                 
                 if showBackButton {
                     HStack {
-                        TranslucentBackButton()
+                        BackButton(showBackground: true)
                             .padding(.top, geometry.safeAreaInsets.top)
                         Spacer()
                     }
                 }
                 
-                GeneralHeader(title: title)
+                ImageViewHeader(title: title)
                     .opacity(isTitleVisible ? 0 : 1)
                     .animation(.linear(duration: 0.1), value: isTitleVisible)
                     .padding(.top, geometry.safeAreaInsets.top)
@@ -94,6 +94,5 @@ struct ImageHeaderScrollView<HeaderContent: View, Content: View>: View {
 #Preview {
     NavigationStack {
         ConcertView(concert: hotConcerts[0])
-            .navigationBarHidden(true)
     }
 }
