@@ -1,5 +1,4 @@
 import SwiftUI
-import CoreLocation
 
 struct ArtistView: View {
     
@@ -13,17 +12,6 @@ struct ArtistView: View {
     }
     
     @State var hasAppeared: Bool = false
-    
-    let userLocation = CLLocation(latitude: userLatitude, longitude: userLongitude)
-    
-    private var nearbyConcerts: [Concert] {
-        guard let artistDetails = viewModel.artistDetailsResponse.data else { return [] }
-        return artistDetails.concerts.filter { concert in
-            let concertLocation = CLLocation(latitude: concert.latitude, longitude: concert.longitude)
-            let distanceInMeters = userLocation.distance(from: concertLocation)
-            return distanceInMeters <= 50 * 1609.344 // 50 miles to meters
-        }
-    }
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -144,7 +132,7 @@ struct ArtistView: View {
                         
                         if !artistDetails.concerts.isEmpty {
                         VStack(spacing: 10) {
-                            if nearbyConcerts.isEmpty {
+                            if viewModel.nearbyConcerts.isEmpty {
                                 Text("No Nearby Concerts")
                                     .font(.system(size: 23, type: .Medium))
                                     .frame(maxWidth: .infinity, alignment: .center)
@@ -154,7 +142,7 @@ struct ArtistView: View {
                                     .font(.system(size: 23, type: .SemiBold))
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
-                                ForEach(nearbyConcerts) { concert in
+                                ForEach(viewModel.nearbyConcerts) { concert in
                                     NavigationLink{
                                         ConcertView(concert: concert)
                                     } label: {

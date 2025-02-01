@@ -57,13 +57,13 @@ struct HotelCard: View {
         }
         .padding(15)
         .frame(height: 170)
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .fill(Color.foreground)
-                .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
-                .padding(1)
-        )
-        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .background(Color.foreground)
+        .cornerRadius(20)
+        .contentShape(RoundedRectangle(cornerRadius: 20))
+        .overlay(
+                RoundedRectangle(cornerRadius: 20)
+                    .stroke(.gray2, lineWidth: 1)
+            )
     }
 }
 

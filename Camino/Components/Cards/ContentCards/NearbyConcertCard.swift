@@ -36,7 +36,6 @@ struct NearbyConcertCard: View {
                         .lineLimit(1)
                 }
                 .padding(15)
-                
                 Spacer()
             }
             .frame(width: UIScreen.main.bounds.width - 30)

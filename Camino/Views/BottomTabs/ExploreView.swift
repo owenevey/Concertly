@@ -12,7 +12,7 @@ struct ExploreView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .top) {
-                Image(colorScheme == .dark ? .concert : .acl)
+                Image(.waves)
                     .resizable()
                     .scaledToFill()
                     .frame(width: UIScreen.main.bounds.width, height: 300 + max(0, -offset))
@@ -49,7 +49,7 @@ struct ExploreView: View {
                                             .font(.system(size: 30, type: .Bold))
                                             .foregroundStyle(.white)
                                             .frame(alignment: .leading)
-                                            .shadow(color: .black.opacity(0.6), radius: 3)
+                                            .shadow(color: .black.opacity(0.3), radius: 3)
                                     }
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     
@@ -67,8 +67,8 @@ struct ExploreView: View {
                                         .padding(.horizontal, 15)
                                         .background(
                                             RoundedRectangle(cornerRadius: 30)
-                                                .fill(Color.gray1)
-                                                .shadow(color: .black.opacity(0.6), radius: 3)
+                                                .fill(Color.foreground)
+//                                                .shadow(color: .black.opacity(0.6), radius: 3)
                                         )
                                     }
                                     .buttonStyle(PlainButtonStyle())

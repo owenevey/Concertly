@@ -23,17 +23,23 @@ struct SavedConcertCard: View {
                         .minimumScaleFactor(0.9)
                         .lineLimit(1)
                     
-                    Text(concert.cityName)
-                        .font(.system(size: 17, type: .Regular))
-                        .foregroundStyle(.gray3)
-                        .minimumScaleFactor(0.9)
-                        .lineLimit(1)
-                    
-                    Text(concert.date.formatted(date: .abbreviated, time: .omitted))
-                        .font(.system(size: 17, type: .Regular))
-                        .foregroundStyle(.gray3)
-                        .minimumScaleFactor(0.9)
-                        .lineLimit(1)
+                    HStack {
+                        Text(concert.cityName)
+                            .font(.system(size: 17, type: .Regular))
+                            .foregroundStyle(.gray3)
+                            .minimumScaleFactor(0.9)
+                            .lineLimit(1)
+                        
+                        Text("|")
+                            .font(.system(size: 17, type: .Regular))
+                            .foregroundStyle(.gray3)
+                        
+                        Text(concert.date.formatted(date: .abbreviated, time: .omitted))
+                            .font(.system(size: 17, type: .Regular))
+                            .foregroundStyle(.gray3)
+                            .minimumScaleFactor(0.9)
+                            .lineLimit(1)
+                    }
                     
                     Divider()
                         .frame(height: 2)

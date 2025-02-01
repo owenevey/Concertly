@@ -12,9 +12,9 @@ struct SavedView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .top) {
-                Image(.blobsLight)
+                Image(colorScheme == .light ? .savedBlobsLight : .savedBlobsDark)
                     .resizable()
-                    .frame(width: UIScreen.main.bounds.width, height: 400 + max(0, -offset))
+                    .frame(width: UIScreen.main.bounds.width, height: 200 + max(0, -offset))
                     .scaledToFill()
                     .transformEffect(.init(translationX: 0, y: -max(0, offset)))
                 
@@ -27,8 +27,7 @@ struct SavedView: View {
                                     .font(.system(size: 30, type: .Bold))
                                     .foregroundStyle(.accent)
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                .shadow(color: .black.opacity(0.1), radius: 5)
-                                .padding(.top, 30)
+                                    .shadow(color: .black.opacity(0.1), radius: 5)
                                 
                                 Circle()
                                     .fill(Color.foreground)

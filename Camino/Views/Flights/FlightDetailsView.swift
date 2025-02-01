@@ -13,11 +13,7 @@ struct FlightDetailsView: View {
         
         VStack(spacing: 0) {
             VStack {
-                BackButton(showBackground: true, showX: true)
-                .padding(.leading, -15)
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                
-                HStack {
+                HStack(alignment: .top) {
                     let uniqueAirlines = Array(Set(flightItem.flights.map { $0.airlineLogo }))
                     
                     ForEach(0..<uniqueAirlines.count, id: \.self) { index in
@@ -30,6 +26,8 @@ struct FlightDetailsView: View {
                                     .clipped()
                             )
                     }
+                    Spacer()
+                    BackButton(showBackground: true, showX: true)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 

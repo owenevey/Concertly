@@ -6,10 +6,12 @@ struct CitySearchResponse: Codable {
 
 struct SuggestedCity: Codable, Identifiable {
     var id: String {
-        return "\(name), \(countryName)"
+        return "\(name), \(stateCode ?? ""), \(countryName)"
     }
     let name: String
     let stateCode: String?
     let countryName: String
     let countryCode: String
+    let latitude: Double
+    let longitude: Double
 }

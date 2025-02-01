@@ -15,6 +15,7 @@ struct FlightsHeader: View {
     var body: some View {
         HStack {
             BackButton()
+                .frame(maxWidth: .infinity, alignment: .leading)
             
             VStack {
                 Text("\(fromAirport) - \(toAirport)")
@@ -23,23 +24,21 @@ struct FlightsHeader: View {
                 Text("\(fromDate.shortFormat()) - \(toDate.shortFormat())")
                     .font(.system(size: 14, type: .Medium))
             }
-            .frame(maxWidth: .infinity)
             
-            HStack {
-                Button {
-                    presentSheet = true
-                } label: {
-                    HStack(spacing: 5) {
-                        Image(systemName: "pencil")
-                            .font(.system(size: 16))
-                            .fontWeight(.semibold)
-                        
-                        Text("Edit")
-                            .font(.system(size: 16, type: .Medium))
-                            .padding(.trailing, 20)
-                    }
+            Button {
+                presentSheet = true
+            } label: {
+                HStack(spacing: 5) {
+                    Image(systemName: "pencil")
+                        .font(.system(size: 16))
+                        .fontWeight(.semibold)
+                    
+                    Text("Edit")
+                        .font(.system(size: 16, type: .Medium))
+                        .padding(.trailing, 20)
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .trailing)
         }
         .frame(height: 60)
         .background(Color.foreground)
@@ -62,7 +61,7 @@ struct FlightsHeader: View {
 //    let toDate = Calendar.current.date(byAdding: .day, value: 7, to: Date())!
 //    let fromAirport = "JFK"
 //    let toAirport = "LAX"
-//    
+//
 //    let mockAirports = [
 //        AirportInfo(
 //            departure: [
@@ -87,7 +86,7 @@ struct FlightsHeader: View {
 //            ]
 //        )
 //    ]
-//    
+//
 //    let flightsResponse = ApiResponse(
 //        status: .success,
 //        data: FlightsResponse(
@@ -95,7 +94,7 @@ struct FlightsHeader: View {
 //            airports: mockAirports
 //        )
 //    )
-//    
+//
 //    VStack {
 //        Spacer()
 //        FlightsHeader(

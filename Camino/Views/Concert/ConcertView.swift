@@ -27,8 +27,17 @@ struct ConcertView: View {
         ImageHeaderScrollView(title: concert.artistName, imageUrl: concert.imageUrl) {
             VStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(concert.artistName)
-                        .font(.system(size: 30, type: .SemiBold))
+                    HStack(alignment: .top) {
+                        Text(concert.artistName)
+                            .font(.system(size: 30, type: .SemiBold))
+                        Spacer()
+                        HStack(spacing: 5) {
+                            Text("Save")
+                                .font(.system(size: 17, type: .Medium))
+                            Image(systemName: "bookmark")
+                                .fontWeight(.semibold)
+                        }
+                    }
                     
                     if concertName != "" {
                         Text(concertName)
@@ -169,11 +178,6 @@ struct ConcertView: View {
                     
                     MapCard(addressToSearch: "\(concert.venueName), \(concert.venueAddress)", latitude: concert.latitude, longitude: concert.longitude)
                 }
-                
-                CaminoButton(label: "Plan Trip") {
-                    print("Plan trip tapped")
-                }
-                .frame(width: UIScreen.main.bounds.width - 100)
             }
             .padding(15)
         }

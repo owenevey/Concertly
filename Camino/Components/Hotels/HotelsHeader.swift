@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct HotelsHeader: View {
-        
+    
     @Binding var fromDate: Date
     @Binding var toDate: Date
     @Binding var location: String
@@ -13,8 +13,9 @@ struct HotelsHeader: View {
     
     var body: some View {
         HStack {
-                BackButton()
-   
+            BackButton()
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
             VStack {
                 Text(location)
                     .font(.system(size: 18, type: .SemiBold))
@@ -25,21 +26,20 @@ struct HotelsHeader: View {
                     .font(.system(size: 14, type: .Medium))
             }
             
-            HStack {
-                Button {
-                    presentSheet = true
-                } label: {
-                    HStack(spacing: 5) {
-                        Image(systemName: "pencil")
-                            .font(.system(size: 16))
-                            .fontWeight(.semibold)
-                        
-                        Text("Edit")
-                            .font(.system(size: 16, type: .Medium))
-                            .padding(.trailing, 20)
-                    }
+            Button {
+                presentSheet = true
+            } label: {
+                HStack(spacing: 5) {
+                    Image(systemName: "pencil")
+                        .font(.system(size: 16))
+                        .fontWeight(.semibold)
+                    
+                    Text("Edit")
+                        .font(.system(size: 16, type: .Medium))
+                        .padding(.trailing, 20)
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .trailing)
             
         }
         .frame(height: 60)
@@ -63,7 +63,7 @@ struct HotelsHeader: View {
 //    let toDate = Calendar.current.date(byAdding: .day, value: 7, to: Date())!
 //    let fromAirport = "JFK"
 //    let toAirport = "LAX"
-//    
+//
 //    let mockAirports = [
 //        AirportInfo(
 //            departure: [
@@ -88,7 +88,7 @@ struct HotelsHeader: View {
 //            ]
 //        )
 //    ]
-//    
+//
 //    let flightsResponse = ApiResponse(
 //        status: .success,
 //        data: FlightsResponse(
@@ -97,7 +97,7 @@ struct HotelsHeader: View {
 //            airports: mockAirports
 //        )
 //    )
-//    
+//
 //    VStack {
 //        Spacer()
 //        HotelsHeader(
