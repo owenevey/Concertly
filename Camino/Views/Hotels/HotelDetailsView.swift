@@ -103,12 +103,14 @@ struct HotelDetailsView: View {
                     }
                     
                     HStack(spacing: 30) {
-                        HStack(alignment: .bottom, spacing: 3) {
-                            Text(property.totalRate.extractedLowest, format: .currency(code: "USD").precision(.fractionLength(0)))
-                                .font(.system(size: 22, type: .Medium))
-                            Text("Total")
-                                .font(.system(size: 16, type: .Medium))
-                                .padding(.bottom, 1.5)
+                        if let totalRate = property.totalRate?.extractedLowest {
+                            HStack(alignment: .bottom, spacing: 3) {
+                                Text(totalRate, format: .currency(code: "USD").precision(.fractionLength(0)))
+                                    .font(.system(size: 22, type: .Medium))
+                                Text("Total")
+                                    .font(.system(size: 16, type: .Medium))
+                                    .padding(.bottom, 1.5)
+                            }
                         }
                         
                         if let ratePerNight = property.ratePerNight?.extractedLowest {

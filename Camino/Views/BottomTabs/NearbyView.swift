@@ -1,0 +1,145 @@
+import SwiftUI
+
+struct NearbyView: View {
+    
+    @Environment(\.colorScheme) var colorScheme
+    @StateObject var viewModel: NearbyViewModel = NearbyViewModel()
+    
+    @State private var hasAppeared: Bool = false
+    @State private var offset: CGFloat = 0
+    @State private var isSearchBarVisible: Bool = true
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .top) {
+                Image(.blobsLight)
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.width, height: 400 + max(0, -offset))
+                    .scaledToFill()
+                    .transformEffect(.init(translationX: 0, y: -max(0, offset)))
+                
+                ScrollView(showsIndicators: false) {
+                    VStack(spacing: 0) {
+                        VStack(spacing: 15) {
+                            
+                            HStack(alignment: .top) {
+                                VStack {
+                                    HStack {
+                                        Text("Concerts near")
+                                            .font(.system(size: 17, type: .Regular))
+                                        Image(systemName: "arrow.turn.right.down")
+                                            .font(.system(size: 15))
+                                            .padding(.top, 5)
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    Text("Austin, TX")
+                                        .font(.system(size: 30, type: .Bold))
+                                        .foregroundStyle(.accent)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                }
+                                .shadow(color: .black.opacity(0.1), radius: 5)
+                                .padding(.top, 30)
+                                
+                                Circle()
+                                    .fill(Color.foreground)
+                                    .frame(width: 40, height: 40)
+                                    .overlay(
+                                        Image(systemName: "bell")
+                                            .font(.system(size: 20))
+                                            .fontWeight(.semibold)
+                                    )
+                            }
+                            .padding(.horizontal, 15)
+                            .frame(width: UIScreen.main.bounds.width)
+                            
+                            LazyVStack(spacing: 15) {
+                                switch viewModel.nearbyConcertsResponse.status {
+                                case .loading, .empty:
+                                    if viewModel.nearbyConcerts.isEmpty {
+                                        ForEach(0..<6, id: \.self) { _ in
+                                            FallbackNearbyConcertCard()
+                                                .shadow(color: .black.opacity(0.2), radius: 5)
+                                        }
+                                    } else {
+                                        ForEach(viewModel.nearbyConcerts) { concert in
+                                            NearbyConcertCard(concert: concert)
+                                                .shadow(color: .black.opacity(0.2), radius: 5)
+                                        }
+                                    }
+                                    
+                                case .success:
+                                    if viewModel.nearbyConcerts.isEmpty {
+                                        ForEach(0..<6, id: \.self) { _ in
+                                            ErrorNearbyConcertCard()
+                                                .shadow(color: .black.opacity(0.2), radius: 5)
+                                        }
+                                    } else {
+                                        ForEach(viewModel.nearbyConcerts) { concert in
+                                            NearbyConcertCard(concert: concert)
+                                                .shadow(color: .black.opacity(0.2), radius: 5)
+                                        }
+                                    }
+                                    
+                                case .error:
+                                    if viewModel.nearbyConcerts.isEmpty {
+                                        ForEach(0..<6, id: \.self) { _ in
+                                            ErrorNearbyConcertCard()
+                                                .shadow(color: .black.opacity(0.2), radius: 5)
+                                        }
+                                    } else {
+                                        ForEach(0..<6, id: \.self) { _ in
+                                            ErrorNearbyConcertCard()
+                                                .shadow(color: .black.opacity(0.2), radius: 5)
+                                        }
+                                        // renderCards(for: data) NOTE: Keep for debugging
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    Spacer()
+                }
+                .padding(.top, geometry.safeAreaInsets.top)
+                .onScrollGeometryChange(for: CGFloat.self) { geo in
+                    return geo.contentOffset.y
+                } action: { oldValue, newValue in
+                    offset = newValue
+                    withAnimation(.linear(duration: 0.1)) {
+                        if newValue > (200 - 15 - 50 - geometry.safeAreaInsets.top) {
+                            //change numbers
+                            isSearchBarVisible = false
+                        } else {
+                            isSearchBarVisible = true
+                        }
+                    }
+                }
+                
+                ExploreHeader()
+                    .opacity(isSearchBarVisible ? 0 : 1)
+                    .padding(.top, geometry.safeAreaInsets.top)
+            }
+            .ignoresSafeArea(edges: .top)
+        }
+        .background(Color.background)
+        .onAppear {
+            if !hasAppeared {
+                Task {
+                    await viewModel.getNearbyConcerts()
+                }
+                hasAppeared = true
+            }
+        }
+        //        .refreshable {
+        //            Task {
+        //                await viewModel.getNearbyConcerts()
+        //            }
+        //        }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        NearbyView()
+    }
+}

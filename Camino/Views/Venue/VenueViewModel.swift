@@ -102,7 +102,7 @@ class VenueViewModel: TripViewModelProtocol {
             if let retrievedHotels = fetchedHotels.data {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     self.hotelsResponse = ApiResponse(status: .success, data: retrievedHotels)
-                    self.hotelsPrice = retrievedHotels.properties.first?.totalRate.extractedLowest ?? 0
+                    self.hotelsPrice = retrievedHotels.properties.first?.totalRate?.extractedLowest ?? 0
                 }
                 
                 let hotelPhotos: [URL] = retrievedHotels.properties.compactMap { hotel in

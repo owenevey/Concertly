@@ -6,7 +6,7 @@ struct LineItem<T: TripViewModelProtocol>: View {
     let status: Status
     let price: Int
     
-    @State private var selectedLinks: [(String, String)] = []
+    private var selectedLinks: [(String, String)] = []
     @State private var showSheet = false
     @State private var isSafariView = false
     
@@ -18,14 +18,16 @@ struct LineItem<T: TripViewModelProtocol>: View {
         self.status = status
         self.price = price
         _currentStatus = State(initialValue: status)
+        
+        if case let .ticket(links) = item {
+            selectedLinks = links
+        }
     }
     
     var body: some View {
         Group {
-            if case let .ticket(links) = item {
+            if case .ticket = item {
                 Button(action: {
-                    selectedLinks = links
-                    isSafariView = links.count == 1
                     showSheet.toggle()
                 }) {
                     lineItemContent
@@ -50,10 +52,10 @@ struct LineItem<T: TripViewModelProtocol>: View {
             }
         }
         .sheet(isPresented: $showSheet) {
-            if isSafariView, let url = URL(string: selectedLinks.first?.1 ?? "") {
+            if selectedLinks.count == 1, let url = URL(string: selectedLinks.first?.1 ?? "") {
                 SFSafariView(url: url)
             } else {
-                ConcertLinksSheet(links: selectedLinks)
+                ConcertLinksSheet(links: selectedLinks, showSheet: $showSheet)
                     .readHeight()
                     .onPreferenceChange(BottomSheetHeightPreferenceKey.self) { height in
                         if let height {
@@ -165,8 +167,7 @@ enum LineItemType<T: TripViewModelProtocol> {
         case let .hotel(tripViewModel):
             HotelsView(tripViewModel: tripViewModel)
         case let .ticket(links):
-            ConcertLinksSheet(links: links)
-            //            SFSafariView(url: URL(string: link)!)
+            EmptyView()
         }
     }
 }

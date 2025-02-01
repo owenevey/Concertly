@@ -48,7 +48,7 @@ struct HotelCard: View {
                 Spacer()
                 
                 HStack {
-                    Text(property.totalRate.extractedLowest, format: .currency(code: "USD").precision(.fractionLength(0)))
+                    Text(property.totalRate?.extractedLowest ?? 0, format: .currency(code: "USD").precision(.fractionLength(0)))
                         .font(.system(size: 25, type: .Medium))
                         .frame(alignment: .trailing)
                 }

@@ -74,7 +74,7 @@ final class HotelsViewModel<T: TripViewModelProtocol>: ObservableObject {
             
             self.sortMethod = .recommended
             
-            let prices = properties.map { $0.totalRate.extractedLowest }
+            let prices = properties.compactMap { $0.totalRate?.extractedLowest }
             self.priceFilter = prices.max() ?? Int.max
             
             self.ratingFilter = 1
@@ -93,7 +93,7 @@ final class HotelsViewModel<T: TripViewModelProtocol>: ObservableObject {
             return []
         }
         
-        return data.properties.map { $0.totalRate.extractedLowest }
+        return data.properties.compactMap { $0.totalRate?.extractedLowest }
     }
     
     var filteredHotels: [Property] {
@@ -104,7 +104,7 @@ final class HotelsViewModel<T: TripViewModelProtocol>: ObservableObject {
         
         return data.properties
             .filter {
-                $0.totalRate.extractedLowest <= priceFilter
+                $0.totalRate?.extractedLowest ?? 0 <= priceFilter
             }
             .filter {
                 $0.overallRating ?? 5 >= Double(ratingFilter)
@@ -117,9 +117,9 @@ final class HotelsViewModel<T: TripViewModelProtocol>: ObservableObject {
                 case .recommended:
                     return true
                 case .cheapest:
-                    return $0.totalRate.extractedLowest < $1.totalRate.extractedLowest
+                    return $0.totalRate?.extractedLowest ?? 0 < $1.totalRate?.extractedLowest ?? 0
                 case .mostExpensive:
-                    return $0.totalRate.extractedLowest > $1.totalRate.extractedLowest
+                    return $0.totalRate?.extractedLowest ?? 0 > $1.totalRate?.extractedLowest ?? 0
                 }
             }
     }

@@ -12,10 +12,17 @@ struct ContentView: View {
                 }
                 
                 NavigationStack {
-                    TripsView()
+                    NearbyView()
                 }
                 .tabItem {
-                    Label("Trips", systemImage: "map")
+                    Label("Nearby", systemImage: "location")
+                }
+                
+                NavigationStack {
+                    SavedView()
+                }
+                .tabItem {
+                    Label("Saved", systemImage: "bookmark.fill")
                 }
                 
                 NavigationStack {

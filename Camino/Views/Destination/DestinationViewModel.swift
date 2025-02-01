@@ -32,7 +32,7 @@ class DestinationViewModel: TripViewModelProtocol {
         }
         
         do {
-            let fetchedConcerts = try await fetchConcertsForDestination(geoHash: destination.geoHash)
+            let fetchedConcerts = try await fetchConcertsForDestination(lat: destination.latitude, long: destination.longitude)
             
             if let concerts = fetchedConcerts.data?.concerts {
                 withAnimation(.easeInOut(duration: 0.2)) {
@@ -103,7 +103,7 @@ class DestinationViewModel: TripViewModelProtocol {
             if let retrievedHotels = fetchedHotels.data {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     self.hotelsResponse = ApiResponse(status: .success, data: retrievedHotels)
-                    self.hotelsPrice = retrievedHotels.properties.first?.totalRate.extractedLowest ?? 0
+                    self.hotelsPrice = retrievedHotels.properties.first?.totalRate?.extractedLowest ?? 0
                 }
                 
                 let hotelPhotos: [URL] = retrievedHotels.properties.compactMap { hotel in

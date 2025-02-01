@@ -26,15 +26,10 @@ struct FilterSheet<T, Content: View>: View {
                 CaminoButton(label: "Done") {
                     dismiss()
                 }
-                
             }
-            .padding(.top, 10)
         }
         .padding(15)
     }
-    
-    
-    
 }
 
 #Preview {

@@ -76,4 +76,5 @@ enum ConcertScreenType {
 
 #Preview {
     ConcertRow(concert: hotConcerts[0], screen: .artist)
+        .padding()
 }

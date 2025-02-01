@@ -27,20 +27,19 @@ struct ExploreView: View {
                         VStack(spacing: 15) {
                             VStack {
                                 HStack {
-                                    Image(systemName: "bell")
-                                        .font(.system(size: 20))
-                                        .fontWeight(.semibold)
-                                        .background(
-                                            Circle()
-                                                .fill(Color.foreground)
-                                                .frame(width: 40, height: 40)
+                                    Circle()
+                                        .fill(Color.foreground)
+                                        .frame(width: 40, height: 40)
+                                        .overlay(
+                                            Image(systemName: "bell")
+                                                .font(.system(size: 20))
+                                                .fontWeight(.semibold)
                                         )
                                     
                                 }
                                 .frame(maxWidth: .infinity, alignment: .trailing)
-                                .padding(.horizontal, 30)
+                                .padding(.horizontal, 15)
                                 .padding(.top, geometry.safeAreaInsets.top)
-                                .offset(y: min(offset, 0))
                                 
                                 Spacer()
                                 
@@ -136,7 +135,6 @@ struct ExploreView: View {
                 Task {
                     await viewModel.getTrendingConcerts()
                     await viewModel.getPopularArtists()
-//                    await viewModel.getNearbyConcerts()
                     await viewModel.getPopularDestinations()
                     await viewModel.getFeaturedConcert()
                     await viewModel.getSuggestedConcerts()
@@ -149,7 +147,6 @@ struct ExploreView: View {
             Task {
                 await viewModel.getTrendingConcerts()
                 await viewModel.getPopularArtists()
-//                await viewModel.getNearbyConcerts()
                 await viewModel.getPopularDestinations()
                 await viewModel.getFeaturedConcert()
                 await viewModel.getSuggestedConcerts()

@@ -173,25 +173,4 @@ final class ExploreViewModel: ObservableObject {
             }
         }
     }
-    
-    ///////////////////////////////////////
-    
-    func getNearbyConcerts() async {
-        withAnimation(.easeInOut(duration: 0.2)) {
-            self.nearbyConcertsResponse = ApiResponse(status: .loading)
-        }
-        
-//        do {
-//            let fetchedConcerts = try await fetchNearbyConcerts()
-//            withAnimation(.easeInOut(duration: 0.2)) {
-//                self.nearbyConcerts = fetchedConcerts.concerts
-//                self.nearbyConcertsResponse = ApiResponse(status: .success, data: fetchedConcerts.concerts)
-//            }
-//        } catch {
-//            print("Error fetching nearby concerts: \(error)")
-//            withAnimation(.easeInOut(duration: 0.2)) {
-//                self.nearbyConcertsResponse = ApiResponse(status: .error, error: error.localizedDescription)
-//            }
-//        }
-    }
 }

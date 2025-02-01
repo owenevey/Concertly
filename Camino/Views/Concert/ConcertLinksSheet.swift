@@ -1,13 +1,22 @@
 import SwiftUI
 
 struct ConcertLinksSheet: View {
+    @Environment(\.dismiss) var dismiss
     
     var links: [(String, String)]
+    @Binding var showSheet: Bool
     
     @State private var selectedLink: String?
     
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 15) {
+            HStack {
+                Text("Links")
+                    .font(.system(size: 20, type: .SemiBold))
+
+                Spacer()
+                BackButton(showBackground: true, showX: true)
+            }
             
             ForEach(0..<links.count, id: \.self) { index in
                 Button(action: {
@@ -17,21 +26,21 @@ struct ConcertLinksSheet: View {
                         Text(links[index].0.capitalizedWords())
                             .font(.system(size: 17, type: .Regular))
                         Spacer()
-                        Image(systemName: "chevron.right")
+                        Image(systemName: "arrow.up.forward.square")
                             .font(.system(size: 17, weight: .semibold))
                     }
+                    .contentShape(Rectangle())
                 }
                 .buttonStyle(PlainButtonStyle())
                 
                 if index < links.count - 1 {
                     Divider()
-                        .frame(height: 1)
+                        .frame(height: 2)
                         .overlay(.gray1)
                 }
             }
         }
         .padding(15)
-        .padding(.vertical, 15)
         .background(Color.background)
         
         
@@ -52,10 +61,11 @@ struct ConcertLinksSheet: View {
 
 #Preview {
     var links = [
-        ("SABRINA CARPENTER: SHORT N´ SWEET | All-In Package", "https://www.ticketmaster.de/event/sabrina-carpenter-short-n-sweet-%7C-all-in-package-tickets/549837?language=en-us"),
-        ("SABRINA CARPENTER: SHORT N´ SWEET TOUR | Premium Seat", "https://www.ticketmaster.de/event/sabrina-carpenter-short-n-sweet-tour-%7C-premium-seat-tickets/549833?language=en-us"),
+        ("American Express Presents BST Hyde Park - Olivia Rodrigo", "https://www.ticketmaster.de/event/sabrina-carpenter-short-n-sweet-%7C-all-in-package-tickets/549837?language=en-us"),
+        ("Olivia Rodrigo - Official Premium and Hotel Experiences", "https://www.ticketmaster.de/event/sabrina-carpenter-short-n-sweet-tour-%7C-premium-seat-tickets/549833?language=en-us"),
         ("SABRINA CARPENTER: SHORT N' SWEET TOUR", "https://www.ticketmaster.de/event/sabrina-carpenter-short-n-sweet-tour-tickets/549035?language=en-us"),
         ("SABRINA CARPENTER: SHORT N´ SWEET TOUR | Logen Seat", "https://www.ticketmaster.de/event/sabrina-carpenter-short-n-sweet-tour-%7C-logen-seat-tickets/549241?language=en-us")
     ]
-    ConcertLinksSheet(links: links)
+    ConcertLinksSheet(links: links, showSheet: .constant(true))
+        .border(.black)
 }

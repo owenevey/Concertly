@@ -14,7 +14,7 @@ struct Property: Codable, Identifiable, Equatable {
     var checkInTime: String?
     var checkOutTime: String?
     var ratePerNight: RateBreakdown?
-    var totalRate: RateBreakdown
+    var totalRate: RateBreakdown?
     var prices: [PriceOffering]?
     var deal: String?
     var dealDescription: String?
