@@ -3,18 +3,22 @@ import SwiftUI
 struct GenrePills: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 15) {
+            LazyHStack(spacing: 15) {
                 ForEach((MusicGenre.allCases), id: \.self) { genre in
                     NavigationLink {
                         GenreView(genre: genre)
                     }
                     label: {
                         GenrePill(genre: genre)
+                            .shadow(color: .black.opacity(0.2), radius: 5)
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
-                .scrollTargetLayout()
+                
             }
+            .padding(.top, 10)
+            .padding(.bottom, 15)
+            .scrollTargetLayout()
         }
         .scrollTargetBehavior(.viewAligned)
         .safeAreaPadding(.horizontal, 15)
@@ -36,8 +40,8 @@ struct GenrePill: View {
             .background(
                 Capsule(style: .continuous)
                     .fill(Color.foreground)
-                    .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
-                    .padding(1)
+//                    .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
+//                    .padding(1)
             )
     }
 }

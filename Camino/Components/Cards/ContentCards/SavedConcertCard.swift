@@ -109,8 +109,13 @@ struct SavedConcertCard: View {
 
 #Preview {
     NavigationStack {
-        SavedConcertCard(concert: hotConcerts[0])
-            .shadow(color: .black.opacity(0.2), radius: 5)
-            .padding(15)
+        VStack {
+            Spacer()
+            SavedConcertCard(concert: hotConcerts[0])
+                .shadow(color: .black.opacity(0.2), radius: 5)
+                .padding(15)
+            Spacer()
+        }
+        .background(Color.background)
     }
 }

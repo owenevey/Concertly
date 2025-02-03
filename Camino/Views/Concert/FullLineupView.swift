@@ -10,17 +10,8 @@ struct FullLineupView: View {
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
-                HStack(spacing: 0) {
-                    Button {
-                        dismiss()
-                    }
-                    label: {
-                        Image(systemName: "chevron.backward")
-                            .font(.system(size: 20))
-                            .fontWeight(.semibold)
-                            .padding(.horizontal, 15)
-                    }
-                    .buttonStyle(PlainButtonStyle())
+                HStack(spacing: 10) {
+                    BackButton()
                     
                     Text("Lineup")
                         .font(.system(size: 30, type: .SemiBold))

@@ -33,7 +33,9 @@ struct FallbackConcertCard: View {
 
 #Preview {
     NavigationStack {
-        FallbackConcertCard()
-            .shadow(color: .black.opacity(0.2), radius: 5)
+        VStack {
+            FallbackConcertCard()
+        }
+        .shadow(color: .black.opacity(0.2), radius: 5)
     }
 }

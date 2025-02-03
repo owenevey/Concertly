@@ -10,12 +10,10 @@ struct ExploreRow<T: Codable & Identifiable>: View {
     
     var body: some View {
         VStack(spacing: 5) {
-            HStack {
-                Text(title)
-                    .font(.system(size: 23, type: .SemiBold))
-            }
-            .padding(.horizontal, 15)
-            .frame(maxWidth: .infinity, alignment: .leading)
+            Text(title)
+                .font(.system(size: 23, type: .SemiBold))
+                .padding(.horizontal, 15)
+                .frame(maxWidth: .infinity, alignment: .leading)
             
             if status == .error {
                 HStack {
@@ -156,7 +154,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
     @Previewable @State var status: Status = .error
     NavigationStack {
         VStack {
-//            Spacer()
+            //            Spacer()
             
             ExploreRow(
                 title: "Trending Concerts",
@@ -174,7 +172,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                 }
             )
             
-//            Spacer()
+            //            Spacer()
         }
         .background(Color.background)
     }

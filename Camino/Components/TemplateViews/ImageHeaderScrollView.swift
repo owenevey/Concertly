@@ -48,7 +48,7 @@ struct ImageHeaderScrollView<HeaderContent: View, Content: View>: View {
                         Rectangle()
                             .fill(Color.clear)
                             .frame(width: UIScreen.main.bounds.width, height: 300)
-                            
+                        
                         content()
                             .background(Color.background)
                     }

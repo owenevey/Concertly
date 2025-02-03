@@ -12,111 +12,100 @@ struct ExploreView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .top) {
-                Image(.waves)
+                Image(colorScheme == .light ? .exploreBlobLight : .exploreBlobDark)
                     .resizable()
+                    .frame(width: UIScreen.main.bounds.width, height: 200 + max(0, -offset))
                     .scaledToFill()
-                    .frame(width: UIScreen.main.bounds.width, height: 300 + max(0, -offset))
                     .transformEffect(.init(translationX: 0, y: -max(0, offset)))
                 
                 ScrollView(showsIndicators: false) {
-                    VStack(spacing: 0) {
-                        Rectangle()
-                            .fill(Color.clear)
-                            .frame(width: UIScreen.main.bounds.width, height: 300)
+                    
+                    VStack(spacing: 15) {
                         
-                        VStack(spacing: 15) {
-                            VStack {
-                                HStack {
-                                    Circle()
-                                        .fill(Color.foreground)
-                                        .frame(width: 40, height: 40)
-                                        .overlay(
-                                            Image(systemName: "bell")
-                                                .font(.system(size: 20))
-                                                .fontWeight(.semibold)
-                                        )
-                                    
-                                }
-                                .frame(maxWidth: .infinity, alignment: .trailing)
-                                .padding(.horizontal, 15)
-                                .padding(.top, geometry.safeAreaInsets.top)
-                                
-                                Spacer()
-                                
-                                VStack(spacing: 15) {
-                                    HStack {
-                                        Text("What adventures\nawait?")
-                                            .font(.system(size: 30, type: .Bold))
-                                            .foregroundStyle(.white)
-                                            .frame(alignment: .leading)
-                                            .shadow(color: .black.opacity(0.3), radius: 3)
-                                    }
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    
-                                    NavigationLink {
-                                        ExploreSearchView()
-                                    } label: {
-                                        HStack {
-                                            Image(systemName: "magnifyingglass")
-                                                .fontWeight(.semibold)
-                                            Text("Search Artists")
-                                                .font(.system(size: 17, type: .Regular))
-                                                .frame(maxWidth: .infinity, alignment: .leading)
-                                        }
-                                        .padding(.vertical, 12)
-                                        .padding(.horizontal, 15)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 30)
-                                                .fill(Color.foreground)
-//                                                .shadow(color: .black.opacity(0.6), radius: 3)
-                                        )
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
-                                }
-                                .padding(15)
-                                .frame(maxWidth: 800)
-                                
-                            }
-                            .frame(width: UIScreen.main.bounds.width, height: 300)
+                        
+                        HStack(alignment: .top) {
+                            Text("Camino")
+                                .font(.system(size: 30, type: .Bold))
+                                .foregroundStyle(.accent)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            LazyVStack(spacing: 15) {
-                                
+                            Circle()
+                                .fill(Color.foreground)
+                                .frame(width: 40, height: 40)
+                                .overlay(
+                                    Image(systemName: "bell")
+                                        .font(.system(size: 20))
+                                        .fontWeight(.semibold)
+                                )
+                        }
+                        .shadow(color: .black.opacity(0.1), radius: 5)
+                        .padding(.horizontal, 15)
+                        .frame(width: UIScreen.main.bounds.width)
+                        
+                        NavigationLink {
+                            ExploreSearchView()
+                        } label: {
+                            HStack {
+                                Image(systemName: "magnifyingglass")
+                                    .fontWeight(.semibold)
+                                Text("Search Artists")
+                                    .font(.system(size: 17, type: .Regular))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                            .padding(.vertical, 12)
+                            .padding(.horizontal, 15)
+                            .background(
+                                RoundedRectangle(cornerRadius: 30)
+                                    .fill(Color.foreground)
+                                    .shadow(color: .black.opacity(0.2), radius: 5)
+                            )
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .padding(.horizontal, 15)
+                        
+                        LazyVStack(spacing: 15) {
+                            
+                            VStack(spacing: 5) {
+                                Text("Explore by Category")
+                                    .font(.system(size: 23, type: .SemiBold))
+                                    .padding(.horizontal, 15)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                                 GenrePills()
-                                
-                                ExploreRow(title: "Trending Concerts", status: viewModel.trendingConcertsResponse.status, data: viewModel.trendingConcerts, contentType: ExploreContentType.concert) {
-                                    await viewModel.getTrendingConcerts()
-                                }
-                                
-                                ExploreRow(title: "Popular Artists", status: viewModel.popularArtistsResponse.status, data: viewModel.popularArtists, contentType: ExploreContentType.artist) {
-                                    await viewModel.getPopularArtists()
-                                }
-                                
-                                ExploreRow(title: "Popular Destinations", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.destination) {
-                                    await viewModel.getPopularDestinations()
-                                }
-                                
-                                FeaturedEvent(event: viewModel.featuredConcert, status: viewModel.featuredConcertResponse.status) {
-                                    await viewModel.getFeaturedConcert()
-                                }
-                                
-                                ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert) {
-                                    await viewModel.getSuggestedConcerts()
-                                }
-                                
-                                ExploreRow(title: "Famous Venues", status: viewModel.famousVenuesResponse.status, data: viewModel.famousVenues, contentType: ExploreContentType.venue) {
-                                    await viewModel.getFamousVenues()
-                                }
+                            }
+                            
+                            ExploreRow(title: "Trending Concerts", status: viewModel.trendingConcertsResponse.status, data: viewModel.trendingConcerts, contentType: ExploreContentType.concert) {
+                                await viewModel.getTrendingConcerts()
+                            }
+                            
+                            ExploreRow(title: "Popular Artists", status: viewModel.popularArtistsResponse.status, data: viewModel.popularArtists, contentType: ExploreContentType.artist) {
+                                await viewModel.getPopularArtists()
+                            }
+                            
+                            ExploreRow(title: "Popular Destinations", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.destination) {
+                                await viewModel.getPopularDestinations()
+                            }
+                            
+                            FeaturedEvent(event: viewModel.featuredConcert, status: viewModel.featuredConcertResponse.status) {
+                                await viewModel.getFeaturedConcert()
+                            }
+                            
+                            ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert) {
+                                await viewModel.getSuggestedConcerts()
+                            }
+                            
+                            ExploreRow(title: "Famous Venues", status: viewModel.famousVenuesResponse.status, data: viewModel.famousVenues, contentType: ExploreContentType.venue) {
+                                await viewModel.getFamousVenues()
                             }
                         }
-                        .padding(.top, -300)
                     }
                 }
+                .padding(.top, geometry.safeAreaInsets.top)
                 .onScrollGeometryChange(for: CGFloat.self) { geo in
                     return geo.contentOffset.y
                 } action: { oldValue, newValue in
                     offset = newValue
                     withAnimation(.linear(duration: 0.1)) {
-                        if newValue > (300 - 15 - 50 - geometry.safeAreaInsets.top) {
+                        if newValue > -20 {
                             isSearchBarVisible = false
                         } else {
                             isSearchBarVisible = true

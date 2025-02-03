@@ -27,7 +27,6 @@ struct SavedView: View {
                                     .font(.system(size: 30, type: .Bold))
                                     .foregroundStyle(.accent)
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                    .shadow(color: .black.opacity(0.1), radius: 5)
                                 
                                 Circle()
                                     .fill(Color.foreground)
@@ -38,6 +37,7 @@ struct SavedView: View {
                                             .fontWeight(.semibold)
                                     )
                             }
+                            .shadow(color: .black.opacity(0.1), radius: 5)
                             .padding(.horizontal, 15)
                             .frame(width: UIScreen.main.bounds.width)
                             
@@ -46,13 +46,11 @@ struct SavedView: View {
                                 case .loading, .empty:
                                     if viewModel.nearbyConcerts.isEmpty {
                                         ForEach(0..<6, id: \.self) { _ in
-                                            FallbackNearbyConcertCard()
-                                                .shadow(color: .black.opacity(0.2), radius: 5)
+                                            FallbackSavedConcertCard()
                                         }
                                     } else {
                                         ForEach(viewModel.nearbyConcerts) { concert in
-                                            NearbyConcertCard(concert: concert)
-                                                .shadow(color: .black.opacity(0.2), radius: 5)
+                                            SavedConcertCard(concert: concert)
                                         }
                                     }
                                     
@@ -60,30 +58,27 @@ struct SavedView: View {
                                     if viewModel.nearbyConcerts.isEmpty {
                                         ForEach(0..<6, id: \.self) { _ in
                                             ErrorNearbyConcertCard()
-                                                .shadow(color: .black.opacity(0.2), radius: 5)
-                                        }
+                                        } // PUT IN TEXT HERE
                                     } else {
                                         ForEach(viewModel.nearbyConcerts) { concert in
-                                            SavedConcertCard(concert: concert)
-                                                .shadow(color: .black.opacity(0.2), radius: 5)
+                                            FallbackSavedConcertCard()
                                         }
                                     }
                                     
                                 case .error:
                                     if viewModel.nearbyConcerts.isEmpty {
                                         ForEach(0..<6, id: \.self) { _ in
-                                            ErrorNearbyConcertCard()
-                                                .shadow(color: .black.opacity(0.2), radius: 5)
+                                            ErrorSavedConcertCard()
                                         }
                                     } else {
                                         ForEach(0..<6, id: \.self) { _ in
-                                            ErrorNearbyConcertCard()
-                                                .shadow(color: .black.opacity(0.2), radius: 5)
+                                            ErrorSavedConcertCard()
                                         }
                                         // renderCards(for: data) NOTE: Keep for debugging
                                     }
                                 }
                             }
+                            .shadow(color: .black.opacity(0.2), radius: 5)
                         }
                     }
                     Spacer()
@@ -94,7 +89,7 @@ struct SavedView: View {
                 } action: { oldValue, newValue in
                     offset = newValue
                     withAnimation(.linear(duration: 0.1)) {
-                        if newValue > (200 - 15 - 50 - geometry.safeAreaInsets.top) {
+                        if newValue > -20 {
                             //change numbers
                             isSearchBarVisible = false
                         } else {
@@ -118,11 +113,11 @@ struct SavedView: View {
                 hasAppeared = true
             }
         }
-        //        .refreshable {
-        //            Task {
-        //                await viewModel.getNearbyConcerts()
-        //            }
-        //        }
+                .refreshable {
+                    Task {
+                        await viewModel.getNearbyConcerts()
+                    }
+                }
     }
 }
 

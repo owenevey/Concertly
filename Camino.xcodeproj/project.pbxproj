@@ -51,6 +51,8 @@
 		F14349DA2D4DE75400C63041 /* FallbackNearbyConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14349D92D4DE75400C63041 /* FallbackNearbyConcertCard.swift */; };
 		F14349DC2D4DE85200C63041 /* ErrorNearbyConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14349DB2D4DE84700C63041 /* ErrorNearbyConcertCard.swift */; };
 		F14349DE2D4E034000C63041 /* SavedConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14349DD2D4E033B00C63041 /* SavedConcertCard.swift */; };
+		F14349E02D4EFC8800C63041 /* FallbackSavedConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14349DF2D4EFC8200C63041 /* FallbackSavedConcertCard.swift */; };
+		F14349E22D4EFDC300C63041 /* ErrorSavedConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14349E12D4EFDBF00C63041 /* ErrorSavedConcertCard.swift */; };
 		F1659C012CBF252400586212 /* FilterAirlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C002CBF252400586212 /* FilterAirlines.swift */; };
 		F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C042CC1E99800586212 /* FlightsResponse.swift */; };
 		F17252BC2D344192006C3454 /* ImageViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17252BB2D344192006C3454 /* ImageViewHeader.swift */; };
@@ -189,6 +191,8 @@
 		F14349D92D4DE75400C63041 /* FallbackNearbyConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallbackNearbyConcertCard.swift; sourceTree = "<group>"; };
 		F14349DB2D4DE84700C63041 /* ErrorNearbyConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorNearbyConcertCard.swift; sourceTree = "<group>"; };
 		F14349DD2D4E033B00C63041 /* SavedConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedConcertCard.swift; sourceTree = "<group>"; };
+		F14349DF2D4EFC8200C63041 /* FallbackSavedConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FallbackSavedConcertCard.swift; sourceTree = "<group>"; };
+		F14349E12D4EFDBF00C63041 /* ErrorSavedConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSavedConcertCard.swift; sourceTree = "<group>"; };
 		F1659C002CBF252400586212 /* FilterAirlines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAirlines.swift; sourceTree = "<group>"; };
 		F1659C042CC1E99800586212 /* FlightsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsResponse.swift; sourceTree = "<group>"; };
 		F17252BB2D344192006C3454 /* ImageViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewHeader.swift; sourceTree = "<group>"; };
@@ -583,6 +587,7 @@
 		F1CD3C872D25BCE9004E3041 /* FallbackCards */ = {
 			isa = PBXGroup;
 			children = (
+				F14349DF2D4EFC8200C63041 /* FallbackSavedConcertCard.swift */,
 				F12B951B2D37607700EFD489 /* FallbackVenueCard.swift */,
 				F1CD3C882D25BD07004E3041 /* FallbackConcertCard.swift */,
 				F1CD3C962D26419C004E3041 /* FallbackDestinationCard.swift */,
@@ -596,6 +601,7 @@
 		F1CD3C8F2D261899004E3041 /* ErrorCards */ = {
 			isa = PBXGroup;
 			children = (
+				F14349E12D4EFDBF00C63041 /* ErrorSavedConcertCard.swift */,
 				F14349DB2D4DE84700C63041 /* ErrorNearbyConcertCard.swift */,
 				F12B95192D37605600EFD489 /* ErrorVenueCard.swift */,
 				F17DCCD52D3398D0000D477C /* ErrorArtistCard.swift */,
@@ -808,6 +814,7 @@
 				F1CD3CAF2D2A2488004E3041 /* GamesResponse.swift in Sources */,
 				F1CD3CBC2D2CC40B004E3041 /* FeaturedEventItem.swift in Sources */,
 				F116402E2C8C2F3E0040C95D /* DestinationCard.swift in Sources */,
+				F14349E02D4EFC8800C63041 /* FallbackSavedConcertCard.swift in Sources */,
 				F1CD3CC02D2CC60C004E3041 /* ErrorFeaturedEventItem.swift in Sources */,
 				F117149C2D1253B0007A0052 /* CaminoButton.swift in Sources */,
 				F11714A52D13A0E3007A0052 /* HotelsResponse.swift in Sources */,
@@ -834,6 +841,7 @@
 				F13186322CB2F198003DBCC5 /* LineItem.swift in Sources */,
 				F1CA04CB2CFFDEC3003C78AE /* EditFlightsSearch.swift in Sources */,
 				F12B95162D375D5A00EFD489 /* VenuesResponse.swift in Sources */,
+				F14349E22D4EFDC300C63041 /* ErrorSavedConcertCard.swift in Sources */,
 				F1CD3C892D25BD07004E3041 /* FallbackConcertCard.swift in Sources */,
 				F18DE2412CFADDBD00C4D1B5 /* FlightDetailsView.swift in Sources */,
 				F11714B32D14FF93007A0052 /* SortHotelsEnum.swift in Sources */,

@@ -38,7 +38,6 @@ struct NearbyView: View {
                                         .foregroundStyle(.accent)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 }
-                                .shadow(color: .black.opacity(0.1), radius: 5)
                                 
                                 Circle()
                                     .fill(Color.foreground)
@@ -49,6 +48,7 @@ struct NearbyView: View {
                                             .fontWeight(.semibold)
                                     )
                             }
+                            .shadow(color: .black.opacity(0.1), radius: 5)
                             .padding(.horizontal, 15)
                             .frame(width: UIScreen.main.bounds.width)
                             
@@ -105,7 +105,7 @@ struct NearbyView: View {
                 } action: { oldValue, newValue in
                     offset = newValue
                     withAnimation(.linear(duration: 0.1)) {
-                        if newValue > (200 - 15 - 50 - geometry.safeAreaInsets.top) {
+                        if newValue > 0 {
                             //change numbers
                             isSearchBarVisible = false
                         } else {
@@ -129,11 +129,11 @@ struct NearbyView: View {
                 hasAppeared = true
             }
         }
-        //        .refreshable {
-        //            Task {
-        //                await viewModel.getNearbyConcerts()
-        //            }
-        //        }
+                .refreshable {
+                    Task {
+                        await viewModel.getNearbyConcerts()
+                    }
+                }
     }
 }
 
