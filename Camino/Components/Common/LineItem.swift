@@ -166,7 +166,7 @@ enum LineItemType<T: TripViewModelProtocol> {
             FlightsView(tripViewModel: tripViewModel)
         case let .hotel(tripViewModel):
             HotelsView(tripViewModel: tripViewModel)
-        case let .ticket(links):
+        case .ticket:
             EmptyView()
         }
     }

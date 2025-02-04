@@ -29,6 +29,7 @@ struct ErrorNearbyConcertCard: View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.foreground)
         )
+        .shadow(color: .clear, radius: 0)
     }
 }
 

@@ -122,12 +122,12 @@ struct ExploreView: View {
         .onAppear {
             if !hasAppeared {
                 Task {
-                    await viewModel.getTrendingConcerts()
-                    await viewModel.getPopularArtists()
-                    await viewModel.getPopularDestinations()
-                    await viewModel.getFeaturedConcert()
-                    await viewModel.getSuggestedConcerts()
-                    await viewModel.getFamousVenues()
+//                    await viewModel.getTrendingConcerts()
+//                    await viewModel.getPopularArtists()
+//                    await viewModel.getPopularDestinations()
+//                    await viewModel.getFeaturedConcert()
+//                    await viewModel.getSuggestedConcerts()
+//                    await viewModel.getFamousVenues()
                 }
                 hasAppeared = true
             }

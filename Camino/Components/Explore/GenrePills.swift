@@ -10,12 +10,12 @@ struct GenrePills: View {
                     }
                     label: {
                         GenrePill(genre: genre)
-                            .shadow(color: .black.opacity(0.2), radius: 5)
+                            
                     }
                     .buttonStyle(PlainButtonStyle())
                 }
-                
             }
+            .shadow(color: .black.opacity(0.2), radius: 5)
             .padding(.top, 10)
             .padding(.bottom, 15)
             .scrollTargetLayout()
@@ -40,8 +40,6 @@ struct GenrePill: View {
             .background(
                 Capsule(style: .continuous)
                     .fill(Color.foreground)
-//                    .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
-//                    .padding(1)
             )
     }
 }

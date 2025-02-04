@@ -61,7 +61,7 @@ struct SavedView: View {
                                         } // PUT IN TEXT HERE
                                     } else {
                                         ForEach(viewModel.nearbyConcerts) { concert in
-                                            FallbackSavedConcertCard()
+                                            SavedConcertCard(concert: concert)
                                         }
                                     }
                                     

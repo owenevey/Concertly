@@ -27,8 +27,15 @@ struct ConcertView: View {
         ImageHeaderScrollView(title: concert.artistName, imageUrl: concert.imageUrl) {
             VStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 5) {
-                    Text(concert.artistName)
-                        .font(.system(size: 30, type: .SemiBold))
+                    HStack {
+                        Text(concert.artistName)
+                            .font(.system(size: 30, type: .SemiBold))
+                        Spacer()
+                        
+                        Image(systemName: "bookmark")
+                            .font(.system(size: 20))
+                            .fontWeight(.medium)
+                    }
                     
                     if concertName != "" {
                         Text(concertName)

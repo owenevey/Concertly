@@ -58,12 +58,10 @@ struct NearbyView: View {
                                     if viewModel.nearbyConcerts.isEmpty {
                                         ForEach(0..<6, id: \.self) { _ in
                                             FallbackNearbyConcertCard()
-                                                .shadow(color: .black.opacity(0.2), radius: 5)
                                         }
                                     } else {
                                         ForEach(viewModel.nearbyConcerts) { concert in
                                             NearbyConcertCard(concert: concert)
-                                                .shadow(color: .black.opacity(0.2), radius: 5)
                                         }
                                     }
                                     
@@ -71,12 +69,10 @@ struct NearbyView: View {
                                     if viewModel.nearbyConcerts.isEmpty {
                                         ForEach(0..<6, id: \.self) { _ in
                                             ErrorNearbyConcertCard()
-                                                .shadow(color: .black.opacity(0.2), radius: 5)
                                         }
                                     } else {
                                         ForEach(viewModel.nearbyConcerts) { concert in
                                             NearbyConcertCard(concert: concert)
-                                                .shadow(color: .black.opacity(0.2), radius: 5)
                                         }
                                     }
                                     
@@ -84,17 +80,16 @@ struct NearbyView: View {
                                     if viewModel.nearbyConcerts.isEmpty {
                                         ForEach(0..<6, id: \.self) { _ in
                                             ErrorNearbyConcertCard()
-                                                .shadow(color: .black.opacity(0.2), radius: 5)
                                         }
                                     } else {
                                         ForEach(0..<6, id: \.self) { _ in
                                             ErrorNearbyConcertCard()
-                                                .shadow(color: .black.opacity(0.2), radius: 5)
                                         }
                                         // renderCards(for: data) NOTE: Keep for debugging
                                     }
                                 }
                             }
+                            .shadow(color: .black.opacity(0.2), radius: 5)
                         }
                     }
                     Spacer()
@@ -129,11 +124,11 @@ struct NearbyView: View {
                 hasAppeared = true
             }
         }
-                .refreshable {
-                    Task {
-                        await viewModel.getNearbyConcerts()
-                    }
-                }
+        .refreshable {
+            Task {
+                await viewModel.getNearbyConcerts()
+            }
+        }
     }
 }
 

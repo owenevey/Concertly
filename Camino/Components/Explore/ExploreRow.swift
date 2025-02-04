@@ -56,6 +56,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                         }
                     }
                 }
+                .shadow(color: .black.opacity(0.2), radius: 5)
                 .padding(.top, 10)
                 .padding(.bottom, 15)
                 .scrollTargetLayout()
@@ -71,28 +72,24 @@ struct ExploreRow<T: Codable & Identifiable>: View {
         if let concerts = data as? [Concert] {
             ForEach(concerts) { concert in
                 ConcertCard(concert: concert)
-                    .shadow(color: .black.opacity(0.2), radius: 5)
             }
         }
         
         if let destinations = data as? [Destination] {
             ForEach(destinations) { destination in
                 DestinationCard(destination: destination)
-                    .shadow(color: .black.opacity(0.2), radius: 5)
             }
         }
         
         if let artists = data as? [SuggestedArtist] {
             ForEach(artists) { artist in
                 ArtistCard(artist: artist)
-                    .shadow(color: .black.opacity(0.2), radius: 5)
             }
         }
         
         if let venues = data as? [Venue] {
             ForEach(venues) { venue in
                 VenueCard(venue: venue)
-                    .shadow(color: .black.opacity(0.2), radius: 5)
             }
         }
     }
@@ -103,22 +100,18 @@ struct ExploreRow<T: Codable & Identifiable>: View {
         case .concert:
             ForEach(0..<6, id: \.self) { _ in
                 FallbackConcertCard()
-                    .shadow(color: .black.opacity(0.2), radius: 5)
             }
         case .destination:
             ForEach(0..<6, id: \.self) { _ in
                 FallbackDestinationCard()
-                    .shadow(color: .black.opacity(0.2), radius: 5)
             }
         case .artist:
             ForEach(0..<6, id: \.self) { _ in
                 FallbackArtistCard()
-                    .shadow(color: .black.opacity(0.2), radius: 5)
             }
         case .venue:
             ForEach(0..<6, id: \.self) { _ in
                 FallbackVenueCard()
-                    .shadow(color: .black.opacity(0.2), radius: 5)
             }
         }
     }
@@ -129,22 +122,18 @@ struct ExploreRow<T: Codable & Identifiable>: View {
         case .concert:
             ForEach(0..<6, id: \.self) { _ in
                 ErrorConcertCard()
-                    .shadow(color: .black.opacity(0.2), radius: 5)
             }
         case .destination:
             ForEach(0..<6, id: \.self) { _ in
                 ErrorDestinationCard()
-                    .shadow(color: .black.opacity(0.2), radius: 5)
             }
         case .artist:
             ForEach(0..<6, id: \.self) { _ in
                 ErrorArtistCard()
-                    .shadow(color: .black.opacity(0.2), radius: 5)
             }
         case .venue:
             ForEach(0..<6, id: \.self) { _ in
                 ErrorVenueCard()
-                    .shadow(color: .black.opacity(0.2), radius: 5)
             }
         }
     }
