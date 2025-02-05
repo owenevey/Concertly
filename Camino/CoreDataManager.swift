@@ -18,34 +18,67 @@ class CoreDataManager {
         return container.viewContext
     }
     
-    func saveConcerts(_ concerts: [Concert], category: String) {
-        deleteConcerts(for: category)
+    func saveItems<T>(_ items: [T], category: String) {
+        deleteItems(for: category)
         
-        concerts.forEach { concert in
-            convertToEntity(concert, context: context)
+        items.forEach { item in
+            if let concert = item as? Concert {
+                convertToConcertEntity(concert, category: category, context: context)
+            }
         }
         
         saveContext()
     }
+
     
-    func fetchConcerts(for category: String) -> [Concert] {
-        let request: NSFetchRequest<ConcertEntity> = ConcertEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "category = %@", category)
+    func fetchItems<T>(for category: String) -> [T] {
+        var items: [T] = []
+        
+        if T.self == Concert.self {
+            let request: NSFetchRequest<ConcertEntity> = ConcertEntity.fetchRequest()
+            request.predicate = NSPredicate(format: "category = %@", category)
+            request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+            
+            items = fetchEntities(for: request, category: category) { entity in
+                return self.convertToConcert(entity) as! T
+            }
+        }
+        else if T.self == SuggestedArtist.self {
+            let request: NSFetchRequest<ArtistEntity> = ArtistEntity.fetchRequest()
+            request.predicate = NSPredicate(format: "category = %@", category)
+            
+            items = fetchEntities(for: request, category: category) { entity in
+                return convertToArtist(entity) as! T
+            }
+        }
+//        else if T.self == SuggestedDestination.self {
+//            let request: NSFetchRequest<DestinationEntity> = DestinationEntity.fetchRequest()
+//            request.predicate = NSPredicate(format: "category = %@", category)
+//            
+//            items = fetchEntities(for: request, category: category) { entity in
+//                return convertToDestination(entity) as! T
+//            }
+//        }
+        
+        return items
+    }
+
+    func fetchEntities<T, E: NSManagedObject>(for request: NSFetchRequest<E>, category: String, convert: @escaping (E) -> T) -> [T] {
+        var items: [T] = []
         
         do {
-            let fetchedConcerts = try context.fetch(request)
-            
-            return fetchedConcerts.map { entity in
-                return convertToConcert(entity)
+            let fetchedEntities = try context.fetch(request)
+            items = fetchedEntities.map { entity in
+                return convert(entity)
             }
         } catch {
-            print("Error fetching concerts for \(category): \(error)")
-            return []
+            print("Error fetching \(E.self) for \(category): \(error)")
         }
+        
+        return items
     }
     
-    
-    func deleteConcerts(for category: String) {
+    func deleteItems(for category: String) {
         let request: NSFetchRequest<ConcertEntity> = ConcertEntity.fetchRequest()
         request.predicate = NSPredicate(format: "category == %@", category)
         
@@ -58,6 +91,19 @@ class CoreDataManager {
         }
     }
     
+    func deleteArtists(for category: String) {
+        let request: NSFetchRequest<ArtistEntity> = ArtistEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "category == %@", category)
+        
+        do {
+            let artists = try context.fetch(request)
+            artists.forEach { context.delete($0) }
+            saveContext()
+        } catch {
+            print("Error deleting artists for \(category): \(error)")
+        }
+    }
+    
     func saveContext() {
         do {
             try context.save()
@@ -66,7 +112,7 @@ class CoreDataManager {
         }
     }
     
-    private func convertToEntity(_ concert: Concert, context: NSManagedObjectContext) {
+    private func convertToConcertEntity(_ concert: Concert, category: String, context: NSManagedObjectContext) {
         let entity = ConcertEntity(context: context)
         entity.artistId = concert.artistId
         entity.artistName = concert.artistName
@@ -80,6 +126,7 @@ class CoreDataManager {
         entity.timezone = concert.timezone
         entity.venueAddress = concert.venueAddress
         entity.venueName = concert.venueName
+        entity.category = category
         
         if let lineupData = try? JSONEncoder().encode(concert.lineup) {
             entity.lineup = lineupData
@@ -90,7 +137,7 @@ class CoreDataManager {
         }
         
         if let urlData = try? JSONEncoder().encode(concert.url) {
-            entity.lineup = urlData
+            entity.url = urlData
         }
     }
     
@@ -120,9 +167,19 @@ class CoreDataManager {
             url = []
         }
         
-        
-        
         return Concert(name: name, id: entity.id ?? "", artistName: entity.artistName ?? "", artistId: entity.artistId ?? "", url: url, imageUrl: entity.imageUrl ?? "", date: entity.date ?? Date(), timezone: entity.timezone ?? "", venueName: entity.venueName ?? "", venueAddress: entity.venueAddress ?? "", cityName: entity.cityName ?? "", latitude: entity.latitude, longitude: entity.longitude, lineup: lineup, closestAirport: entity.closestAirport)
+    }
+    
+    private func convertToArtistEntity(_ artist: SuggestedArtist, category: String, context: NSManagedObjectContext) {
+        let entity = ArtistEntity(context: context)
+        entity.name = artist.name
+        entity.id = artist.id
+        entity.imageUrl = artist.imageUrl
+        entity.category = category
+    }
+    
+    private func convertToArtist(_ entity: ArtistEntity) -> SuggestedArtist {
+        return SuggestedArtist(name: entity.name ?? "", id: entity.id ?? "", imageUrl: entity.imageUrl ?? "")
     }
     
 }

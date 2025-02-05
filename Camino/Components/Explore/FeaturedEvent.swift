@@ -33,18 +33,26 @@ struct FeaturedEvent: View {
             Group {
                 switch status {
                 case .loading, .empty:
-                    FallbackFeaturedEventItem()
-                        .shadow(color: .black.opacity(0.2), radius: 5)
-                case .success:
-                    if let event {
+                    if let event = event {
                         FeaturedEventItem(event: event)
-                            .shadow(color: .black.opacity(0.2), radius: 5)
+                    } else {
+                        FallbackFeaturedEventItem()
+                    }
+                case .success:
+                    if let event = event {
+                        FeaturedEventItem(event: event)
+                    } else {
+                        ErrorFeaturedEventItem()
                     }
                 case .error:
-                    ErrorFeaturedEventItem()
-                        .shadow(color: .black.opacity(0.2), radius: 5)
-                }
+                    if let event = event {
+                        FeaturedEventItem(event: event)
+                    } else {
+                        ErrorFeaturedEventItem()
+                    }
+                }    
             }
+            .shadow(color: .black.opacity(0.2), radius: 5)
             .padding(.top, 10)
             .padding(.bottom, 15)
         }

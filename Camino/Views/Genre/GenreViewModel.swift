@@ -5,8 +5,13 @@ import SwiftUI
 final class GenreViewModel: ObservableObject {
     var genre: MusicGenre
     
+    private let coreDataManager = CoreDataManager.shared
+    
     init(genre: MusicGenre) {
         self.genre = genre
+        trendingConcerts = coreDataManager.fetchItems(for: "\(genre.apiLabel)_trending")
+        featuredConcert = coreDataManager.fetchItems(for: "\(genre.apiLabel)_featured").first
+        suggestedConcerts = coreDataManager.fetchItems(for: "\(genre.apiLabel)_suggested")
     }
     
     @Published var trendingConcertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
@@ -36,6 +41,7 @@ final class GenreViewModel: ObservableObject {
                     self.trendingConcerts = concerts
                     self.trendingConcertsResponse = ApiResponse(status: .success, data: concerts)
                 }
+                coreDataManager.saveItems(concerts, category: "\(genre.apiLabel)_trending")
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.trendingConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
@@ -62,6 +68,7 @@ final class GenreViewModel: ObservableObject {
                     self.suggestedConcerts = concerts
                     self.suggestedConcertsResponse = ApiResponse(status: .success, data: concerts)
                 }
+                coreDataManager.saveItems(concerts, category: "\(genre.apiLabel)_suggested")
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.suggestedConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
@@ -114,6 +121,7 @@ final class GenreViewModel: ObservableObject {
                     self.featuredConcert = concert
                     self.featuredConcertResponse = ApiResponse(status: .success, data: concert)
                 }
+                coreDataManager.saveItems([concert], category: "\(genre.apiLabel)_featured")
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.featuredConcertResponse = ApiResponse(status: .error, error: "Couldn't fetch concert")

@@ -51,8 +51,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                         if data.isEmpty {
                             renderErrorCards(for: contentType)
                         } else {
-                            renderErrorCards(for: contentType)
-                            //                            renderCards(for: data) NOTE: Keep for debugging
+                            renderCards(for: data)
                         }
                     }
                 }

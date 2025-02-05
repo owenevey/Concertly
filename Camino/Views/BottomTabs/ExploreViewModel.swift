@@ -24,10 +24,9 @@ final class ExploreViewModel: ObservableObject {
     @Published var famousVenues: [Venue] = []
     
     init() {
-        trendingConcerts = coreDataManager.fetchConcerts(for: "explore_trending")
-        featuredConcert = coreDataManager.fetchConcerts(for: "explore_featured").first
-        suggestedConcerts = coreDataManager.fetchConcerts(for: "explore_suggested")
-        print("Got trending concert \(trendingConcerts)")
+        trendingConcerts = coreDataManager.fetchItems(for: "explore_trending")
+        featuredConcert = coreDataManager.fetchItems(for: "explore_featured").first
+        suggestedConcerts = coreDataManager.fetchItems(for: "explore_suggested")
     }
     
     func getTrendingConcerts() async {
@@ -43,7 +42,7 @@ final class ExploreViewModel: ObservableObject {
                     self.trendingConcerts = concerts
                     self.trendingConcertsResponse = ApiResponse(status: .success, data: concerts)
                 }
-                coreDataManager.saveConcerts(concerts, category: "explore_trending")
+                coreDataManager.saveItems(concerts, category: "explore_trending")
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.trendingConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
@@ -69,7 +68,7 @@ final class ExploreViewModel: ObservableObject {
                     self.suggestedConcerts = concerts
                     self.suggestedConcertsResponse = ApiResponse(status: .success, data: concerts)
                 }
-                coreDataManager.saveConcerts(concerts, category: "explore_suggested")
+                coreDataManager.saveItems(concerts, category: "explore_suggested")
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.suggestedConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
@@ -120,7 +119,7 @@ final class ExploreViewModel: ObservableObject {
                     self.featuredConcert = concert
                     self.featuredConcertResponse = ApiResponse(status: .success, data: concert)
                 }
-                coreDataManager.saveConcerts([concert], category: "explore_featured")
+                coreDataManager.saveItems([concert], category: "explore_featured")
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.featuredConcertResponse = ApiResponse(status: .error, error: "Couldn't fetch concert")
