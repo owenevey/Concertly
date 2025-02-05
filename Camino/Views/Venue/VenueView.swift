@@ -128,7 +128,7 @@ struct VenueView: View {
                     .foregroundStyle(.gray3)
                     .padding(.bottom, 5)
                     
-                    MapCard(addressToSearch: venue.address, latitude: venue.latitude, longitude: venue.longitude)
+                    MapCard(addressToSearch: venue.address, latitude: venue.latitude, longitude: venue.longitude, delta: 0.01)
                 }
 
             }

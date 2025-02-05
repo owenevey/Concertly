@@ -26,7 +26,9 @@ struct GenrePills: View {
 }
 
 #Preview {
-    GenrePills()
+    NavigationStack {
+        GenrePills()
+    }
 }
 
 struct GenrePill: View {
@@ -41,6 +43,7 @@ struct GenrePill: View {
                 Capsule(style: .continuous)
                     .fill(Color.foreground)
             )
+            .shadow(color: .clear, radius: 0)
     }
 }
 

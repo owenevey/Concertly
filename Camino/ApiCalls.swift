@@ -9,7 +9,7 @@ func fetchData<T: Decodable>(endpoint: String, dateDecodingStrategy: JSONDecoder
     
     let (data, response) = try await URLSession.shared.data(from: url)
     
-//    if endpoint.contains("lat") {
+//    if endpoint.contains("concerts?lat=") {
 //        print(response)
 //        if let rawData = String(data: data, encoding: .utf8) {
 //            print("Raw Response: \(rawData)")
@@ -134,14 +134,6 @@ func fetchHotels(location: String, fromDate: String, toDate: String) async throw
     return response
 }
 ////////////////////////////////////////////////////////
-
-// Destinations
-
-func fetchVenueDetails(venueId: String) async throws -> VenueDetailsResponse {
-    let endpoint = "\(baseUrl)/venueDetails?id=\(venueId)"
-    let response: VenueDetailsResponse = try await fetchData(endpoint: endpoint)
-    return response
-}
 
 enum CaminoError: Error {
     case invalidURL

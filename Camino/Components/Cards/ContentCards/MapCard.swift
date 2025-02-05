@@ -6,12 +6,13 @@ struct MapCard: View {
     let addressToSearch: String
     let latitude: Double
     let longitude: Double
+    let delta: Double
     
     var body: some View {
         Button {
             openAddressInMaps(address: addressToSearch)
         } label: {
-                Map(initialPosition: MapCameraPosition.region( MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))), interactionModes: [])
+                Map(initialPosition: MapCameraPosition.region( MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta))), interactionModes: [])
                     .frame(height: 175)
                     .clipped()
             .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -32,7 +33,7 @@ struct MapCard: View {
 
 #Preview {
     NavigationStack {
-        MapCard(addressToSearch: hotConcerts[0].venueAddress, latitude: hotConcerts[0].latitude, longitude: hotConcerts[0].longitude)
+        MapCard(addressToSearch: hotConcerts[0].venueAddress, latitude: hotConcerts[0].latitude, longitude: hotConcerts[0].longitude, delta: 0.01)
     }
     .padding(15)
 }

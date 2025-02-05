@@ -24,9 +24,12 @@ final class ExploreViewModel: ObservableObject {
     @Published var famousVenues: [Venue] = []
     
     init() {
-        trendingConcerts = coreDataManager.fetchItems(for: "explore_trending")
-        featuredConcert = coreDataManager.fetchItems(for: "explore_featured").first
-        suggestedConcerts = coreDataManager.fetchItems(for: "explore_suggested")
+        trendingConcerts = coreDataManager.fetchItems(for: "explore_trending", type: Concert.self)
+        popularArtists = coreDataManager.fetchItems(for: "explore_popular", type: SuggestedArtist.self)
+        popularDestinations = coreDataManager.fetchItems(for: "", type: Destination.self)
+        featuredConcert = coreDataManager.fetchItems(for: "explore_featured", type: Concert.self).first
+        suggestedConcerts = coreDataManager.fetchItems(for: "explore_suggested", type: Concert.self)
+        famousVenues = coreDataManager.fetchItems(for: "", type: Venue.self)
     }
     
     func getTrendingConcerts() async {
@@ -94,6 +97,7 @@ final class ExploreViewModel: ObservableObject {
                     self.popularArtists = artists
                     self.popularArtistsResponse = ApiResponse(status: .success, data: artists)
                 }
+                coreDataManager.saveItems(artists, category: "explore_popular")
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.popularArtistsResponse = ApiResponse(status: .error, error: "Couldn't fetch artists")
@@ -145,6 +149,7 @@ final class ExploreViewModel: ObservableObject {
                     self.popularDestinations = destinations
                     self.popularDestinationsResponse = ApiResponse(status: .success, data: destinations)
                 }
+                coreDataManager.saveItems(destinations, category: "")
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.popularDestinationsResponse = ApiResponse(status: .error, error: "Couldn't fetch destinations")
@@ -170,6 +175,7 @@ final class ExploreViewModel: ObservableObject {
                     self.famousVenues = venues
                     self.famousVenuesResponse = ApiResponse(status: .success, data: venues)
                 }
+                coreDataManager.saveItems(venues, category: "")
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.famousVenuesResponse = ApiResponse(status: .error, error: "Couldn't fetch venues")

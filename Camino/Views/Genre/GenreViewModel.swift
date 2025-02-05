@@ -9,9 +9,10 @@ final class GenreViewModel: ObservableObject {
     
     init(genre: MusicGenre) {
         self.genre = genre
-        trendingConcerts = coreDataManager.fetchItems(for: "\(genre.apiLabel)_trending")
-        featuredConcert = coreDataManager.fetchItems(for: "\(genre.apiLabel)_featured").first
-        suggestedConcerts = coreDataManager.fetchItems(for: "\(genre.apiLabel)_suggested")
+        trendingConcerts = coreDataManager.fetchItems(for: "\(genre.apiLabel)_trending", type: Concert.self)
+        popularArtists = coreDataManager.fetchItems(for: "\(genre.apiLabel)_popular", type: SuggestedArtist.self)
+        featuredConcert = coreDataManager.fetchItems(for: "\(genre.apiLabel)_featured", type: Concert.self).first
+        suggestedConcerts = coreDataManager.fetchItems(for: "\(genre.apiLabel)_suggested", type: Concert.self)
     }
     
     @Published var trendingConcertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
@@ -95,6 +96,7 @@ final class GenreViewModel: ObservableObject {
                     self.popularArtists = artists
                     self.popularArtistsResponse = ApiResponse(status: .success, data: artists)
                 }
+                coreDataManager.saveItems(artists, category: "\(genre.apiLabel)_popular")
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.popularArtistsResponse = ApiResponse(status: .error, error: "Couldn't fetch artists")

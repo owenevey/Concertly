@@ -14,9 +14,9 @@ struct ExploreView: View {
             ZStack(alignment: .top) {
                 Image(colorScheme == .light ? .exploreBlobLight : .exploreBlobDark)
                     .resizable()
-                    .frame(width: UIScreen.main.bounds.width, height: 200 + max(0, -offset))
+                    .frame(width: UIScreen.main.bounds.width, height: 250 + max(0, -offset - geometry.safeAreaInsets.top))
                     .scaledToFill()
-                    .transformEffect(.init(translationX: 0, y: -max(0, offset)))
+                    .transformEffect(.init(translationX: 0, y: -max(0, offset + geometry.safeAreaInsets.top)))
                 
                 ScrollView(showsIndicators: false) {
                     
@@ -103,6 +103,7 @@ struct ExploreView: View {
                 .onScrollGeometryChange(for: CGFloat.self) { geo in
                     return geo.contentOffset.y
                 } action: { oldValue, newValue in
+                    print(newValue)
                     offset = newValue
                     withAnimation(.linear(duration: 0.1)) {
                         if newValue > -20 {
@@ -122,12 +123,12 @@ struct ExploreView: View {
         .onAppear {
             if !hasAppeared {
                 Task {
-//                    await viewModel.getTrendingConcerts()
-//                    await viewModel.getPopularArtists()
-//                    await viewModel.getPopularDestinations()
-//                    await viewModel.getFeaturedConcert()
-//                    await viewModel.getSuggestedConcerts()
-//                    await viewModel.getFamousVenues()
+                    await viewModel.getTrendingConcerts()
+                    await viewModel.getPopularArtists()
+                    await viewModel.getPopularDestinations()
+                    await viewModel.getFeaturedConcert()
+                    await viewModel.getSuggestedConcerts()
+                    await viewModel.getFamousVenues()
                 }
                 hasAppeared = true
             }

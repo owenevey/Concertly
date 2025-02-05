@@ -174,7 +174,7 @@ struct ConcertView: View {
                     .foregroundStyle(.gray3)
                     .padding(.bottom, 5)
                     
-                    MapCard(addressToSearch: "\(concert.venueName), \(concert.venueAddress)", latitude: concert.latitude, longitude: concert.longitude)
+                    MapCard(addressToSearch: "\(concert.venueName), \(concert.venueAddress)", latitude: concert.latitude, longitude: concert.longitude, delta: 0.01)
                 }
             }
             .padding(15)

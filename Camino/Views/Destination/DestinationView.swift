@@ -144,7 +144,7 @@ struct DestinationView: View {
                                     .foregroundStyle(.gray3)
                                     .padding(.bottom, 5)
                                     
-                                    MapCard(addressToSearch: "\(destination.cityName), \(destination.countryName)", latitude: destination.latitude, longitude: destination.longitude)
+                                    MapCard(addressToSearch: "\(destination.cityName), \(destination.countryName)", latitude: destination.latitude, longitude: destination.longitude, delta: 0.1)
                                 }
                                 
                                 CaminoButton(label: "Plan Trip") {
@@ -217,7 +217,8 @@ struct DestinationView: View {
         countryName: "United States",
         latitude: 36.1716,
         longitude: -115.1391,
-        geoHash: "9qqjgb"
+        geoHash: "9qqjgb",
+        closestAirport: "LAX"
     )
     
     NavigationStack {

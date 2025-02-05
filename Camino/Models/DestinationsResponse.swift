@@ -17,4 +17,5 @@ struct Destination: Codable, Identifiable {
     let latitude: Double
     let longitude: Double
     let geoHash: String
+    let closestAirport: String
 }

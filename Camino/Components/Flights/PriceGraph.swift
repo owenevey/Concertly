@@ -51,7 +51,7 @@ struct PriceGraph: View {
                 .interpolationMethod(.catmullRom)
             }
         }
-        .chartYScale(domain: 0...(maxPrice + 100))
+        .chartYScale(domain: 0...(maxPrice + 250))
         .chartYAxis {
             AxisMarks(position: .leading) { value in
                 AxisValueLabel {

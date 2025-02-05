@@ -18,8 +18,8 @@ class DestinationViewModel: TripViewModelProtocol {
         self.cityName = destination.cityName
         
         let calendar = Calendar.current
-        self.tripStartDate = calendar.date(byAdding: .day, value: -1, to: Date()) ?? Date()
-        self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: Date()) ?? Date()
+        self.tripStartDate = calendar.date(byAdding: .day, value: 21, to: Date()) ?? Date()
+        self.tripEndDate = calendar.date(byAdding: .day, value: 25, to: Date()) ?? Date()
     }
     
     var totalPrice: Int {
@@ -57,7 +57,7 @@ class DestinationViewModel: TripViewModelProtocol {
         
         do {
             let fetchedFlights = try await fetchDepartureFlights(fromAirport: homeAirport,
-                                                                 toAirport: "LAX",
+                                                                 toAirport: destination.closestAirport,
                                                                  fromDate: tripStartDate.EuropeanFormat(),
                                                                  toDate: tripEndDate.EuropeanFormat())
             

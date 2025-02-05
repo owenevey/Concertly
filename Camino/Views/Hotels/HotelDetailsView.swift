@@ -147,7 +147,7 @@ struct HotelDetailsView: View {
                     }
                     
                     if let gpsCoordinates = property.gpsCoordinates {
-                        MapCard(addressToSearch: "\(property.name) \(gpsCoordinates.latitude) \(gpsCoordinates.longitude)", latitude: gpsCoordinates.latitude, longitude: gpsCoordinates.longitude)
+                        MapCard(addressToSearch: "\(property.name) \(gpsCoordinates.latitude) \(gpsCoordinates.longitude)", latitude: gpsCoordinates.latitude, longitude: gpsCoordinates.longitude, delta: 0.01)
                             .padding(.vertical, 10)
                     }
                 }

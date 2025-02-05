@@ -14,9 +14,9 @@ struct NearbyView: View {
             ZStack(alignment: .top) {
                 Image(colorScheme == .light ? .nearbyBlobLight : .nearbyBlobDark)
                     .resizable()
-                    .frame(width: UIScreen.main.bounds.width, height: 200 + max(0, -offset))
+                    .frame(width: UIScreen.main.bounds.width, height: 250 + max(0, -offset - geometry.safeAreaInsets.top))
                     .scaledToFill()
-                    .transformEffect(.init(translationX: 0, y: -max(0, offset)))
+                    .transformEffect(.init(translationX: 0, y: -max(0, offset + geometry.safeAreaInsets.top)))
                 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 0) {
