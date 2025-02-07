@@ -21,7 +21,8 @@ struct ErrorConcertCard: View {
                     .frame(width: 100, height: 21)
                     .cornerRadius(5)
             }
-            .padding(15)
+            .padding([.horizontal, .bottom], 15)
+            .padding(.top, 10)
         }
         .frame(width: 250)
         .clipShape(RoundedRectangle(cornerRadius: 20))

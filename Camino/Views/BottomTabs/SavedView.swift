@@ -3,7 +3,7 @@ import SwiftUI
 struct SavedView: View {
     
     @Environment(\.colorScheme) var colorScheme
-    @StateObject var viewModel: NearbyViewModel = NearbyViewModel()
+    @StateObject var viewModel: SavedViewModel = SavedViewModel()
     
     @State private var hasAppeared: Bool = false
     @State private var offset: CGFloat = 0
@@ -23,7 +23,7 @@ struct SavedView: View {
                         VStack(spacing: 15) {
                             
                             HStack(alignment: .top) {
-                                Text("Saved Trips")
+                                Text("Saved")
                                     .font(.system(size: 30, type: .Bold))
                                     .foregroundStyle(.accent)
                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -42,39 +42,19 @@ struct SavedView: View {
                             .frame(width: UIScreen.main.bounds.width)
                             
                             LazyVStack(spacing: 15) {
-                                switch viewModel.nearbyConcertsResponse.status {
-                                case .loading, .empty:
-                                    if viewModel.nearbyConcerts.isEmpty {
-                                        ForEach(0..<6, id: \.self) { _ in
-                                            FallbackSavedConcertCard()
-                                        }
-                                    } else {
-                                        ForEach(viewModel.nearbyConcerts) { concert in
-                                            SavedConcertCard(concert: concert)
-                                        }
+                                if viewModel.savedConcerts.isEmpty {
+                                    VStack(spacing: 10) {
+                                        Image(systemName: "music.note")
+                                            .font(.system(size: 20))
+                                            .fontWeight(.semibold)
+                                        
+                                        Text("No saved concerts")
+                                            .font(.system(size: 18, type: .Regular))
                                     }
-                                    
-                                case .success:
-                                    if viewModel.nearbyConcerts.isEmpty {
-                                        ForEach(0..<6, id: \.self) { _ in
-                                            ErrorNearbyConcertCard()
-                                        } // PUT IN TEXT HERE
-                                    } else {
-                                        ForEach(viewModel.nearbyConcerts) { concert in
-                                            SavedConcertCard(concert: concert)
-                                        }
-                                    }
-                                    
-                                case .error:
-                                    if viewModel.nearbyConcerts.isEmpty {
-                                        ForEach(0..<6, id: \.self) { _ in
-                                            ErrorSavedConcertCard()
-                                        }
-                                    } else {
-                                        ForEach(0..<6, id: \.self) { _ in
-                                            ErrorSavedConcertCard()
-                                        }
-                                        // renderCards(for: data) NOTE: Keep for debugging
+                                    .frame(height: 250)
+                                } else {
+                                    ForEach(viewModel.savedConcerts) { concert in
+                                        SavedConcertCard(concert: concert)
                                     }
                                 }
                             }
@@ -106,18 +86,15 @@ struct SavedView: View {
         }
         .background(Color.background)
         .onAppear {
-            if !hasAppeared {
-                Task {
-                    await viewModel.getNearbyConcerts()
-                }
-                hasAppeared = true
+            Task {
+                await viewModel.getSavedConcerts()
             }
         }
-                .refreshable {
-                    Task {
-                        await viewModel.getNearbyConcerts()
-                    }
-                }
+        .refreshable {
+            Task {
+                await viewModel.getSavedConcerts()
+            }
+        }
     }
 }
 

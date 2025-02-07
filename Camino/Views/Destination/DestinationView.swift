@@ -153,7 +153,8 @@ struct DestinationView: View {
                                 .frame(width: UIScreen.main.bounds.width - 100)
                                 
                             }
-                            .padding(15)
+                            .padding([.horizontal, .bottom], 15)
+                            .padding(.top, 10)
                             .background(Color.background)
                             .frame(width: UIScreen.main.bounds.width)
                         }

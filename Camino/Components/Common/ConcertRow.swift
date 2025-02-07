@@ -31,11 +31,11 @@ struct ConcertRow: View {
     var body: some View {
         HStack(spacing: 15) {
             VStack {
-                Text(concert.date.dayNumber())
-                    .font(.system(size: 23, type: .Medium))
                 Text(concert.date.shortMonthFormat())
                     .font(.system(size: 16, type: .Medium))
                     .foregroundStyle(.gray3)
+                Text(concert.date.dayNumber())
+                    .font(.system(size: 23, type: .Medium))
             }
             .frame(width: 60, height: 60)
             .background(Color.background)

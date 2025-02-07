@@ -20,7 +20,8 @@ struct ErrorSavedConcertCard: View {
                 }
                 
                 Divider()
-                    .frame(height: 2)
+                    .frame(height: 1)
+                    .overlay(.gray2)
                     .padding(.vertical, 5)
                 
                 HStack {
@@ -76,7 +77,8 @@ struct ErrorSavedConcertCard: View {
                     }
                 }
             }
-            .padding(15)
+            .padding([.horizontal, .bottom], 15)
+            .padding(.top, 10)
         }
         .frame(width: UIScreen.main.bounds.width - 30)
         .clipShape(RoundedRectangle(cornerRadius: 20))

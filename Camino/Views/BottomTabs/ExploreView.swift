@@ -103,7 +103,6 @@ struct ExploreView: View {
                 .onScrollGeometryChange(for: CGFloat.self) { geo in
                     return geo.contentOffset.y
                 } action: { oldValue, newValue in
-                    print(newValue)
                     offset = newValue
                     withAnimation(.linear(duration: 0.1)) {
                         if newValue > -20 {

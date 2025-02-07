@@ -9,7 +9,7 @@ final class NearbyViewModel: ObservableObject {
     private let coreDataManager = CoreDataManager.shared
     
     init() {
-        nearbyConcerts = coreDataManager.fetchItems(for: "nearby", type: Concert.self)
+        nearbyConcerts = coreDataManager.fetchItems(for: "nearby", type: Concert.self, sortKey: "date")
     }
     
     func getNearbyConcerts() async {

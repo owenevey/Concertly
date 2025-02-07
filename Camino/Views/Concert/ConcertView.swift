@@ -12,7 +12,7 @@ struct ConcertView: View {
         _viewModel = StateObject(wrappedValue: ConcertViewModel(concert: concert))
     }
     
-    @State var hasAppeared: Bool = false
+    @State var hasAppeared = false
     
     var concertName: String {
         if concert.name.count > 1 {
@@ -27,24 +27,29 @@ struct ConcertView: View {
         ImageHeaderScrollView(title: concert.artistName, imageUrl: concert.imageUrl) {
             VStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 5) {
-                    HStack {
+                    HStack(alignment: .top) {
                         Text(concert.artistName)
                             .font(.system(size: 30, type: .SemiBold))
+                        
                         Spacer()
                         
-                        Image(systemName: "bookmark")
-                            .font(.system(size: 20))
-                            .fontWeight(.medium)
+                        Button {
+                            viewModel.toggleConcertSaved()
+                        } label: {
+                            Image(systemName: viewModel.isSaved ? "bookmark.fill" : "bookmark")
+                                .font(.system(size: 23))
+                                .fontWeight(.medium)
+                                .padding(.top, 5)
+                                .foregroundStyle(Color.primary)
+                        }
                     }
                     
-                    if concertName != "" {
-                        Text(concertName)
-                            .font(.system(size: 18, type: .Regular))
-                            .foregroundStyle(.gray3)
-                    }
+                    
+                    
                     
                     HStack(spacing: 5) {
                         Image(systemName: "calendar")
+                            .frame(width: 22)
                         Text(concert.date.formatted(date: .complete, time: .omitted))
                             .font(.system(size: 18, type: .Regular))
                     }
@@ -52,10 +57,22 @@ struct ConcertView: View {
                     
                     HStack(spacing: 5) {
                         Image(systemName: "mappin.and.ellipse")
+                            .frame(width: 22)
                         Text(concert.cityName)
                             .font(.system(size: 18, type: .Regular))
                     }
                     .foregroundStyle(.gray3)
+                    
+                    if concertName != "" {
+                        HStack(alignment: .top, spacing: 5) {
+                            Image(systemName: "music.microphone")
+                                .padding(.top, 3)
+                                .frame(width: 22)
+                            Text(concertName)
+                                .font(.system(size: 18, type: .Regular))
+                        }
+                        .foregroundStyle(.gray3)
+                    }
                     
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -177,10 +194,13 @@ struct ConcertView: View {
                     MapCard(addressToSearch: "\(concert.venueName), \(concert.venueAddress)", latitude: concert.latitude, longitude: concert.longitude, delta: 0.01)
                 }
             }
-            .padding(15)
+            .padding([.horizontal, .bottom], 15)
+            .padding(.top, 10)
         }
         .background(Color.background)
         .onAppear {
+            viewModel.checkIfSaved()
+            
             if !hasAppeared {
                 Task {
                     await viewModel.getDepartingFlights()

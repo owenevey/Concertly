@@ -214,7 +214,8 @@ struct ArtistView: View {
                             }
                         }
                     }
-                    .padding(15)
+                    .padding([.horizontal, .bottom], 15)
+                    .padding(.top, 10)
                 }
                 .background(Color.background)
             } else {

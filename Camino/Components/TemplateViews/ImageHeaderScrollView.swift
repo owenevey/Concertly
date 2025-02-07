@@ -32,10 +32,32 @@ struct ImageHeaderScrollView<HeaderContent: View, Content: View>: View {
         GeometryReader { geometry in
             ZStack(alignment: .top) {
                 if let url = imageUrl {
-                    ImageLoader(url: url, contentMode: .fill)
-                        .frame(width: UIScreen.main.bounds.width, height: 300 + max(0, -offset))
-                        .transformEffect(.init(translationX: 0, y: -max(0, offset)))
-                        .clipped()
+                    ZStack(alignment: .bottom) {
+                        ImageLoader(url: url, contentMode: .fill)
+                            .frame(width: UIScreen.main.bounds.width, height: 300 + max(0, -offset))
+                            .clipped()
+                        
+                        
+                            
+                        
+//                        Text(title)
+//                            .font(.system(size: 37, type: .SemiBold))
+//                            .frame(maxWidth: .infinity, alignment: .leading)
+//                            .padding(.horizontal, 15)
+//                            .padding(.bottom, 5)
+//                            .foregroundStyle(.white)
+//                            .background(
+//                                LinearGradient(colors: [.clear, Color.shadow.opacity(0.75), Color.shadow], startPoint: .top, endPoint: .bottom)
+//                                    .blur(radius: 30)
+////                                    .frame(height: 100)
+//                                    .padding([.horizontal, .bottom], -30)
+//                                    .padding(.top, -10)
+//                            )
+
+                    }
+                    .frame(width: UIScreen.main.bounds.width, height: 300 + max(0, -offset))
+                    .transformEffect(.init(translationX: 0, y: -max(0, offset)))
+                    .clipped()
                     
                 } else if let customHeader = headerContent {
                     customHeader

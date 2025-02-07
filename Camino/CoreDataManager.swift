@@ -20,7 +20,9 @@ class CoreDataManager {
     
     func saveItems<T>(_ items: [T], category: String) {
         if T.self == Concert.self {
-            deleteItems(for: category, type: ConcertEntity.self)
+            if category != "saved" {
+                deleteItems(for: category, type: ConcertEntity.self)
+            }
         }
         else if T.self == SuggestedArtist.self {
             deleteItems(for: category, type: ArtistEntity.self)
@@ -49,15 +51,29 @@ class CoreDataManager {
         
         saveContext()
     }
-
     
-    func fetchItems<T>(for category: String, type: T.Type) -> [T] {
+    func isConcertSaved(id: String) -> Bool {        
+        let request: NSFetchRequest<ConcertEntity> = ConcertEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "category = %@ AND id = %@", "saved", id)
+        
+        let items: [ConcertEntity] = fetchEntities(for: request, category: "saved")
+        return items.count > 0
+    }
+    
+    func unSaveConcert(id: String) {
+        let request: NSFetchRequest<ConcertEntity> = ConcertEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "category = %@ AND id = %@", "saved", id)
+        
+        deleteEntities(request: request)
+    }
+    
+    func fetchItems<T>(for category: String, type: T.Type, sortKey: String = "sortKey") -> [T] {
         var items: [T] = []
         
         if T.self == Concert.self {
             let request: NSFetchRequest<ConcertEntity> = ConcertEntity.fetchRequest()
             request.predicate = NSPredicate(format: "category = %@", category)
-            request.sortDescriptors = [NSSortDescriptor(key: "sortKey", ascending: true), NSSortDescriptor(key: "id", ascending: true)]
+            request.sortDescriptors = [NSSortDescriptor(key: sortKey, ascending: true), NSSortDescriptor(key: "id", ascending: true)]
             
             items = fetchEntities(for: request, category: category) { entity in
                 return self.convertToConcert(entity) as! T
@@ -92,7 +108,7 @@ class CoreDataManager {
         return items
     }
 
-    func fetchEntities<T, E: NSManagedObject>(for request: NSFetchRequest<E>, category: String, convert: @escaping (E) -> T) -> [T] {
+    func fetchEntities<T, E: NSManagedObject>(for request: NSFetchRequest<E>, category: String, convert: @escaping (E) -> T = { $0 as! T }) -> [T] {
         var items: [T] = []
         
         do {
@@ -121,16 +137,16 @@ class CoreDataManager {
             return
         }
         
-        deleteEntities(for: category, request: request)
+        deleteEntities(request: request)
     }
     
-    func deleteEntities<E: NSManagedObject>(for category: String, request: NSFetchRequest<E>) {
+    private func deleteEntities<E: NSManagedObject>(request: NSFetchRequest<E>) {
         do {
             let fetchedEntities = try context.fetch(request)
             fetchedEntities.forEach { context.delete($0) }
             saveContext()
         } catch {
-            print("Error deleting items for \(category): \(error)")
+            print("Error deleting items: \(error)")
         }
     }
     

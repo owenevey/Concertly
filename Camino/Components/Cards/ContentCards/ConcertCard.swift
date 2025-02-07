@@ -35,7 +35,8 @@ struct ConcertCard: View {
                         .minimumScaleFactor(0.9)
                         .lineLimit(1)
                 }
-                .padding(15)
+                .padding([.horizontal, .bottom], 15)
+                .padding(.top, 10)
             }
             .frame(width: 250)
             .clipShape(RoundedRectangle(cornerRadius: 20))

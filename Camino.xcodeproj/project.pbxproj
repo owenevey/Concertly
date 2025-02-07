@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F10E0C942D558F7D0091940C /* SavedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10E0C932D558F7B0091940C /* SavedViewModel.swift */; };
 		F10F94262CD45849007EE947 /* FilterPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10F94252CD45849007EE947 /* FilterPrice.swift */; };
 		F113E9582CB4986A0057CF90 /* FlightCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F113E9572CB4986A0057CF90 /* FlightCard.swift */; };
 		F114AA8E2D4B0991004F9C66 /* LineupArtistRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F114AA8D2D4B0991004F9C66 /* LineupArtistRow.swift */; };
@@ -146,6 +147,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F10E0C932D558F7B0091940C /* SavedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewModel.swift; sourceTree = "<group>"; };
 		F10F94252CD45849007EE947 /* FilterPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPrice.swift; sourceTree = "<group>"; };
 		F113E9572CB4986A0057CF90 /* FlightCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightCard.swift; sourceTree = "<group>"; };
 		F114AA8D2D4B0991004F9C66 /* LineupArtistRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineupArtistRow.swift; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 				F116401F2C8AAA610040C95D /* ExploreView.swift */,
 				F1CD3C8A2D25FB88004E3041 /* ExploreViewModel.swift */,
 				F11640212C8BA8270040C95D /* SavedView.swift */,
+				F10E0C932D558F7B0091940C /* SavedViewModel.swift */,
 				F14349D32D4D791100C63041 /* NearbyView.swift */,
 				F14349D52D4DAD6900C63041 /* NearbyViewModel.swift */,
 				F13186282CB1EBD9003DBCC5 /* ProfileView.swift */,
@@ -821,6 +824,7 @@
 				F1CCE0D22CB0B96600D15696 /* ViewExtensions.swift in Sources */,
 				F17252C52D34A4DC006C3454 /* GenreViewModel.swift in Sources */,
 				F19C727D2CD0808B00390BD6 /* FilterStopsEnum.swift in Sources */,
+				F10E0C942D558F7D0091940C /* SavedViewModel.swift in Sources */,
 				F11714BB2D1526AB007A0052 /* HotelDetailsView.swift in Sources */,
 				F114AA8E2D4B0991004F9C66 /* LineupArtistRow.swift in Sources */,
 				F1ADB6662D4C7B87000527F3 /* ConcertLinksSheet.swift in Sources */,

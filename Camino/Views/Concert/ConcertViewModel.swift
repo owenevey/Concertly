@@ -11,6 +11,9 @@ class ConcertViewModel: TripViewModelProtocol {
     @Published var flightsPrice: Int = 0
     @Published var hotelsPrice: Int = 0
     @Published var cityName: String = ""
+    @Published var isSaved = false
+    
+    private let coreDataManager = CoreDataManager.shared
     
     init(concert: Concert) {
         self.concert = concert
@@ -19,6 +22,7 @@ class ConcertViewModel: TripViewModelProtocol {
         self.tripStartDate = calendar.date(byAdding: .day, value: -1, to: concert.date) ?? Date()
         self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.date) ?? Date()
         self.cityName = concert.cityName
+        self.isSaved = coreDataManager.isConcertSaved(id: concert.id)
     }
     
     var totalPrice: Int {
@@ -107,5 +111,19 @@ class ConcertViewModel: TripViewModelProtocol {
                 self.hotelsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }
+    }
+    
+    func checkIfSaved() {
+        isSaved = coreDataManager.isConcertSaved(id: concert.id)
+    }
+    
+    func toggleConcertSaved() {
+        if isSaved {
+            coreDataManager.unSaveConcert(id: concert.id)
+        } else {
+            coreDataManager.saveItems([concert], category: "saved")
+        }
+        
+        isSaved.toggle()
     }
 }
