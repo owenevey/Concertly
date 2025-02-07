@@ -57,8 +57,13 @@ struct SavedConcertCard: View {
                                         .foregroundStyle(.white)
                                         .fontWeight(.semibold)
                                 )
-                            Text("$654")
-                                .font(.system(size: 18, type: .Medium))
+                            if let flightsPrice = concert.flightsPrice, flightsPrice != -1 {
+                                Text(flightsPrice.asDollarString)
+                                    .font(.system(size: 18, type: .Medium))
+                            } else {
+                                Text("View")
+                                    .font(.system(size: 18, type: .Medium))
+                            }
                         }
                         
                         Spacer()
@@ -73,8 +78,13 @@ struct SavedConcertCard: View {
                                         .foregroundStyle(.white)
                                         .fontWeight(.semibold)
                                 )
-                            Text("$318")
-                                .font(.system(size: 18, type: .Medium))
+                            if let hotelsPrice = concert.hotelsPrice, hotelsPrice != -1 {
+                                Text(hotelsPrice.asDollarString)
+                                    .font(.system(size: 18, type: .Medium))
+                            } else {
+                                Text("View")
+                                    .font(.system(size: 18, type: .Medium))
+                            }
                         }
                         
                         Spacer()

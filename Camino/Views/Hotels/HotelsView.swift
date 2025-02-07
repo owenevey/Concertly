@@ -103,7 +103,7 @@ struct HotelsView<T: TripViewModelProtocol>: View {
     }
     
     private func handleSelectedHotelChange() {
-        tripViewModel.hotelsPrice = viewModel.selectedHotel?.totalRate?.extractedLowest ?? 0
+        tripViewModel.hotelsPrice = viewModel.selectedHotel?.totalRate?.extractedLowest ?? -1
         dismiss()
     }
 }

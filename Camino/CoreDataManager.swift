@@ -60,6 +60,11 @@ class CoreDataManager {
         return items.count > 0
     }
     
+    func saveConcert(_ concert: Concert) {
+        unSaveConcert(id: concert.id)
+        saveItems([concert], category: "saved")
+    }
+    
     func unSaveConcert(id: String) {
         let request: NSFetchRequest<ConcertEntity> = ConcertEntity.fetchRequest()
         request.predicate = NSPredicate(format: "category = %@ AND id = %@", "saved", id)
@@ -173,7 +178,9 @@ class CoreDataManager {
         entity.venueAddress = concert.venueAddress
         entity.venueName = concert.venueName
         entity.category = category
-        entity.sortKey = Int32(concert.sortKey ?? 0)
+        entity.sortKey = Int64(concert.sortKey ?? 0)
+        entity.flightsPrice = Int64(concert.flightsPrice ?? -1)
+        entity.hotelsPrice = Int64(concert.hotelsPrice ?? -1)
         
         if let lineupData = try? JSONEncoder().encode(concert.lineup) {
             entity.lineup = lineupData
@@ -214,7 +221,7 @@ class CoreDataManager {
             url = []
         }
         
-        return Concert(name: name, id: entity.id ?? "", artistName: entity.artistName ?? "", artistId: entity.artistId ?? "", url: url, imageUrl: entity.imageUrl ?? "", date: entity.date ?? Date(), timezone: entity.timezone ?? "", venueName: entity.venueName ?? "", venueAddress: entity.venueAddress ?? "", cityName: entity.cityName ?? "", latitude: entity.latitude, longitude: entity.longitude, lineup: lineup, closestAirport: entity.closestAirport, sortKey: Int(entity.sortKey))
+        return Concert(name: name, id: entity.id ?? "", artistName: entity.artistName ?? "", artistId: entity.artistId ?? "", url: url, imageUrl: entity.imageUrl ?? "", date: entity.date ?? Date(), timezone: entity.timezone ?? "", venueName: entity.venueName ?? "", venueAddress: entity.venueAddress ?? "", cityName: entity.cityName ?? "", latitude: entity.latitude, longitude: entity.longitude, lineup: lineup, closestAirport: entity.closestAirport, sortKey: Int(entity.sortKey), flightsPrice: Int(entity.flightsPrice), hotelsPrice: Int(entity.hotelsPrice))
     }
     
     private func convertToArtistEntity(_ artist: SuggestedArtist, category: String, context: NSManagedObjectContext) {

@@ -21,4 +21,6 @@ struct Concert: Codable, Identifiable {
     let lineup: [SuggestedArtist]
     let closestAirport: String?
     let sortKey: Int?
+    var flightsPrice: Int?
+    var hotelsPrice: Int?
 }

@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Combine
 
 class ConcertViewModel: TripViewModelProtocol {
     var concert: Concert
@@ -8,12 +9,14 @@ class ConcertViewModel: TripViewModelProtocol {
     @Published var tripEndDate: Date
     @Published var flightsResponse: ApiResponse<FlightsResponse> = ApiResponse<FlightsResponse>()
     @Published var hotelsResponse: ApiResponse<HotelsResponse> = ApiResponse<HotelsResponse>()
-    @Published var flightsPrice: Int = 0
-    @Published var hotelsPrice: Int = 0
+    @Published var flightsPrice: Int = -1
+    @Published var hotelsPrice: Int = -1
     @Published var cityName: String = ""
     @Published var isSaved = false
     
     private let coreDataManager = CoreDataManager.shared
+    
+    private var cancellables = Set<AnyCancellable>()
     
     init(concert: Concert) {
         self.concert = concert
@@ -23,7 +26,27 @@ class ConcertViewModel: TripViewModelProtocol {
         self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.date) ?? Date()
         self.cityName = concert.cityName
         self.isSaved = coreDataManager.isConcertSaved(id: concert.id)
+        
+        setupBindings()
     }
+    
+    private func setupBindings() {
+            $flightsPrice
+                .sink { [weak self] newPrice in
+                    guard let self = self else { return }
+                    self.concert.flightsPrice = newPrice
+                    self.coreDataManager.saveConcert(self.concert)
+                }
+                .store(in: &cancellables)
+            
+            $hotelsPrice
+                .sink { [weak self] newPrice in
+                    guard let self = self else { return }
+                    self.concert.hotelsPrice = newPrice
+                    self.coreDataManager.saveConcert(self.concert)
+                }
+                .store(in: &cancellables)
+        }
     
     var totalPrice: Int {
         hotelsPrice + flightsPrice
@@ -121,7 +144,7 @@ class ConcertViewModel: TripViewModelProtocol {
         if isSaved {
             coreDataManager.unSaveConcert(id: concert.id)
         } else {
-            coreDataManager.saveItems([concert], category: "saved")
+            coreDataManager.saveConcert(concert)
         }
         
         isSaved.toggle()

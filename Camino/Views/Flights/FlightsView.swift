@@ -146,7 +146,7 @@ struct FlightsView<T: TripViewModelProtocol>: View {
     }
     
     private func handleReturningFlightChange() {
-        tripViewModel.flightsPrice = viewModel.returningFlight?.price ?? 0
+        tripViewModel.flightsPrice = viewModel.returningFlight?.price ?? -1
         dismiss()
     }
 }
