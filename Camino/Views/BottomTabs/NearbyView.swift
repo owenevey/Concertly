@@ -3,9 +3,10 @@ import SwiftUI
 struct NearbyView: View {
     
     @Environment(\.colorScheme) var colorScheme
-    @StateObject var viewModel: NearbyViewModel = NearbyViewModel()
+    @StateObject var viewModel: NearbyViewModel
     
-    @State private var hasAppeared: Bool = false
+    @AppStorage("Home City") private var homeCity: String = "New York"
+    
     @State private var offset: CGFloat = 0
     @State private var isSearchBarVisible: Bool = true
     
@@ -33,7 +34,7 @@ struct NearbyView: View {
                                     }
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     
-                                    Text("Austin, TX")
+                                    Text(homeCity)
                                         .font(.system(size: 30, type: .Bold))
                                         .foregroundStyle(.accent)
                                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -116,14 +117,6 @@ struct NearbyView: View {
             .ignoresSafeArea(edges: .top)
         }
         .background(Color.background)
-        .onAppear {
-            if !hasAppeared {
-                Task {
-                    await viewModel.getNearbyConcerts()
-                }
-                hasAppeared = true
-            }
-        }
         .refreshable {
             Task {
                 await viewModel.getNearbyConcerts()
@@ -134,6 +127,6 @@ struct NearbyView: View {
 
 #Preview {
     NavigationStack {
-        NearbyView()
+        NearbyView(viewModel: NearbyViewModel())
     }
 }

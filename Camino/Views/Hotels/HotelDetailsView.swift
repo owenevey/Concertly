@@ -147,8 +147,23 @@ struct HotelDetailsView: View {
                     }
                     
                     if let gpsCoordinates = property.gpsCoordinates {
-                        MapCard(addressToSearch: "\(property.name) \(gpsCoordinates.latitude) \(gpsCoordinates.longitude)", latitude: gpsCoordinates.latitude, longitude: gpsCoordinates.longitude, delta: 0.01)
-                            .padding(.vertical, 10)
+                        VStack(spacing: 5) {
+                            Text("Location")
+                                .font(.system(size: 23, type: .SemiBold))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            HStack(spacing: 5) {
+                                Image(systemName: "mappin")
+                                    .frame(width: 22)
+                                Text(generalLocation)
+                                    .font(.system(size: 18, type: .Regular))
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .foregroundStyle(.gray3)
+                            .padding(.bottom, 5)
+                            
+                            MapCard(addressToSearch: "\(property.name) \(gpsCoordinates.latitude) \(gpsCoordinates.longitude)", latitude: gpsCoordinates.latitude, longitude: gpsCoordinates.longitude, delta: 0.01)
+                        }
                     }
                 }
                 .padding(15)

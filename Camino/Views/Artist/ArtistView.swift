@@ -43,18 +43,13 @@ struct ArtistView: View {
             }
             .frame(maxWidth: .infinity)
             .background(Color.background)
-            .onAppear {
-                if !hasAppeared {
-                    Task {
-                        await viewModel.getArtistDetails()
-                    }
-                    hasAppeared = true
-                }
-            }
             HStack {
                 BackButton(showBackground: true)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .onAppear {
+            viewModel.checkIfFollowing()
         }
         .navigationBarHidden(true)
     }
@@ -70,19 +65,17 @@ struct ArtistView: View {
                                     .font(.system(size: 30, type: .SemiBold))
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
-                                Button(action: {
-                                    print("Follow tapped")
-                                }) {
-                                    Text("Follow")
-                                        .font(.system(size: 16, type: .Medium))
-                                        .padding(.vertical, 5)
-                                        .padding(.horizontal, 10)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .fill(Color.gray1)
-                                        )
+                                Spacer()
+                                
+                                Button {
+                                    viewModel.toggleArtistFollowing()
+                                } label: {
+                                    Image(systemName: viewModel.isFollowing ? "star.fill" : "star")
+                                        .font(.system(size: 23))
+                                        .fontWeight(.medium)
+                                        .padding(.top, 5)
+                                        .foregroundStyle(Color.primary)
                                 }
-                                .buttonStyle(PlainButtonStyle())
                             }
                             
                             Text(artistDetails.description)
@@ -131,28 +124,28 @@ struct ArtistView: View {
                         }
                         
                         if !artistDetails.concerts.isEmpty {
-                        VStack(spacing: 10) {
-                            if viewModel.nearbyConcerts.isEmpty {
-                                Text("No Nearby Concerts")
-                                    .font(.system(size: 23, type: .Medium))
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                                    .padding(.vertical, 5)
-                            } else {
-                                Text("Nearby Concerts")
-                                    .font(.system(size: 23, type: .SemiBold))
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                ForEach(viewModel.nearbyConcerts) { concert in
-                                    NavigationLink{
-                                        ConcertView(concert: concert)
-                                    } label: {
-                                        ConcertRow(concert: concert, screen: .artist)
+                            VStack(spacing: 10) {
+                                if viewModel.nearbyConcerts.isEmpty {
+                                    Text("No Nearby Concerts")
+                                        .font(.system(size: 23, type: .Medium))
+                                        .frame(maxWidth: .infinity, alignment: .center)
+                                        .padding(.vertical, 5)
+                                } else {
+                                    Text("Nearby Concerts")
+                                        .font(.system(size: 23, type: .SemiBold))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    ForEach(viewModel.nearbyConcerts) { concert in
+                                        NavigationLink{
+                                            ConcertView(concert: concert)
+                                        } label: {
+                                            ConcertRow(concert: concert, screen: .artist)
+                                        }
+                                        .buttonStyle(PlainButtonStyle())
                                     }
-                                    .buttonStyle(PlainButtonStyle())
                                 }
                             }
                         }
-                    }
                         
                         VStack(spacing: 10) {
                             if artistDetails.concerts.isEmpty {

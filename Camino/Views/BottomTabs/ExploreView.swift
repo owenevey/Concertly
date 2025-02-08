@@ -3,9 +3,8 @@ import SwiftUI
 struct ExploreView: View {
     
     @Environment(\.colorScheme) var colorScheme
-    @StateObject var viewModel: ExploreViewModel = ExploreViewModel()
+    @StateObject var viewModel: ExploreViewModel
     
-    @State private var hasAppeared: Bool = false
     @State private var offset: CGFloat = 0
     @State private var isSearchBarVisible: Bool = true
     
@@ -85,7 +84,7 @@ struct ExploreView: View {
                                 await viewModel.getPopularDestinations()
                             }
                             
-                            FeaturedEvent(event: viewModel.featuredConcert, status: viewModel.featuredConcertResponse.status) {
+                            FeaturedEvent(concert: viewModel.featuredConcert, status: viewModel.featuredConcertResponse.status) {
                                 await viewModel.getFeaturedConcert()
                             }
                             
@@ -119,19 +118,6 @@ struct ExploreView: View {
             .ignoresSafeArea(edges: .top)
         }
         .background(Color.background)
-        .onAppear {
-            if !hasAppeared {
-                Task {
-                    await viewModel.getTrendingConcerts()
-                    await viewModel.getPopularArtists()
-                    await viewModel.getPopularDestinations()
-                    await viewModel.getFeaturedConcert()
-                    await viewModel.getSuggestedConcerts()
-                    await viewModel.getFamousVenues()
-                }
-                hasAppeared = true
-            }
-        }
         .refreshable {
             Task {
                 await viewModel.getTrendingConcerts()
@@ -147,6 +133,6 @@ struct ExploreView: View {
 
 #Preview {
     NavigationStack {
-        ExploreView()
+        ExploreView(viewModel: ExploreViewModel())
     }
 }

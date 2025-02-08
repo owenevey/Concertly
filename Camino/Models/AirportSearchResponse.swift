@@ -6,7 +6,7 @@ struct AirportSearchResponse: Codable {
 
 struct SuggestedAirport: Codable {
     var id: String {
-        return "\(name), \(code)"
+        return "\(name), \(code), \(city), \(country)"
     }
     let name: String
     let code: String

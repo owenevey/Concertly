@@ -13,6 +13,8 @@ class DestinationViewModel: TripViewModelProtocol {
     @Published var hotelsPrice: Int = 0
     @Published var cityName: String = ""
     
+    let homeAirport: String
+    
     init(destination: Destination) {
         self.destination = destination
         self.cityName = destination.cityName
@@ -20,6 +22,16 @@ class DestinationViewModel: TripViewModelProtocol {
         let calendar = Calendar.current
         self.tripStartDate = calendar.date(byAdding: .day, value: 21, to: Date()) ?? Date()
         self.tripEndDate = calendar.date(byAdding: .day, value: 25, to: Date()) ?? Date()
+        
+        self.homeAirport = UserDefaults.standard.string(forKey: "Home Airport") ?? "JFK"
+        
+        Task {
+            await getConcerts()
+            await getDepartingFlights()
+            await getHotels()
+        }
+        let destinationUrls = destination.images.compactMap { return URL(string: $0) }
+        ImagePrefetcher.instance.startPrefetching(urls: destinationUrls)
     }
     
     var totalPrice: Int {

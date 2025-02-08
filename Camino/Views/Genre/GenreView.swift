@@ -50,7 +50,7 @@ struct GenreView: View {
                         await viewModel.getPopularArtists()
                     }
                     
-                    FeaturedEvent(event: viewModel.featuredConcert, status: viewModel.featuredConcertResponse.status) {
+                    FeaturedEvent(concert: viewModel.featuredConcert, status: viewModel.featuredConcertResponse.status) {
                         await viewModel.getFeaturedConcert()
                     }
                     

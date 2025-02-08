@@ -13,6 +13,8 @@ class VenueViewModel: TripViewModelProtocol {
     @Published var hotelsPrice: Int = 0
     @Published var cityName: String = ""
     
+    let homeAirport: String
+    
     init(venue: Venue) {
         self.venue = venue
         self.cityName = venue.cityName
@@ -20,6 +22,14 @@ class VenueViewModel: TripViewModelProtocol {
         let calendar = Calendar.current
         self.tripStartDate = calendar.date(byAdding: .day, value: 21, to: Date()) ?? Date()
         self.tripEndDate = calendar.date(byAdding: .day, value: 25, to: Date()) ?? Date()
+        
+        self.homeAirport = UserDefaults.standard.string(forKey: "Home Airport") ?? "JFK"
+        
+        Task {
+            await getConcerts()
+            await getDepartingFlights()
+            await getHotels()
+        }
     }
     
     var totalPrice: Int {

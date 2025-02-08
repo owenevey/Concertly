@@ -8,9 +8,24 @@ class ArtistViewModel: ObservableObject {
     
     @Published var artistDetailsResponse: ApiResponse<Artist> = ApiResponse<Artist>()
     @Published var nearbyConcerts: [Concert] = []
+    @Published var isFollowing: Bool
+    
+    private let coreDataManager = CoreDataManager.shared
+    
+    let homeLat: Double
+    let homeLong: Double
     
     init(artistID: String) {
         self.artistId = artistID
+        
+        self.homeLat = UserDefaults.standard.double(forKey: "Home Lat")
+        self.homeLong = UserDefaults.standard.double(forKey: "Home Long")
+        
+        self.isFollowing = coreDataManager.isFollowingArtist(id: artistId)
+        
+        Task {
+            await getArtistDetails()
+        }
     }
     
     
@@ -40,12 +55,28 @@ class ArtistViewModel: ObservableObject {
     }
     
     func filterNearbyConcerts(concerts: [Concert]) -> [Concert] {
-        let userLocation = CLLocation(latitude: userLatitude, longitude: userLongitude)
+        let userLocation = CLLocation(latitude: homeLat, longitude: homeLong)
         
         return concerts.filter { concert in
             let concertLocation = CLLocation(latitude: concert.latitude, longitude: concert.longitude)
             let distanceInMeters = userLocation.distance(from: concertLocation)
             return distanceInMeters <= 50 * 1609.344 // 50 miles to meters
         }
+    }
+    
+    func checkIfFollowing() {
+        isFollowing = coreDataManager.isFollowingArtist(id: artistId)
+    }
+    
+    func toggleArtistFollowing() {
+        if isFollowing {
+            coreDataManager.unSaveArtist(id: artistId)
+        } else {
+            if let artist = artistDetailsResponse.data {
+                coreDataManager.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl)) // make sure to do the 3_2 photo
+            }
+        }
+        
+        isFollowing.toggle()
     }
 }

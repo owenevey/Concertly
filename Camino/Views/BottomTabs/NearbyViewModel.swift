@@ -8,17 +8,29 @@ final class NearbyViewModel: ObservableObject {
     
     private let coreDataManager = CoreDataManager.shared
     
+    var homeLat: Double
+    var homeLong: Double
+    
     init() {
         nearbyConcerts = coreDataManager.fetchItems(for: "nearby", type: Concert.self, sortKey: "date")
+        self.homeLat = UserDefaults.standard.double(forKey: "Home Lat")
+        self.homeLong = UserDefaults.standard.double(forKey: "Home Long")
+        
+        Task {
+            await getNearbyConcerts()
+        }
     }
     
     func getNearbyConcerts() async {
+        self.homeLat = UserDefaults.standard.double(forKey: "Home Lat")
+        self.homeLong = UserDefaults.standard.double(forKey: "Home Long")
+        
         withAnimation(.easeInOut(duration: 0.2)) {
             self.nearbyConcertsResponse = ApiResponse(status: .loading)
         }
         
         do {
-            let fetchedConcerts = try await fetchConcertsForDestination(lat: userLatitude, long: userLongitude)
+            let fetchedConcerts = try await fetchConcertsForDestination(lat: homeLat, long: homeLong)
             
             if let concerts = fetchedConcerts.data?.concerts {
                 withAnimation(.easeInOut(duration: 0.2)) {
@@ -37,5 +49,5 @@ final class NearbyViewModel: ObservableObject {
             }
         }
     }
-
+    
 }

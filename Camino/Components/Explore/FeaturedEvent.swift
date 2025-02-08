@@ -4,7 +4,7 @@ struct FeaturedEvent: View {
     @Namespace private var namespace
     let id = "UIElement"
     
-    var event: Concert?
+    var concert: Concert?
     let status: Status
     let onRetry: (() async -> Void)
     
@@ -33,20 +33,20 @@ struct FeaturedEvent: View {
             Group {
                 switch status {
                 case .loading, .empty:
-                    if let event = event {
-                        FeaturedEventItem(event: event)
+                    if let concert = concert {
+                        FeaturedEventItem(concert: concert)
                     } else {
                         FallbackFeaturedEventItem()
                     }
                 case .success:
-                    if let event = event {
-                        FeaturedEventItem(event: event)
+                    if let concert = concert {
+                        FeaturedEventItem(concert: concert)
                     } else {
                         ErrorFeaturedEventItem()
                     }
                 case .error:
-                    if let event = event {
-                        FeaturedEventItem(event: event)
+                    if let concert = concert {
+                        FeaturedEventItem(concert: concert)
                     } else {
                         ErrorFeaturedEventItem()
                     }
@@ -66,7 +66,7 @@ struct FeaturedEvent: View {
     VStack {
         Spacer()
         NavigationStack {
-            FeaturedEvent(event: hotConcerts[0], status: status, onRetry: {
+            FeaturedEvent(concert: hotConcerts[0], status: status, onRetry: {
                 Task {
                     status = .loading
                     try? await Task.sleep(nanoseconds: 2_000_000_000)

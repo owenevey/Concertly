@@ -12,7 +12,9 @@ class ConcertViewModel: TripViewModelProtocol {
     @Published var flightsPrice: Int = -1
     @Published var hotelsPrice: Int = -1
     @Published var cityName: String = ""
-    @Published var isSaved = false
+    @Published var isSaved: Bool
+    
+    let homeAirport: String
     
     private let coreDataManager = CoreDataManager.shared
     
@@ -22,10 +24,12 @@ class ConcertViewModel: TripViewModelProtocol {
         self.concert = concert
         
         let calendar = Calendar.current
-        self.tripStartDate = calendar.date(byAdding: .day, value: -1, to: concert.date) ?? Date()
+        self.tripStartDate = calendar.date(byAdding: .day, value: -2, to: concert.date) ?? Date()
         self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.date) ?? Date()
         self.cityName = concert.cityName
         self.isSaved = coreDataManager.isConcertSaved(id: concert.id)
+        
+        self.homeAirport = UserDefaults.standard.string(forKey: "Home Airport") ?? "JFK"
         
         setupBindings()
     }
@@ -34,16 +38,20 @@ class ConcertViewModel: TripViewModelProtocol {
             $flightsPrice
                 .sink { [weak self] newPrice in
                     guard let self = self else { return }
-                    self.concert.flightsPrice = newPrice
-                    self.coreDataManager.saveConcert(self.concert)
+                    if isSaved {
+                        self.concert.flightsPrice = newPrice
+                        self.coreDataManager.saveConcert(self.concert)
+                    }
                 }
                 .store(in: &cancellables)
             
             $hotelsPrice
                 .sink { [weak self] newPrice in
                     guard let self = self else { return }
-                    self.concert.hotelsPrice = newPrice
-                    self.coreDataManager.saveConcert(self.concert)
+                    if isSaved {
+                        self.concert.hotelsPrice = newPrice
+                        self.coreDataManager.saveConcert(self.concert)
+                    }
                 }
                 .store(in: &cancellables)
         }

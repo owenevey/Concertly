@@ -11,9 +11,7 @@ struct VenueView: View {
         self.venue = venue
         _viewModel = StateObject(wrappedValue: VenueViewModel(venue: venue))
     }
-    
-    @State var hasAppeared: Bool = false
-    
+        
     var body: some View {
         ImageHeaderScrollView(title: venue.name, imageUrl: venue.imageUrl) {
             VStack(spacing: 20) {
@@ -22,7 +20,7 @@ struct VenueView: View {
                         .font(.system(size: 30, type: .SemiBold))
                     
                     Text(venue.description)
-                        .font(.system(size: 16, type: .Regular))
+                        .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
                     
                 }
@@ -132,22 +130,13 @@ struct VenueView: View {
                 }
 
             }
-            .padding(15)
+            .padding([.horizontal, .bottom], 15)
+            .padding(.top, 10)
             .containerRelativeFrame(.horizontal) { size, axis in
                 size
             }
         }
         .background(Color.background)
-        .onAppear {
-            if !hasAppeared {
-                Task {
-                    await viewModel.getConcerts()
-                    await viewModel.getDepartingFlights()
-                    await viewModel.getHotels()
-                }
-                hasAppeared = true
-            }
-        }
         .navigationBarHidden(true)
     }
 }

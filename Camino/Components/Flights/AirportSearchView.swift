@@ -9,18 +9,19 @@ struct AirportSearchView: View {
     @Binding var airportCode: String
     var title: String
     
+    var topPadding: CGFloat {
+        if title == "Home Airport" {
+            return 0
+        }
+        return 15
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Button {
-                    dismiss()
-                }
-                label: {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 18, weight: .semibold))
-                }
-                .buttonStyle(PlainButtonStyle())
-                .frame(maxWidth: .infinity, alignment: .leading)
+                BackButton(showX: title != "Home Airport")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, -15)
                 
                 Text(title)
                     .font(.system(size: 18, type: .Medium))
@@ -116,8 +117,10 @@ struct AirportSearchView: View {
             }
             .frame(maxWidth: .infinity)
         }
-        .padding([.top, .leading, .trailing], 15)
+        .padding([.leading, .trailing], 15)
+        .padding(.top, topPadding)
         .background(Color.background)
+        .navigationBarHidden(true)
         .onAppear {
             isTextFieldFocused = true
         }

@@ -29,7 +29,7 @@ struct SortHotels: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     
-                    if index < SortFlightsEnum.allCases.count - 3 {
+                    if index < SortHotelsEnum.allCases.count - 1 {
                         Divider()
                             .frame(height: 1)
                             .overlay(.gray2)

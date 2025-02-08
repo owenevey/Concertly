@@ -56,6 +56,7 @@
 		F14349E22D4EFDC300C63041 /* ErrorSavedConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14349E12D4EFDBF00C63041 /* ErrorSavedConcertCard.swift */; };
 		F14349E52D506DF800C63041 /* SavedDataContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F14349E32D506DF800C63041 /* SavedDataContainer.xcdatamodeld */; };
 		F14349E72D513FEA00C63041 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14349E62D513FEA00C63041 /* CoreDataManager.swift */; };
+		F1611FE02D57203800D4DF10 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1611FDF2D57203400D4DF10 /* ProfileViewModel.swift */; };
 		F1659C012CBF252400586212 /* FilterAirlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C002CBF252400586212 /* FilterAirlines.swift */; };
 		F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C042CC1E99800586212 /* FlightsResponse.swift */; };
 		F17252BC2D344192006C3454 /* ImageViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17252BB2D344192006C3454 /* ImageViewHeader.swift */; };
@@ -83,7 +84,6 @@
 		F18DE2F22CFE745300C4D1B5 /* Outfit.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18DE2F12CFE745300C4D1B5 /* Outfit.ttf */; };
 		F19C72672CC71C5E00390BD6 /* FlightsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72662CC71C5E00390BD6 /* FlightsViewModel.swift */; };
 		F19C72692CC7249E00390BD6 /* ConcertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72682CC7249E00390BD6 /* ConcertViewModel.swift */; };
-		F19C726B2CC726BD00390BD6 /* GlobalVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C726A2CC726B800390BD6 /* GlobalVars.swift */; };
 		F19C726F2CCB27D900390BD6 /* HidingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C726E2CCB27D900390BD6 /* HidingHeaderView.swift */; };
 		F19C72712CCB378700390BD6 /* FlightsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72702CCB378700390BD6 /* FlightsHeader.swift */; };
 		F19C72732CCB394300390BD6 /* FlightsFiltersBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72722CCB394300390BD6 /* FlightsFiltersBar.swift */; };
@@ -197,6 +197,7 @@
 		F14349E12D4EFDBF00C63041 /* ErrorSavedConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSavedConcertCard.swift; sourceTree = "<group>"; };
 		F14349E42D506DF800C63041 /* SavedDataContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SavedDataContainer.xcdatamodel; sourceTree = "<group>"; };
 		F14349E62D513FEA00C63041 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		F1611FDF2D57203400D4DF10 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		F1659C002CBF252400586212 /* FilterAirlines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAirlines.swift; sourceTree = "<group>"; };
 		F1659C042CC1E99800586212 /* FlightsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsResponse.swift; sourceTree = "<group>"; };
 		F17252BB2D344192006C3454 /* ImageViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewHeader.swift; sourceTree = "<group>"; };
@@ -224,7 +225,6 @@
 		F199FFF62CAA3A6E00EE005F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F19C72662CC71C5E00390BD6 /* FlightsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsViewModel.swift; sourceTree = "<group>"; };
 		F19C72682CC7249E00390BD6 /* ConcertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertViewModel.swift; sourceTree = "<group>"; };
-		F19C726A2CC726B800390BD6 /* GlobalVars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVars.swift; sourceTree = "<group>"; };
 		F19C726E2CCB27D900390BD6 /* HidingHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HidingHeaderView.swift; sourceTree = "<group>"; };
 		F19C72702CCB378700390BD6 /* FlightsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsHeader.swift; sourceTree = "<group>"; };
 		F19C72722CCB394300390BD6 /* FlightsFiltersBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsFiltersBar.swift; sourceTree = "<group>"; };
@@ -328,7 +328,6 @@
 				F19C72652CC71BF700390BD6 /* Models */,
 				F19C72742CCB3F4400390BD6 /* Components */,
 				F11714A12D127278007A0052 /* Enums */,
-				F19C726A2CC726B800390BD6 /* GlobalVars.swift */,
 				F1DAE6A12CC42EA500901914 /* ApiCalls.swift */,
 				F11640272C8BEABD0040C95D /* CustomClasses.swift */,
 				F14349E32D506DF800C63041 /* SavedDataContainer.xcdatamodeld */,
@@ -358,6 +357,7 @@
 				F10E0C932D558F7B0091940C /* SavedViewModel.swift */,
 				F14349D32D4D791100C63041 /* NearbyView.swift */,
 				F14349D52D4DAD6900C63041 /* NearbyViewModel.swift */,
+				F1611FDF2D57203400D4DF10 /* ProfileViewModel.swift */,
 				F13186282CB1EBD9003DBCC5 /* ProfileView.swift */,
 				F1CD3CC52D31F1D6004E3041 /* ExploreSearchView.swift */,
 				F1CD3CC72D31F9F1004E3041 /* ExploreSearchViewModel.swift */,
@@ -749,7 +749,6 @@
 				F14349D42D4D791500C63041 /* NearbyView.swift in Sources */,
 				F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */,
 				F11714B92D15129F007A0052 /* LocationRatingFilter.swift in Sources */,
-				F19C726B2CC726BD00390BD6 /* GlobalVars.swift in Sources */,
 				F11640132C8A8A2F0040C95D /* ContentView.swift in Sources */,
 				F11714B52D14FFBB007A0052 /* SortHotels.swift in Sources */,
 				F17252BC2D344192006C3454 /* ImageViewHeader.swift in Sources */,
@@ -814,6 +813,7 @@
 				F1CD3C9B2D2755DA004E3041 /* DestinationView.swift in Sources */,
 				F11714AF2D13CC11007A0052 /* HotelFilter.swift in Sources */,
 				F1FACFF72D39D3F600D53A7D /* VenueViewModel.swift in Sources */,
+				F1611FE02D57203800D4DF10 /* ProfileViewModel.swift in Sources */,
 				F1CD3CAF2D2A2488004E3041 /* GamesResponse.swift in Sources */,
 				F1CD3CBC2D2CC40B004E3041 /* FeaturedEventItem.swift in Sources */,
 				F116402E2C8C2F3E0040C95D /* DestinationCard.swift in Sources */,

@@ -7,57 +7,70 @@ extension Date {
         return formatter
     }()
     
+    private func format(with dateFormat: String, timeZoneIdentifier: String? = nil) -> String {
+        Date.dateFormatter.dateFormat = dateFormat
+        
+        if let timeZoneIdentifier = timeZoneIdentifier, let timeZone = TimeZone(identifier: timeZoneIdentifier) {
+            Date.dateFormatter.timeZone = timeZone
+        } else {
+            Date.dateFormatter.timeZone = .current
+        }
+        
+        return Date.dateFormatter.string(from: self)
+    }
+    
     // am
-    func meridiemFormat() -> String {
-        Date.dateFormatter.dateFormat = "a"
-        return Date.dateFormatter.string(from: self).lowercased()
+    func meridiemFormat(timeZoneIdentifier: String? = nil) -> String {
+        return format(with: "a", timeZoneIdentifier: timeZoneIdentifier).lowercased()
     }
     
     // 9:41
-    func timeFormat() -> String {
-        Date.dateFormatter.dateFormat = "h:mm"
-        return Date.dateFormatter.string(from: self)
+    func timeFormat(timeZoneIdentifier: String? = nil) -> String {
+        return format(with: "h:mm", timeZoneIdentifier: timeZoneIdentifier)
     }
     
-    // 9:41
-    func timeFormatAMPM() -> String {
-        Date.dateFormatter.dateFormat = "h:mm a"
-        return Date.dateFormatter.string(from: self)
+    // 9:41 am
+    func timeFormatAMPM(timeZoneIdentifier: String? = nil) -> String {
+        return format(with: "h:mm a", timeZoneIdentifier: timeZoneIdentifier)
     }
     
     // Oct 18
-    func shortFormat() -> String {
-        Date.dateFormatter.dateFormat = "MMM d"
-        return Date.dateFormatter.string(from: self)
+    func shortFormat(timeZoneIdentifier: String? = nil) -> String {
+        return format(with: "MMM d", timeZoneIdentifier: timeZoneIdentifier)
+    }
+    
+    // Oct 18, 2024
+    func shortFormatWithYear(timeZoneIdentifier: String? = nil) -> String {
+        return format(with: "MMM d, yyyy", timeZoneIdentifier: timeZoneIdentifier)
     }
     
     // Fri, Oct 18
-    func mediumFormat() -> String {
-        Date.dateFormatter.dateFormat = "E, MMM d"
-        return Date.dateFormatter.string(from: self)
+    func mediumFormat(timeZoneIdentifier: String? = nil) -> String {
+        return format(with: "E, MMM d", timeZoneIdentifier: timeZoneIdentifier)
     }
     
     // 10/18/2024
-    func traditionalFormat() -> String {
-        Date.dateFormatter.dateFormat = "MM/dd/yyyy"
-        return Date.dateFormatter.string(from: self)
+    func traditionalFormat(timeZoneIdentifier: String? = nil) -> String {
+        return format(with: "MM/dd/yyyy", timeZoneIdentifier: timeZoneIdentifier)
     }
     
     // 2024-10-18
-    func EuropeanFormat() -> String {
-        Date.dateFormatter.dateFormat = "yyyy-MM-dd"
-        return Date.dateFormatter.string(from: self)
+    func EuropeanFormat(timeZoneIdentifier: String? = nil) -> String {
+        return format(with: "yyyy-MM-dd", timeZoneIdentifier: timeZoneIdentifier)
     }
     
     // Oct
-    func shortMonthFormat() -> String {
-        Date.dateFormatter.dateFormat = "MMM"
-        return Date.dateFormatter.string(from: self)
+    func shortMonthFormat(timeZoneIdentifier: String? = nil) -> String {
+        return format(with: "MMM", timeZoneIdentifier: timeZoneIdentifier)
+    }
+    
+    // Friday, February 7, 2025
+    func fullWeekdayFormat(timeZoneIdentifier: String? = nil) -> String {
+        return format(with: "EEEE, MMMM d, yyyy", timeZoneIdentifier: timeZoneIdentifier)
     }
     
     // 18
-    func dayNumber() -> String {
-        Date.dateFormatter.dateFormat = "d"
-        return Date.dateFormatter.string(from: self)
+    func dayNumber(timeZoneIdentifier: String? = nil) -> String {
+        return format(with: "d", timeZoneIdentifier: timeZoneIdentifier)
     }
 }

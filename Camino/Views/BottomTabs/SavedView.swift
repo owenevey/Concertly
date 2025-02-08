@@ -3,9 +3,8 @@ import SwiftUI
 struct SavedView: View {
     
     @Environment(\.colorScheme) var colorScheme
-    @StateObject var viewModel: SavedViewModel = SavedViewModel()
+    @StateObject var viewModel: SavedViewModel
     
-    @State private var hasAppeared: Bool = false
     @State private var offset: CGFloat = 0
     @State private var isSearchBarVisible: Bool = true
     
@@ -19,48 +18,47 @@ struct SavedView: View {
                     .transformEffect(.init(translationX: 0, y: -max(0, offset + geometry.safeAreaInsets.top)))
                 
                 ScrollView(showsIndicators: false) {
-                    VStack(spacing: 0) {
-                        VStack(spacing: 15) {
+                    VStack(spacing: 15) {
+                        
+                        HStack(alignment: .top) {
+                            Text("Saved")
+                                .font(.system(size: 30, type: .Bold))
+                                .foregroundStyle(.accent)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            HStack(alignment: .top) {
-                                Text("Saved")
-                                    .font(.system(size: 30, type: .Bold))
-                                    .foregroundStyle(.accent)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                Circle()
-                                    .fill(Color.foreground)
-                                    .frame(width: 40, height: 40)
-                                    .overlay(
-                                        Image(systemName: "bell")
-                                            .font(.system(size: 20))
-                                            .fontWeight(.semibold)
-                                    )
-                            }
-                            .shadow(color: .black.opacity(0.1), radius: 5)
-                            .padding(.horizontal, 15)
-                            .frame(width: UIScreen.main.bounds.width)
-                            
-                            LazyVStack(spacing: 15) {
-                                if viewModel.savedConcerts.isEmpty {
-                                    VStack(spacing: 10) {
-                                        Image(systemName: "music.note")
-                                            .font(.system(size: 20))
-                                            .fontWeight(.semibold)
-                                        
-                                        Text("No saved concerts")
-                                            .font(.system(size: 18, type: .Regular))
-                                    }
-                                    .frame(height: 250)
-                                } else {
-                                    ForEach(viewModel.savedConcerts) { concert in
-                                        SavedConcertCard(concert: concert)
-                                    }
+                            Circle()
+                                .fill(Color.foreground)
+                                .frame(width: 40, height: 40)
+                                .overlay(
+                                    Image(systemName: "bell")
+                                        .font(.system(size: 20))
+                                        .fontWeight(.semibold)
+                                )
+                        }
+                        .shadow(color: .black.opacity(0.1), radius: 5)
+                        .padding(.horizontal, 15)
+                        .frame(width: UIScreen.main.bounds.width)
+                        
+                        LazyVStack(spacing: 15) {
+                            if viewModel.savedConcerts.isEmpty {
+                                VStack(spacing: 10) {
+                                    Image(systemName: "music.note")
+                                        .font(.system(size: 20))
+                                        .fontWeight(.semibold)
+                                    
+                                    Text("No saved concerts")
+                                        .font(.system(size: 18, type: .Regular))
+                                }
+                                .frame(height: 250)
+                            } else {
+                                ForEach(viewModel.savedConcerts) { concert in
+                                    SavedConcertCard(concert: concert)
                                 }
                             }
-                            .shadow(color: .black.opacity(0.2), radius: 5)
                         }
+                        .shadow(color: .black.opacity(0.2), radius: 5)
                     }
+                    
                     Spacer()
                 }
                 .padding(.top, geometry.safeAreaInsets.top)
@@ -100,6 +98,6 @@ struct SavedView: View {
 
 #Preview {
     NavigationStack {
-        SavedView()
+        SavedView(viewModel: SavedViewModel())
     }
 }

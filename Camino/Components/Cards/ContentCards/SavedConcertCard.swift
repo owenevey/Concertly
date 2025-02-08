@@ -34,7 +34,7 @@ struct SavedConcertCard: View {
                             .font(.system(size: 17, type: .Regular))
                             .foregroundStyle(.gray3)
                         
-                        Text(concert.date.formatted(date: .abbreviated, time: .omitted))
+                        Text(concert.date.shortFormatWithYear(timeZoneIdentifier: concert.timezone))
                             .font(.system(size: 17, type: .Regular))
                             .foregroundStyle(.gray3)
                             .minimumScaleFactor(0.9)

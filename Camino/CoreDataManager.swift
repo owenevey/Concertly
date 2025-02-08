@@ -25,7 +25,9 @@ class CoreDataManager {
             }
         }
         else if T.self == SuggestedArtist.self {
-            deleteItems(for: category, type: ArtistEntity.self)
+            if category != "following" {
+                deleteItems(for: category, type: ArtistEntity.self)
+            }
         }
         else if T.self == Destination.self {
             deleteItems(for: "", type: DestinationEntity.self)
@@ -69,6 +71,25 @@ class CoreDataManager {
         let request: NSFetchRequest<ConcertEntity> = ConcertEntity.fetchRequest()
         request.predicate = NSPredicate(format: "category = %@ AND id = %@", "saved", id)
         
+        deleteEntities(request: request)
+    }
+    
+    func isFollowingArtist(id: String) -> Bool {
+        let request: NSFetchRequest<ArtistEntity> = ArtistEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "category = %@ AND id = %@", "following", id)
+        
+        let items: [ArtistEntity] = fetchEntities(for: request, category: "following")
+        return items.count > 0
+    }
+    
+    func saveArtist(_ artist: SuggestedArtist) {
+        saveItems([artist], category: "following")
+    }
+    
+    func unSaveArtist(id: String) {
+        let request: NSFetchRequest<ArtistEntity> = ArtistEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "category = %@ AND id = %@", "following", id)
+                
         deleteEntities(request: request)
     }
     

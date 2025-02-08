@@ -31,10 +31,10 @@ struct ConcertRow: View {
     var body: some View {
         HStack(spacing: 15) {
             VStack {
-                Text(concert.date.shortMonthFormat())
+                Text(concert.date.shortMonthFormat(timeZoneIdentifier: concert.timezone))
                     .font(.system(size: 16, type: .Medium))
                     .foregroundStyle(.gray3)
-                Text(concert.date.dayNumber())
+                Text(concert.date.dayNumber(timeZoneIdentifier: concert.timezone))
                     .font(.system(size: 23, type: .Medium))
             }
             .frame(width: 60, height: 60)

@@ -120,6 +120,8 @@ final class HotelsViewModel<T: TripViewModelProtocol>: ObservableObject {
                     return $0.totalRate?.extractedLowest ?? 0 < $1.totalRate?.extractedLowest ?? 0
                 case .mostExpensive:
                     return $0.totalRate?.extractedLowest ?? 0 > $1.totalRate?.extractedLowest ?? 0
+                case .rating:
+                    return $0.overallRating ?? 0 > $1.overallRating ?? 0
                 }
             }
     }

@@ -8,7 +8,7 @@ struct SuggestedCity: Codable, Identifiable {
     var id: String {
         return "\(name), \(stateCode ?? ""), \(countryName)"
     }
-    let name: String
+    var name: String
     let stateCode: String?
     let countryName: String
     let countryCode: String

@@ -9,6 +9,7 @@ final class SavedViewModel: ObservableObject {
     
     init() {
         savedConcerts = coreDataManager.fetchItems(for: "saved", type: Concert.self)
+        
     }
     
     func getSavedConcerts() async {

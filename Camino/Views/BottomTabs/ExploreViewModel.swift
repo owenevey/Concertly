@@ -30,6 +30,15 @@ final class ExploreViewModel: ObservableObject {
         featuredConcert = coreDataManager.fetchItems(for: "explore_featured", type: Concert.self).first
         suggestedConcerts = coreDataManager.fetchItems(for: "explore_suggested", type: Concert.self)
         famousVenues = coreDataManager.fetchItems(for: "", type: Venue.self)
+        
+        Task {
+            await getTrendingConcerts()
+            await getPopularArtists()
+            await getPopularDestinations()
+            await getFeaturedConcert()
+            await getSuggestedConcerts()
+            await getFamousVenues()
+        }
     }
     
     func getTrendingConcerts() async {

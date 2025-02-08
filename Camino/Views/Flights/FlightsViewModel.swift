@@ -9,7 +9,7 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
     @Published var fromDate: Date
     @Published var toDate: Date
     
-    @Published var fromAirport = homeAirport
+    @Published var fromAirport: String
     @Published var toAirport: String
     
     @Published var flightsResponse: ApiResponse<FlightsResponse>
@@ -29,14 +29,16 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
     private var combinedPublisher: AnyPublisher<(Date, Date, String, String), Never>?
     private var isFirstEmissionSink1 = true
     private var isFirstEmissionSink2 = true
-    
+        
     init(tripViewModel: T, fromDate: Date, toDate: Date, flightsResponse: ApiResponse<FlightsResponse>) {
         self.tripViewModel = tripViewModel
         self.fromDate = fromDate
         self.toDate = toDate
+        self.fromAirport = UserDefaults.standard.string(forKey: "Home Airport") ?? "JFK"
         self.toAirport = flightsResponse.data?.airports.first?.arrival.first?.airport.id ?? ""
         self.flightsResponse = flightsResponse
         self.priceInsights = flightsResponse.data?.priceInsights
+        
         
         resetFilters()
         setupCombineLatest()
@@ -226,7 +228,7 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
         }
         
         do {
-            let fetchedFlights = try await fetchDepartureFlights(fromAirport: homeAirport,
+            let fetchedFlights = try await fetchDepartureFlights(fromAirport: fromAirport,
                                                                  toAirport: toAirport,
                                                                  fromDate: fromDate.EuropeanFormat(),
                                                                  toDate: toDate.EuropeanFormat())
@@ -261,7 +263,7 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
             guard let departureToken = departingFlight?.departureToken else {
                 throw CaminoError.missingDepartureToken
             }
-            let fetchedFlights = try await fetchReturnFlights(fromAirport: homeAirport,
+            let fetchedFlights = try await fetchReturnFlights(fromAirport: fromAirport,
                                                               toAirport: toAirport,
                                                               fromDate: fromDate.EuropeanFormat(),
                                                               toDate: toDate.EuropeanFormat(),

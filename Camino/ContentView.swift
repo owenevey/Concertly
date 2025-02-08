@@ -1,32 +1,40 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @AppStorage("Theme") private var theme: String = "Default"
+    
+    @StateObject var exploreViewModel: ExploreViewModel = ExploreViewModel()
+    @StateObject var nearbyViewModel: NearbyViewModel = NearbyViewModel()
+    @StateObject var savedViewModel: SavedViewModel = SavedViewModel()
+    @StateObject var profileViewModel: ProfileViewModel = ProfileViewModel()
+    
     var body: some View {
         TabView {
             Group{
                 NavigationStack {
-                    ExploreView()
+                    ExploreView(viewModel: exploreViewModel)
                 }
                 .tabItem {
                     Label("Explore", systemImage: "globe.americas")
                 }
                 
                 NavigationStack {
-                    NearbyView()
+                    NearbyView(viewModel: nearbyViewModel)
                 }
                 .tabItem {
                     Label("Nearby", systemImage: "location")
                 }
                 
                 NavigationStack {
-                    SavedView()
+                    SavedView(viewModel: savedViewModel)
                 }
                 .tabItem {
                     Label("Saved", systemImage: "bookmark.fill")
                 }
                 
                 NavigationStack {
-                    ProfileView()
+                    ProfileView(profileViewModel: profileViewModel, nearbyViewModel: nearbyViewModel)
                 }
                 .tabItem {
                     Label("Profile", systemImage: "person")
@@ -34,6 +42,7 @@ struct ContentView: View {
             }
             .toolbarBackground(Color.background, for: .tabBar)
         }
+        .preferredColorScheme(theme == "Light" ? .light : (theme == "Dark" ? .dark : nil))
     }
 }
 

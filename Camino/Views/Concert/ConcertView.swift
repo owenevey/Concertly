@@ -50,7 +50,7 @@ struct ConcertView: View {
                     HStack(spacing: 5) {
                         Image(systemName: "calendar")
                             .frame(width: 22)
-                        Text(concert.date.formatted(date: .complete, time: .omitted))
+                        Text(concert.date.fullWeekdayFormat(timeZoneIdentifier: concert.timezone))
                             .font(.system(size: 18, type: .Regular))
                     }
                     .foregroundStyle(.gray3)
@@ -175,7 +175,7 @@ struct ConcertView: View {
                     HStack(spacing: 5) {
                         Image(systemName: "clock")
                             .frame(width: 22)
-                        Text(concert.date.timeFormatAMPM())
+                        Text(concert.date.timeFormatAMPM(timeZoneIdentifier: concert.timezone))
                             .font(.system(size: 18, type: .Regular))
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)

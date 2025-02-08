@@ -181,18 +181,7 @@ struct DestinationView: View {
             }
             .frame(maxWidth: .infinity)
             .background(Color.background)
-            .onAppear {
-                if !hasAppeared {
-                    Task {
-                        await viewModel.getConcerts()
-                        await viewModel.getDepartingFlights()
-                        await viewModel.getHotels()
-                    }
-                    hasAppeared = true
-                    let destinationUrls = destination.images.compactMap { return URL(string: $0) }
-                    ImagePrefetcher.instance.startPrefetching(urls: destinationUrls)
-                }
-            }
+            
             HStack {
                 BackButton(showBackground: true)
             }
