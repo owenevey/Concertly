@@ -20,6 +20,10 @@ final class ExploreViewModel: ObservableObject {
     @Published var suggestedConcertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
     @Published var suggestedConcerts: [Concert] = []
     
+    @Published var similarConcertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
+    @Published var similarConcerts: [Concert] = []
+    @Published var similarConcertsArtist: String = ""
+    
     @Published var famousVenuesResponse: ApiResponse<[Venue]> = ApiResponse<[Venue]>()
     @Published var famousVenues: [Venue] = []
     
@@ -33,6 +37,7 @@ final class ExploreViewModel: ObservableObject {
         
         Task {
             await getTrendingConcerts()
+            await getSimilarConcerts()
             await getPopularArtists()
             await getPopularDestinations()
             await getFeaturedConcert()
@@ -195,5 +200,37 @@ final class ExploreViewModel: ObservableObject {
                 self.famousVenuesResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }
+    }
+    
+    func getSimilarConcerts() async {
+        withAnimation(.easeInOut(duration: 0.2)) {
+            self.similarConcertsResponse = ApiResponse(status: .loading)
+        }
+        
+        do {
+            let followingArtists = getFollowingArtists()
+            let fetchedConcerts = try await fetchSuggestedConcerts(followingArtists: followingArtists)
+            
+            if let concerts = fetchedConcerts.data?.concerts, let artist = fetchedConcerts.data?.name {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.similarConcerts = concerts
+                    self.similarConcertsArtist = artist
+                    self.similarConcertsResponse = ApiResponse(status: .success, data: concerts)
+                }
+//                coreDataManager.saveItems(concerts, category: "explore_suggested")
+            } else {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.similarConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
+                }
+            }
+        } catch {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                self.similarConcertsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
+        }
+    }
+    
+    func getFollowingArtists() -> [SuggestedArtist] {
+        return coreDataManager.fetchItems(for: "following", type: SuggestedArtist.self, sortKey: "id")
     }
 }

@@ -19,7 +19,7 @@ struct NearbyView: View {
                     .scaledToFill()
                     .transformEffect(.init(translationX: 0, y: -max(0, offset + geometry.safeAreaInsets.top)))
                 
-                ScrollView(showsIndicators: false) {
+                ScrollView {
                     VStack(spacing: 0) {
                         VStack(spacing: 15) {
                             

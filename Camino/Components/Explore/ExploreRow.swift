@@ -9,9 +9,9 @@ struct ExploreRow<T: Codable & Identifiable>: View {
     let onRetry: (() async -> Void)
     
     var body: some View {
-        VStack(spacing: 5) {
+        VStack(spacing: 0) {
             Text(title)
-                .font(.system(size: 23, type: .SemiBold))
+                .font(.system(size: 20, type: .SemiBold))
                 .padding(.horizontal, 15)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -57,7 +57,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                 }
                 .shadow(color: .black.opacity(0.2), radius: 5)
                 .padding(.top, 10)
-                .padding(.bottom, 15)
+                .padding(.bottom, 20)
                 .scrollTargetLayout()
             }
             .scrollTargetBehavior(.viewAligned)
@@ -142,7 +142,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
     @Previewable @State var status: Status = .error
     NavigationStack {
         VStack {
-            //            Spacer()
+                        Spacer()
             
             ExploreRow(
                 title: "Trending Concerts",
@@ -160,7 +160,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                 }
             )
             
-            //            Spacer()
+                        Spacer()
         }
         .background(Color.background)
     }

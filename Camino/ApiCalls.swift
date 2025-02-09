@@ -2,21 +2,36 @@ import Foundation
 
 let baseUrl = "https://d9hepdo8p4.execute-api.us-east-1.amazonaws.com/dev"
 
-func fetchData<T: Decodable>(endpoint: String, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .iso8601) async throws -> T {
+func fetchData<T: Decodable, U: Encodable>(
+    endpoint: String,
+    method: String = "GET",
+    body: U? = nil,
+    dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .iso8601
+) async throws -> T {
     guard let url = URL(string: endpoint) else {
         throw CaminoError.invalidURL
     }
     
-    let (data, response) = try await URLSession.shared.data(from: url)
+    var request = URLRequest(url: url)
+    request.httpMethod = method
     
-//    if endpoint.contains("concerts?lat=") {
-//        print(response)
-//        if let rawData = String(data: data, encoding: .utf8) {
-//            print("Raw Response: \(rawData)")
-//        } else {
-//            print("Unable to convert data to string")
-//        }
-//    }
+    
+    if let body = body {
+        request.httpBody = try JSONEncoder().encode(body)
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    }
+    
+    let (data, response) = try await URLSession.shared.data(for: request)
+    print(request)
+    
+    if endpoint.contains("suggestedConcerts") {
+        print(response)
+        if let rawData = String(data: data, encoding: .utf8) {
+            print("Raw Response: \(rawData)")
+        } else {
+            print("Unable to convert data to string")
+        }
+    }
     
     guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
         throw CaminoError.invalidResponse
@@ -35,6 +50,15 @@ func fetchData<T: Decodable>(endpoint: String, dateDecodingStrategy: JSONDecoder
         throw CaminoError.invalidData
     }
 }
+
+func fetchData<T: Decodable>(
+    endpoint: String,
+    method: String = "GET",
+    dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .iso8601
+) async throws -> T {
+    try await fetchData(endpoint: endpoint, method: method, body: Optional<Never>.none, dateDecodingStrategy: dateDecodingStrategy)
+}
+
 
 func customDateFormatter() -> DateFormatter {
     let formatter = DateFormatter()
@@ -131,6 +155,15 @@ func fetchReturnFlights(fromAirport: String, toAirport: String, fromDate: String
 func fetchHotels(location: String, fromDate: String, toDate: String) async throws -> ApiResponse<HotelsResponse> {
     let endpoint = "\(baseUrl)/hotels?location=\(location)&fromDate=\(fromDate)&toDate=\(toDate)"
     let response: ApiResponse<HotelsResponse> = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
+    return response
+}
+
+func fetchSuggestedConcerts(followingArtists: [SuggestedArtist]) async throws -> ApiResponse<SuggestedConcertsResponse> {
+    let endpoint = "\(baseUrl)/suggestedConcerts"
+    
+    let artistsRequest = SuggestedArtistsRequest(artists: followingArtists)
+    
+    let response: ApiResponse<SuggestedConcertsResponse> = try await fetchData(endpoint: endpoint, method: "POST", body: artistsRequest)
     return response
 }
 ////////////////////////////////////////////////////////

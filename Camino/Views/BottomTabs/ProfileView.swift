@@ -17,7 +17,7 @@ struct ProfileView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .top) {
-                ScrollView(showsIndicators: false) {
+                ScrollView {
                     VStack(spacing: 15) {
                         
                         HStack(alignment: .top) {
@@ -30,7 +30,7 @@ struct ProfileView: View {
                         
                         VStack(spacing: 0) {
                             Text("Following")
-                                .font(.system(size: 23, type: .SemiBold))
+                                .font(.system(size: 20, type: .SemiBold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHStack(spacing: 15) {

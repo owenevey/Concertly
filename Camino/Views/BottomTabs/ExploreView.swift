@@ -17,7 +17,7 @@ struct ExploreView: View {
                     .scaledToFill()
                     .transformEffect(.init(translationX: 0, y: -max(0, offset + geometry.safeAreaInsets.top)))
                 
-                ScrollView(showsIndicators: false) {
+                ScrollView {
                     
                     VStack(spacing: 15) {
                         
@@ -62,11 +62,11 @@ struct ExploreView: View {
                         .buttonStyle(PlainButtonStyle())
                         .padding(.horizontal, 15)
                         
-                        LazyVStack(spacing: 15) {
+                        LazyVStack(spacing: 0) {
                             
-                            VStack(spacing: 5) {
+                            VStack(spacing: 0) {
                                 Text("Explore by Category")
-                                    .font(.system(size: 23, type: .SemiBold))
+                                    .font(.system(size: 20, type: .SemiBold))
                                     .padding(.horizontal, 15)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 GenrePills()
@@ -78,6 +78,12 @@ struct ExploreView: View {
                             
                             ExploreRow(title: "Popular Artists", status: viewModel.popularArtistsResponse.status, data: viewModel.popularArtists, contentType: ExploreContentType.artist) {
                                 await viewModel.getPopularArtists()
+                            }
+                            
+                            if case viewModel.similarConcertsResponse.status = .success {
+                                ExploreRow(title: "Because you like \(viewModel.similarConcertsArtist)", status: viewModel.similarConcertsResponse.status, data: viewModel.similarConcerts, contentType: ExploreContentType.concert) {
+                                    await viewModel.getSimilarConcerts()
+                                }
                             }
                             
                             ExploreRow(title: "Popular Destinations", status: viewModel.popularDestinationsResponse.status, data: viewModel.popularDestinations, contentType: ExploreContentType.destination) {
@@ -120,12 +126,13 @@ struct ExploreView: View {
         .background(Color.background)
         .refreshable {
             Task {
-                await viewModel.getTrendingConcerts()
-                await viewModel.getPopularArtists()
-                await viewModel.getPopularDestinations()
-                await viewModel.getFeaturedConcert()
-                await viewModel.getSuggestedConcerts()
-                await viewModel.getFamousVenues()
+//                await viewModel.getTrendingConcerts()
+                await viewModel.getSimilarConcerts()
+//                await viewModel.getPopularArtists()
+//                await viewModel.getPopularDestinations()
+//                await viewModel.getFeaturedConcert()
+//                await viewModel.getSuggestedConcerts()
+//                await viewModel.getFamousVenues()
             }
         }
     }

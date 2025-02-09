@@ -17,7 +17,7 @@ struct SavedView: View {
                     .scaledToFill()
                     .transformEffect(.init(translationX: 0, y: -max(0, offset + geometry.safeAreaInsets.top)))
                 
-                ScrollView(showsIndicators: false) {
+                ScrollView {
                     VStack(spacing: 15) {
                         
                         HStack(alignment: .top) {

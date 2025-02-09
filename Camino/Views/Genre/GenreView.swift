@@ -40,7 +40,7 @@ struct GenreView: View {
             }
             .background(Color.background)
             
-            ScrollView(showsIndicators: false) {
+            ScrollView {
                 LazyVStack(spacing: 15) {
                     ExploreRow(title: "Trending Concerts", status: viewModel.trendingConcertsResponse.status, data: viewModel.trendingConcerts, contentType: ExploreContentType.concert) {
                         await viewModel.getTrendingConcerts()

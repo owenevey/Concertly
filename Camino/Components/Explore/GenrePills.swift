@@ -17,7 +17,7 @@ struct GenrePills: View {
             }
             .shadow(color: .black.opacity(0.2), radius: 5)
             .padding(.top, 10)
-            .padding(.bottom, 15)
+            .padding(.bottom, 20)
             .scrollTargetLayout()
         }
         .scrollTargetBehavior(.viewAligned)
