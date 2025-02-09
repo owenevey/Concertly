@@ -17,7 +17,7 @@ struct ExploreView: View {
                     .scaledToFill()
                     .transformEffect(.init(translationX: 0, y: -max(0, offset + geometry.safeAreaInsets.top)))
                 
-                ScrollView {
+                ScrollView(showsIndicators: false) {
                     
                     VStack(spacing: 15) {
                         
@@ -80,7 +80,7 @@ struct ExploreView: View {
                                 await viewModel.getPopularArtists()
                             }
                             
-                            if case viewModel.similarConcertsResponse.status = .success {
+                            if case viewModel.similarConcertsResponse.status = .success, !viewModel.similarConcerts.isEmpty {
                                 ExploreRow(title: "Because you like \(viewModel.similarConcertsArtist)", status: viewModel.similarConcertsResponse.status, data: viewModel.similarConcerts, contentType: ExploreContentType.concert) {
                                     await viewModel.getSimilarConcerts()
                                 }
@@ -126,13 +126,13 @@ struct ExploreView: View {
         .background(Color.background)
         .refreshable {
             Task {
-//                await viewModel.getTrendingConcerts()
+                await viewModel.getTrendingConcerts()
                 await viewModel.getSimilarConcerts()
-//                await viewModel.getPopularArtists()
-//                await viewModel.getPopularDestinations()
-//                await viewModel.getFeaturedConcert()
-//                await viewModel.getSuggestedConcerts()
-//                await viewModel.getFamousVenues()
+                await viewModel.getPopularArtists()
+                await viewModel.getPopularDestinations()
+                await viewModel.getFeaturedConcert()
+                await viewModel.getSuggestedConcerts()
+                await viewModel.getFamousVenues()
             }
         }
     }

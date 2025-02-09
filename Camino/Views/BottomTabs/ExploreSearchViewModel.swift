@@ -6,9 +6,13 @@ class ExploreSearchViewModel: ObservableObject {
     @Published var searchQuery: String = ""
     @Published var artistsResponse: ApiResponse<[SuggestedArtist]> = ApiResponse<[SuggestedArtist]>()
     
+    @Published var recentSearches: [SuggestedArtist] = []
+    
+    private let coreDataManager = CoreDataManager.shared
+    
     private var cancellables = Set<AnyCancellable>()
     
-    init() {
+    init() {        
         $searchQuery
             .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
             .removeDuplicates()
@@ -47,5 +51,14 @@ class ExploreSearchViewModel: ObservableObject {
                 self.artistsResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }
+    }
+    
+    func getFollowingArtists() {
+        recentSearches = coreDataManager.fetchItems(for: "recentSearches", type: SuggestedArtist.self, sortKey: "creationDate")
+    }
+    
+    func saveArtistToRecentSearches(artist: SuggestedArtist) {
+        coreDataManager.unSaveArtist(id: artist.id, category: "recentSearches")
+        coreDataManager.saveArtist(artist, category: "recentSearches")
     }
 }

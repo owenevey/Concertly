@@ -70,10 +70,10 @@ class ArtistViewModel: ObservableObject {
     
     func toggleArtistFollowing() {
         if isFollowing {
-            coreDataManager.unSaveArtist(id: artistId)
+            coreDataManager.unSaveArtist(id: artistId, category: "following")
         } else {
             if let artist = artistDetailsResponse.data {
-                coreDataManager.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl)) // make sure to do the 3_2 photo
+                coreDataManager.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: "following")
             }
         }
         

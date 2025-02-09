@@ -25,7 +25,7 @@ class CoreDataManager {
             }
         }
         else if T.self == SuggestedArtist.self {
-            if category != "following" {
+            if category != "following" && category != "recentSearches" {
                 deleteItems(for: category, type: ArtistEntity.self)
             }
         }
@@ -82,13 +82,13 @@ class CoreDataManager {
         return items.count > 0
     }
     
-    func saveArtist(_ artist: SuggestedArtist) {
-        saveItems([artist], category: "following")
+    func saveArtist(_ artist: SuggestedArtist, category: String) {
+        saveItems([artist], category: category)
     }
     
-    func unSaveArtist(id: String) {
+    func unSaveArtist(id: String, category: String) {
         let request: NSFetchRequest<ArtistEntity> = ArtistEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "category = %@ AND id = %@", "following", id)
+        request.predicate = NSPredicate(format: "category = %@ AND id = %@", category, id)
                 
         deleteEntities(request: request)
     }
@@ -108,10 +108,28 @@ class CoreDataManager {
         else if T.self == SuggestedArtist.self {
             let request: NSFetchRequest<ArtistEntity> = ArtistEntity.fetchRequest()
             request.predicate = NSPredicate(format: "category = %@", category)
-            request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+            var sortDescriptors: [NSSortDescriptor] = []
             
-            items = fetchEntities(for: request, category: category) { entity in
-                return self.convertToArtist(entity) as! T
+            if category == "recentSearches" {
+                sortDescriptors.append(NSSortDescriptor(key: "creationDate", ascending: false))
+            }
+            sortDescriptors.append(NSSortDescriptor(key: "id", ascending: true))
+            
+            request.sortDescriptors = sortDescriptors
+            
+            let entities: [ArtistEntity] = fetchEntities(for: request, category: category)
+            print(entities.count)
+            
+            if category == "recentSearches" {
+                let first15Items = entities.prefix(15)
+                let remainingItems = entities.dropFirst(15)
+                
+                remainingItems.forEach { context.delete($0) }
+                saveContext()
+                
+                items = first15Items.compactMap { self.convertToArtist($0) as? T }
+            } else {
+                items = entities.compactMap { self.convertToArtist($0) as? T }
             }
         }
         else if T.self == Destination.self {
@@ -251,6 +269,10 @@ class CoreDataManager {
         entity.id = artist.id
         entity.imageUrl = artist.imageUrl
         entity.category = category
+        
+        if category == "recentSearches" {
+            entity.creationDate = Date()
+        }
     }
     
     private func convertToArtist(_ entity: ArtistEntity) -> SuggestedArtist {

@@ -31,10 +31,24 @@ struct ExploreSearchView: View {
                         .focused($isTextFieldFocused)
                         .font(.system(size: 18, type: .Regular))
                         .padding(.trailing)
+                    Spacer()
+                    
+                    if !viewModel.searchQuery.isEmpty {
+                        Button{
+                            viewModel.searchQuery = ""
+                            viewModel.artistsResponse = ApiResponse(status: .empty)
+                        }
+                        label: {
+                            Image(systemName: "xmark")
+                                .fontWeight(.semibold)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                    
                 }
             })
             .padding(.top, 10)
-            .padding(.bottom, 20)
+            .padding(.bottom, 10)
             
             ScrollView(showsIndicators: false) {
                 switch viewModel.artistsResponse.status {
@@ -80,6 +94,9 @@ struct ExploreSearchView: View {
                                         .contentShape(Rectangle())
                                     }
                                     .buttonStyle(PlainButtonStyle())
+                                    .simultaneousGesture(TapGesture().onEnded {
+                                        viewModel.saveArtistToRecentSearches(artist: artistResult)
+                                    })
                                 }
                             }
                             .frame(maxWidth: .infinity)
@@ -97,9 +114,44 @@ struct ExploreSearchView: View {
                         .frame(maxWidth: .infinity)
                         .transition(.opacity)
                 case .empty:
-                    EmptyView()
-                        .frame(maxWidth: .infinity)
-                        .transition(.opacity)
+                    VStack(spacing: 5) {
+                        Text("Recent Searches")
+                            .font(.system(size: 20, type: .Regular))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        ForEach(viewModel.recentSearches) { artistResult in
+                            NavigationLink {
+                                ArtistView(artistID: artistResult.id)
+                            }
+                            label: {
+                                HStack(spacing: 15) {
+                                    ImageLoader(url: artistResult.imageUrl, contentMode: .fill)
+                                        .frame(width: 60, height: 60)
+                                        .cornerRadius(40)
+                                        .clipped()
+                                    
+                                    Text(artistResult.name)
+                                        .font(.system(size: 20, type: .Regular))
+                                        .lineLimit(2)
+                                        .minimumScaleFactor(0.9)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    Image(systemName: "chevron.right")
+                                        .font(.system(size: 15))
+                                        .fontWeight(.semibold)
+                                        .padding(.trailing, 5)
+                                }
+                                .padding(.vertical, 5)
+                                .contentShape(Rectangle())
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .simultaneousGesture(TapGesture().onEnded {
+                                viewModel.saveArtistToRecentSearches(artist: artistResult)
+                            })
+                        }
+                    }
+                    .frame(maxWidth: .infinity)
+                    .transition(.opacity)
                 }
                 Spacer()
             }
@@ -109,6 +161,7 @@ struct ExploreSearchView: View {
         .padding(.top, 5)
         .background(Color.background)
         .onAppear {
+            viewModel.getFollowingArtists()
             isTextFieldFocused = true
         }
         .navigationBarHidden(true)
