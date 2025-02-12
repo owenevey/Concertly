@@ -58,6 +58,9 @@
 		F14349E72D513FEA00C63041 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14349E62D513FEA00C63041 /* CoreDataManager.swift */; };
 		F1611FE02D57203800D4DF10 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1611FDF2D57203400D4DF10 /* ProfileViewModel.swift */; };
 		F1611FE22D58167100D4DF10 /* SuggestedConcertsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1611FE12D58166C00D4DF10 /* SuggestedConcertsResponse.swift */; };
+		F1611FE82D5AD6C100D4DF10 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1611FE72D5AD6C100D4DF10 /* LandingView.swift */; };
+		F1611FEA2D5AD79800D4DF10 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1611FE92D5AD79200D4DF10 /* AuthViewModel.swift */; };
+		F1611FEC2D5AD80800D4DF10 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1611FEB2D5AD80800D4DF10 /* RootView.swift */; };
 		F1659C012CBF252400586212 /* FilterAirlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C002CBF252400586212 /* FilterAirlines.swift */; };
 		F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1659C042CC1E99800586212 /* FlightsResponse.swift */; };
 		F17252BC2D344192006C3454 /* ImageViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17252BB2D344192006C3454 /* ImageViewHeader.swift */; };
@@ -200,6 +203,9 @@
 		F14349E62D513FEA00C63041 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F1611FDF2D57203400D4DF10 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		F1611FE12D58166C00D4DF10 /* SuggestedConcertsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedConcertsResponse.swift; sourceTree = "<group>"; };
+		F1611FE72D5AD6C100D4DF10 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
+		F1611FE92D5AD79200D4DF10 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		F1611FEB2D5AD80800D4DF10 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		F1659C002CBF252400586212 /* FilterAirlines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterAirlines.swift; sourceTree = "<group>"; };
 		F1659C042CC1E99800586212 /* FlightsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsResponse.swift; sourceTree = "<group>"; };
 		F17252BB2D344192006C3454 /* ImageViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewHeader.swift; sourceTree = "<group>"; };
@@ -324,6 +330,7 @@
 				F11640142C8A8A300040C95D /* Assets.xcassets */,
 				F11640102C8A8A2F0040C95D /* CaminoApp.swift */,
 				F11640122C8A8A2F0040C95D /* ContentView.swift */,
+				F1611FEB2D5AD80800D4DF10 /* RootView.swift */,
 				F19C72622CC71B7500390BD6 /* Views */,
 				F19C72632CC71B8B00390BD6 /* Extensions */,
 				F19C72642CC71BC200390BD6 /* Utils */,
@@ -415,6 +422,15 @@
 			path = Cards;
 			sourceTree = "<group>";
 		};
+		F1611FE42D5AD6A000D4DF10 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				F1611FE92D5AD79200D4DF10 /* AuthViewModel.swift */,
+				F1611FE72D5AD6C100D4DF10 /* LandingView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		F17DCCCC2D3381E9000D477C /* ContentCards */ = {
 			isa = PBXGroup;
 			children = (
@@ -467,6 +483,7 @@
 		F19C72622CC71B7500390BD6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F1611FE42D5AD6A000D4DF10 /* Login */,
 				F1FACFF12D39D04500D53A7D /* Venue */,
 				F1FACFF02D39D03400D53A7D /* Genre */,
 				F1FACFEF2D39D02A00D53A7D /* Artist */,
@@ -744,10 +761,12 @@
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
 				F1CD3C8B2D25FB88004E3041 /* ExploreViewModel.swift in Sources */,
 				F1FACFF92D3B681600D53A7D /* DestinationsResponse.swift in Sources */,
+				F1611FEC2D5AD80800D4DF10 /* RootView.swift in Sources */,
 				F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */,
 				F1CD3CD22D323194004E3041 /* ArtistDetailsResponse.swift in Sources */,
 				F1CD3CA02D275907004E3041 /* TripViewModelProtocol.swift in Sources */,
 				F17DCCD02D338E8D000D477C /* PopularArtistsResponse.swift in Sources */,
+				F1611FEA2D5AD79800D4DF10 /* AuthViewModel.swift in Sources */,
 				F1CD3CD42D32E96A004E3041 /* WrappingCollectionView.swift in Sources */,
 				F14349D42D4D791500C63041 /* NearbyView.swift in Sources */,
 				F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */,
@@ -822,6 +841,7 @@
 				F1CD3CBC2D2CC40B004E3041 /* FeaturedEventItem.swift in Sources */,
 				F116402E2C8C2F3E0040C95D /* DestinationCard.swift in Sources */,
 				F14349E02D4EFC8800C63041 /* FallbackSavedConcertCard.swift in Sources */,
+				F1611FE82D5AD6C100D4DF10 /* LandingView.swift in Sources */,
 				F1CD3CC02D2CC60C004E3041 /* ErrorFeaturedEventItem.swift in Sources */,
 				F117149C2D1253B0007A0052 /* CaminoButton.swift in Sources */,
 				F11714A52D13A0E3007A0052 /* HotelsResponse.swift in Sources */,
