@@ -60,7 +60,7 @@ struct ConcertLinksSheet: View {
 }
 
 #Preview {
-    var links = [
+    let links = [
         ("American Express Presents BST Hyde Park - Olivia Rodrigo", "https://www.ticketmaster.de/event/sabrina-carpenter-short-n-sweet-%7C-all-in-package-tickets/549837?language=en-us"),
         ("Olivia Rodrigo - Official Premium and Hotel Experiences", "https://www.ticketmaster.de/event/sabrina-carpenter-short-n-sweet-tour-%7C-premium-seat-tickets/549833?language=en-us"),
         ("SABRINA CARPENTER: SHORT N' SWEET TOUR", "https://www.ticketmaster.de/event/sabrina-carpenter-short-n-sweet-tour-tickets/549035?language=en-us"),

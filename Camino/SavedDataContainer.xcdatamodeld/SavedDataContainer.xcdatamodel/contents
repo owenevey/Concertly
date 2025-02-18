@@ -52,4 +52,8 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="short_Description" optional="YES" attributeType="String"/>
     </entity>
+    <configuration name="Cloud" usedWithCloudKit="YES">
+        <memberEntity name="ArtistEntity"/>
+        <memberEntity name="ConcertEntity"/>
+    </configuration>
 </model>

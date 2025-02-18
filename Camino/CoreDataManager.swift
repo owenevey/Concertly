@@ -1,17 +1,56 @@
 import Foundation
 import CoreData
+import CloudKit
 
 class CoreDataManager {
     static let shared = CoreDataManager()
-    let container: NSPersistentContainer
+    let container: NSPersistentCloudKitContainer
     
     private init() {
-        container = NSPersistentContainer(name: "SavedDataContainer")
+        container = NSPersistentCloudKitContainer(name: "SavedDataContainer")
+        let defaultDirectoryURL = NSPersistentContainer.defaultDirectoryURL()
+        
+        let localStoreURL = defaultDirectoryURL.appendingPathComponent("Default.sqlite")
+        let localStoreDescription = NSPersistentStoreDescription(url: localStoreURL)
+        localStoreDescription.configuration = "Default"
+        localStoreDescription.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+        
+        let cloudStoreURL = defaultDirectoryURL.appendingPathComponent("Cloud.sqlite")
+        let cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreURL)
+        cloudStoreDescription.configuration = "Cloud"
+        cloudStoreDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.com.owenevey.Camino")
+        cloudStoreDescription.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+        
+        container.persistentStoreDescriptions = [localStoreDescription, cloudStoreDescription]
+        
         container.loadPersistentStores { description, error in
             if let error = error {
-                print("Failed to load Core Data: \(error.localizedDescription)")
+                fatalError("Failed to load stores: \(error)")
             }
+            
+            try? self.container.viewContext.setQueryGenerationFrom(.current)
         }
+        
+        container.viewContext.automaticallyMergesChangesFromParent = true
+    }
+    
+    private var isCloudKitEnabled: Bool {
+        // Access the persistent store descriptions from the container
+        let descriptions = container.persistentStoreDescriptions
+
+        // 1. Check if ANY persistent store description is configured for CloudKit
+        let hasCloudStore = descriptions.contains { description in
+            return description.cloudKitContainerOptions != nil // Check for cloudKitContainerOptions
+        }
+
+        if !hasCloudStore {
+            return false // No CloudKit store configured, so iCloud is not enabled for this app
+        }
+
+        // 2. If a CloudKit store is configured, check for ubiquity container (more reliable)
+        let ubiquityURL = FileManager.default.url(forUbiquityContainerIdentifier: "iCloud.com.owenevey.Camino")
+
+        return ubiquityURL != nil // iCloud is enabled if ubiquity container is available
     }
     
     var context: NSManagedObjectContext {
@@ -19,6 +58,7 @@ class CoreDataManager {
     }
     
     func saveItems<T>(_ items: [T], category: String) {
+        
         if T.self == Concert.self {
             if category != "saved" {
                 deleteItems(for: category, type: ConcertEntity.self)
@@ -37,24 +77,43 @@ class CoreDataManager {
         }
         
         items.forEach { item in
+            var entity: NSManagedObject?
+            
             if let concert = item as? Concert {
-                convertToConcertEntity(concert, category: category, context: context)
+                entity = convertToConcertEntity(concert, category: category, context: context)
             }
             else if let artist = item as? SuggestedArtist {
-                convertToArtistEntity(artist, category: category, context: context)
+                entity = convertToArtistEntity(artist, category: category, context: context)
             }
             else if let destination = item as? Destination {
-                convertToDestinationEntity(destination, context: context)
+                entity = convertToDestinationEntity(destination, context: context)
             }
             else if let venue = item as? Venue {
-                convertToVenueEntity(venue, context: context)
+                entity = convertToVenueEntity(venue, context: context)
+            }
+            
+            if let entity = entity {
+                let storeName = ((T.self == Concert.self && category == "saved") || (T.self == SuggestedArtist.self && category == "following")) && isCloudKitEnabled ? "Cloud" : "Default"
+                
+                assignEntityToStore(entity: entity, storeName: storeName)
             }
         }
         
         saveContext()
     }
     
-    func isConcertSaved(id: String) -> Bool {        
+    private func assignEntityToStore(entity: NSManagedObject, storeName: String) {
+        let coordinator = container.persistentStoreCoordinator
+        
+        if let store = coordinator.persistentStores.first(where: { $0.configurationName == storeName }) {
+            entity.managedObjectContext?.assign(entity, to: store)
+        } else {
+            print("Store with name \(storeName) not found")
+        }
+    }
+    
+    
+    func isConcertSaved(id: String) -> Bool {
         let request: NSFetchRequest<ConcertEntity> = ConcertEntity.fetchRequest()
         request.predicate = NSPredicate(format: "category = %@ AND id = %@", "saved", id)
         
@@ -89,7 +148,7 @@ class CoreDataManager {
     func unSaveArtist(id: String, category: String) {
         let request: NSFetchRequest<ArtistEntity> = ArtistEntity.fetchRequest()
         request.predicate = NSPredicate(format: "category = %@ AND id = %@", category, id)
-                
+        
         deleteEntities(request: request)
     }
     
@@ -151,7 +210,7 @@ class CoreDataManager {
         
         return items
     }
-
+    
     func fetchEntities<T, E: NSManagedObject>(for request: NSFetchRequest<E>, category: String, convert: @escaping (E) -> T = { $0 as! T }) -> [T] {
         var items: [T] = []
         
@@ -202,7 +261,7 @@ class CoreDataManager {
         }
     }
     
-    private func convertToConcertEntity(_ concert: Concert, category: String, context: NSManagedObjectContext) {
+    private func convertToConcertEntity(_ concert: Concert, category: String, context: NSManagedObjectContext) -> NSManagedObject {
         let entity = ConcertEntity(context: context)
         entity.artistId = concert.artistId
         entity.artistName = concert.artistName
@@ -232,6 +291,8 @@ class CoreDataManager {
         if let urlData = try? JSONEncoder().encode(concert.url) {
             entity.url = urlData
         }
+        
+        return entity
     }
     
     private func convertToConcert(_ entity: ConcertEntity) -> Concert {
@@ -263,7 +324,7 @@ class CoreDataManager {
         return Concert(name: name, id: entity.id ?? "", artistName: entity.artistName ?? "", artistId: entity.artistId ?? "", url: url, imageUrl: entity.imageUrl ?? "", date: entity.date ?? Date(), timezone: entity.timezone ?? "", venueName: entity.venueName ?? "", venueAddress: entity.venueAddress ?? "", cityName: entity.cityName ?? "", latitude: entity.latitude, longitude: entity.longitude, lineup: lineup, closestAirport: entity.closestAirport, sortKey: Int(entity.sortKey), flightsPrice: Int(entity.flightsPrice), hotelsPrice: Int(entity.hotelsPrice))
     }
     
-    private func convertToArtistEntity(_ artist: SuggestedArtist, category: String, context: NSManagedObjectContext) {
+    private func convertToArtistEntity(_ artist: SuggestedArtist, category: String, context: NSManagedObjectContext) -> NSManagedObject {
         let entity = ArtistEntity(context: context)
         entity.name = artist.name
         entity.id = artist.id
@@ -273,13 +334,15 @@ class CoreDataManager {
         if category == "recentSearches" {
             entity.creationDate = Date()
         }
+        
+        return entity
     }
     
     private func convertToArtist(_ entity: ArtistEntity) -> SuggestedArtist {
         return SuggestedArtist(name: entity.name ?? "", id: entity.id ?? "", imageUrl: entity.imageUrl ?? "")
     }
     
-    private func convertToDestinationEntity(_ destination: Destination, context: NSManagedObjectContext) {
+    private func convertToDestinationEntity(_ destination: Destination, context: NSManagedObjectContext) -> NSManagedObject {
         let entity = DestinationEntity(context: context)
         entity.cityName = destination.cityName
         entity.closestAirport = destination.closestAirport
@@ -294,6 +357,8 @@ class CoreDataManager {
         if let imageData = try? JSONEncoder().encode(destination.images) {
             entity.images = imageData
         }
+        
+        return entity
     }
     
     private func convertToDestination(_ entity: DestinationEntity) -> Destination {
@@ -309,7 +374,7 @@ class CoreDataManager {
         return Destination(name: entity.name ?? "", shortDescription: entity.short_Description ?? "", longDescription: entity.long_Description ?? "", images: images, cityName: entity.cityName ?? "", countryName: entity.countryName ?? "", latitude: entity.latitude, longitude: entity.longitude, geoHash: entity.geoHash ?? "", closestAirport: entity.closestAirport ?? "")
     }
     
-    private func convertToVenueEntity(_ venue: Venue, context: NSManagedObjectContext) {
+    private func convertToVenueEntity(_ venue: Venue, context: NSManagedObjectContext) -> NSManagedObject {
         let entity = VenueEntity(context: context)
         entity.address = venue.address
         entity.cityName = venue.cityName
@@ -321,6 +386,8 @@ class CoreDataManager {
         entity.longitude = venue.longitude
         entity.name = venue.name
         entity.short_Description = venue.description
+        
+        return entity
     }
     
     private func convertToVenue(_ entity: VenueEntity) -> Venue {
