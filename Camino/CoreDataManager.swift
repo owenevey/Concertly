@@ -8,18 +8,18 @@ class CoreDataManager {
     
     private init() {
         container = NSPersistentCloudKitContainer(name: "SavedDataContainer")
-        let defaultDirectoryURL = NSPersistentContainer.defaultDirectoryURL()
+        let defaultDirectoryURL = NSPersistentCloudKitContainer.defaultDirectoryURL()
         
-        let localStoreURL = defaultDirectoryURL.appendingPathComponent("Default.sqlite")
+        let localStoreURL = defaultDirectoryURL.appendingPathComponent("Local.sqlite")
         let localStoreDescription = NSPersistentStoreDescription(url: localStoreURL)
-        localStoreDescription.configuration = "Default"
-        localStoreDescription.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+        localStoreDescription.configuration = "Local"
+        localStoreDescription.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey) //
         
         let cloudStoreURL = defaultDirectoryURL.appendingPathComponent("Cloud.sqlite")
         let cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreURL)
         cloudStoreDescription.configuration = "Cloud"
         cloudStoreDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.com.owenevey.Camino")
-        cloudStoreDescription.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+        cloudStoreDescription.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey) //
         
         container.persistentStoreDescriptions = [localStoreDescription, cloudStoreDescription]
         
@@ -28,10 +28,10 @@ class CoreDataManager {
                 fatalError("Failed to load stores: \(error)")
             }
             
-            try? self.container.viewContext.setQueryGenerationFrom(.current)
+            try? self.container.viewContext.setQueryGenerationFrom(.current) //
         }
         
-        container.viewContext.automaticallyMergesChangesFromParent = true
+        container.viewContext.automaticallyMergesChangesFromParent = true //
     }
     
     private var isCloudKitEnabled: Bool {
@@ -93,7 +93,7 @@ class CoreDataManager {
             }
             
             if let entity = entity {
-                let storeName = ((T.self == Concert.self && category == "saved") || (T.self == SuggestedArtist.self && category == "following")) && isCloudKitEnabled ? "Cloud" : "Default"
+                let storeName = ((T.self == Concert.self && category == "saved") || (T.self == SuggestedArtist.self && category == "following")) && isCloudKitEnabled ? "Cloud" : "Local"
                 
                 assignEntityToStore(entity: entity, storeName: storeName)
             }
@@ -104,6 +104,8 @@ class CoreDataManager {
     
     private func assignEntityToStore(entity: NSManagedObject, storeName: String) {
         let coordinator = container.persistentStoreCoordinator
+        
+        print("storing in \(storeName)")
         
         if let store = coordinator.persistentStores.first(where: { $0.configurationName == storeName }) {
             entity.managedObjectContext?.assign(entity, to: store)

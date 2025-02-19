@@ -56,4 +56,10 @@
         <memberEntity name="ArtistEntity"/>
         <memberEntity name="ConcertEntity"/>
     </configuration>
+    <configuration name="Local">
+        <memberEntity name="ArtistEntity"/>
+        <memberEntity name="ConcertEntity"/>
+        <memberEntity name="DestinationEntity"/>
+        <memberEntity name="VenueEntity"/>
+    </configuration>
 </model>
