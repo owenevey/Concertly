@@ -34,24 +34,24 @@ class CoreDataManager {
         container.viewContext.automaticallyMergesChangesFromParent = true //
     }
     
-    private var isCloudKitEnabled: Bool {
-        // Access the persistent store descriptions from the container
-        let descriptions = container.persistentStoreDescriptions
-
-        // 1. Check if ANY persistent store description is configured for CloudKit
-        let hasCloudStore = descriptions.contains { description in
-            return description.cloudKitContainerOptions != nil // Check for cloudKitContainerOptions
-        }
-
-        if !hasCloudStore {
-            return false // No CloudKit store configured, so iCloud is not enabled for this app
-        }
-
-        // 2. If a CloudKit store is configured, check for ubiquity container (more reliable)
-        let ubiquityURL = FileManager.default.url(forUbiquityContainerIdentifier: "iCloud.com.owenevey.Concertly")
-
-        return ubiquityURL != nil // iCloud is enabled if ubiquity container is available
-    }
+//    private var isCloudKitEnabled: Bool {
+//        // Access the persistent store descriptions from the container
+//        let descriptions = container.persistentStoreDescriptions
+//
+//        // 1. Check if ANY persistent store description is configured for CloudKit
+//        let hasCloudStore = descriptions.contains { description in
+//            return description.cloudKitContainerOptions != nil // Check for cloudKitContainerOptions
+//        }
+//
+//        if !hasCloudStore {
+//            return false // No CloudKit store configured, so iCloud is not enabled for this app
+//        }
+//
+//        // 2. If a CloudKit store is configured, check for ubiquity container (more reliable)
+//        let ubiquityURL = FileManager.default.url(forUbiquityContainerIdentifier: "iCloud.com.owenevey.Concertly")
+//
+//        return ubiquityURL != nil // iCloud is enabled if ubiquity container is available
+//    }
     
     var context: NSManagedObjectContext {
         return container.viewContext
@@ -93,7 +93,7 @@ class CoreDataManager {
             }
             
             if let entity = entity {
-                let storeName = ((T.self == Concert.self && category == "saved") || (T.self == SuggestedArtist.self && category == "following")) && isCloudKitEnabled ? "Cloud" : "Local"
+                let storeName = ((T.self == Concert.self && category == "saved") || (T.self == SuggestedArtist.self && category == "following")) ? "Cloud" : "Local"
                 
                 assignEntityToStore(entity: entity, storeName: storeName)
             }
