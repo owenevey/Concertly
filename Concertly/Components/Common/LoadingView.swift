@@ -25,7 +25,7 @@ struct LoadingView: View {
                     .offset(y: offsetY3)
             })
             .onAppear(perform: {
-                animateDots()
+                    animateDots()
             })
             
             Spacer()

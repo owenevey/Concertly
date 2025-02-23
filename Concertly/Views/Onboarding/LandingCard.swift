@@ -1,17 +1,12 @@
 import Foundation
 import SwiftUI
 
-struct LandingCard: Identifiable, Hashable {
-    var id: String = UUID().uuidString
-    var image: String
-}
-
-let cards: [LandingCard] = [
-    .init(image: "aliciaKeys"),
-    .init(image: "chrisStapleton"),
-    .init(image: "oliviaRodrigo"),
-    .init(image: "zachBryan"),
-    .init(image: "kehlani"),
-    .init(image: "noahKahan"),
-    .init(image: "sza")
+let onboardingArtists: [SuggestedArtist] = [
+    SuggestedArtist(name: "Alicia Keys", id: "K8vZ9171Uz7", imageUrl: "https://owenevey-camino.s3.us-east-1.amazonaws.com/artistPhotos/aliciaKeys.jpg", localImageName: "aliciaKeys"),
+    SuggestedArtist(name: "Olivia Rodrigo", id: "K8vZ917_Su0", imageUrl: "https://owenevey-camino.s3.us-east-1.amazonaws.com/artistPhotos/oliviaRodrigo.jpg", localImageName: "oliviaRodrigo"),
+    SuggestedArtist(name: "Zach Bryan", id: "K8vZ917_NoV", imageUrl: "https://owenevey-camino.s3.us-east-1.amazonaws.com/artistPhotos/zachBryan.jpg", localImageName: "zachBryan"),
+    SuggestedArtist(name: "Chris Stapleton", id: "K8vZ9178Sb7", imageUrl: "https://owenevey-camino.s3.us-east-1.amazonaws.com/artistPhotos/chrisStapleton.jpg", localImageName: "chrisStapleton"),
+    SuggestedArtist(name: "Kehlani", id: "K8vZ9173Ty7", imageUrl: "https://owenevey-camino.s3.us-east-1.amazonaws.com/artistPhotos/kehlani.jpg", localImageName: "kehlani"),
+    SuggestedArtist(name: "Noah Kahan", id: "K8vZ917pAzf", imageUrl: "https://owenevey-camino.s3.us-east-1.amazonaws.com/artistPhotos/noahKahan.jpg", localImageName: "noahKahan"),
+    SuggestedArtist(name: "SZA", id: "K8vZ917o6G0", imageUrl: "https://owenevey-camino.s3.us-east-1.amazonaws.com/artistPhotos/sza.jpg", localImageName: "sza")
 ]

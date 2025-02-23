@@ -8,6 +8,8 @@ struct ChooseCityView: View {
     @AppStorage("Home Lat") private var homeLat: Double = 0
     @AppStorage("Home Long") private var homeLong: Double = 0
     
+    @FocusState private var isTextFieldFocused: Bool
+    
     func onTap(city: SuggestedCity) {
         homeLat = city.latitude
         homeLong = city.longitude
@@ -37,6 +39,7 @@ struct ChooseCityView: View {
                         TextField("Search", text: $viewModel.searchQuery)
                             .submitLabel(.done)
                             .disableAutocorrection(true)
+                            .focused($isTextFieldFocused)
                             .font(.system(size: 18, type: .Regular))
                             .padding(.trailing)
                     }
@@ -119,11 +122,15 @@ struct ChooseCityView: View {
             .padding(.top, 30)
         }
         .navigationBarHidden(true)
+        .disableSwipeBack(true)
+        .onAppear {
+            isTextFieldFocused = true
+        }
     }
 }
 
 #Preview {
-    LandingView()
+    ChooseCityView()
 }
 
 

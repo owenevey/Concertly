@@ -6,6 +6,8 @@ struct ChooseAirportView: View {
     
     @AppStorage("Home Airport") private var homeAirport: String = ""
     
+    @FocusState private var isTextFieldFocused: Bool
+    
     func onTap(airport: SuggestedAirport) {
         homeAirport = airport.code
     }
@@ -28,6 +30,7 @@ struct ChooseAirportView: View {
                         TextField("Search", text: $viewModel.searchQuery)
                             .submitLabel(.done)
                             .disableAutocorrection(true)
+                            .focused($isTextFieldFocused)
                             .font(.system(size: 18, type: .Regular))
                             .padding(.trailing)
                     }
@@ -54,7 +57,7 @@ struct ChooseAirportView: View {
                                 VStack(spacing: 5) {
                                     ForEach(airports, id: \.code) { airportResult in
                                         
-                                        NavigationLink(destination: FinishedOnboardingView()) {
+                                        NavigationLink(destination: ChooseArtistsView()) {
                                                 HStack(spacing: 20) {
                                                     Image(systemName: "airplane")
                                                         .font(.system(size: 20))
@@ -109,6 +112,10 @@ struct ChooseAirportView: View {
             .padding(.top, 30)
         }
         .navigationBarHidden(true)
+        .disableSwipeBack(true)
+        .onAppear {
+            isTextFieldFocused = true
+        }
     }
 }
 

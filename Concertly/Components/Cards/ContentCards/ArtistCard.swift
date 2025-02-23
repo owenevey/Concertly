@@ -36,6 +36,7 @@ struct ArtistCard: View {
                             .minimumScaleFactor(0.9)
                             .lineLimit(2)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .multilineTextAlignment(.leading)
                             .padding(15)
                     }
                     .frame(maxHeight: .infinity, alignment: .bottom)

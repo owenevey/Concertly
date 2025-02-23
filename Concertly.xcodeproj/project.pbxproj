@@ -14,7 +14,6 @@
 		F114AA902D4B1489004F9C66 /* FullLineupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F114AA8F2D4B147E004F9C66 /* FullLineupView.swift */; };
 		F11611B92D6A8F5700345C31 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11611B82D6A8F5700345C31 /* LandingView.swift */; };
 		F11611BB2D6A907200345C31 /* ChooseAirportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11611BA2D6A906F00345C31 /* ChooseAirportView.swift */; };
-		F11611BD2D6A94C400345C31 /* FinishedOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11611BC2D6A94C400345C31 /* FinishedOnboardingView.swift */; };
 		F11611BF2D6A978800345C31 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11611BE2D6A978800345C31 /* RootView.swift */; };
 		F11611C12D6AAD8D00345C31 /* LandingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11611C02D6AAD8D00345C31 /* LandingCard.swift */; };
 		F11640112C8A8A2F0040C95D /* ConcertlyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640102C8A8A2F0040C95D /* ConcertlyApp.swift */; };
@@ -139,6 +138,7 @@
 		F1CD3CD62D32EBD2004E3041 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3CD52D32EBCE004E3041 /* StringExtensions.swift */; };
 		F1D364A72D6AB2DB0083680D /* InfiniteScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D364A62D6AB2DB0083680D /* InfiniteScrollView.swift */; };
 		F1D364A92D6AC61A0083680D /* TitleTextRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D364A82D6AC6130083680D /* TitleTextRenderer.swift */; };
+		F1D364AB2D6AD2540083680D /* ChooseArtistsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D364AA2D6AD2540083680D /* ChooseArtistsView.swift */; };
 		F1DAE69A2CC34D4700901914 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE6992CC34D4700901914 /* ApiResponse.swift */; };
 		F1DAE69E2CC37F7F00901914 /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE69D2CC37F7F00901914 /* DateExtensions.swift */; };
 		F1DAE6A02CC3849D00901914 /* ImageHeaderScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1DAE69F2CC3849D00901914 /* ImageHeaderScrollView.swift */; };
@@ -163,7 +163,6 @@
 		F114AA8F2D4B147E004F9C66 /* FullLineupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullLineupView.swift; sourceTree = "<group>"; };
 		F11611B82D6A8F5700345C31 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		F11611BA2D6A906F00345C31 /* ChooseAirportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAirportView.swift; sourceTree = "<group>"; };
-		F11611BC2D6A94C400345C31 /* FinishedOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishedOnboardingView.swift; sourceTree = "<group>"; };
 		F11611BE2D6A978800345C31 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		F11611C02D6AAD8D00345C31 /* LandingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingCard.swift; sourceTree = "<group>"; };
 		F116400D2C8A8A2F0040C95D /* Concertly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Concertly.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -289,6 +288,7 @@
 		F1CD3CD52D32EBCE004E3041 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		F1D364A62D6AB2DB0083680D /* InfiniteScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteScrollView.swift; sourceTree = "<group>"; };
 		F1D364A82D6AC6130083680D /* TitleTextRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTextRenderer.swift; sourceTree = "<group>"; };
+		F1D364AA2D6AD2540083680D /* ChooseArtistsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseArtistsView.swift; sourceTree = "<group>"; };
 		F1DAE6992CC34D4700901914 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		F1DAE69D2CC37F7F00901914 /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		F1DAE69F2CC3849D00901914 /* ImageHeaderScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHeaderScrollView.swift; sourceTree = "<group>"; };
@@ -441,9 +441,9 @@
 				F11611BA2D6A906F00345C31 /* ChooseAirportView.swift */,
 				F15109272D6A4E630041B794 /* ChooseCityView.swift */,
 				F11611B82D6A8F5700345C31 /* LandingView.swift */,
-				F11611BC2D6A94C400345C31 /* FinishedOnboardingView.swift */,
 				F11611C02D6AAD8D00345C31 /* LandingCard.swift */,
 				F1D364A62D6AB2DB0083680D /* InfiniteScrollView.swift */,
+				F1D364AA2D6AD2540083680D /* ChooseArtistsView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -780,7 +780,6 @@
 				F1CD3C8B2D25FB88004E3041 /* ExploreViewModel.swift in Sources */,
 				F1FACFF92D3B681600D53A7D /* DestinationsResponse.swift in Sources */,
 				F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */,
-				F11611BD2D6A94C400345C31 /* FinishedOnboardingView.swift in Sources */,
 				F1CD3CD22D323194004E3041 /* ArtistDetailsResponse.swift in Sources */,
 				F1CD3CA02D275907004E3041 /* TripViewModelProtocol.swift in Sources */,
 				F17DCCD02D338E8D000D477C /* PopularArtistsResponse.swift in Sources */,
@@ -802,6 +801,7 @@
 				F1CD3C912D2618A7004E3041 /* ErrorConcertCard.swift in Sources */,
 				F1DAE6A02CC3849D00901914 /* ImageHeaderScrollView.swift in Sources */,
 				F11714A82D13A88D007A0052 /* HotelsViewModel.swift in Sources */,
+				F1D364AB2D6AD2540083680D /* ChooseArtistsView.swift in Sources */,
 				F1DD1EB52CEEB354004A9F0F /* SliderFilter.swift in Sources */,
 				F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */,
 				F11611BF2D6A978800345C31 /* RootView.swift in Sources */,

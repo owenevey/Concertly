@@ -2,7 +2,7 @@ import SwiftUI
 
 struct LandingView: View {
     
-    @State private var activeCard: LandingCard? = cards.first
+    @State private var activeCard: SuggestedArtist? = onboardingArtists.first
     @State private var scrollPosition: ScrollPosition = .init()
     @State private var currentScrollOffset: CGFloat = 0
     @State private var timer = Timer.publish(every: 0.01, on: .current, in: .default).autoconnect()
@@ -18,7 +18,7 @@ struct LandingView: View {
                 
                 VStack(spacing: 40) {
                     InfiniteScrollView {
-                        ForEach(cards) {card in
+                        ForEach(onboardingArtists) {card in
                             CarouselCardView(card)
                         }
                     }
@@ -37,8 +37,8 @@ struct LandingView: View {
                         currentScrollOffset = newValue
                         
                         if scrollPhase != .decelerating || scrollPhase != .animating {
-                            let activeIndex = Int((currentScrollOffset / 220).rounded()) % cards.count
-                            activeCard = cards[activeIndex]
+                            let activeIndex = Int((currentScrollOffset / 220).rounded()) % onboardingArtists.count
+                            activeCard = onboardingArtists[activeIndex]
                         }
                     }
                     .visualEffect { [initialAnimation] content, proxy in
@@ -61,10 +61,22 @@ struct LandingView: View {
                             .blurOpacityEffect(initialAnimation)
                     }
                     
-                    ConcertlyButton(label: "Get Started") {
-                        timer.upstream.connect().cancel()
+                    NavigationLink(destination: ChooseCityView()) {
+                        Text("Get Started")
+                            .font(.system(size: 18, type: .Medium))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 12)
+                            .background(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(Color.accentColor)
+                            )
+                            .contentShape(RoundedRectangle(cornerRadius: 15))
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
                     }
-                    .frame(width: 200)
+                    .simultaneousGesture(TapGesture().onEnded {
+                        timer.upstream.connect().cancel()
+                    })
                     .blurOpacityEffect(initialAnimation)
 
                 }
@@ -94,13 +106,15 @@ struct LandingView: View {
             let size = $0.size
             
             ZStack {
-                ForEach(cards) { card in
-                    Image(card.image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .ignoresSafeArea()
-                        .frame(width: size.width, height: size.height)
-                        .opacity(activeCard?.id == card.id ? 1 : 0)
+                ForEach(onboardingArtists) { artist in
+                    if let image = artist.localImageName {
+                        Image(image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .ignoresSafeArea()
+                            .frame(width: size.width, height: size.height)
+                            .opacity(activeCard?.id == artist.id ? 1 : 0)
+                    }
                 }
                 
                 Rectangle()
@@ -114,16 +128,19 @@ struct LandingView: View {
     }
     
     @ViewBuilder
-    private func CarouselCardView(_ card: LandingCard) -> some View {
+    private func CarouselCardView(_ card: SuggestedArtist) -> some View {
         GeometryReader {
             let size = $0.size
             
-            Image(card.image)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: size.width, height: size.height)
-                .clipShape(.rect(cornerRadius: 20))
-                .shadow(color: .black.opacity(0.4), radius: 10, x: 1, y: 0)
+            if let image = card.localImageName {
+                Image(image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: size.width, height: size.height)
+                    .clipShape(.rect(cornerRadius: 20))
+                    .shadow(color: .black.opacity(0.4), radius: 10, x: 1, y: 0)
+            }
+            
         }
         .frame(width: 220)
         .scrollTransition(.interactive.threshold(.centered), axis: .horizontal) { content, phase in

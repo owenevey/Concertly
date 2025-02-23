@@ -10,6 +10,10 @@ extension View {
     func readHeight() -> some View {
         self.modifier(ReadHeightModifier())
     }
+    
+    func disableSwipeBack(_ isDisabled: Bool) -> some View {
+        self.background(DisableSwipeBack(isDisabled: isDisabled))
+    }
 }
 
 struct RoundedCorner: Shape {
@@ -59,5 +63,26 @@ private struct ReadHeightModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content.background(sizeView)
+    }
+}
+
+
+
+
+struct DisableSwipeBack: UIViewControllerRepresentable {
+    let isDisabled: Bool
+    
+    func makeUIViewController(context: Context) -> UIViewController {
+        let controller = UIViewController()
+        DispatchQueue.main.async {
+            controller.navigationController?.interactivePopGestureRecognizer?.isEnabled = !isDisabled
+        }
+        return controller
+    }
+    
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        DispatchQueue.main.async {
+            uiViewController.navigationController?.interactivePopGestureRecognizer?.isEnabled = !isDisabled
+        }
     }
 }
