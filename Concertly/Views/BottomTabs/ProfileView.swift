@@ -13,6 +13,7 @@ struct ProfileView: View {
     
     @State private var isSearchBarVisible: Bool = true
     
+    @AppStorage("Has Seen Onboarding") private var hasSeenOnboarding: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
@@ -100,6 +101,10 @@ struct ProfileView: View {
                                     .fill(.gray1)
                                     .frame(maxWidth: .infinity)
                             )
+                        }
+                        
+                        ConcertlyButton(label: "Reset Onboarding") {
+                            hasSeenOnboarding = false
                         }
                         
                         Spacer()

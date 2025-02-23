@@ -440,10 +440,10 @@
 				F1D364A82D6AC6130083680D /* TitleTextRenderer.swift */,
 				F11611BA2D6A906F00345C31 /* ChooseAirportView.swift */,
 				F15109272D6A4E630041B794 /* ChooseCityView.swift */,
+				F1D364AA2D6AD2540083680D /* ChooseArtistsView.swift */,
 				F11611B82D6A8F5700345C31 /* LandingView.swift */,
 				F11611C02D6AAD8D00345C31 /* LandingCard.swift */,
 				F1D364A62D6AB2DB0083680D /* InfiniteScrollView.swift */,
-				F1D364AA2D6AD2540083680D /* ChooseArtistsView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";

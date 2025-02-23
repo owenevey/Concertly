@@ -71,9 +71,7 @@ struct ChooseArtistsView: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal, 10)
-            .padding(.top, 30)
-            
-            
+//            .padding(.top, 30)
             
         }
         .background(Color.background)

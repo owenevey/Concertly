@@ -65,7 +65,7 @@ struct LandingView: View {
                         Text("Get Started")
                             .font(.system(size: 18, type: .Medium))
                             .foregroundStyle(.white)
-                            .padding(.horizontal, 15)
+                            .padding(.horizontal, 30)
                             .padding(.vertical, 12)
                             .background(
                                 RoundedRectangle(cornerRadius: 15)

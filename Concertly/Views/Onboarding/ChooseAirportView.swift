@@ -109,7 +109,7 @@ struct ChooseAirportView: View {
                 .frame(maxWidth: .infinity)
             }
             .padding(.horizontal, 15)
-            .padding(.top, 30)
+//            .padding(.top, 30)
         }
         .navigationBarHidden(true)
         .disableSwipeBack(true)
