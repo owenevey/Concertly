@@ -6,11 +6,15 @@ struct LandingView: View {
     @State private var scrollPosition: ScrollPosition = .init()
     @State private var currentScrollOffset: CGFloat = 0
     @State private var timer = Timer.publish(every: 0.01, on: .current, in: .default).autoconnect()
+    @State private var initialAnimation = false
+    @State private var titleProgress: CGFloat = 0
+    @State private var scrollPhase: ScrollPhase = .idle
     
     var body: some View {
         NavigationStack {
             ZStack {
                 AmbientBackground()
+                    .animation(.easeInOut(duration: 1), value: activeCard )
                 
                 VStack(spacing: 40) {
                     InfiniteScrollView {
@@ -20,15 +24,66 @@ struct LandingView: View {
                     }
                     .scrollIndicators(.hidden)
                     .scrollPosition($scrollPosition)
+                    .scrollClipDisabled()
                     .containerRelativeFrame(.vertical) { value, _ in
                         value * 0.45
                     }
+                    .onScrollPhaseChange({ oldPhase, newPhase in
+                        scrollPhase = newPhase
+                    })
+                    .onScrollGeometryChange(for: CGFloat.self) {
+                        $0.contentOffset.x + $0.contentInsets.leading
+                    } action: { oldValue, newValue in
+                        currentScrollOffset = newValue
+                        
+                        if scrollPhase != .decelerating || scrollPhase != .animating {
+                            let activeIndex = Int((currentScrollOffset / 220).rounded()) % cards.count
+                            activeCard = cards[activeIndex]
+                        }
+                    }
+                    .visualEffect { [initialAnimation] content, proxy in
+                        content
+                            .offset(y: !initialAnimation ? -(proxy.size.height + 200) : 0)
+                    }
+                    
+                    VStack(spacing: 5) {
+                        Text("Concertly")
+                            .font(.system(size: 40, type: .SemiBold))
+                            .foregroundStyle(.accent)
+                            .textRenderer(TitleTextRenderer(progress: titleProgress))
+                            .padding(.bottom, 12)
+                        
+                        Text("Discover concerts from all over the world.\nFind affordable flights and hotels that allow to live life to the max")
+                            .font(.system(size: 17, type: .Regular))
+                            .foregroundStyle(.white.secondary)
+                            .multilineTextAlignment(.center)
+                            .blurOpacityEffect(initialAnimation)
+                            .blurOpacityEffect(initialAnimation)
+                    }
+                    
+                    ConcertlyButton(label: "Get Started") {
+                        timer.upstream.connect().cancel()
+                    }
+                    .frame(width: 200)
+                    .blurOpacityEffect(initialAnimation)
+
                 }
                 .safeAreaPadding(15)
             }
             .onReceive(timer) { _ in
                 currentScrollOffset += 0.35
                 scrollPosition.scrollTo(x: currentScrollOffset)
+            }
+            .task {
+                try? await Task.sleep(for: .seconds(0.35))
+                
+                withAnimation(.smooth(duration: 0.75, extraBounce: 0)) {
+                    initialAnimation = true
+                }
+                
+                withAnimation(.smooth(duration: 1.5, extraBounce: 0).delay(0.3)) {
+                    titleProgress = 1
+                }
             }
         }
     }
@@ -81,4 +136,14 @@ struct LandingView: View {
 
 #Preview {
     LandingView()
+}
+
+
+extension View {
+    func blurOpacityEffect(_ show: Bool) -> some View {
+        self
+            .blur(radius: show ? 0 : 2)
+            .opacity(show ? 1 : 0)
+            .scaleEffect(show ? 1 : 0.9)
+    }
 }
