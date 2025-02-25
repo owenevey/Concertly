@@ -35,9 +35,24 @@ struct ImageHeaderScrollView<Content: View>: View {
                 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 0) {
-                        Rectangle()
-                            .fill(Color.clear)
-                            .frame(width: UIScreen.main.bounds.width, height: 300)
+                        ZStack(alignment: .bottom) {
+                            Rectangle()
+                                .fill(Color.clear)
+                                .frame(width: UIScreen.main.bounds.width, height: 300)
+                            
+                            Text(title)
+                                .font(.system(size: 40, type: .SemiBold))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal, 15)
+                                .padding(.bottom, 5)
+                                .foregroundStyle(.white)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .lineLimit(2)
+                                .background(
+                                    LinearGradient(colors: [.clear, .black.opacity(0.8)], startPoint: .top, endPoint: .bottom)
+                                        .padding(.top, -50)
+                                )
+                        }
                         
                         content()
                             .background(Color.background)

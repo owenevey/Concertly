@@ -2,6 +2,8 @@ import SwiftUI
 
 struct ContentView: View {
     
+    let notificationCenter = UNUserNotificationCenter.current()
+    
     @AppStorage("Theme") private var theme: String = "Default"
     
     @StateObject var exploreViewModel: ExploreViewModel = ExploreViewModel()
@@ -43,6 +45,15 @@ struct ContentView: View {
             .toolbarBackground(Color.background, for: .tabBar)
         }
         .preferredColorScheme(theme == "Light" ? .light : (theme == "Dark" ? .dark : nil))
+        .onAppear {
+            Task {
+                do {
+                    try await notificationCenter.requestAuthorization(options: [.alert, .badge, .sound])
+                } catch {
+                    print("Request authorization error")
+                }
+            }
+        }
     }
 }
 

@@ -27,22 +27,22 @@ struct ConcertView: View {
         ImageHeaderScrollView(title: concert.artistName, imageUrl: concert.imageUrl) {
             VStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 5) {
-                    HStack(alignment: .top) {
-                        Text(concert.artistName)
-                            .font(.system(size: 30, type: .SemiBold))
-                        
-                        Spacer()
-                        
-                        Button {
-                            viewModel.toggleConcertSaved()
-                        } label: {
-                            Image(systemName: viewModel.isSaved ? "bookmark.fill" : "bookmark")
-                                .font(.system(size: 23))
-                                .fontWeight(.medium)
-                                .padding(.top, 5)
-                                .foregroundStyle(Color.primary)
-                        }
-                    }
+//                    HStack(alignment: .top) {
+//                        Text(concert.artistName)
+//                            .font(.system(size: 30, type: .SemiBold))
+//                        
+//                        Spacer()
+//                        
+//                        Button {
+//                            viewModel.toggleConcertSaved()
+//                        } label: {
+//                            Image(systemName: viewModel.isSaved ? "bookmark.fill" : "bookmark")
+//                                .font(.system(size: 23))
+//                                .fontWeight(.medium)
+//                                .padding(.top, 5)
+//                                .foregroundStyle(Color.primary)
+//                        }
+//                    }
                     
                     
                     

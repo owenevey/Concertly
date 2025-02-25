@@ -22,16 +22,15 @@ func fetchData<T: Decodable, U: Encodable>(
     }
     
     let (data, response) = try await URLSession.shared.data(for: request)
-    print(request)
     
-    if endpoint.contains("suggestedConcerts") {
-        print(response)
-        if let rawData = String(data: data, encoding: .utf8) {
-            print("Raw Response: \(rawData)")
-        } else {
-            print("Unable to convert data to string")
-        }
-    }
+//    if endpoint.contains("suggestedConcerts") {
+//        print(response)
+//        if let rawData = String(data: data, encoding: .utf8) {
+//            print("Raw Response: \(rawData)")
+//        } else {
+//            print("Unable to convert data to string")
+//        }
+//    }
     
     guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
         throw ConcertlyError.invalidResponse

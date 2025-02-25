@@ -60,23 +60,23 @@ struct ArtistView: View {
                 ImageHeaderScrollView(title: artistDetails.name, imageUrl: artistDetails.imageUrl, showBackButton: false) {
                     VStack(spacing: 20) {
                         VStack(alignment: .leading, spacing: 5) {
-                            HStack(alignment: .top) {
-                                Text(artistDetails.name)
-                                    .font(.system(size: 30, type: .SemiBold))
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                Spacer()
-                                
-                                Button {
-                                    viewModel.toggleArtistFollowing()
-                                } label: {
-                                    Image(systemName: viewModel.isFollowing ? "star.fill" : "star")
-                                        .font(.system(size: 23))
-                                        .fontWeight(.medium)
-                                        .padding(.top, 5)
-                                        .foregroundStyle(Color.primary)
-                                }
-                            }
+//                            HStack(alignment: .top) {
+//                                Text(artistDetails.name)
+//                                    .font(.system(size: 30, type: .SemiBold))
+//                                    .frame(maxWidth: .infinity, alignment: .leading)
+//                                
+//                                Spacer()
+//                                
+//                                Button {
+//                                    viewModel.toggleArtistFollowing()
+//                                } label: {
+//                                    Image(systemName: viewModel.isFollowing ? "star.fill" : "star")
+//                                        .font(.system(size: 23))
+//                                        .fontWeight(.medium)
+//                                        .padding(.top, 5)
+//                                        .foregroundStyle(Color.primary)
+//                                }
+//                            }
                             
                             Text(artistDetails.description)
                                 .font(.system(size: 17, type: .Regular))

@@ -105,7 +105,7 @@ class CoreDataManager {
     private func assignEntityToStore(entity: NSManagedObject, storeName: String) {
         let coordinator = container.persistentStoreCoordinator
         
-        print("storing in \(storeName)")
+//        print("storing in \(storeName)")
         
         if let store = coordinator.persistentStores.first(where: { $0.configurationName == storeName }) {
             entity.managedObjectContext?.assign(entity, to: store)
