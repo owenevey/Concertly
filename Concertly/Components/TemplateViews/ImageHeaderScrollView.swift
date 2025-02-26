@@ -48,6 +48,7 @@ struct ImageHeaderScrollView<Content: View>: View {
                                 .foregroundStyle(.white)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .lineLimit(2)
+                                .minimumScaleFactor(0.5)
                                 .background(
                                     LinearGradient(colors: [.clear, .black.opacity(0.8)], startPoint: .top, endPoint: .bottom)
                                         .padding(.top, -50)

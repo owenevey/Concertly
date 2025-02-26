@@ -62,16 +62,25 @@ struct ChooseArtistsView: View {
                     }
                 }
                 .safeAreaInset(edge: .bottom) {
-                    ConcertlyButton(label: "Done") {
-                        onTapDone()
+                    NavigationLink(destination: NotificationSelectionView(selectedArtists: selectedArtists)) {
+                        Text("Next")
+                            .font(.system(size: 18, type: .Medium))
+                            .foregroundStyle(.white)
+                            .padding(12)
+                            .frame(width: 200)
+                            .background(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(Color.accentColor)
+                            )
+                            .contentShape(RoundedRectangle(cornerRadius: 15))
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
                     }
-                    .frame(width: 200)
+                    .buttonStyle(PlainButtonStyle())
                     .shadow(radius: 5)
                 }
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal, 10)
-//            .padding(.top, 30)
             
         }
         .background(Color.background)
@@ -80,12 +89,12 @@ struct ChooseArtistsView: View {
     }
     
     private func toggleSelection(for artist: SuggestedArtist) {
-            if selectedArtists.contains(artist) {
-                selectedArtists.remove(artist)
-            } else {
-                selectedArtists.insert(artist)
-            }
+        if selectedArtists.contains(artist) {
+            selectedArtists.remove(artist)
+        } else {
+            selectedArtists.insert(artist)
         }
+    }
     
     private struct OnboardingArtistCard: View {
         

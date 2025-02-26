@@ -1,15 +1,13 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    let notificationCenter = UNUserNotificationCenter.current()
-    
+        
     @AppStorage("Theme") private var theme: String = "Default"
     
-    @StateObject var exploreViewModel: ExploreViewModel = ExploreViewModel()
-    @StateObject var nearbyViewModel: NearbyViewModel = NearbyViewModel()
-    @StateObject var savedViewModel: SavedViewModel = SavedViewModel()
-    @StateObject var profileViewModel: ProfileViewModel = ProfileViewModel()
+    @ObservedObject var exploreViewModel: ExploreViewModel = ExploreViewModel()
+    @ObservedObject var nearbyViewModel: NearbyViewModel = NearbyViewModel()
+    @ObservedObject var savedViewModel: SavedViewModel = SavedViewModel()
+    @ObservedObject var profileViewModel: ProfileViewModel = ProfileViewModel()
     
     var body: some View {
         TabView {
@@ -45,15 +43,6 @@ struct ContentView: View {
             .toolbarBackground(Color.background, for: .tabBar)
         }
         .preferredColorScheme(theme == "Light" ? .light : (theme == "Dark" ? .dark : nil))
-        .onAppear {
-            Task {
-                do {
-                    try await notificationCenter.requestAuthorization(options: [.alert, .badge, .sound])
-                } catch {
-                    print("Request authorization error")
-                }
-            }
-        }
     }
 }
 

@@ -5,6 +5,8 @@ import Combine
 class ConcertViewModel: TripViewModelProtocol {
     var concert: Concert
     
+    let notificationManager = NotificationManager.shared
+    
     @Published var tripStartDate: Date
     @Published var tripEndDate: Date
     @Published var flightsResponse: ApiResponse<FlightsResponse> = ApiResponse<FlightsResponse>()
@@ -35,26 +37,26 @@ class ConcertViewModel: TripViewModelProtocol {
     }
     
     private func setupBindings() {
-            $flightsPrice
-                .sink { [weak self] newPrice in
-                    guard let self = self else { return }
-                    if isSaved {
-                        self.concert.flightsPrice = newPrice
-                        self.coreDataManager.saveConcert(self.concert)
-                    }
+        $flightsPrice
+            .sink { [weak self] newPrice in
+                guard let self = self else { return }
+                if isSaved {
+                    self.concert.flightsPrice = newPrice
+                    self.coreDataManager.saveConcert(self.concert)
                 }
-                .store(in: &cancellables)
-            
-            $hotelsPrice
-                .sink { [weak self] newPrice in
-                    guard let self = self else { return }
-                    if isSaved {
-                        self.concert.hotelsPrice = newPrice
-                        self.coreDataManager.saveConcert(self.concert)
-                    }
+            }
+            .store(in: &cancellables)
+        
+        $hotelsPrice
+            .sink { [weak self] newPrice in
+                guard let self = self else { return }
+                if isSaved {
+                    self.concert.hotelsPrice = newPrice
+                    self.coreDataManager.saveConcert(self.concert)
                 }
-                .store(in: &cancellables)
-        }
+            }
+            .store(in: &cancellables)
+    }
     
     var totalPrice: Int {
         hotelsPrice + flightsPrice
@@ -151,8 +153,15 @@ class ConcertViewModel: TripViewModelProtocol {
     func toggleConcertSaved() {
         if isSaved {
             coreDataManager.unSaveConcert(id: concert.id)
-        } else {
+        }
+        else {
             coreDataManager.saveConcert(concert)
+            
+            let concertRemindersPreference = UserDefaults.standard.integer(forKey: "Concert Reminders")
+
+            if concertRemindersPreference != 0 {
+                notificationManager.scheduleConcertReminder(for: concert, daysBefore: concertRemindersPreference)
+            }
         }
         
         isSaved.toggle()

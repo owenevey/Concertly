@@ -27,41 +27,39 @@ struct ConcertView: View {
         ImageHeaderScrollView(title: concert.artistName, imageUrl: concert.imageUrl) {
             VStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 5) {
-//                    HStack(alignment: .top) {
-//                        Text(concert.artistName)
-//                            .font(.system(size: 30, type: .SemiBold))
-//                        
-//                        Spacer()
-//                        
-//                        Button {
-//                            viewModel.toggleConcertSaved()
-//                        } label: {
-//                            Image(systemName: viewModel.isSaved ? "bookmark.fill" : "bookmark")
-//                                .font(.system(size: 23))
-//                                .fontWeight(.medium)
-//                                .padding(.top, 5)
-//                                .foregroundStyle(Color.primary)
-//                        }
-//                    }
-                    
-                    
-                    
-                    
-                    HStack(spacing: 5) {
-                        Image(systemName: "calendar")
-                            .frame(width: 22)
-                        Text(concert.date.fullWeekdayFormat(timeZoneIdentifier: concert.timezone))
-                            .font(.system(size: 18, type: .Regular))
+                    HStack(alignment: .top) {
+                        VStack(alignment: .leading, spacing: 5) {
+                            HStack(spacing: 5) {
+                                Image(systemName: "calendar")
+                                    .frame(width: 22)
+                                Text(concert.date.fullWeekdayFormat(timeZoneIdentifier: concert.timezone))
+                                    .font(.system(size: 18, type: .Regular))
+                            }
+                            .foregroundStyle(.gray3)
+                            
+                            HStack(spacing: 5) {
+                                Image(systemName: "mappin.and.ellipse")
+                                    .frame(width: 22)
+                                Text(concert.cityName)
+                                    .font(.system(size: 18, type: .Regular))
+                            }
+                            .foregroundStyle(.gray3)
+                        }
+                        
+                        Spacer()
+                        
+                        Button {
+                            viewModel.toggleConcertSaved()
+                        } label: {
+                            Image(systemName: viewModel.isSaved ? "bookmark.fill" : "bookmark")
+                                .font(.system(size: 23))
+                                .fontWeight(.medium)
+                                .padding(.top, 5)
+                                .foregroundStyle(Color.primary)
+                        }
                     }
-                    .foregroundStyle(.gray3)
                     
-                    HStack(spacing: 5) {
-                        Image(systemName: "mappin.and.ellipse")
-                            .frame(width: 22)
-                        Text(concert.cityName)
-                            .font(.system(size: 18, type: .Regular))
-                    }
-                    .foregroundStyle(.gray3)
+                    
                     
                     if concertName != "" {
                         HStack(alignment: .top, spacing: 5) {

@@ -58,7 +58,9 @@ final class ExploreViewModel: ObservableObject {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.trendingConcerts = concerts
                     self.trendingConcertsResponse = ApiResponse(status: .success, data: concerts)
+                    ImagePrefetcher.instance.startPrefetching(urls: concerts.prefix(5).compactMap{ URL(string: $0.imageUrl) })
                 }
+                
                 coreDataManager.saveItems(concerts, category: "explore_trending")
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
@@ -84,6 +86,7 @@ final class ExploreViewModel: ObservableObject {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.suggestedConcerts = concerts
                     self.suggestedConcertsResponse = ApiResponse(status: .success, data: concerts)
+                    ImagePrefetcher.instance.startPrefetching(urls: concerts.prefix(3).compactMap{ URL(string: $0.imageUrl) })
                 }
                 coreDataManager.saveItems(concerts, category: "explore_suggested")
             } else {
@@ -110,6 +113,7 @@ final class ExploreViewModel: ObservableObject {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.popularArtists = artists
                     self.popularArtistsResponse = ApiResponse(status: .success, data: artists)
+                    ImagePrefetcher.instance.startPrefetching(urls: artists.prefix(5).compactMap{ URL(string: $0.imageUrl) })
                 }
                 coreDataManager.saveItems(artists, category: "explore_popular")
             } else {
@@ -136,6 +140,7 @@ final class ExploreViewModel: ObservableObject {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.featuredConcert = concert
                     self.featuredConcertResponse = ApiResponse(status: .success, data: concert)
+                    ImagePrefetcher.instance.startPrefetching(urls: [URL(string: concert.imageUrl)].compactMap { $0 })
                 }
                 coreDataManager.saveItems([concert], category: "explore_featured")
             } else {
@@ -162,6 +167,7 @@ final class ExploreViewModel: ObservableObject {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.popularDestinations = destinations
                     self.popularDestinationsResponse = ApiResponse(status: .success, data: destinations)
+                    ImagePrefetcher.instance.startPrefetching(urls: destinations.prefix(3).compactMap{ URL(string: $0.images[0]) })
                 }
                 coreDataManager.saveItems(destinations, category: "")
             } else {
@@ -188,6 +194,7 @@ final class ExploreViewModel: ObservableObject {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.famousVenues = venues
                     self.famousVenuesResponse = ApiResponse(status: .success, data: venues)
+                    ImagePrefetcher.instance.startPrefetching(urls: venues.prefix(3).compactMap{ URL(string: $0.imageUrl) })
                 }
                 coreDataManager.saveItems(venues, category: "")
             } else {

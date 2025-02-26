@@ -10,10 +10,22 @@ struct ProfileView: View {
     @AppStorage("Home Airport") private var homeAirport: String = "JFK"
     @AppStorage("Theme") private var theme: String = "Default"
     @AppStorage("Home City") private var homeCity: String = "New York, NY"
+    @AppStorage("Concert Reminders") private var concertReminders: Int = concertRemindersEnum.dayBefore.rawValue
     
     @State private var isSearchBarVisible: Bool = true
     
     @AppStorage("Has Seen Onboarding") private var hasSeenOnboarding: Bool = false
+    
+    var concertRemindersSelection: String {
+        switch concertReminders {
+        case 1:
+            return "Day Before"
+        case 7:
+            return "Week Before"
+        default:
+            return "Off"
+        }
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -85,6 +97,46 @@ struct ProfileView: View {
                                         Button("Dark") { theme = "Dark" }
                                     } label: {
                                         Text(theme)
+                                            .font(.system(size: 17, type: .Regular))
+                                        Image(systemName: "chevron.right")
+                                            .font(.system(size: 13))
+                                            .fontWeight(.semibold)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                                .padding(.vertical, 12)
+                                .padding(.horizontal, 15)
+                                .contentShape(Rectangle())
+                            }
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(.gray1)
+                                    .frame(maxWidth: .infinity)
+                            )
+                        }
+                        
+                        VStack(spacing: 10) {
+                            Text("Notifications")
+                                .font(.system(size: 20, type: .SemiBold))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            VStack(spacing: 0) {
+                                
+                                HStack {
+                                    Image(systemName: "bookmark.fill")
+                                        .frame(width: 22)
+                                    Text("Concert Reminders")
+                                        .font(.system(size: 17, type: .Regular))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    Spacer()
+                                    
+                                    Menu {
+                                        Button("Day Before") { concertReminders = concertRemindersEnum.dayBefore.rawValue }
+                                        Button("Week Before") { concertReminders = concertRemindersEnum.weekBefore.rawValue }
+                                        Button("Off") { concertReminders = concertRemindersEnum.off.rawValue }
+                                    } label: {
+                                        Text(concertRemindersSelection)
                                             .font(.system(size: 17, type: .Regular))
                                         Image(systemName: "chevron.right")
                                             .font(.system(size: 13))

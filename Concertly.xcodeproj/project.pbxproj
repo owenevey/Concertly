@@ -104,6 +104,9 @@
 		F1A8586A2D027AF6009A37E8 /* AirportSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A858692D027AF6009A37E8 /* AirportSearchView.swift */; };
 		F1ADB6662D4C7B87000527F3 /* ConcertLinksSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1ADB6652D4C7B87000527F3 /* ConcertLinksSheet.swift */; };
 		F1C1450A2D6D64C500D63EBB /* CustomAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C145092D6D64C100D63EBB /* CustomAppDelegate.swift */; };
+		F1C1450C2D6E9B0000D63EBB /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C1450B2D6E9AFA00D63EBB /* NotificationManager.swift */; };
+		F1C1450E2D6FAE0100D63EBB /* AppStorageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C1450D2D6FAE0100D63EBB /* AppStorageUtil.swift */; };
+		F1C145102D6FB5BD00D63EBB /* NotificationSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C1450F2D6FB5BD00D63EBB /* NotificationSelectionView.swift */; };
 		F1CA04CB2CFFDEC3003C78AE /* EditFlightsSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CA04CA2CFFDEC3003C78AE /* EditFlightsSearch.swift */; };
 		F1CCE0D22CB0B96600D15696 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CCE0D12CB0B96600D15696 /* ViewExtensions.swift */; };
 		F1CD3C7E2D24C828004E3041 /* EditHotelsSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1CD3C7D2D24C828004E3041 /* EditHotelsSearch.swift */; };
@@ -255,6 +258,9 @@
 		F1A858692D027AF6009A37E8 /* AirportSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportSearchView.swift; sourceTree = "<group>"; };
 		F1ADB6652D4C7B87000527F3 /* ConcertLinksSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertLinksSheet.swift; sourceTree = "<group>"; };
 		F1C145092D6D64C100D63EBB /* CustomAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAppDelegate.swift; sourceTree = "<group>"; };
+		F1C1450B2D6E9AFA00D63EBB /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		F1C1450D2D6FAE0100D63EBB /* AppStorageUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorageUtil.swift; sourceTree = "<group>"; };
+		F1C1450F2D6FB5BD00D63EBB /* NotificationSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSelectionView.swift; sourceTree = "<group>"; };
 		F1CA04CA2CFFDEC3003C78AE /* EditFlightsSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlightsSearch.swift; sourceTree = "<group>"; };
 		F1CCE0D12CB0B96600D15696 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		F1CD3C7D2D24C828004E3041 /* EditHotelsSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditHotelsSearch.swift; sourceTree = "<group>"; };
@@ -355,7 +361,9 @@
 				F1DAE6A12CC42EA500901914 /* ApiCalls.swift */,
 				F11640272C8BEABD0040C95D /* CustomClasses.swift */,
 				F14349E32D506DF800C63041 /* SavedDataContainer.xcdatamodeld */,
+				F1C1450D2D6FAE0100D63EBB /* AppStorageUtil.swift */,
 				F14349E62D513FEA00C63041 /* CoreDataManager.swift */,
+				F1C1450B2D6E9AFA00D63EBB /* NotificationManager.swift */,
 				F18DE2442CFCB6A800C4D1B5 /* sampleData.json */,
 				F18DE2F12CFE745300C4D1B5 /* Outfit.ttf */,
 				F11640162C8A8A300040C95D /* Preview Content */,
@@ -447,6 +455,7 @@
 				F11611B82D6A8F5700345C31 /* LandingView.swift */,
 				F11611C02D6AAD8D00345C31 /* LandingCard.swift */,
 				F1D364A62D6AB2DB0083680D /* InfiniteScrollView.swift */,
+				F1C1450F2D6FB5BD00D63EBB /* NotificationSelectionView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -779,6 +788,7 @@
 				F1CD3CB22D2A35F2004E3041 /* ColorExtensions.swift in Sources */,
 				F1F3A64B2D0698850042F4F2 /* IntExtensions.swift in Sources */,
 				F176C9262CB5E7F9006BAE35 /* FlightFilter.swift in Sources */,
+				F1C1450E2D6FAE0100D63EBB /* AppStorageUtil.swift in Sources */,
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
 				F1CD3C8B2D25FB88004E3041 /* ExploreViewModel.swift in Sources */,
 				F1FACFF92D3B681600D53A7D /* DestinationsResponse.swift in Sources */,
@@ -832,6 +842,7 @@
 				F19C72732CCB394300390BD6 /* FlightsFiltersBar.swift in Sources */,
 				F114AA902D4B1489004F9C66 /* FullLineupView.swift in Sources */,
 				F1CD3CBA2D2CC18A004E3041 /* FeaturedConcertResponse.swift in Sources */,
+				F1C145102D6FB5BD00D63EBB /* NotificationSelectionView.swift in Sources */,
 				F14349E52D506DF800C63041 /* SavedDataContainer.xcdatamodeld in Sources */,
 				F1A8586A2D027AF6009A37E8 /* AirportSearchView.swift in Sources */,
 				F12B95182D375E9600EFD489 /* VenueCard.swift in Sources */,
@@ -907,6 +918,7 @@
 				F1FACFF32D39D05C00D53A7D /* VenueView.swift in Sources */,
 				F18DE2EC2CFD309500C4D1B5 /* FontExtensions.swift in Sources */,
 				F11640222C8BA8270040C95D /* SavedView.swift in Sources */,
+				F1C1450C2D6E9B0000D63EBB /* NotificationManager.swift in Sources */,
 				F11714A32D1274DA007A0052 /* FilterSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
