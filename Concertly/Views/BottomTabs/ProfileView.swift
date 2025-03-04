@@ -132,9 +132,18 @@ struct ProfileView: View {
                                     Spacer()
                                     
                                     Menu {
-                                        Button("Day Before") { concertReminders = concertRemindersEnum.dayBefore.rawValue }
-                                        Button("Week Before") { concertReminders = concertRemindersEnum.weekBefore.rawValue }
-                                        Button("Off") { concertReminders = concertRemindersEnum.off.rawValue }
+                                        Button("Day Before") {
+                                            concertReminders = concertRemindersEnum.dayBefore.rawValue
+                                            NotificationManager.shared.updateAllConcertReminders()
+                                        }
+                                        Button("Week Before") {
+                                            concertReminders = concertRemindersEnum.weekBefore.rawValue
+                                            NotificationManager.shared.updateAllConcertReminders()
+                                        }
+                                        Button("Off") {
+                                            concertReminders = concertRemindersEnum.off.rawValue
+                                            NotificationManager.shared.updateAllConcertReminders()
+                                        }
                                     } label: {
                                         Text(concertRemindersSelection)
                                             .font(.system(size: 17, type: .Regular))
@@ -158,6 +167,7 @@ struct ProfileView: View {
                         ConcertlyButton(label: "Reset Onboarding") {
                             hasSeenOnboarding = false
                         }
+                        .padding(.top, 40)
                         
                         Spacer()
                     }

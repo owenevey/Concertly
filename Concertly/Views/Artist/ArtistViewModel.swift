@@ -68,12 +68,45 @@ class ArtistViewModel: ObservableObject {
         isFollowing = coreDataManager.isFollowingArtist(id: artistId)
     }
     
-    func toggleArtistFollowing() {
+    func toggleArtistFollowing() async {
         if isFollowing {
             coreDataManager.unSaveArtist(id: artistId, category: "following")
-        } else {
+            
+            do {
+                guard let pushNotificationToken = UserDefaults.standard.string(forKey: "pushNotificationToken") else {
+                    throw NSError(domain: "", code: 1, userInfo: nil)
+                }
+                
+                let response = try await followArtist(artistId: artistId, pushNotificationToken: pushNotificationToken, follow: false)
+                
+                if response.status == .error {
+                    throw NSError(domain: "", code: 1, userInfo: nil)
+                }
+            }
+            catch {
+                if let artist = artistDetailsResponse.data {
+                    coreDataManager.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: "following")
+                }
+            }
+        }
+        else {
             if let artist = artistDetailsResponse.data {
                 coreDataManager.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: "following")
+            }
+            
+            do {
+                guard let pushNotificationToken = UserDefaults.standard.string(forKey: "pushNotificationToken") else {
+                    throw NSError(domain: "", code: 1, userInfo: nil)
+                }
+                
+                let response = try await followArtist(artistId: artistId, pushNotificationToken: pushNotificationToken, follow: true)
+                
+                if response.status == .error {
+                    throw NSError(domain: "", code: 1, userInfo: nil)
+                }
+            }
+            catch {
+                coreDataManager.unSaveArtist(id: artistId, category: "following")
             }
         }
         

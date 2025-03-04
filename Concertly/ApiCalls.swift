@@ -23,14 +23,14 @@ func fetchData<T: Decodable, U: Encodable>(
     
     let (data, response) = try await URLSession.shared.data(for: request)
     
-//    if endpoint.contains("suggestedConcerts") {
-//        print(response)
-//        if let rawData = String(data: data, encoding: .utf8) {
-//            print("Raw Response: \(rawData)")
-//        } else {
-//            print("Unable to convert data to string")
-//        }
-//    }
+    if endpoint.contains("followArtist") {
+        print(response)
+        if let rawData = String(data: data, encoding: .utf8) {
+            print("Raw Response: \(rawData)")
+        } else {
+            print("Unable to convert data to string")
+        }
+    }
     
     guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
         throw ConcertlyError.invalidResponse
@@ -163,6 +163,15 @@ func fetchSuggestedConcerts(followingArtists: [SuggestedArtist]) async throws ->
     let artistsRequest = SuggestedArtistsRequest(artists: followingArtists)
     
     let response: ApiResponse<SuggestedConcertsResponse> = try await fetchData(endpoint: endpoint, method: "POST", body: artistsRequest)
+    return response
+}
+
+func followArtist(artistId: String, pushNotificationToken: String, follow: Bool) async throws -> ApiResponse<String> {
+    let endpoint = "\(baseUrl)/followArtist"
+    
+    let followRequest = FollowRequestBody(followRequest: FollowRequest(artistId: artistId, pushNotificationToken: pushNotificationToken, follow: follow))
+    
+    let response: ApiResponse<String> = try await fetchData(endpoint: endpoint, method: "POST", body: followRequest)
     return response
 }
 ////////////////////////////////////////////////////////

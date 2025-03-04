@@ -14,6 +14,12 @@ struct ContentView: View {
             Group{
                 NavigationStack {
                     ExploreView(viewModel: exploreViewModel)
+                        .navigationDestination(for: String.self) { value in
+                            if value.starts(with: "artist:") {
+                                let artistID = value.replacingOccurrences(of: "artist:", with: "")
+                                ArtistView(artistID: artistID)
+                            }
+                        }
                 }
                 .tabItem {
                     Label("Explore", systemImage: "globe.americas")

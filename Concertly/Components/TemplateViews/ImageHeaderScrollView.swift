@@ -8,18 +8,24 @@ struct ImageHeaderScrollView<Content: View>: View {
     
     let title: String
     let imageUrl: String
-    let showBackButton: Bool
+    let rightIcon: String?
+    let rightIconFilled: Bool?
+    var onRightIconTap: (() async -> Void)?
     let content: () -> Content
     
     init(
         title: String,
         imageUrl: String,
-        showBackButton: Bool = true,
+        rightIcon: String? = nil,
+        rightIconFilled: Bool? = nil,
+        onRightIconTap: (() async -> Void)? = nil,
         @ViewBuilder content: @escaping () -> Content
     ) {
         self.title = title
         self.imageUrl = imageUrl
-        self.showBackButton = showBackButton
+        self.rightIcon = rightIcon
+        self.rightIconFilled = rightIconFilled
+        self.onRightIconTap = onRightIconTap
         self.content = content
     }
     
@@ -78,15 +84,33 @@ struct ImageHeaderScrollView<Content: View>: View {
                     }
                 }
                 
-                if showBackButton {
-                    HStack {
-                        BackButton(showBackground: true)
-                            .padding(.top, geometry.safeAreaInsets.top)
-                        Spacer()
+                HStack {
+                    BackButton(showBackground: true)
+                    
+                    Spacer()
+                    
+                    if let rightIcon = rightIcon, let rightIconFilled = rightIconFilled {
+                        Button {
+                            Task {
+                                await onRightIconTap?()
+                            }
+                        } label: {
+                            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                                .fill(.ultraThinMaterial)
+                                .frame(width: 35, height: 35)
+                                .overlay(
+                                    Image(systemName: rightIconFilled ? "\(rightIcon).fill" : rightIcon)
+                                        .font(.system(size: 17))
+                                        .fontWeight(.semibold)
+                                )
+                                .padding(.trailing, 15)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
+                .padding(.top, geometry.safeAreaInsets.top)
                 
-                ImageViewHeader(title: title)
+                ImageViewHeader(title: title, rightIcon: rightIcon, rightIconFilled: rightIconFilled, onRightIconTap: onRightIconTap)
                     .opacity(isTitleVisible ? 0 : 1)
                     .animation(.linear(duration: 0.1), value: isTitleVisible)
                     .padding(.top, geometry.safeAreaInsets.top)

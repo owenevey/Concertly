@@ -45,10 +45,12 @@ class NotificationManager {
         }
     }
     
-    func updateAllConcertReminders(concerts: [Concert]) {
+    func updateAllConcertReminders() {
         removeAllNotifications()
         
         let concertRemindersPreference = UserDefaults.standard.integer(forKey: "Concert Reminders")
+        
+        let concerts = CoreDataManager.shared.fetchItems(for: "saved", type: Concert.self)
         
         if concertRemindersPreference != 0 {
             for concert in concerts {

@@ -24,10 +24,9 @@ struct ConcertView: View {
     }
     
     var body: some View {
-        ImageHeaderScrollView(title: concert.artistName, imageUrl: concert.imageUrl) {
+        ImageHeaderScrollView(title: concert.artistName, imageUrl: concert.imageUrl, rightIcon: "bookmark", rightIconFilled: viewModel.isSaved, onRightIconTap: viewModel.toggleConcertSaved) {
             VStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 5) {
-                    HStack(alignment: .top) {
                         VStack(alignment: .leading, spacing: 5) {
                             HStack(spacing: 5) {
                                 Image(systemName: "calendar")
@@ -45,19 +44,8 @@ struct ConcertView: View {
                             }
                             .foregroundStyle(.gray3)
                         }
-                        
-                        Spacer()
-                        
-                        Button {
-                            viewModel.toggleConcertSaved()
-                        } label: {
-                            Image(systemName: viewModel.isSaved ? "bookmark.fill" : "bookmark")
-                                .font(.system(size: 23))
-                                .fontWeight(.medium)
-                                .padding(.top, 5)
-                                .foregroundStyle(Color.primary)
-                        }
-                    }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
                     
                     
                     

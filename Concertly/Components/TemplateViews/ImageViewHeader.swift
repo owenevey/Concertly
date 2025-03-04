@@ -3,9 +3,11 @@ import SwiftUI
 struct ImageViewHeader: View {
     
     var title: String
+    var rightIcon: String? = nil
+    var rightIconFilled: Bool? = nil
+    var onRightIconTap: (() async -> Void)? = nil
     
     var body: some View {
-        
         VStack(spacing: 0) {
             HStack(spacing: 15) {
                 BackButton(showBackground: true)
@@ -15,9 +17,28 @@ struct ImageViewHeader: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .lineLimit(1)
                     .minimumScaleFactor(0.9)
-
+                
+                Spacer()
+                
+                if let rightIcon = rightIcon, let rightIconFilled = rightIconFilled {
+                    Button {
+                        Task {
+                            await onRightIconTap?()
+                        }
+                    } label: {
+                        RoundedRectangle(cornerRadius: 20, style: .continuous)
+                            .fill(.ultraThinMaterial)
+                            .frame(width: 35, height: 35)
+                            .overlay(
+                                Image(systemName: rightIconFilled ? "\(rightIcon).fill" : rightIcon)
+                                    .font(.system(size: 17))
+                                    .fontWeight(.semibold)
+                            )
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
             }
-            .padding(.trailing, 20)
+            .padding(.trailing, 15)
             .padding(.bottom, 5)
             .background(Color.background)
             

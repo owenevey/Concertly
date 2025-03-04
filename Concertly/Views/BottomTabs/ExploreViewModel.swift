@@ -224,7 +224,6 @@ final class ExploreViewModel: ObservableObject {
                     self.similarConcertsArtist = artist
                     self.similarConcertsResponse = ApiResponse(status: .success, data: concerts)
                 }
-//                coreDataManager.saveItems(concerts, category: "explore_suggested")
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.similarConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")

@@ -7,16 +7,14 @@ class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         application.registerForRemoteNotifications()
-        
         UNUserNotificationCenter.current().delegate = self
-        
         return true
     }
     
-    func application(_ application: UIApplication,
-                       didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let stringifiedToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        print("stringifiedToken:", stringifiedToken)
+        print("EHEHEH \(stringifiedToken)")
+        UserDefaults.standard.set(stringifiedToken, forKey: "pushNotificationToken")
     }
 }
 
@@ -24,7 +22,12 @@ extension CustomAppDelegate: UNUserNotificationCenterDelegate {
     // This function lets us do something when the user interacts with a notification
     // like log that they clicked it, or navigate to a specific screen
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
-            print("Got notification title: ", response.notification.request.content.title)
+        let userInfo = response.notification.request.content.userInfo
+        if let deepLink = userInfo["deepLink"] as? String, let url = URL(string: deepLink) {
+            DispatchQueue.main.async {
+                UIApplication.shared.open(url)
+            }
+        }
     }
     
     // This function allows us to view notifications in the app even with it in the foreground

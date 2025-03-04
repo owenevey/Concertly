@@ -88,6 +88,7 @@
 		F18DE2452CFCB6AF00C4D1B5 /* sampleData.json in Resources */ = {isa = PBXBuildFile; fileRef = F18DE2442CFCB6A800C4D1B5 /* sampleData.json */; };
 		F18DE2EC2CFD309500C4D1B5 /* FontExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18DE2EB2CFD309200C4D1B5 /* FontExtensions.swift */; };
 		F18DE2F22CFE745300C4D1B5 /* Outfit.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18DE2F12CFE745300C4D1B5 /* Outfit.ttf */; };
+		F192E3132D76833B009EACB9 /* FollowRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F192E3122D768336009EACB9 /* FollowRequest.swift */; };
 		F19C72672CC71C5E00390BD6 /* FlightsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72662CC71C5E00390BD6 /* FlightsViewModel.swift */; };
 		F19C72692CC7249E00390BD6 /* ConcertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72682CC7249E00390BD6 /* ConcertViewModel.swift */; };
 		F19C726F2CCB27D900390BD6 /* HidingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C726E2CCB27D900390BD6 /* HidingHeaderView.swift */; };
@@ -241,6 +242,7 @@
 		F18DE2442CFCB6A800C4D1B5 /* sampleData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = sampleData.json; sourceTree = "<group>"; };
 		F18DE2EB2CFD309200C4D1B5 /* FontExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontExtensions.swift; sourceTree = "<group>"; };
 		F18DE2F12CFE745300C4D1B5 /* Outfit.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Outfit.ttf; sourceTree = "<group>"; };
+		F192E3122D768336009EACB9 /* FollowRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowRequest.swift; sourceTree = "<group>"; };
 		F199FFF62CAA3A6E00EE005F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F19C72662CC71C5E00390BD6 /* FlightsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsViewModel.swift; sourceTree = "<group>"; };
 		F19C72682CC7249E00390BD6 /* ConcertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertViewModel.swift; sourceTree = "<group>"; };
@@ -550,6 +552,7 @@
 		F19C72652CC71BF700390BD6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F192E3122D768336009EACB9 /* FollowRequest.swift */,
 				F12B95152D375D5700EFD489 /* VenuesResponse.swift */,
 				F1611FE12D58166C00D4DF10 /* SuggestedConcertsResponse.swift */,
 				F1CD3CC92D31FDEF004E3041 /* ArtistSearchResponse.swift */,
@@ -838,6 +841,7 @@
 				F17DCCCE2D3386E4000D477C /* ArtistCard.swift in Sources */,
 				F18DE23F2CFAACC600C4D1B5 /* FilterTime.swift in Sources */,
 				F1CD3CD62D32EBD2004E3041 /* StringExtensions.swift in Sources */,
+				F192E3132D76833B009EACB9 /* FollowRequest.swift in Sources */,
 				F10F94262CD45849007EE947 /* FilterPrice.swift in Sources */,
 				F19C72732CCB394300390BD6 /* FlightsFiltersBar.swift in Sources */,
 				F114AA902D4B1489004F9C66 /* FullLineupView.swift in Sources */,

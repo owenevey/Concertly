@@ -9,11 +9,26 @@ struct ChooseArtistsView: View {
     @State private var showHeaderBorder: Bool = false
     @State private var selectedArtists: Set<SuggestedArtist> = []
     
-    private func onTapDone() {
+    private func onTapDone() async {
         hasSeenOnboarding = true
         for artist in selectedArtists {
             if !coreDataManager.isFollowingArtist(id: artist.id) {
                 coreDataManager.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: "following")
+            }
+            
+            do {
+                guard let pushNotificationToken = UserDefaults.standard.string(forKey: "pushNotificationToken") else {
+                    throw NSError(domain: "", code: 1, userInfo: nil)
+                }
+                
+                let response = try await followArtist(artistId: artist.id, pushNotificationToken: "", follow: true)
+                
+                if response.status == .error {
+                    throw NSError(domain: "", code: 1, userInfo: nil)
+                }
+            }
+            catch {
+                print("Error following the artist")
             }
         }
     }

@@ -43,10 +43,13 @@ struct ArtistView: View {
             }
             .frame(maxWidth: .infinity)
             .background(Color.background)
+            
             HStack {
                 BackButton(showBackground: true)
+                
+                Spacer()
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity)
         }
         .onAppear {
             viewModel.checkIfFollowing()
@@ -57,33 +60,12 @@ struct ArtistView: View {
     private var mainContent: some View {
         Group {
             if let artistDetails = viewModel.artistDetailsResponse.data {
-                ImageHeaderScrollView(title: artistDetails.name, imageUrl: artistDetails.imageUrl, showBackButton: false) {
+                ImageHeaderScrollView(title: artistDetails.name, imageUrl: artistDetails.imageUrl, rightIcon: "star", rightIconFilled: viewModel.isFollowing, onRightIconTap: viewModel.toggleArtistFollowing) {
                     VStack(spacing: 20) {
-                        VStack(alignment: .leading, spacing: 5) {
-//                            HStack(alignment: .top) {
-//                                Text(artistDetails.name)
-//                                    .font(.system(size: 30, type: .SemiBold))
-//                                    .frame(maxWidth: .infinity, alignment: .leading)
-//                                
-//                                Spacer()
-//                                
-//                                Button {
-//                                    viewModel.toggleArtistFollowing()
-//                                } label: {
-//                                    Image(systemName: viewModel.isFollowing ? "star.fill" : "star")
-//                                        .font(.system(size: 23))
-//                                        .fontWeight(.medium)
-//                                        .padding(.top, 5)
-//                                        .foregroundStyle(Color.primary)
-//                                }
-//                            }
-                            
-                            Text(artistDetails.description)
-                                .font(.system(size: 17, type: .Regular))
-                                .foregroundStyle(.gray3)
-                            
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                        Text(artistDetails.description)
+                            .font(.system(size: 17, type: .Regular))
+                            .foregroundStyle(.gray3)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         
                         if !artistDetails.socials.isEmpty {
                             WrappingCollectionView(
