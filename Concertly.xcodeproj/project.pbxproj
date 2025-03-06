@@ -90,7 +90,7 @@
 		F18DE2F22CFE745300C4D1B5 /* Outfit.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F18DE2F12CFE745300C4D1B5 /* Outfit.ttf */; };
 		F192E3132D76833B009EACB9 /* FollowRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F192E3122D768336009EACB9 /* FollowRequest.swift */; };
 		F192E3152D77DD71009EACB9 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = F192E3142D77DD6A009EACB9 /* Router.swift */; };
-		F19685B42D7957BD00FF2FC4 /* ZoomConcertLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19685B32D7957BA00FF2FC4 /* ZoomConcertLink.swift */; };
+		F19685B42D7957BD00FF2FC4 /* ZoomLinks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19685B32D7957BA00FF2FC4 /* ZoomLinks.swift */; };
 		F19C72672CC71C5E00390BD6 /* FlightsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72662CC71C5E00390BD6 /* FlightsViewModel.swift */; };
 		F19C72692CC7249E00390BD6 /* ConcertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72682CC7249E00390BD6 /* ConcertViewModel.swift */; };
 		F19C726F2CCB27D900390BD6 /* HidingHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C726E2CCB27D900390BD6 /* HidingHeaderView.swift */; };
@@ -246,7 +246,7 @@
 		F18DE2F12CFE745300C4D1B5 /* Outfit.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Outfit.ttf; sourceTree = "<group>"; };
 		F192E3122D768336009EACB9 /* FollowRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowRequest.swift; sourceTree = "<group>"; };
 		F192E3142D77DD6A009EACB9 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
-		F19685B32D7957BA00FF2FC4 /* ZoomConcertLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomConcertLink.swift; sourceTree = "<group>"; };
+		F19685B32D7957BA00FF2FC4 /* ZoomLinks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomLinks.swift; sourceTree = "<group>"; };
 		F199FFF62CAA3A6E00EE005F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F19C72662CC71C5E00390BD6 /* FlightsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsViewModel.swift; sourceTree = "<group>"; };
 		F19C72682CC7249E00390BD6 /* ConcertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertViewModel.swift; sourceTree = "<group>"; };
@@ -359,7 +359,7 @@
 				F192E3142D77DD6A009EACB9 /* Router.swift */,
 				F11611BE2D6A978800345C31 /* RootView.swift */,
 				F11640122C8A8A2F0040C95D /* ContentView.swift */,
-				F19685B32D7957BA00FF2FC4 /* ZoomConcertLink.swift */,
+				F19685B32D7957BA00FF2FC4 /* ZoomLinks.swift */,
 				F19C72622CC71B7500390BD6 /* Views */,
 				F19C72632CC71B8B00390BD6 /* Extensions */,
 				F19C72642CC71BC200390BD6 /* Utils */,
@@ -908,7 +908,7 @@
 				F17252C12D3455B2006C3454 /* ImageLoader.swift in Sources */,
 				F19C726F2CCB27D900390BD6 /* HidingHeaderView.swift in Sources */,
 				F11714AB2D13C4FE007A0052 /* HotelsHeader.swift in Sources */,
-				F19685B42D7957BD00FF2FC4 /* ZoomConcertLink.swift in Sources */,
+				F19685B42D7957BD00FF2FC4 /* ZoomLinks.swift in Sources */,
 				F1E786272CB300A200F4E462 /* HotelsView.swift in Sources */,
 				F1CD3C8D2D260876004E3041 /* ExploreContentType.swift in Sources */,
 				F1CD3C842D24CAEB004E3041 /* CitySearchResponse.swift in Sources */,

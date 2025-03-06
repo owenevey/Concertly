@@ -12,16 +12,12 @@ struct ExploreHeader: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 HStack(spacing: 25) {
-                    NavigationLink {
-                        ExploreSearchView()
-                    } label: {
+                    NavigationLink(value: "exploreSearch") {
                         Image(systemName: "magnifyingglass")
                     }
                     .buttonStyle(PlainButtonStyle())
                     
-                    NavigationLink {
-                        ExploreSearchView()
-                    } label: {
+                    NavigationLink(value: "exploreSearch") {
                         Image(systemName: "bell")
                     }
                     .buttonStyle(PlainButtonStyle())

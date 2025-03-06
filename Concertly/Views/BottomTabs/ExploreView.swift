@@ -43,9 +43,7 @@ struct ExploreView: View {
                         .padding(.horizontal, 15)
                         .frame(width: UIScreen.main.bounds.width)
                         
-                        NavigationLink {
-                            ExploreSearchView()
-                        } label: {
+                        NavigationLink(value: "exploreSearch") {
                             HStack {
                                 Image(systemName: "magnifyingglass")
                                     .fontWeight(.semibold)

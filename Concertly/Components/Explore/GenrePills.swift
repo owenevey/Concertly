@@ -5,12 +5,8 @@ struct GenrePills: View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 15) {
                 ForEach((MusicGenre.allCases), id: \.self) { genre in
-                    NavigationLink {
-                        GenreView(genre: genre)
-                    }
-                    label: {
+                    NavigationLink(value: genre) {
                         GenrePill(genre: genre)
-                            
                     }
                     .buttonStyle(PlainButtonStyle())
                 }

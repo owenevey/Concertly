@@ -6,7 +6,7 @@ struct ArtistCard: View {
     var artist: SuggestedArtist
     
     var body: some View {
-        NavigationLink(value: artist) {
+        NavigationLink(value: ZoomArtistLink(artist: artist)) {
             ImageLoader(url: artist.imageUrl, contentMode: .fill)
             .frame(width: 200, height: 230)
             .clipped()

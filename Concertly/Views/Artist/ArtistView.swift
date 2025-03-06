@@ -157,9 +157,7 @@ struct ArtistView: View {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     HStack(spacing: 15) {
                                         ForEach(artistDetails.similarArtists) { artist in
-                                            NavigationLink{
-                                                ArtistView(artistID: artist.id)
-                                            } label: {
+                                            NavigationLink(value: artist) {
                                                 VStack {
                                                     ImageLoader(url: artist.imageUrl, contentMode: .fill)
                                                         .frame(width: 90, height: 90)

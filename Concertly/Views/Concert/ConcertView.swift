@@ -133,9 +133,7 @@ struct ConcertView: View {
                     
                     if concert.lineup.count > 3 {
                         HStack {
-                            NavigationLink {
-                                FullLineupView(lineup: concert.lineup)
-                            } label: {
+                            NavigationLink(value: concert.lineup) {
                                 HStack(spacing: 5) {
                                     Text("View all \(concert.lineup.count) artists")
                                         .font(.system(size: 18, type: .Regular))

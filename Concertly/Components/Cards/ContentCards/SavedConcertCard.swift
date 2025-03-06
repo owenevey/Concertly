@@ -1,17 +1,12 @@
 import SwiftUI
 
 struct SavedConcertCard: View {
-    @Namespace private var namespace
-    let id = "UIElement"
+    @EnvironmentObject var animationManager: AnimationManager
     
     var concert: Concert
     
     var body: some View {
-        NavigationLink {
-//            ConcertView(concert: concert)
-//                .navigationTransition(.zoom(sourceID: id, in: namespace))
-        }
-        label: {
+        NavigationLink(value: ZoomConcertLink(concert: concert)) {
             VStack(alignment: .leading, spacing: 0) {
                 ImageLoader(url: concert.imageUrl, contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width - 30, height: 170)
@@ -113,9 +108,13 @@ struct SavedConcertCard: View {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.foreground)
             )
+            .matchedTransitionSource(id: concert.id, in: animationManager.animation) {
+                $0
+                    .background(.clear)
+                    .clipShape(.rect(cornerRadius: 20))
+            }
         }
         .buttonStyle(PlainButtonStyle())
-        .matchedTransitionSource(id: id, in: namespace)
     }
 }
 

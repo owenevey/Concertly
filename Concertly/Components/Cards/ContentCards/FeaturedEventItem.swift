@@ -3,17 +3,12 @@ import SwiftUI
 
 struct FeaturedEventItem: View {
     
-    @Namespace private var namespace
-    let id = "UIElement"
+    @EnvironmentObject var animationManager: AnimationManager
     
     var concert: Concert
     
     var body: some View {
-        NavigationLink{
-//            ConcertView(concert: concert)
-//                .navigationTransition(.zoom(sourceID: id, in: namespace))
-        }
-        label: {
+        NavigationLink(value: ZoomConcertLink(concert: concert)) {
             VStack(alignment: .leading, spacing: 10) {
                 ImageLoader(url: concert.imageUrl, contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width - 30, height: (UIScreen.main.bounds.width - 30) * 0.6)
@@ -40,9 +35,13 @@ struct FeaturedEventItem: View {
             }
             .contentShape(Rectangle())
             .frame(maxWidth: .infinity)
+            .matchedTransitionSource(id: concert.id, in: animationManager.animation) {
+                $0
+                    .background(.clear)
+                    .clipShape(.rect(cornerRadius: 20))
+            }
         }
         .buttonStyle(PlainButtonStyle())
-        .matchedTransitionSource(id: id, in: namespace)
     }
 }
 
@@ -51,4 +50,5 @@ struct FeaturedEventItem: View {
     NavigationStack {
         FeaturedEventItem(concert: hotConcerts[0])
     }
+    .environmentObject(AnimationManager())
 }

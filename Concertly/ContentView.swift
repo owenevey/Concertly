@@ -2,6 +2,8 @@ import SwiftUI
 
 struct ContentView: View {
     @AppStorage("Theme") private var theme: String = "Default"
+    @AppStorage("Home Airport") private var homeAirport: String = "JFK"
+    @AppStorage("Home City") private var homeCity: String = "New York, NY"
     
     @ObservedObject var exploreViewModel = ExploreViewModel()
     @ObservedObject var nearbyViewModel = NearbyViewModel()
@@ -10,7 +12,7 @@ struct ContentView: View {
     
     @EnvironmentObject var router: Router
     @EnvironmentObject var animationManager: AnimationManager
-        
+    
     var body: some View {
         TabView(selection: $router.selectedTab) {
             Group {
@@ -23,9 +25,38 @@ struct ContentView: View {
                         .navigationDestination(for: Concert.self) { concert in
                             ConcertView(concert: concert)
                         }
+                        .navigationDestination(for: ZoomArtistLink.self) { item in
+                            ArtistView(artistID: item.artist.id)
+                                .navigationTransition(.zoom(sourceID: item.artist.id, in: animationManager.animation))
+                        }
                         .navigationDestination(for: SuggestedArtist.self) { artist in
                             ArtistView(artistID: artist.id)
-                                .navigationTransition(.zoom(sourceID: artist.id, in: animationManager.animation))
+                        }
+                        .navigationDestination(for: Destination.self) { destination in
+                            DestinationView(destination: destination)
+                                .navigationTransition(.zoom(sourceID: destination.id, in: animationManager.animation))
+                        }
+                        .navigationDestination(for: Venue.self) { venue in
+                            VenueView(venue: venue)
+                                .navigationTransition(.zoom(sourceID: venue.id, in: animationManager.animation))
+                        }
+                        .navigationDestination(for: [SuggestedArtist].self) { lineup in
+                            FullLineupView(lineup: lineup)
+                        }
+                        .navigationDestination(for: MusicGenre.self) { genre in
+                            GenreView(genre: genre)
+                        }
+                        .navigationDestination(for: String.self) { value in
+                            switch value {
+                            case "exploreSearch":
+                                ExploreSearchView()
+                            case "Home Airport":
+                                AirportSearchView(airportCode: $homeAirport, title: "Home Airport")
+                            case "Home City":
+                                CitySearchView(location: $homeCity, title: "Home City")
+                            default:
+                                Text(value)
+                            }
                         }
                 }
                 .tabItem {
@@ -35,6 +66,43 @@ struct ContentView: View {
                 
                 NavigationStack(path: $router.nearbyPath) {
                     NearbyView(viewModel: nearbyViewModel)
+                        .navigationDestination(for: ZoomConcertLink.self) { item in
+                            ConcertView(concert: item.concert)
+                                .navigationTransition(.zoom(sourceID: item.concert.id, in: animationManager.animation))
+                        }
+                        .navigationDestination(for: Concert.self) { concert in
+                            ConcertView(concert: concert)
+                        }
+                        .navigationDestination(for: ZoomArtistLink.self) { item in
+                            ArtistView(artistID: item.artist.id)
+                                .navigationTransition(.zoom(sourceID: item.artist.id, in: animationManager.animation))
+                        }
+                        .navigationDestination(for: SuggestedArtist.self) { artist in
+                            ArtistView(artistID: artist.id)
+                        }
+                        .navigationDestination(for: Destination.self) { destination in
+                            DestinationView(destination: destination)
+                                .navigationTransition(.zoom(sourceID: destination.id, in: animationManager.animation))
+                        }
+                        .navigationDestination(for: Venue.self) { venue in
+                            VenueView(venue: venue)
+                                .navigationTransition(.zoom(sourceID: venue.id, in: animationManager.animation))
+                        }
+                        .navigationDestination(for: [SuggestedArtist].self) { lineup in
+                            FullLineupView(lineup: lineup)
+                        }
+                        .navigationDestination(for: String.self) { value in
+                            switch value {
+                            case "exploreSearch":
+                                ExploreSearchView()
+                            case "Home Airport":
+                                AirportSearchView(airportCode: $homeAirport, title: "Home Airport")
+                            case "Home City":
+                                CitySearchView(location: $homeCity, title: "Home City")
+                            default:
+                                Text(value)
+                            }
+                        }
                 }
                 .tabItem {
                     Label("Nearby", systemImage: "location")
@@ -43,6 +111,43 @@ struct ContentView: View {
                 
                 NavigationStack(path: $router.savedPath) {
                     SavedView(viewModel: savedViewModel)
+                        .navigationDestination(for: ZoomConcertLink.self) { item in
+                            ConcertView(concert: item.concert)
+                                .navigationTransition(.zoom(sourceID: item.concert.id, in: animationManager.animation))
+                        }
+                        .navigationDestination(for: Concert.self) { concert in
+                            ConcertView(concert: concert)
+                        }
+                        .navigationDestination(for: ZoomArtistLink.self) { item in
+                            ArtistView(artistID: item.artist.id)
+                                .navigationTransition(.zoom(sourceID: item.artist.id, in: animationManager.animation))
+                        }
+                        .navigationDestination(for: SuggestedArtist.self) { artist in
+                            ArtistView(artistID: artist.id)
+                        }
+                        .navigationDestination(for: Destination.self) { destination in
+                            DestinationView(destination: destination)
+                                .navigationTransition(.zoom(sourceID: destination.id, in: animationManager.animation))
+                        }
+                        .navigationDestination(for: Venue.self) { venue in
+                            VenueView(venue: venue)
+                                .navigationTransition(.zoom(sourceID: venue.id, in: animationManager.animation))
+                        }
+                        .navigationDestination(for: [SuggestedArtist].self) { lineup in
+                            FullLineupView(lineup: lineup)
+                        }
+                        .navigationDestination(for: String.self) { value in
+                            switch value {
+                            case "exploreSearch":
+                                ExploreSearchView()
+                            case "Home Airport":
+                                AirportSearchView(airportCode: $homeAirport, title: "Home Airport")
+                            case "Home City":
+                                CitySearchView(location: $homeCity, title: "Home City")
+                            default:
+                                Text(value)
+                            }
+                        }
                 }
                 .tabItem {
                     Label("Saved", systemImage: "bookmark.fill")
@@ -51,6 +156,43 @@ struct ContentView: View {
                 
                 NavigationStack(path: $router.profilePath) {
                     ProfileView(profileViewModel: profileViewModel, nearbyViewModel: nearbyViewModel)
+                        .navigationDestination(for: ZoomConcertLink.self) { item in
+                            ConcertView(concert: item.concert)
+                                .navigationTransition(.zoom(sourceID: item.concert.id, in: animationManager.animation))
+                        }
+                        .navigationDestination(for: Concert.self) { concert in
+                            ConcertView(concert: concert)
+                        }
+                        .navigationDestination(for: ZoomArtistLink.self) { item in
+                            ArtistView(artistID: item.artist.id)
+                                .navigationTransition(.zoom(sourceID: item.artist.id, in: animationManager.animation))
+                        }
+                        .navigationDestination(for: SuggestedArtist.self) { artist in
+                            ArtistView(artistID: artist.id)
+                        }
+                        .navigationDestination(for: Destination.self) { destination in
+                            DestinationView(destination: destination)
+                                .navigationTransition(.zoom(sourceID: destination.id, in: animationManager.animation))
+                        }
+                        .navigationDestination(for: Venue.self) { venue in
+                            VenueView(venue: venue)
+                                .navigationTransition(.zoom(sourceID: venue.id, in: animationManager.animation))
+                        }
+                        .navigationDestination(for: [SuggestedArtist].self) { lineup in
+                            FullLineupView(lineup: lineup)
+                        }
+                        .navigationDestination(for: String.self) { value in
+                            switch value {
+                            case "exploreSearch":
+                                ExploreSearchView()
+                            case "Home Airport":
+                                AirportSearchView(airportCode: $homeAirport, title: "Home Airport")
+                            case "Home City":
+                                CitySearchView(location: $homeCity, title: "Home City")
+                            default:
+                                Text(value)
+                            }
+                        }
                 }
                 .tabItem {
                     Label("Profile", systemImage: "person")

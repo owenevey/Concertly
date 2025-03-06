@@ -114,9 +114,7 @@ struct DestinationView: View {
                                                     .frame(maxWidth: .infinity, alignment: .leading)
                                                 
                                                 ForEach(concerts) { concert in
-                                                    NavigationLink{
-                                                        ConcertView(concert: concert)
-                                                    } label: {
+                                                    NavigationLink(value: concert) {
                                                         ConcertRow(concert: concert, screen: .destination)
                                                     }
                                                     .buttonStyle(PlainButtonStyle())

@@ -1,19 +1,13 @@
 import SwiftUI
 
 struct DestinationCard: View {
-    @Namespace private var namespace
-    let id = "UIElement"
+    @EnvironmentObject var animationManager: AnimationManager
     
     var destination: Destination
     
     var body: some View {
-        
-        NavigationLink {
-            DestinationView(destination: destination)
-                .navigationTransition(.zoom(sourceID: id, in: namespace))
-        }
-        label: {
-            VStack(alignment: .leading, spacing: 0) {                
+        NavigationLink(value: destination) {
+            VStack(alignment: .leading, spacing: 0) {
                 ImageLoader(url: destination.images[0], contentMode: .fill)
                     .frame(width: 250, height: 150)
                     .clipped()
@@ -45,10 +39,13 @@ struct DestinationCard: View {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.foreground)
             )
-            
+            .matchedTransitionSource(id: destination.id, in: animationManager.animation) {
+                $0
+                    .background(.clear)
+                    .clipShape(.rect(cornerRadius: 20))
+            }
         }
         .buttonStyle(PlainButtonStyle())
-        .matchedTransitionSource(id: id, in: namespace)
     }
 }
 

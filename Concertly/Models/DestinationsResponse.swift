@@ -4,7 +4,7 @@ struct DestinationsResponse: Codable {
     let destinations: [Destination]
 }
 
-struct Destination: Codable, Identifiable {
+struct Destination: Codable, Identifiable, Hashable {
     var id: String {
         return name
     }

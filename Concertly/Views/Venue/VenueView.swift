@@ -11,20 +11,14 @@ struct VenueView: View {
         self.venue = venue
         _viewModel = StateObject(wrappedValue: VenueViewModel(venue: venue))
     }
-        
+    
     var body: some View {
         ImageHeaderScrollView(title: venue.name, imageUrl: venue.imageUrl) {
             VStack(spacing: 20) {
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(venue.name)
-                        .font(.system(size: 30, type: .SemiBold))
-                    
-                    Text(venue.description)
-                        .font(.system(size: 17, type: .Regular))
-                        .foregroundStyle(.gray3)
-                    
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                Text(venue.description)
+                    .font(.system(size: 17, type: .Regular))
+                    .foregroundStyle(.gray3)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text("Price Summary")
@@ -97,9 +91,7 @@ struct VenueView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
                                 ForEach(concerts) { concert in
-                                    NavigationLink{
-                                        ConcertView(concert: concert)
-                                    } label: {
+                                    NavigationLink(value: concert) {
                                         ConcertRow(concert: concert, screen: .destination)
                                     }
                                     .buttonStyle(PlainButtonStyle())
@@ -128,7 +120,7 @@ struct VenueView: View {
                     
                     MapCard(addressToSearch: venue.address, latitude: venue.latitude, longitude: venue.longitude, delta: 0.01)
                 }
-
+                
             }
             .padding([.horizontal, .bottom], 15)
             .padding(.top, 10)

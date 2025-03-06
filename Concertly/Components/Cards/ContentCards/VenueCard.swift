@@ -1,17 +1,12 @@
 import SwiftUI
 
 struct VenueCard: View {
-    @Namespace private var namespace
-    let id = "UIElement"
+    @EnvironmentObject var animationManager: AnimationManager
     
     var venue: Venue
     
     var body: some View {
-        NavigationLink {
-            VenueView(venue: venue)
-                .navigationTransition(.zoom(sourceID: id, in: namespace))
-        }
-        label: {
+        NavigationLink(value: venue) {
             ImageLoader(url: venue.imageUrl, contentMode: .fill)
             .frame(width: 250, height: 200)
             .clipped()
@@ -41,9 +36,13 @@ struct VenueCard: View {
                 }
             }
             .clipShape(RoundedRectangle(cornerRadius: 20))
+            .matchedTransitionSource(id: venue.id, in: animationManager.animation) {
+                $0
+                    .background(.clear)
+                    .clipShape(.rect(cornerRadius: 20))
+            }
         }
         .buttonStyle(PlainButtonStyle())
-        .matchedTransitionSource(id: id, in: namespace)
         
     }
 }

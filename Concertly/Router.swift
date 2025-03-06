@@ -47,15 +47,13 @@ class Router: ObservableObject {
     func popToRoot(tab: String) {
         switch tab {
         case "Explore":
-            print("Explore path before: \(explorePath.count)")
-            explorePath = NavigationPath()
-            print("Explore path after: \(explorePath.count)")
+            explorePath.removeLast(explorePath.count)
         case "Nearby":
-            nearbyPath = NavigationPath()
+            nearbyPath.removeLast(nearbyPath.count)
         case "Saved":
-            savedPath = NavigationPath()
+            savedPath.removeLast(savedPath.count)
         case "Profile":
-            profilePath = NavigationPath()
+            profilePath.removeLast(profilePath.count)
         default:
             break
         }

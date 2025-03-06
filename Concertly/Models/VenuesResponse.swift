@@ -4,7 +4,7 @@ struct VenuesResponse: Codable {
     let venues: [Venue]
 }
 
-struct Venue: Codable, Identifiable {
+struct Venue: Codable, Identifiable, Hashable {
     let id: String
     let name: String
     let imageUrl: String

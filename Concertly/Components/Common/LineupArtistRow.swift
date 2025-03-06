@@ -4,10 +4,7 @@ struct LineupArtistRow: View {
     let artist: SuggestedArtist
     
     var body: some View {
-        NavigationLink {
-            ArtistView(artistID: artist.id)
-        }
-        label: {
+        NavigationLink(value: artist) {
             HStack(spacing: 15) {
                 ImageLoader(url: artist.imageUrl, contentMode: .fill)
                     .frame(width: 50, height: 50)

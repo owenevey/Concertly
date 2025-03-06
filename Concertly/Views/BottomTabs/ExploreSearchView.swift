@@ -69,10 +69,7 @@ struct ExploreSearchView: View {
                         } else {
                             VStack(spacing: 5) {
                                 ForEach(artists) { artistResult in
-                                    NavigationLink {
-                                        ArtistView(artistID: artistResult.id)
-                                    }
-                                    label: {
+                                    NavigationLink(value: artistResult) {
                                         HStack(spacing: 15) {
                                             ImageLoader(url: artistResult.imageUrl, contentMode: .fill)
                                                 .frame(width: 60, height: 60)
@@ -120,10 +117,7 @@ struct ExploreSearchView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
                         ForEach(viewModel.recentSearches) { artistResult in
-                            NavigationLink {
-                                ArtistView(artistID: artistResult.id)
-                            }
-                            label: {
+                            NavigationLink(value: artistResult) {
                                 HStack(spacing: 15) {
                                     ImageLoader(url: artistResult.imageUrl, contentMode: .fill)
                                         .frame(width: 60, height: 60)

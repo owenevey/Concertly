@@ -8,8 +8,8 @@ struct ProfileView: View {
     @StateObject var nearbyViewModel: NearbyViewModel
     
     @AppStorage("Home Airport") private var homeAirport: String = "JFK"
-    @AppStorage("Theme") private var theme: String = "Default"
     @AppStorage("Home City") private var homeCity: String = "New York, NY"
+    @AppStorage("Theme") private var theme: String = "Default"
     @AppStorage("Concert Reminders") private var concertReminders: Int = concertRemindersEnum.dayBefore.rawValue
     
     @State private var isSearchBarVisible: Bool = true
@@ -68,14 +68,16 @@ struct ProfileView: View {
                             
                             VStack(spacing: 0) {
                                 
-                                ProfileRow(imageName: "airplane.departure", name: "Home Airport", selection: homeAirport, destination: AirportSearchView(airportCode: $homeAirport, title: "Home Airport"))
+                                ProfileRow(imageName: "airplane.departure", name: "Home Airport", selection: homeAirport)
+//                                ProfileRow(imageName: "airplane.departure", name: "Home Airport", selection: homeAirport, destination: AirportSearchView(airportCode: $homeAirport, title: "Home Airport"))
                                 
                                 Divider()
                                     .frame(height: 1)
                                     .overlay(.gray2)
                                     .padding(.horizontal, 15)
                                 
-                                ProfileRow(imageName: "building.2.fill", name: "Home City", selection: homeCity, destination: CitySearchView(location: $homeCity, title: "Home City"))
+//                                ProfileRow(imageName: "building.2.fill", name: "Home City", selection: homeCity, destination: CitySearchView(location: $homeCity, title: "Home City"))
+                                ProfileRow(imageName: "building.2.fill", name: "Home City", selection: homeCity)
                                 
                                 Divider()
                                     .frame(height: 1)
@@ -205,14 +207,13 @@ struct ProfileView: View {
         }
     }
     
-    struct ProfileRow<Destination: View>: View {
+    struct ProfileRow: View {
         let imageName: String
         let name: String
         let selection: String
-        let destination: Destination
         
         var body: some View {
-            NavigationLink(destination: destination) {
+            NavigationLink(value: name) {
                 HStack {
                     Image(systemName: imageName)
                         .frame(width: 22)
