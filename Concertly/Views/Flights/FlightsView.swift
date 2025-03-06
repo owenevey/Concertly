@@ -151,7 +151,7 @@ struct FlightsView<T: TripViewModelProtocol>: View {
     }
 }
 
-#Preview {
+#Preview {    
     NavigationStack {
         ConcertView(concert: hotConcerts[0])
     }

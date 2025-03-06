@@ -13,7 +13,7 @@ class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let stringifiedToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        print("EHEHEH \(stringifiedToken)")
+//        print("EHEHEH \(stringifiedToken)")
         UserDefaults.standard.set(stringifiedToken, forKey: "pushNotificationToken")
     }
 }

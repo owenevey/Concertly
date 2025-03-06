@@ -34,6 +34,6 @@ struct BackButton: View {
     }
 }
 
-#Preview {
+#Preview {    
     ConcertView(concert: hotConcerts[0])
 }

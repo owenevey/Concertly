@@ -1,18 +1,14 @@
 import SwiftUI
 
 struct ConcertCard: View {
-    @Namespace private var namespace
-    let id = "UIElement"
+    @EnvironmentObject var animationManager: AnimationManager
     
     var concert: Concert
     
     var body: some View {
-        NavigationLink {
-            ConcertView(concert: concert)
-                .navigationTransition(.zoom(sourceID: id, in: namespace))
-        }
-        label: {
-            VStack(alignment: .leading, spacing: 0) {                
+        
+        NavigationLink(value: ZoomConcertLink(concert: concert)) {
+            VStack(alignment: .leading, spacing: 0) {
                 ImageLoader(url: concert.imageUrl, contentMode: .fill)
                     .frame(width: 250, height: 150)
                     .clipped()
@@ -44,15 +40,22 @@ struct ConcertCard: View {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(Color.foreground)
             )
+            .matchedTransitionSource(id: concert.id, in: animationManager.animation) {
+                $0
+                    .background(.clear)
+                    .clipShape(.rect(cornerRadius: 20))
+            }
         }
         .buttonStyle(PlainButtonStyle())
-        .matchedTransitionSource(id: id, in: namespace)
     }
 }
 
-#Preview {
+#Preview {    
     NavigationStack {
         ConcertCard(concert: hotConcerts[0])
             .shadow(color: .black.opacity(0.2), radius: 5)
+            .navigationDestination(for: Concert.self) { concert in
+                ConcertView(concert: hotConcerts[0])
+            }
     }
 }

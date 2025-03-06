@@ -118,9 +118,7 @@ struct ArtistView: View {
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                     
                                     ForEach(viewModel.nearbyConcerts) { concert in
-                                        NavigationLink{
-                                            ConcertView(concert: concert)
-                                        } label: {
+                                        NavigationLink(value: concert) {
                                             ConcertRow(concert: concert, screen: .artist)
                                         }
                                         .buttonStyle(PlainButtonStyle())
@@ -141,9 +139,7 @@ struct ArtistView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
                                 ForEach(artistDetails.concerts) { concert in
-                                    NavigationLink{
-                                        ConcertView(concert: concert)
-                                    } label: {
+                                    NavigationLink(value: concert) {
                                         ConcertRow(concert: concert, screen: .artist)
                                     }
                                     .buttonStyle(PlainButtonStyle())

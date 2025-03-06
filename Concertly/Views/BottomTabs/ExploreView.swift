@@ -8,6 +8,8 @@ struct ExploreView: View {
     @State private var offset: CGFloat = 0
     @State private var isSearchBarVisible: Bool = true
     
+    @EnvironmentObject var router: Router
+        
     var body: some View {
         GeometryReader { geometry in
             ZStack(alignment: .top) {
@@ -141,5 +143,6 @@ struct ExploreView: View {
 #Preview {
     NavigationStack {
         ExploreView(viewModel: ExploreViewModel())
+            .environmentObject(Router())
     }
 }

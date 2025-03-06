@@ -177,7 +177,6 @@ class CoreDataManager {
             request.sortDescriptors = sortDescriptors
             
             let entities: [ArtistEntity] = fetchEntities(for: request, category: category)
-            print(entities.count)
             
             if category == "recentSearches" {
                 let first15Items = entities.prefix(15)

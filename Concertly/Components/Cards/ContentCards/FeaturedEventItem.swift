@@ -10,8 +10,8 @@ struct FeaturedEventItem: View {
     
     var body: some View {
         NavigationLink{
-            ConcertView(concert: concert)
-                .navigationTransition(.zoom(sourceID: id, in: namespace))
+//            ConcertView(concert: concert)
+//                .navigationTransition(.zoom(sourceID: id, in: namespace))
         }
         label: {
             VStack(alignment: .leading, spacing: 10) {

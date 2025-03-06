@@ -4,7 +4,7 @@ struct ConcertsResponse: Codable {
     let concerts: [Concert]
 }
 
-struct Concert: Codable, Identifiable {
+struct Concert: Codable, Identifiable, Hashable {
     let name: [String]
     let id: String
     let artistName: String

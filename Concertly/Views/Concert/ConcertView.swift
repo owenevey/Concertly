@@ -2,10 +2,12 @@ import SwiftUI
 import MapKit
 
 struct ConcertView: View {
-    
+
     var concert: Concert
     
     @StateObject var viewModel: ConcertViewModel
+    
+    @EnvironmentObject var router: Router
     
     init(concert: Concert) {
         self.concert = concert
@@ -204,6 +206,7 @@ struct ConcertView: View {
 #Preview {
     NavigationStack {
         ConcertView(concert: hotConcerts[0])
+            .environmentObject(Router())
     }
 }
 

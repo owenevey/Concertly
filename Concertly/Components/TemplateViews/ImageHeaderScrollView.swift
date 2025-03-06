@@ -121,7 +121,7 @@ struct ImageHeaderScrollView<Content: View>: View {
 }
 
 
-#Preview {
+#Preview {    
     NavigationStack {
         ConcertView(concert: hotConcerts[0])
     }

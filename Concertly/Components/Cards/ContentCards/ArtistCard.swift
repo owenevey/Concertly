@@ -1,17 +1,12 @@
 import SwiftUI
 
 struct ArtistCard: View {
-    @Namespace private var namespace
-    let id = "UIElement"
-    
+    @EnvironmentObject var animationManager: AnimationManager
+
     var artist: SuggestedArtist
     
     var body: some View {
-        NavigationLink {
-            ArtistView(artistID: artist.id)
-                .navigationTransition(.zoom(sourceID: id, in: namespace))
-        }
-        label: {
+        NavigationLink(value: artist) {
             ImageLoader(url: artist.imageUrl, contentMode: .fill)
             .frame(width: 200, height: 230)
             .clipped()
@@ -43,9 +38,13 @@ struct ArtistCard: View {
                 }
             }
             .clipShape(RoundedRectangle(cornerRadius: 20))
+            .matchedTransitionSource(id: artist.id, in: animationManager.animation) {
+                $0
+                    .background(.clear)
+                    .clipShape(.rect(cornerRadius: 20))
+            }
         }
         .buttonStyle(PlainButtonStyle())
-        .matchedTransitionSource(id: id, in: namespace)
     }
 }
 

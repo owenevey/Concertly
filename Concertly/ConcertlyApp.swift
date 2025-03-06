@@ -4,8 +4,8 @@ import SwiftUI
 struct ConcertlyApp: App {
     
     @UIApplicationDelegateAdaptor private var appDelegate: CustomAppDelegate
-    @State private var path = [String]()
-    
+    @StateObject var router = Router()
+    @StateObject private var animationManager = AnimationManager()
     
     var body: some Scene {
         WindowGroup {
@@ -13,16 +13,13 @@ struct ConcertlyApp: App {
                 .onAppear(perform: {
                     appDelegate.app = self
                 })
-                .onOpenURL { url in
-                    handleDeepLink(url)
-                }
+                .environmentObject(router)
+                .environmentObject(animationManager)
         }
     }
-    
-    private func handleDeepLink(_ url: URL) {
-        let components = URLComponents(url: url, resolvingAgainstBaseURL: true)
-        if let host = components?.host, host == "artist", let artistID = components?.queryItems?.first(where: { $0.name == "id" })?.value {
-            path.append("artist:\(artistID)")
-        }
-    }
+}
+
+
+class AnimationManager: ObservableObject {
+    let animation: Namespace.ID = Namespace().wrappedValue
 }
