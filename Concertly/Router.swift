@@ -58,4 +58,24 @@ class Router: ObservableObject {
             break
         }
     }
+    
+    func handleOpenUrl(url: URL) {
+        guard url.scheme == "concertly" else { return }
+        guard let host = url.host else { return }
+        
+        let pathComponents = url.pathComponents
+        
+        let navString = "\(host)/\(pathComponents[1])"
+        
+        if host == "artist" {
+            popToRoot(tab: "Explore")
+            selectedTab = 0
+            push(navString, tab: "Explore")
+        }
+        else if host == "saved" {
+            popToRoot(tab: "Saved")
+            selectedTab = 2
+            push(navString, tab: "Saved")
+        }
+    }
 }

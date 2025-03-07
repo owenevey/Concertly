@@ -23,11 +23,16 @@ extension CustomAppDelegate: UNUserNotificationCenterDelegate {
     // like log that they clicked it, or navigate to a specific screen
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         let userInfo = response.notification.request.content.userInfo
-        if let deepLink = userInfo["deepLink"] as? String, let url = URL(string: deepLink) {
-            DispatchQueue.main.async {
-                UIApplication.shared.open(url)
+        print(userInfo)
+        if let aps = userInfo["aps"] as? [String: Any],
+               let deepLink = aps["deepLink"] as? String {
+                
+                if let url = URL(string: deepLink) {
+                    DispatchQueue.main.async {
+                        UIApplication.shared.open(url)
+                    }
+                }
             }
-        }
     }
     
     // This function allows us to view notifications in the app even with it in the foreground

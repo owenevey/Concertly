@@ -47,15 +47,25 @@ struct ContentView: View {
                             GenreView(genre: genre)
                         }
                         .navigationDestination(for: String.self) { value in
-                            switch value {
-                            case "exploreSearch":
-                                ExploreSearchView()
-                            case "Home Airport":
-                                AirportSearchView(airportCode: $homeAirport, title: "Home Airport")
-                            case "Home City":
-                                CitySearchView(location: $homeCity, title: "Home City")
-                            default:
-                                Text(value)
+                            if value.hasPrefix("artist") {
+                                let components = value.split(separator: "/")
+                                
+                                if components.count == 2 {
+                                    let id = components[1]
+                                    ArtistView(artistID: String(id))
+                                }
+                            } else {
+                                // Handle normal cases like "exploreSearch", "Home Airport", etc.
+                                switch value {
+                                case "exploreSearch":
+                                    ExploreSearchView()
+                                case "Home Airport":
+                                    AirportSearchView(airportCode: $homeAirport, title: "Home Airport")
+                                case "Home City":
+                                    CitySearchView(location: $homeCity, title: "Home City")
+                                default:
+                                    Text("Unknown destination")
+                                }
                             }
                         }
                 }

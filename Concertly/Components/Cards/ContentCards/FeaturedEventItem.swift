@@ -38,7 +38,7 @@ struct FeaturedEventItem: View {
             .matchedTransitionSource(id: concert.id, in: animationManager.animation) {
                 $0
                     .background(.clear)
-                    .clipShape(.rect(cornerRadius: 20))
+                    .clipShape(.rect(cornerRadius: 0))
             }
         }
         .buttonStyle(PlainButtonStyle())

@@ -155,6 +155,7 @@ class ConcertViewModel: TripViewModelProtocol {
             coreDataManager.unSaveConcert(id: concert.id)
         }
         else {
+            print("ID: \(concert.id)")
             coreDataManager.saveConcert(concert)
             
             let concertRemindersPreference = UserDefaults.standard.integer(forKey: "Concert Reminders")

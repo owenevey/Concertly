@@ -15,6 +15,9 @@ struct ConcertlyApp: App {
                 })
                 .environmentObject(router)
                 .environmentObject(animationManager)
+                .onOpenURL { url in
+                    router.handleOpenUrl(url: url)
+                }
         }
     }
 }
