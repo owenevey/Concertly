@@ -17,23 +17,23 @@ struct ConcertView: View {
     @State var hasAppeared = false
     
     var concertName: String {
-        if concert.name.count > 1 {
+        if viewModel.concert.name.count > 1 {
             return ""
-        } else if concert.name.count == 1 && (concert.name[0].lowercased() != concert.artistName.lowercased()) {
-            return concert.name[0]
+        } else if viewModel.concert.name.count == 1 && (viewModel.concert.name[0].lowercased() != viewModel.concert.artistName.lowercased()) {
+            return viewModel.concert.name[0]
         }
         return ""
     }
     
     var body: some View {
-        ImageHeaderScrollView(title: concert.artistName, imageUrl: concert.imageUrl, rightIcon: "bookmark", rightIconFilled: viewModel.isSaved, onRightIconTap: viewModel.toggleConcertSaved) {
+        ImageHeaderScrollView(title: viewModel.concert.artistName, imageUrl: viewModel.concert.imageUrl, rightIcon: "bookmark", rightIconFilled: viewModel.isSaved, onRightIconTap: viewModel.toggleConcertSaved) {
             VStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 5) {
                         VStack(alignment: .leading, spacing: 5) {
                             HStack(spacing: 5) {
                                 Image(systemName: "calendar")
                                     .frame(width: 22)
-                                Text(concert.date.fullWeekdayFormat(timeZoneIdentifier: concert.timezone))
+                                Text(viewModel.concert.date.fullWeekdayFormat(timeZoneIdentifier: viewModel.concert.timezone))
                                     .font(.system(size: 18, type: .Regular))
                             }
                             .foregroundStyle(.gray3)
@@ -41,7 +41,7 @@ struct ConcertView: View {
                             HStack(spacing: 5) {
                                 Image(systemName: "mappin.and.ellipse")
                                     .frame(width: 22)
-                                Text(concert.cityName)
+                                Text(viewModel.concert.cityName)
                                     .font(.system(size: 18, type: .Regular))
                             }
                             .foregroundStyle(.gray3)
@@ -78,7 +78,7 @@ struct ConcertView: View {
                     
                     
                     VStack(spacing: 10) {
-                        let pairedArray = zip(concert.name, concert.url).map { ($0, $1) }
+                        let pairedArray = zip(viewModel.concert.name, viewModel.concert.url).map { ($0, $1) }
                         ForEach((LineItemType.concertItems(concertViewModel: viewModel, links: pairedArray)), id: \.title) { item in
                             switch item {
                             case .flights:
@@ -127,15 +127,15 @@ struct ConcertView: View {
                         .font(.system(size: 23, type: .SemiBold))
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    ForEach(concert.lineup.prefix(3)) { artist in
+                    ForEach(viewModel.concert.lineup.prefix(3)) { artist in
                         LineupArtistRow(artist: artist)
                     }
                     
-                    if concert.lineup.count > 3 {
+                    if viewModel.concert.lineup.count > 3 {
                         HStack {
-                            NavigationLink(value: concert.lineup) {
+                            NavigationLink(value: viewModel.concert.lineup) {
                                 HStack(spacing: 5) {
-                                    Text("View all \(concert.lineup.count) artists")
+                                    Text("View all \(viewModel.concert.lineup.count) artists")
                                         .font(.system(size: 18, type: .Regular))
                                     
                                     Image(systemName: "chevron.right")
@@ -161,7 +161,7 @@ struct ConcertView: View {
                     HStack(spacing: 5) {
                         Image(systemName: "clock")
                             .frame(width: 22)
-                        Text(concert.date.timeFormatAMPM(timeZoneIdentifier: concert.timezone))
+                        Text(viewModel.concert.date.timeFormatAMPM(timeZoneIdentifier: viewModel.concert.timezone))
                             .font(.system(size: 18, type: .Regular))
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -170,14 +170,14 @@ struct ConcertView: View {
                     HStack(spacing: 5) {
                         Image(systemName: "building.2")
                             .frame(width: 22)
-                        Text(concert.venueName)
+                        Text(viewModel.concert.venueName)
                             .font(.system(size: 18, type: .Regular))
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .foregroundStyle(.gray3)
                     .padding(.bottom, 5)
                     
-                    MapCard(addressToSearch: "\(concert.venueName), \(concert.venueAddress)", latitude: concert.latitude, longitude: concert.longitude, delta: 0.01)
+                    MapCard(addressToSearch: "\(viewModel.concert.venueName), \(viewModel.concert.venueAddress)", latitude: viewModel.concert.latitude, longitude: viewModel.concert.longitude, delta: 0.01)
                 }
             }
             .padding([.horizontal, .bottom], 15)

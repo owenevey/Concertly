@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F10AA0892D7A9C3300FB4EB9 /* SmoothGradient in Frameworks */ = {isa = PBXBuildFile; productRef = F10AA0882D7A9C3300FB4EB9 /* SmoothGradient */; };
 		F10E0C942D558F7D0091940C /* SavedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10E0C932D558F7B0091940C /* SavedViewModel.swift */; };
 		F10F94262CD45849007EE947 /* FilterPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10F94252CD45849007EE947 /* FilterPrice.swift */; };
 		F113E9582CB4986A0057CF90 /* FlightCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F113E9572CB4986A0057CF90 /* FlightCard.swift */; };
@@ -325,6 +326,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F10AA0892D7A9C3300FB4EB9 /* SmoothGradient in Frameworks */,
 				F17252BF2D345581006C3454 /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -755,6 +757,7 @@
 			mainGroup = F11640042C8A8A2F0040C95D;
 			packageReferences = (
 				F17252BD2D345581006C3454 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				F10AA0872D7A9C3300FB4EB9 /* XCRemoteSwiftPackageReference "SmoothGradient" */,
 			);
 			productRefGroup = F116400E2C8A8A2F0040C95D /* Products */;
 			projectDirPath = "";
@@ -1145,6 +1148,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F10AA0872D7A9C3300FB4EB9 /* XCRemoteSwiftPackageReference "SmoothGradient" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/raymondjavaxx/SmoothGradient.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		F17252BD2D345581006C3454 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -1156,6 +1167,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F10AA0882D7A9C3300FB4EB9 /* SmoothGradient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F10AA0872D7A9C3300FB4EB9 /* XCRemoteSwiftPackageReference "SmoothGradient" */;
+			productName = SmoothGradient;
+		};
 		F17252BE2D345581006C3454 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F17252BD2D345581006C3454 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;

@@ -1,4 +1,5 @@
 import SwiftUI
+import SmoothGradient
 
 struct ImageHeaderScrollView<Content: View>: View {
     
@@ -56,8 +57,15 @@ struct ImageHeaderScrollView<Content: View>: View {
                                 .lineLimit(2)
                                 .minimumScaleFactor(0.5)
                                 .background(
-                                    LinearGradient(colors: [.clear, .black.opacity(0.8)], startPoint: .top, endPoint: .bottom)
-                                        .padding(.top, -50)
+                                    //                                    LinearGradient(colors: [.clear, .black.opacity(0.8)], startPoint: .top, endPoint: .bottom)
+                                    SmoothLinearGradient( // ⬅️
+                                        from: .clear,
+                                        to: .black.opacity(0.8),
+                                        startPoint: .top,
+                                        endPoint: .bottom,
+                                        curve: .easeInOut
+                                                        )
+                                    .padding(.top, -50)
                                 )
                         }
                         
@@ -121,7 +129,7 @@ struct ImageHeaderScrollView<Content: View>: View {
 }
 
 
-#Preview {    
+#Preview {
     NavigationStack {
         ConcertView(concert: hotConcerts[0])
     }
