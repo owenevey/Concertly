@@ -27,6 +27,8 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     private var combinedPublisher: AnyPublisher<(Date, Date, String, String), Never>?
+    
+    // Ignores the first emission of each sink
     private var isFirstEmissionSink1 = true
     private var isFirstEmissionSink2 = true
         
@@ -35,7 +37,7 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
         self.fromDate = fromDate
         self.toDate = toDate
         self.fromAirport = UserDefaults.standard.string(forKey: "Home Airport") ?? "JFK"
-        self.toAirport = flightsResponse.data?.airports.first?.arrival.first?.airport.id ?? ""
+        self.toAirport = flightsResponse.data?.airports.first?.arrival.first?.airport.id ?? tripViewModel.closestAirport
         self.flightsResponse = flightsResponse
         self.priceInsights = flightsResponse.data?.priceInsights
         
@@ -72,9 +74,12 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
                 if self?.fromDate != fromDate || self?.toDate != toDate {
                     Task {
                         await self?.getDepartingFlights()
-                        await self?.tripViewModel.getHotels()
+                        if self?.tripViewModel.hotelsResponse.status != .empty {
+                            await self?.tripViewModel.getHotels()
+                        }
                     }
-                } else {
+                }
+                else if !(self?.toAirport == "" && toAirport != "") {
                     Task {
                         await self?.getDepartingFlights()
                     }
@@ -252,7 +257,7 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
                     self.flightsResponse = ApiResponse(status: .success, data: retrievedFlights)
                     self.tripViewModel.flightsResponse = ApiResponse(status: .success, data: retrievedFlights)
                     self.toAirport = flightsResponse.data?.airports.first?.arrival.first?.airport.id ?? ""
-                    tripViewModel.flightsPrice = retrievedFlights.flights.last?.price ?? 0
+                    self.tripViewModel.flightsPrice = retrievedFlights.flights.last?.price ?? 0
                     self.priceInsights = retrievedFlights.priceInsights
                     self.resetFilters()
                 }

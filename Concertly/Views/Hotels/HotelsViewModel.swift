@@ -31,6 +31,12 @@ final class HotelsViewModel<T: TripViewModelProtocol>: ObservableObject {
         self.toDate = toDate
         self.hotelsResponse = hotelsResponse
         
+        if hotelsResponse.status == .empty {
+            Task {
+                await getHotels()
+            }
+        }
+        
         resetFilters()
         setupCombineLatest()
     }
@@ -58,7 +64,9 @@ final class HotelsViewModel<T: TripViewModelProtocol>: ObservableObject {
                 if self?.fromDate != fromDate || self?.toDate != toDate {
                     Task {
                         await self?.getHotels()
-                        await self?.tripViewModel.getDepartingFlights()
+                        if self?.tripViewModel.flightsResponse.status != .empty {
+                            await self?.tripViewModel.getDepartingFlights()
+                        }
                     }
                 } else {
                     Task {
@@ -141,6 +149,8 @@ final class HotelsViewModel<T: TripViewModelProtocol>: ObservableObject {
             if let retrievedHotels = fetchedHotels.data {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     self.hotelsResponse = ApiResponse(status: .success, data: retrievedHotels)
+                    self.tripViewModel.hotelsResponse = ApiResponse(status: .success, data: retrievedHotels)
+                    self.tripViewModel.hotelsPrice = retrievedHotels.properties.last?.totalRate?.extractedLowest ?? 0
                 }
                 
                 let hotelPhotos: [URL] = retrievedHotels.properties.compactMap { hotel in

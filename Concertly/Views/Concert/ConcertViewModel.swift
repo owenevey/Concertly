@@ -7,6 +7,7 @@ class ConcertViewModel: TripViewModelProtocol {
     
     let latitude: Double
     let longitude: Double
+    var closestAirport: String
     
     let notificationManager = NotificationManager.shared
     
@@ -29,6 +30,7 @@ class ConcertViewModel: TripViewModelProtocol {
         self.concert = concert
         self.latitude = concert.latitude
         self.longitude = concert.longitude
+        self.closestAirport = concert.closestAirport ?? ""
         
         let calendar = Calendar.current
         self.tripStartDate = calendar.date(byAdding: .day, value: -2, to: concert.date) ?? Date()

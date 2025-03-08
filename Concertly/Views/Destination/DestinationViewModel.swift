@@ -6,6 +6,7 @@ class DestinationViewModel: TripViewModelProtocol {
     
     let latitude: Double
     let longitude: Double
+    var closestAirport: String
     
     @Published var tripStartDate: Date
     @Published var tripEndDate: Date
@@ -23,6 +24,7 @@ class DestinationViewModel: TripViewModelProtocol {
         self.cityName = destination.cityName
         self.latitude = destination.latitude
         self.longitude = destination.longitude
+        self.closestAirport = destination.closestAirport
         
         let calendar = Calendar.current
         self.tripStartDate = calendar.date(byAdding: .day, value: 21, to: Date()) ?? Date()
@@ -32,8 +34,6 @@ class DestinationViewModel: TripViewModelProtocol {
         
         Task {
             await getConcerts()
-            await getDepartingFlights()
-            await getHotels()
         }
         let destinationUrls = destination.images.compactMap { return URL(string: $0) }
         ImagePrefetcher.instance.startPrefetching(urls: destinationUrls)

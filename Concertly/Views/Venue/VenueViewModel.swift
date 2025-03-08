@@ -6,6 +6,7 @@ class VenueViewModel: TripViewModelProtocol {
     
     let latitude: Double
     let longitude: Double
+    var closestAirport: String
     
     @Published var tripStartDate: Date
     @Published var tripEndDate: Date
@@ -23,6 +24,7 @@ class VenueViewModel: TripViewModelProtocol {
         self.cityName = venue.cityName
         self.latitude = venue.latitude
         self.longitude = venue.longitude
+        self.closestAirport = venue.closestAirport
         
         let calendar = Calendar.current
         self.tripStartDate = calendar.date(byAdding: .day, value: 21, to: Date()) ?? Date()
@@ -32,8 +34,6 @@ class VenueViewModel: TripViewModelProtocol {
         
         Task {
             await getConcerts()
-            await getDepartingFlights()
-            await getHotels()
         }
     }
     

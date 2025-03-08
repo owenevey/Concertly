@@ -432,9 +432,9 @@
 			isa = PBXGroup;
 			children = (
 				F1E786262CB300A200F4E462 /* HotelsView.swift */,
-				F1CD3C812D24CA6B004E3041 /* CitySearchViewModel.swift */,
 				F11714A72D13A88D007A0052 /* HotelsViewModel.swift */,
 				F11714BA2D1526AB007A0052 /* HotelDetailsView.swift */,
+				F1CD3C812D24CA6B004E3041 /* CitySearchViewModel.swift */,
 			);
 			path = Hotels;
 			sourceTree = "<group>";
