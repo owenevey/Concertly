@@ -53,7 +53,7 @@ struct LandingView: View {
                             .textRenderer(TitleTextRenderer(progress: titleProgress))
                             .padding(.bottom, 12)
                         
-                        Text("Discover concerts from all over the world.\nFind affordable flights and hotels that allow to live life to the max")
+                        Text("Discover concerts from all over the world.\nFind affordable flights and hotels to get you there and back.")
                             .font(.system(size: 17, type: .Regular))
                             .foregroundStyle(.white.secondary)
                             .multilineTextAlignment(.center)
@@ -63,7 +63,7 @@ struct LandingView: View {
                     
                     NavigationLink(destination: ChooseCityView()) {
                         Text("Get Started")
-                            .font(.system(size: 18, type: .Medium))
+                            .font(.system(size: 17, type: .SemiBold))
                             .foregroundStyle(.white)
                             .padding(.horizontal, 30)
                             .padding(.vertical, 12)
@@ -74,6 +74,7 @@ struct LandingView: View {
                             .contentShape(RoundedRectangle(cornerRadius: 15))
                             .clipShape(RoundedRectangle(cornerRadius: 15))
                     }
+                    .buttonStyle(PlainButtonStyle())
                     .simultaneousGesture(TapGesture().onEnded {
                         timer.upstream.connect().cancel()
                     })

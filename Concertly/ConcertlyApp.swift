@@ -22,7 +22,3 @@ struct ConcertlyApp: App {
     }
 }
 
-
-class AnimationManager: ObservableObject {
-    let animation: Namespace.ID = Namespace().wrappedValue
-}

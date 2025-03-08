@@ -65,7 +65,6 @@ class Router: ObservableObject {
             popToRoot(tab: "Explore")
             selectedTab = 0
             
-            
             let navString = "\(host)/\(pathComponents[1])"
             push(navString, tab: "Explore")
         }

@@ -18,7 +18,7 @@ struct FilterSheet<T, Content: View>: View {
             content()
                         
             HStack(spacing: 15) {
-                ConcertlyButton(label: "Clear", style: "secondary") {
+                ConcertlyButton(label: "Clear", style: .secondary) {
                     filter = defaultFilter
                     dismiss()
                 }

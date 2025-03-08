@@ -4,9 +4,9 @@ struct ChooseCityView: View {
     
     @StateObject private var viewModel = CitySearchViewModel()
     
-    @AppStorage("Home City") private var homeCity: String = ""
-    @AppStorage("Home Lat") private var homeLat: Double = 0
-    @AppStorage("Home Long") private var homeLong: Double = 0
+    @AppStorage(AppStorageKeys.homeCity.rawValue) private var homeCity = ""
+    @AppStorage(AppStorageKeys.homeLat.rawValue) private var homeLat: Double = 0
+    @AppStorage(AppStorageKeys.homeLong.rawValue) private var homeLong: Double = 0
     
     @FocusState private var isTextFieldFocused: Bool
     
@@ -40,7 +40,7 @@ struct ChooseCityView: View {
                             .submitLabel(.done)
                             .disableAutocorrection(true)
                             .focused($isTextFieldFocused)
-                            .font(.system(size: 18, type: .Regular))
+                            .font(.system(size: 17, type: .Regular))
                             .padding(.trailing)
                     }
                 })
@@ -57,7 +57,7 @@ struct ChooseCityView: View {
                                         .fontWeight(.semibold)
                                     
                                     Text("No Cities")
-                                        .font(.system(size: 18, type: .Regular))
+                                        .font(.system(size: 17, type: .Regular))
                                 }
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 250)
@@ -119,7 +119,6 @@ struct ChooseCityView: View {
                 .frame(maxWidth: .infinity)
             }
             .padding(.horizontal, 15)
-//            .padding(.top, 30)
         }
         .navigationBarHidden(true)
         .disableSwipeBack(true)
@@ -130,7 +129,9 @@ struct ChooseCityView: View {
 }
 
 #Preview {
-    ChooseCityView()
+    NavigationStack {
+        ChooseCityView()
+    }
 }
 
 

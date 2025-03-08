@@ -4,7 +4,7 @@ struct ChooseAirportView: View {
     
     @StateObject private var viewModel = AirportSearchViewModel()
     
-    @AppStorage("Home Airport") private var homeAirport: String = ""
+    @AppStorage(AppStorageKeys.homeAirport.rawValue) private var homeAirport = ""
     
     @FocusState private var isTextFieldFocused: Bool
     
@@ -31,7 +31,7 @@ struct ChooseAirportView: View {
                             .submitLabel(.done)
                             .disableAutocorrection(true)
                             .focused($isTextFieldFocused)
-                            .font(.system(size: 18, type: .Regular))
+                            .font(.system(size: 17, type: .Regular))
                             .padding(.trailing)
                     }
                 })
@@ -48,7 +48,7 @@ struct ChooseAirportView: View {
                                         .fontWeight(.semibold)
                                     
                                     Text("No Airports")
-                                        .font(.system(size: 18, type: .Regular))
+                                        .font(.system(size: 17, type: .Regular))
                                 }
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 250)
@@ -56,7 +56,6 @@ struct ChooseAirportView: View {
                             } else {
                                 VStack(spacing: 5) {
                                     ForEach(airports, id: \.code) { airportResult in
-                                        
                                         NavigationLink(destination: ChooseArtistsView()) {
                                                 HStack(spacing: 20) {
                                                     Image(systemName: "airplane")
@@ -109,7 +108,6 @@ struct ChooseAirportView: View {
                 .frame(maxWidth: .infinity)
             }
             .padding(.horizontal, 15)
-//            .padding(.top, 30)
         }
         .navigationBarHidden(true)
         .disableSwipeBack(true)
@@ -120,7 +118,9 @@ struct ChooseAirportView: View {
 }
 
 #Preview {
-    ChooseAirportView()
+    NavigationStack {
+        ChooseAirportView()
+    }
 }
 
 

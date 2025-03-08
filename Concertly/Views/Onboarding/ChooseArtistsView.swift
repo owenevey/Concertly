@@ -1,10 +1,11 @@
 import SwiftUI
+import SmoothGradient
 
 struct ChooseArtistsView: View {
     
     private let coreDataManager = CoreDataManager.shared
     
-    @AppStorage("Has Seen Onboarding") private var hasSeenOnboarding: Bool = false
+    @AppStorage(AppStorageKeys.hasSeenOnboarding.rawValue) private var hasSeenOnboarding = false
     @FocusState private var isTextFieldFocused: Bool
     @State private var showHeaderBorder: Bool = false
     @State private var selectedArtists: Set<SuggestedArtist> = []
@@ -17,11 +18,11 @@ struct ChooseArtistsView: View {
             }
             
             do {
-                guard let pushNotificationToken = UserDefaults.standard.string(forKey: "pushNotificationToken") else {
+                guard let pushNotificationToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue) else {
                     throw NSError(domain: "", code: 1, userInfo: nil)
                 }
                 
-                let response = try await followArtist(artistId: artist.id, pushNotificationToken: "", follow: true)
+                let response = try await followArtist(artistId: artist.id, pushNotificationToken: pushNotificationToken, follow: true)
                 
                 if response.status == .error {
                     throw NSError(domain: "", code: 1, userInfo: nil)
@@ -36,7 +37,7 @@ struct ChooseArtistsView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
-                VStack(spacing: 5) {
+                VStack(spacing: 0) {
                     Text("Select your favorite artsts")
                         .font(.system(size: 23, type: .SemiBold))
                         .foregroundStyle(.accent)
@@ -45,7 +46,6 @@ struct ChooseArtistsView: View {
                     Text("We'll suggest concerts based on your preferences")
                         .font(.system(size: 16, type: .Regular))
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    
                 }
                 .padding(.horizontal, 5)
                 .padding(.bottom, 10)
@@ -65,6 +65,7 @@ struct ChooseArtistsView: View {
                             } label: {
                                 OnboardingArtistCard(artist: artist, isSelected: selectedArtists.contains(artist))
                             }
+                            .buttonStyle(PlainButtonStyle())
                         }
                     }
                     .padding(.bottom, 15)
@@ -79,10 +80,10 @@ struct ChooseArtistsView: View {
                 .safeAreaInset(edge: .bottom) {
                     NavigationLink(destination: NotificationSelectionView(selectedArtists: selectedArtists)) {
                         Text("Next")
-                            .font(.system(size: 18, type: .Medium))
+                            .font(.system(size: 17, type: .SemiBold))
                             .foregroundStyle(.white)
-                            .padding(12)
-                            .frame(width: 200)
+                            .padding(.horizontal, 60)
+                            .padding(.vertical, 12)
                             .background(
                                 RoundedRectangle(cornerRadius: 15)
                                     .fill(Color.accentColor)
@@ -104,10 +105,12 @@ struct ChooseArtistsView: View {
     }
     
     private func toggleSelection(for artist: SuggestedArtist) {
-        if selectedArtists.contains(artist) {
-            selectedArtists.remove(artist)
-        } else {
-            selectedArtists.insert(artist)
+        withAnimation(.linear(duration: 0.1)) {
+            if selectedArtists.contains(artist) {
+                selectedArtists.remove(artist)
+            } else {
+                selectedArtists.insert(artist)
+            }
         }
     }
     
@@ -127,14 +130,12 @@ struct ChooseArtistsView: View {
                     .contentShape(RoundedRectangle(cornerRadius: 20))
                     .overlay {
                         ZStack(alignment: .bottom) {
-                            LinearGradient(
-                                colors: [
-                                    .black.opacity(0.8),
-                                    .clear
-                                ],
-                                startPoint: .bottom,
-                                endPoint: .top
-                            )
+                            SmoothLinearGradient(
+                                from: .clear,
+                                to: .black.opacity(0.8),
+                                startPoint: .top,
+                                endPoint: .bottom,
+                                curve: .easeInOut)
                             .frame(height: 100)
                             .frame(maxWidth: .infinity)
                             
@@ -146,7 +147,8 @@ struct ChooseArtistsView: View {
                                     .lineLimit(2)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .multilineTextAlignment(.leading)
-                                    .padding(15)
+                                    .padding(.horizontal, 15)
+                                    .padding(.bottom, 10)
                             }
                             .frame(maxHeight: .infinity, alignment: .bottom)
                             

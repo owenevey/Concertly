@@ -62,8 +62,7 @@ struct ImageHeaderScrollView<Content: View>: View {
                                         to: .black.opacity(0.8),
                                         startPoint: .top,
                                         endPoint: .bottom,
-                                        curve: .easeInOut
-                                                        )
+                                        curve: .easeInOut)
                                     .padding(.top, -50)
                                 )
                         }

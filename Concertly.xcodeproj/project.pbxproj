@@ -11,6 +11,7 @@
 		F10AA08B2D7BD8C700FB4EB9 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10AA08A2D7BD8C000FB4EB9 /* NotificationsView.swift */; };
 		F10AA08D2D7BD8FA00FB4EB9 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10AA08C2D7BD8F700FB4EB9 /* NotificationsViewModel.swift */; };
 		F10AA08F2D7BDEFE00FB4EB9 /* NotificationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10AA08E2D7BDEFC00FB4EB9 /* NotificationRow.swift */; };
+		F10AA0912D7CEA3D00FB4EB9 /* AnimationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10AA0902D7CEA3A00FB4EB9 /* AnimationManager.swift */; };
 		F10E0C942D558F7D0091940C /* SavedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10E0C932D558F7B0091940C /* SavedViewModel.swift */; };
 		F10F94262CD45849007EE947 /* FilterPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10F94252CD45849007EE947 /* FilterPrice.swift */; };
 		F113E9582CB4986A0057CF90 /* FlightCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F113E9572CB4986A0057CF90 /* FlightCard.swift */; };
@@ -19,7 +20,7 @@
 		F11611B92D6A8F5700345C31 /* LandingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11611B82D6A8F5700345C31 /* LandingView.swift */; };
 		F11611BB2D6A907200345C31 /* ChooseAirportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11611BA2D6A906F00345C31 /* ChooseAirportView.swift */; };
 		F11611BF2D6A978800345C31 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11611BE2D6A978800345C31 /* RootView.swift */; };
-		F11611C12D6AAD8D00345C31 /* LandingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11611C02D6AAD8D00345C31 /* LandingCard.swift */; };
+		F11611C12D6AAD8D00345C31 /* OnboardingArtists.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11611C02D6AAD8D00345C31 /* OnboardingArtists.swift */; };
 		F11640112C8A8A2F0040C95D /* ConcertlyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640102C8A8A2F0040C95D /* ConcertlyApp.swift */; };
 		F11640132C8A8A2F0040C95D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11640122C8A8A2F0040C95D /* ContentView.swift */; };
 		F11640152C8A8A300040C95D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F11640142C8A8A300040C95D /* Assets.xcassets */; };
@@ -170,6 +171,7 @@
 		F10AA08A2D7BD8C000FB4EB9 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		F10AA08C2D7BD8F700FB4EB9 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
 		F10AA08E2D7BDEFC00FB4EB9 /* NotificationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRow.swift; sourceTree = "<group>"; };
+		F10AA0902D7CEA3A00FB4EB9 /* AnimationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationManager.swift; sourceTree = "<group>"; };
 		F10E0C932D558F7B0091940C /* SavedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewModel.swift; sourceTree = "<group>"; };
 		F10F94252CD45849007EE947 /* FilterPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPrice.swift; sourceTree = "<group>"; };
 		F113E9572CB4986A0057CF90 /* FlightCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightCard.swift; sourceTree = "<group>"; };
@@ -178,7 +180,7 @@
 		F11611B82D6A8F5700345C31 /* LandingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingView.swift; sourceTree = "<group>"; };
 		F11611BA2D6A906F00345C31 /* ChooseAirportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseAirportView.swift; sourceTree = "<group>"; };
 		F11611BE2D6A978800345C31 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		F11611C02D6AAD8D00345C31 /* LandingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingCard.swift; sourceTree = "<group>"; };
+		F11611C02D6AAD8D00345C31 /* OnboardingArtists.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingArtists.swift; sourceTree = "<group>"; };
 		F116400D2C8A8A2F0040C95D /* Concertly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Concertly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F11640102C8A8A2F0040C95D /* ConcertlyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConcertlyApp.swift; sourceTree = "<group>"; };
 		F11640122C8A8A2F0040C95D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				F199FFF62CAA3A6E00EE005F /* Info.plist */,
 				F11640142C8A8A300040C95D /* Assets.xcassets */,
 				F11640102C8A8A2F0040C95D /* ConcertlyApp.swift */,
+				F10AA0902D7CEA3A00FB4EB9 /* AnimationManager.swift */,
 				F1C145092D6D64C100D63EBB /* CustomAppDelegate.swift */,
 				F192E3142D77DD6A009EACB9 /* Router.swift */,
 				F11611BE2D6A978800345C31 /* RootView.swift */,
@@ -466,13 +469,13 @@
 		F15109202D6991FB0041B794 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				F1D364A82D6AC6130083680D /* TitleTextRenderer.swift */,
-				F11611BA2D6A906F00345C31 /* ChooseAirportView.swift */,
-				F15109272D6A4E630041B794 /* ChooseCityView.swift */,
-				F1D364AA2D6AD2540083680D /* ChooseArtistsView.swift */,
 				F11611B82D6A8F5700345C31 /* LandingView.swift */,
-				F11611C02D6AAD8D00345C31 /* LandingCard.swift */,
 				F1D364A62D6AB2DB0083680D /* InfiniteScrollView.swift */,
+				F1D364A82D6AC6130083680D /* TitleTextRenderer.swift */,
+				F15109272D6A4E630041B794 /* ChooseCityView.swift */,
+				F11611BA2D6A906F00345C31 /* ChooseAirportView.swift */,
+				F1D364AA2D6AD2540083680D /* ChooseArtistsView.swift */,
+				F11611C02D6AAD8D00345C31 /* OnboardingArtists.swift */,
 				F1C1450F2D6FB5BD00D63EBB /* NotificationSelectionView.swift */,
 			);
 			path = Onboarding;
@@ -798,7 +801,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F17DCCD62D3398D4000D477C /* ErrorArtistCard.swift in Sources */,
-				F11611C12D6AAD8D00345C31 /* LandingCard.swift in Sources */,
+				F11611C12D6AAD8D00345C31 /* OnboardingArtists.swift in Sources */,
 				F1CD3CB82D2CBA0F004E3041 /* FeaturedEvent.swift in Sources */,
 				F19C72692CC7249E00390BD6 /* ConcertViewModel.swift in Sources */,
 				F1CD3C9E2D275628004E3041 /* DestinationViewModel.swift in Sources */,
@@ -869,6 +872,7 @@
 				F192E3152D77DD71009EACB9 /* Router.swift in Sources */,
 				F14349E52D506DF800C63041 /* SavedDataContainer.xcdatamodeld in Sources */,
 				F1A8586A2D027AF6009A37E8 /* AirportSearchView.swift in Sources */,
+				F10AA0912D7CEA3D00FB4EB9 /* AnimationManager.swift in Sources */,
 				F12B95182D375E9600EFD489 /* VenueCard.swift in Sources */,
 				F11640262C8BB4F00040C95D /* ExploreRow.swift in Sources */,
 				F1CD3C862D25BAF3004E3041 /* ShimmerView.swift in Sources */,

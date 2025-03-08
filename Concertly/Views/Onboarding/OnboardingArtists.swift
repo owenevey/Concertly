@@ -13,5 +13,5 @@ let onboardingArtists: [SuggestedArtist] = [
     
     SuggestedArtist(name: "Noah Kahan", id: "K8vZ917pAzf", imageUrl: "https://owenevey-camino.s3.us-east-1.amazonaws.com/artistPhotos/noahKahan.jpg", localImageName: "noahKahan"),
     
-    SuggestedArtist(name: "Marshmello", id: "K8vZ917fCNV", imageUrl: "hhttps://owenevey-camino.s3.us-east-1.amazonaws.com/artistPhotos/marshmello.jpg", localImageName: "marshmello")
+    SuggestedArtist(name: "Marshmello", id: "K8vZ917fCNV", imageUrl: "https://owenevey-camino.s3.us-east-1.amazonaws.com/artistPhotos/marshmello.jpg", localImageName: "marshmello")
 ]

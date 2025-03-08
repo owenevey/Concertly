@@ -2,7 +2,6 @@ import SwiftUI
 import UserNotifications
 
 class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
-    // This gives us access to the methods from our main app code inside the app delegate
     var app: ConcertlyApp?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
@@ -13,18 +12,17 @@ class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let stringifiedToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        UserDefaults.standard.set(stringifiedToken, forKey: "pushNotificationToken")
+        UserDefaults.standard.set(stringifiedToken, forKey: AppStorageKeys.pushNotificationToken.rawValue)
     }
 }
 
 extension CustomAppDelegate: UNUserNotificationCenterDelegate {
     // This function lets us do something when the user interacts with a notification
-    // like log that they clicked it, or navigate to a specific screen
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         let userInfo = response.notification.request.content.userInfo
         
         if let aps = userInfo["aps"] as? [String: String] {
-            storeNotification(data: aps)
+            saveNotification(data: aps)
             
             if let deepLink = aps["deepLink"], let url = URL(string: deepLink) {
                 DispatchQueue.main.async {
@@ -34,7 +32,7 @@ extension CustomAppDelegate: UNUserNotificationCenterDelegate {
         }
     }
     
-    private func storeNotification(data: [String: String]) {
+    private func saveNotification(data: [String: String]) {
         var type = ""
         var date = Date()
         var artistName = ""
@@ -42,6 +40,8 @@ extension CustomAppDelegate: UNUserNotificationCenterDelegate {
 
         if let dateString = data["date"], let dateObject = ISO8601DateFormatter().date(from: dateString) {
             date = dateObject
+        } else {
+            return
         }
 
         if let unwrappedArtistName = data["artistName"] {

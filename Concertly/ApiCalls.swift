@@ -21,7 +21,6 @@ func fetchData<T: Decodable, U: Encodable>(
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     }
     
-    print("calling \(request)")
     let (data, response) = try await URLSession.shared.data(for: request)
     
     if endpoint.contains("followArtist") {

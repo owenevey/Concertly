@@ -2,7 +2,8 @@ import SwiftUI
 
 struct ConcertlyButton: View {
     let label: String
-    var style: String = "primary"
+    var style: ConcertlyButtonStyle = .primary
+    var fitText: Bool = false
     let action: () async -> Void
     
     var body: some View {
@@ -12,16 +13,17 @@ struct ConcertlyButton: View {
             }
         } label: {
             Text(label)
-                .font(.system(size: 18, type: .Medium))
-                .foregroundStyle(style == "primary" ? .white : .primary)
-                .padding(12)
-                .frame(maxWidth: .infinity)
+                .font(.system(size: 17, type: .SemiBold))
+                .foregroundStyle(style == .primary ? .white : .primary)
+                .padding(.horizontal, 30)
+                .padding(.vertical, 12)
+                .frame(maxWidth: fitText ? nil : .infinity)
                 .background(
                     Group {
-                        if style == "primary" {
+                        if style == .primary {
                             RoundedRectangle(cornerRadius: 15)
                                 .fill(Color.accentColor)
-                        } else if style == "secondary" {
+                        } else if style == .secondary {
                             RoundedRectangle(cornerRadius: 15)
                                 .stroke(.primary, lineWidth: 3)
                         }
@@ -32,12 +34,16 @@ struct ConcertlyButton: View {
                 .clipShape(RoundedRectangle(cornerRadius: 15))
         }
         .buttonStyle(PlainButtonStyle())
-        
     }
 }
 
+enum ConcertlyButtonStyle: String {
+    case primary
+    case secondary
+}
+
 #Preview {
-    ConcertlyButton(label: "Clear", style: "secondary", action: {
+    ConcertlyButton(label: "Clear", style: .primary, fitText: true, action: {
         try? await Task.sleep(nanoseconds: 1_000_000_000)
     })
     .padding(40)

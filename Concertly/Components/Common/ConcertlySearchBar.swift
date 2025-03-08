@@ -20,8 +20,9 @@ struct ConcertlySearchBar<Content: View>: View {
     ConcertlySearchBar(content: {
         HStack {
             Image(systemName: "magnifyingglass")
+                .fontWeight(.semibold)
             TextField("Search", text: .constant(""))
-                .font(.system(size: 18, weight: .regular))
+                .font(.system(size: 17, weight: .regular))
                 .padding(.trailing)
         }
     })

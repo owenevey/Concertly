@@ -2,7 +2,7 @@ import SwiftUI
 
 struct RootView: View {
     
-    @AppStorage("Has Seen Onboarding") private var hasSeenOnboarding: Bool = false
+    @AppStorage(AppStorageKeys.hasSeenOnboarding.rawValue) private var hasSeenOnboarding = false
     
     @StateObject var exploreViewModel: ExploreViewModel = ExploreViewModel()
     @StateObject var nearbyViewModel: NearbyViewModel = NearbyViewModel()
