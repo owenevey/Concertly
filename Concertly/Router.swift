@@ -8,7 +8,9 @@ class Router: ObservableObject {
     
     @Published var selectedTab: Int = 0
     
-    func push(_ value: String, tab: String) {
+    private let coreDataManager = CoreDataManager.shared
+    
+    func push<T: Hashable>(_ value: T, tab: String) {
         switch tab {
         case "Explore":
             explorePath.append(value)
@@ -22,13 +24,7 @@ class Router: ObservableObject {
             break
         }
     }
-    
-    func pushMultiple(_ values: [String], tab: String) {
-        for value in values {
-            push(value, tab: tab)
-        }
-    }
-    
+
     func pop(tab: String) {
         switch tab {
         case "Explore":
@@ -65,17 +61,22 @@ class Router: ObservableObject {
         
         let pathComponents = url.pathComponents
         
-        let navString = "\(host)/\(pathComponents[1])"
-        
         if host == "artist" {
             popToRoot(tab: "Explore")
             selectedTab = 0
+            
+            
+            let navString = "\(host)/\(pathComponents[1])"
             push(navString, tab: "Explore")
         }
         else if host == "saved" {
             popToRoot(tab: "Saved")
             selectedTab = 2
-            push(navString, tab: "Saved")
+            
+            let concertId = pathComponents[1]
+            if let concert = coreDataManager.fetchSavedConcert(id: concertId) {
+                push(concert, tab: "Saved")
+            }
         }
     }
 }

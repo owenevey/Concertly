@@ -55,10 +55,11 @@ struct ContentView: View {
                                     ArtistView(artistID: String(id))
                                 }
                             } else {
-                                // Handle normal cases like "exploreSearch", "Home Airport", etc.
                                 switch value {
                                 case "exploreSearch":
                                     ExploreSearchView()
+                                case "notifications":
+                                    NotificationsView()
                                 case "Home Airport":
                                     AirportSearchView(airportCode: $homeAirport, title: "Home Airport")
                                 case "Home City":
@@ -105,6 +106,8 @@ struct ContentView: View {
                             switch value {
                             case "exploreSearch":
                                 ExploreSearchView()
+                            case "notifications":
+                                NotificationsView()
                             case "Home Airport":
                                 AirportSearchView(airportCode: $homeAirport, title: "Home Airport")
                             case "Home City":
@@ -150,6 +153,8 @@ struct ContentView: View {
                             switch value {
                             case "exploreSearch":
                                 ExploreSearchView()
+                            case "notifications":
+                                NotificationsView()
                             case "Home Airport":
                                 AirportSearchView(airportCode: $homeAirport, title: "Home Airport")
                             case "Home City":
@@ -189,7 +194,7 @@ struct ContentView: View {
                                 .navigationTransition(.zoom(sourceID: venue.id, in: animationManager.animation))
                         }
                         .navigationDestination(for: [SuggestedArtist].self) { lineup in
-                            FullLineupView(lineup: lineup)
+                            FullLineupView(lineup: lineup, title: router.profilePath.count == 1 ? "Following" : "Lineup")
                         }
                         .navigationDestination(for: String.self) { value in
                             switch value {

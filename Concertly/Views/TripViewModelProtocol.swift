@@ -4,6 +4,8 @@ import Foundation
 protocol TripViewModelProtocol: ObservableObject {
     var tripStartDate: Date { get set }
     var tripEndDate: Date { get set }
+    var latitude: Double { get }
+    var longitude: Double { get }
     var flightsResponse: ApiResponse<FlightsResponse> { get set }
     var hotelsResponse: ApiResponse<HotelsResponse> { get set }
     var flightsPrice: Int { get set }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24B83" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24D70" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="ArtistEntity" representedClassName="ArtistEntity" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -40,6 +40,12 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="short_Description" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="SavedNotificationEntity" representedClassName="SavedNotificationEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="artistName" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="deepLink" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+    </entity>
     <entity name="VenueEntity" representedClassName="VenueEntity" syncable="YES" codeGenerationType="class">
         <attribute name="address" optional="YES" attributeType="String"/>
         <attribute name="cityName" optional="YES" attributeType="String"/>
@@ -61,5 +67,6 @@
         <memberEntity name="ConcertEntity"/>
         <memberEntity name="DestinationEntity"/>
         <memberEntity name="VenueEntity"/>
+        <memberEntity name="SavedNotificationEntity"/>
     </configuration>
 </model>

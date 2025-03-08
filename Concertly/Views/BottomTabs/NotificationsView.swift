@@ -1,11 +1,9 @@
 import SwiftUI
 
-struct FullLineupView: View {
+struct NotificationsView: View {
     @Environment(\.dismiss) var dismiss
     
-    var lineup: [SuggestedArtist]
-    
-    var title: String = "Lineup"
+    @StateObject var viewModel = NotificationsViewModel()
     
     @State private var showHeaderBorder: Bool = false
     
@@ -15,7 +13,7 @@ struct FullLineupView: View {
                 HStack(spacing: 10) {
                     BackButton()
                     
-                    Text(title)
+                    Text("Notifications")
                         .font(.system(size: 30, type: .SemiBold))
                 }
                 .padding(.bottom, 5)
@@ -30,12 +28,18 @@ struct FullLineupView: View {
             .background(Color.background)
             
             ScrollView {
-                LazyVStack(spacing: 10) {
-                    ForEach(lineup) { artist in
-                        LineupArtistRow(artist: artist)
+                LazyVStack(spacing: 0) {
+                    ForEach(viewModel.notifications.indices, id: \.self) { index in
+                        NotificationRow(notification: viewModel.notifications[index])
+                        if index < viewModel.notifications.count - 1 {
+                            Divider()
+                                .frame(height: 1)
+                                .overlay(.gray2)
+                                .padding(.horizontal, 15)
+                        }
                     }
                 }
-                .padding([.horizontal, .bottom], 15)
+                .padding(.bottom, 15)
             }
             .background(Color.background)
             .onScrollGeometryChange(for: CGFloat.self) { geo in
@@ -48,10 +52,15 @@ struct FullLineupView: View {
         }
         .navigationBarHidden(true)
     }
+    
+    
 }
+
 
 #Preview {
     NavigationStack {
-        FullLineupView(lineup: hotConcerts[0].lineup)
+        NotificationsView()
+            .environmentObject(Router())
+            .environmentObject(AnimationManager())
     }
 }

@@ -5,6 +5,9 @@ import Combine
 class ConcertViewModel: TripViewModelProtocol {
     var concert: Concert
     
+    let latitude: Double
+    let longitude: Double
+    
     let notificationManager = NotificationManager.shared
     
     @Published var tripStartDate: Date
@@ -24,6 +27,8 @@ class ConcertViewModel: TripViewModelProtocol {
     
     init(concert: Concert) {
         self.concert = concert
+        self.latitude = concert.latitude
+        self.longitude = concert.longitude
         
         let calendar = Calendar.current
         self.tripStartDate = calendar.date(byAdding: .day, value: -2, to: concert.date) ?? Date()
@@ -155,13 +160,13 @@ class ConcertViewModel: TripViewModelProtocol {
             coreDataManager.unSaveConcert(id: concert.id)
         }
         else {
-            print("ID: \(concert.id)")
             coreDataManager.saveConcert(concert)
             
             let concertRemindersPreference = UserDefaults.standard.integer(forKey: "Concert Reminders")
 
             if concertRemindersPreference != 0 {
-                notificationManager.scheduleConcertReminder(for: concert, daysBefore: concertRemindersPreference)
+//                notificationManager.scheduleConcertReminder(for: concert, daysBefore: concertRemindersPreference)
+                notificationManager.testScheduleConcertReminder(for: concert)
             }
         }
         

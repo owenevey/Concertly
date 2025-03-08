@@ -73,4 +73,11 @@ extension Date {
     func dayNumber(timeZoneIdentifier: String? = nil) -> String {
         return format(with: "d", timeZoneIdentifier: timeZoneIdentifier)
     }
+    
+    // 2025-03-07T14:30:00Z
+    func ISO8601Format() -> String {
+        let formatter = ISO8601DateFormatter()
+        formatter.timeZone = .current
+        return formatter.string(from: self)
+    }
 }

@@ -23,13 +23,20 @@ class NotificationManager {
     }
     
     func scheduleConcertReminder(for concert: Concert, daysBefore: Int) {
-        let content = UNMutableNotificationContent()
-        content.title = "Concert Reminder"
-        content.body = "Don't forget! \(concert.name) is performing tomorrow!"
-        content.sound = .default
-        
         let calendar = Calendar.current
         guard let reminderDate = calendar.date(byAdding: .day, value: -daysBefore, to: concert.date) else { return }
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Concert Reminder"
+        content.body = "\(concert.artistName) is coming up soon!"
+        content.sound = .default
+        content.userInfo = [
+                "aps": [
+                    "artistName": concert.artistName,
+                    "deepLink": "concertly://saved/\(concert.id)",
+                    "date": reminderDate.ISO8601Format()
+                ]
+            ]
         
         let triggerDate = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: reminderDate)
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
@@ -41,6 +48,31 @@ class NotificationManager {
                 print("Failed to schedule notification: \(error)")
             } else {
                 print("Notification scheduled for \(concert.name) on \(reminderDate)")
+            }
+        }
+    }
+    
+    func testScheduleConcertReminder(for concert: Concert) {
+        let content = UNMutableNotificationContent()
+        content.title = "Concert Reminder"
+        content.body = "\(concert.artistName) is coming up soon!"
+        content.sound = .default
+        content.userInfo = [
+                "aps": [
+                    "artistName": concert.artistName,
+                    "deepLink": "concertly://saved/\(concert.id)",
+                    "date": Date().ISO8601Format()
+                ]
+            ]
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 20, repeats: false)
+        let request = UNNotificationRequest(identifier: concert.id, content: content, trigger: trigger)
+        
+        notificationCenter.add(request) { error in
+            if let error = error {
+                print("Failed to schedule notification: \(error)")
+            } else {
+                print(error ?? "error")
             }
         }
     }
@@ -59,3 +91,15 @@ class NotificationManager {
         }
     }
 }
+
+
+struct SavedNotification: Identifiable {
+    let type: String
+    let artistName: String
+    let deepLink: String
+    let date: Date
+    var id: String {
+        "\(deepLink)-\(date.ISO8601Format())"
+    }
+}
+

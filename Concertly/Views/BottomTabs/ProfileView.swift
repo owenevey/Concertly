@@ -42,9 +42,26 @@ struct ProfileView: View {
                         .shadow(color: .black.opacity(0.1), radius: 5)
                         
                         VStack(spacing: 0) {
-                            Text("Following")
-                                .font(.system(size: 20, type: .SemiBold))
-                                .frame(maxWidth: .infinity, alignment: .leading)
+                            HStack {
+                                Text("Following")
+                                    .font(.system(size: 20, type: .SemiBold))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                if profileViewModel.followingArtists.count > 2 {
+                                        NavigationLink(value: profileViewModel.followingArtists) {
+                                            HStack(spacing: 5) {
+                                                Text("View all")
+                                                    .font(.system(size: 17, type: .Regular))
+                                                
+                                                Image(systemName: "chevron.right")
+                                                    .font(.system(size: 12))
+                                                    .fontWeight(.semibold)
+                                                    .padding(.top, 2)
+                                            }
+                                        }
+                                        .buttonStyle(PlainButtonStyle())
+                                }
+                            }
                             ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHStack(spacing: 15) {
                                     ForEach(profileViewModel.followingArtists) { artist in
@@ -240,5 +257,7 @@ struct ProfileView: View {
 #Preview {
     NavigationStack {
         ProfileView(profileViewModel: ProfileViewModel(), nearbyViewModel: NearbyViewModel())
+            .environmentObject(Router())
+            .environmentObject(AnimationManager())
     }
 }

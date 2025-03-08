@@ -13,7 +13,6 @@ class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let stringifiedToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-//        print("EHEHEH \(stringifiedToken)")
         UserDefaults.standard.set(stringifiedToken, forKey: "pushNotificationToken")
     }
 }
@@ -23,16 +22,51 @@ extension CustomAppDelegate: UNUserNotificationCenterDelegate {
     // like log that they clicked it, or navigate to a specific screen
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         let userInfo = response.notification.request.content.userInfo
-        print(userInfo)
-        if let aps = userInfo["aps"] as? [String: Any],
-               let deepLink = aps["deepLink"] as? String {
-                
-                if let url = URL(string: deepLink) {
-                    DispatchQueue.main.async {
-                        UIApplication.shared.open(url)
-                    }
+        
+        if let aps = userInfo["aps"] as? [String: String] {
+            storeNotification(data: aps)
+            
+            if let deepLink = aps["deepLink"], let url = URL(string: deepLink) {
+                DispatchQueue.main.async {
+                    UIApplication.shared.open(url)
                 }
             }
+        }
+    }
+    
+    private func storeNotification(data: [String: String]) {
+        var type = ""
+        var date = Date()
+        var artistName = ""
+        var deepLink = ""
+
+        if let dateString = data["date"], let dateObject = ISO8601DateFormatter().date(from: dateString) {
+            date = dateObject
+        }
+
+        if let unwrappedArtistName = data["artistName"] {
+            artistName = unwrappedArtistName
+        } else {
+            return
+        }
+        
+        if let unwrappedDeepLink = data["deepLink"] {
+            deepLink = unwrappedDeepLink
+        } else {
+            return
+        }
+        
+        if deepLink.contains("artist") {
+            type = "artist"
+        } else if deepLink.contains("saved") {
+            type = "saved"
+        } else {
+            return
+        }
+
+        let notification = SavedNotification(type: type, artistName: artistName, deepLink: deepLink, date: date)
+        
+        CoreDataManager.shared.saveItems([notification])
     }
     
     // This function allows us to view notifications in the app even with it in the foreground
@@ -41,4 +75,7 @@ extension CustomAppDelegate: UNUserNotificationCenterDelegate {
         // for example, we will be able to display a badge on the app a banner alert will appear and we could play a sound
         return [.badge, .banner, .list, .sound]
     }
+    
+    
 }
+

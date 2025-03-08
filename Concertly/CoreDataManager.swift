@@ -57,7 +57,7 @@ class CoreDataManager {
         return container.viewContext
     }
     
-    func saveItems<T>(_ items: [T], category: String) {
+    func saveItems<T>(_ items: [T], category: String = "") {
         
         if T.self == Concert.self {
             if category != "saved" {
@@ -91,6 +91,9 @@ class CoreDataManager {
             else if let venue = item as? Venue {
                 entity = convertToVenueEntity(venue, context: context)
             }
+            else if let notification = item as? SavedNotification {
+                entity = convertToNotificationEntity(notification, context: context)
+            }
             
             if let entity = entity {
                 let storeName = ((T.self == Concert.self && category == "saved") || (T.self == SuggestedArtist.self && category == "following")) ? "Cloud" : "Local"
@@ -112,12 +115,11 @@ class CoreDataManager {
         }
     }
     
-    
     func isConcertSaved(id: String) -> Bool {
         let request: NSFetchRequest<ConcertEntity> = ConcertEntity.fetchRequest()
         request.predicate = NSPredicate(format: "category = %@ AND id = %@", "saved", id)
         
-        let items: [ConcertEntity] = fetchEntities(for: request, category: "saved")
+        let items: [ConcertEntity] = fetchEntities(for: request)
         return items.count > 0
     }
     
@@ -137,7 +139,7 @@ class CoreDataManager {
         let request: NSFetchRequest<ArtistEntity> = ArtistEntity.fetchRequest()
         request.predicate = NSPredicate(format: "category = %@ AND id = %@", "following", id)
         
-        let items: [ArtistEntity] = fetchEntities(for: request, category: "following")
+        let items: [ArtistEntity] = fetchEntities(for: request)
         return items.count > 0
     }
     
@@ -152,7 +154,16 @@ class CoreDataManager {
         deleteEntities(request: request)
     }
     
-    func fetchItems<T>(for category: String, type: T.Type, sortKey: String = "sortKey") -> [T] {
+    func fetchSavedConcert(id: String) -> Concert? {
+        let request: NSFetchRequest<ConcertEntity> = ConcertEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "id = %@", id)
+        let fetchedItems = fetchEntities(for: request) { entity in
+            return self.convertToConcert(entity) as Concert
+        }
+        return fetchedItems.first
+    }
+    
+    func fetchItems<T>(for category: String = "", type: T.Type, sortKey: String = "sortKey") -> [T] {
         var items: [T] = []
         
         if T.self == Concert.self {
@@ -160,7 +171,7 @@ class CoreDataManager {
             request.predicate = NSPredicate(format: "category = %@", category)
             request.sortDescriptors = [NSSortDescriptor(key: sortKey, ascending: true), NSSortDescriptor(key: "id", ascending: true)]
             
-            items = fetchEntities(for: request, category: category) { entity in
+            items = fetchEntities(for: request) { entity in
                 return self.convertToConcert(entity) as! T
             }
         }
@@ -176,7 +187,7 @@ class CoreDataManager {
             
             request.sortDescriptors = sortDescriptors
             
-            let entities: [ArtistEntity] = fetchEntities(for: request, category: category)
+            let entities: [ArtistEntity] = fetchEntities(for: request)
             
             if category == "recentSearches" {
                 let first15Items = entities.prefix(15)
@@ -194,7 +205,7 @@ class CoreDataManager {
             let request: NSFetchRequest<DestinationEntity> = DestinationEntity.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(key: "geoHash", ascending: true)]
             
-            items = fetchEntities(for: request, category: category) { entity in
+            items = fetchEntities(for: request) { entity in
                 return self.convertToDestination(entity) as! T
             }
         }
@@ -202,15 +213,23 @@ class CoreDataManager {
             let request: NSFetchRequest<VenueEntity> = VenueEntity.fetchRequest()
             request.sortDescriptors = [NSSortDescriptor(key: "closestAirport", ascending: true)]
             
-            items = fetchEntities(for: request, category: category) { entity in
+            items = fetchEntities(for: request) { entity in
                 return self.convertToVenue(entity) as! T
+            }
+        }
+        else if T.self == SavedNotification.self {
+            let request: NSFetchRequest<SavedNotificationEntity> = SavedNotificationEntity.fetchRequest()
+            request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+            
+            items = fetchEntities(for: request) { entity in
+                return self.convertToNotification(entity) as! T
             }
         }
         
         return items
     }
     
-    func fetchEntities<T, E: NSManagedObject>(for request: NSFetchRequest<E>, category: String, convert: @escaping (E) -> T = { $0 as! T }) -> [T] {
+    private func fetchEntities<T, E: NSManagedObject>(for request: NSFetchRequest<E>, convert: @escaping (E) -> T = { $0 as! T }) -> [T] {
         var items: [T] = []
         
         do {
@@ -219,7 +238,7 @@ class CoreDataManager {
                 return convert(entity)
             }
         } catch {
-            print("Error fetching \(E.self) for \(category): \(error)")
+            print(error)
         }
         
         return items
@@ -391,6 +410,19 @@ class CoreDataManager {
     
     private func convertToVenue(_ entity: VenueEntity) -> Venue {
         return Venue(id: entity.id ?? "", name: entity.name ?? "", imageUrl: entity.imageUrl ?? "", description: entity.short_Description ?? "", cityName: entity.cityName ?? "", countryName: entity.countryName ?? "", latitude: entity.latitude, longitude: entity.longitude, address: entity.address ?? "", closestAirport: entity.closestAirport ?? "")
+    }
+    
+    private func convertToNotificationEntity(_ notification: SavedNotification, context: NSManagedObjectContext) -> NSManagedObject {
+        let entity = SavedNotificationEntity(context: context)
+        entity.type = notification.type
+        entity.artistName = notification.artistName
+        entity.deepLink = notification.deepLink
+        entity.date = notification.date
+        return entity
+    }
+    
+    private func convertToNotification(_ entity: SavedNotificationEntity) -> SavedNotification {
+        return SavedNotification(type: entity.type ?? "", artistName: entity.artistName ?? "", deepLink: entity.deepLink ?? "", date: entity.date ?? Date())
     }
     
 }

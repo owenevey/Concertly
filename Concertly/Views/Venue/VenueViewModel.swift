@@ -4,6 +4,9 @@ import SwiftUI
 class VenueViewModel: TripViewModelProtocol {
     var venue: Venue
     
+    let latitude: Double
+    let longitude: Double
+    
     @Published var tripStartDate: Date
     @Published var tripEndDate: Date
     @Published var concertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
@@ -18,6 +21,8 @@ class VenueViewModel: TripViewModelProtocol {
     init(venue: Venue) {
         self.venue = venue
         self.cityName = venue.cityName
+        self.latitude = venue.latitude
+        self.longitude = venue.longitude
         
         let calendar = Calendar.current
         self.tripStartDate = calendar.date(byAdding: .day, value: 21, to: Date()) ?? Date()

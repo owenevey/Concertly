@@ -13,9 +13,7 @@ struct ConcertView: View {
         self.concert = concert
         _viewModel = StateObject(wrappedValue: ConcertViewModel(concert: concert))
     }
-    
-    @State var hasAppeared = false
-    
+        
     var concertName: String {
         if viewModel.concert.name.count > 1 {
             return ""
@@ -186,14 +184,6 @@ struct ConcertView: View {
         .background(Color.background)
         .onAppear {
             viewModel.checkIfSaved()
-            
-            if !hasAppeared {
-                Task {
-                    await viewModel.getDepartingFlights()
-                    await viewModel.getHotels()
-                }
-                hasAppeared = true
-            }
         }
         .navigationBarHidden(true)
     }

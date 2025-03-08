@@ -26,14 +26,17 @@ struct SavedView: View {
                                 .foregroundStyle(.accent)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            Circle()
-                                .fill(Color.foreground)
-                                .frame(width: 40, height: 40)
-                                .overlay(
-                                    Image(systemName: "bell")
-                                        .font(.system(size: 20))
-                                        .fontWeight(.semibold)
-                                )
+                            NavigationLink(value: "notifications") {
+                                Circle()
+                                    .fill(Color.foreground)
+                                    .frame(width: 40, height: 40)
+                                    .overlay(
+                                        Image(systemName: "bell")
+                                            .font(.system(size: 20))
+                                            .fontWeight(.semibold)
+                                    )
+                            }
+                            .buttonStyle(PlainButtonStyle())
                         }
                         .shadow(color: .black.opacity(0.1), radius: 5)
                         .padding(.horizontal, 15)

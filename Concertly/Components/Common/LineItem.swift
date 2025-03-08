@@ -34,7 +34,7 @@ struct LineItem<T: TripViewModelProtocol>: View {
                 }
                 .buttonStyle(PlainButtonStyle())
             } else {
-                if status == Status.success {
+                if status != Status.error {
                     NavigationLink(destination: item.destinationView) {
                         lineItemContent
                     }
@@ -83,17 +83,25 @@ struct LineItem<T: TripViewModelProtocol>: View {
                 .font(.system(size: 18, type: .Medium))
             Spacer()
             HStack {
-                if currentStatus == .loading || currentStatus == .empty {
+                if currentStatus == .empty {
+                    Text("Select")
+                        .font(.system(size: 17, type: .Medium))
+                    
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 15))
+                        .fontWeight(.semibold)
+                }
+                else if currentStatus == .loading {
                     CircleLoadingView(ringSize: 20)
                         .padding(.trailing, 10)
                 }
                 else if currentStatus == .success {
                     if case .ticket = item {
                         Text("View")
-                            .font(.system(size: 18, type: .Medium))
+                            .font(.system(size: 17, type: .Medium))
                     } else {
                         Text("$\(price)")
-                            .font(.system(size: 18, type: .Medium))
+                            .font(.system(size: 17, type: .Medium))
                     }
                     
                     Image(systemName: "chevron.right")

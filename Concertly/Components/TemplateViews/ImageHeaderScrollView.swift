@@ -57,8 +57,7 @@ struct ImageHeaderScrollView<Content: View>: View {
                                 .lineLimit(2)
                                 .minimumScaleFactor(0.5)
                                 .background(
-                                    //                                    LinearGradient(colors: [.clear, .black.opacity(0.8)], startPoint: .top, endPoint: .bottom)
-                                    SmoothLinearGradient( // ⬅️
+                                    SmoothLinearGradient(
                                         from: .clear,
                                         to: .black.opacity(0.8),
                                         startPoint: .top,

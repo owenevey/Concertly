@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		F10AA0892D7A9C3300FB4EB9 /* SmoothGradient in Frameworks */ = {isa = PBXBuildFile; productRef = F10AA0882D7A9C3300FB4EB9 /* SmoothGradient */; };
+		F10AA08B2D7BD8C700FB4EB9 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10AA08A2D7BD8C000FB4EB9 /* NotificationsView.swift */; };
+		F10AA08D2D7BD8FA00FB4EB9 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10AA08C2D7BD8F700FB4EB9 /* NotificationsViewModel.swift */; };
+		F10AA08F2D7BDEFE00FB4EB9 /* NotificationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10AA08E2D7BDEFC00FB4EB9 /* NotificationRow.swift */; };
 		F10E0C942D558F7D0091940C /* SavedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10E0C932D558F7B0091940C /* SavedViewModel.swift */; };
 		F10F94262CD45849007EE947 /* FilterPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10F94252CD45849007EE947 /* FilterPrice.swift */; };
 		F113E9582CB4986A0057CF90 /* FlightCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F113E9572CB4986A0057CF90 /* FlightCard.swift */; };
@@ -164,6 +167,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F10AA08A2D7BD8C000FB4EB9 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
+		F10AA08C2D7BD8F700FB4EB9 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
+		F10AA08E2D7BDEFC00FB4EB9 /* NotificationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRow.swift; sourceTree = "<group>"; };
 		F10E0C932D558F7B0091940C /* SavedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedViewModel.swift; sourceTree = "<group>"; };
 		F10F94252CD45849007EE947 /* FilterPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPrice.swift; sourceTree = "<group>"; };
 		F113E9572CB4986A0057CF90 /* FlightCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightCard.swift; sourceTree = "<group>"; };
@@ -370,8 +376,8 @@
 				F11714A12D127278007A0052 /* Enums */,
 				F1DAE6A12CC42EA500901914 /* ApiCalls.swift */,
 				F11640272C8BEABD0040C95D /* CustomClasses.swift */,
-				F14349E32D506DF800C63041 /* SavedDataContainer.xcdatamodeld */,
 				F1C1450D2D6FAE0100D63EBB /* AppStorageUtil.swift */,
+				F14349E32D506DF800C63041 /* SavedDataContainer.xcdatamodeld */,
 				F14349E62D513FEA00C63041 /* CoreDataManager.swift */,
 				F1C1450B2D6E9AFA00D63EBB /* NotificationManager.swift */,
 				F18DE2442CFCB6A800C4D1B5 /* sampleData.json */,
@@ -394,6 +400,8 @@
 			isa = PBXGroup;
 			children = (
 				F116401F2C8AAA610040C95D /* ExploreView.swift */,
+				F10AA08A2D7BD8C000FB4EB9 /* NotificationsView.swift */,
+				F10AA08C2D7BD8F700FB4EB9 /* NotificationsViewModel.swift */,
 				F1CD3C8A2D25FB88004E3041 /* ExploreViewModel.swift */,
 				F11640212C8BA8270040C95D /* SavedView.swift */,
 				F10E0C932D558F7B0091940C /* SavedViewModel.swift */,
@@ -503,6 +511,7 @@
 			isa = PBXGroup;
 			children = (
 				F1FACFFA2D3B80C000D53A7D /* ConcertRow.swift */,
+				F10AA08E2D7BDEFC00FB4EB9 /* NotificationRow.swift */,
 				F1F3A6482D0694E50042F4F2 /* PriceHistorySheet.swift */,
 				F1CD3C852D25BAF3004E3041 /* ShimmerView.swift */,
 				F1DD1EB42CEEB354004A9F0F /* SliderFilter.swift */,
@@ -803,6 +812,7 @@
 				F1C1450E2D6FAE0100D63EBB /* AppStorageUtil.swift in Sources */,
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
 				F1CD3C8B2D25FB88004E3041 /* ExploreViewModel.swift in Sources */,
+				F10AA08F2D7BDEFE00FB4EB9 /* NotificationRow.swift in Sources */,
 				F1FACFF92D3B681600D53A7D /* DestinationsResponse.swift in Sources */,
 				F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */,
 				F1CD3CD22D323194004E3041 /* ArtistDetailsResponse.swift in Sources */,
@@ -889,6 +899,7 @@
 				F1611FE02D57203800D4DF10 /* ProfileViewModel.swift in Sources */,
 				F1CD3CAF2D2A2488004E3041 /* GamesResponse.swift in Sources */,
 				F1CD3CBC2D2CC40B004E3041 /* FeaturedEventItem.swift in Sources */,
+				F10AA08D2D7BD8FA00FB4EB9 /* NotificationsViewModel.swift in Sources */,
 				F116402E2C8C2F3E0040C95D /* DestinationCard.swift in Sources */,
 				F14349E02D4EFC8800C63041 /* FallbackSavedConcertCard.swift in Sources */,
 				F1CD3CC02D2CC60C004E3041 /* ErrorFeaturedEventItem.swift in Sources */,
@@ -923,6 +934,7 @@
 				F12B95162D375D5A00EFD489 /* VenuesResponse.swift in Sources */,
 				F14349E22D4EFDC300C63041 /* ErrorSavedConcertCard.swift in Sources */,
 				F1CD3C892D25BD07004E3041 /* FallbackConcertCard.swift in Sources */,
+				F10AA08B2D7BD8C700FB4EB9 /* NotificationsView.swift in Sources */,
 				F18DE2412CFADDBD00C4D1B5 /* FlightDetailsView.swift in Sources */,
 				F11714B32D14FF93007A0052 /* SortHotelsEnum.swift in Sources */,
 				F11714AD2D13C6C4007A0052 /* HotelsFilterBar.swift in Sources */,

@@ -17,7 +17,7 @@ struct ExploreHeader: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     
-                    NavigationLink(value: "exploreSearch") {
+                    NavigationLink(value: "notifications") {
                         Image(systemName: "bell")
                     }
                     .buttonStyle(PlainButtonStyle())
