@@ -113,7 +113,7 @@ struct FlightsView<T: TripViewModelProtocol>: View {
                             .fontWeight(.semibold)
                         
                         Text("No flights")
-                            .font(.system(size: 18, type: .Regular))
+                            .font(.system(size: 17, type: .Regular))
                     }
                     .frame(height: 250)
                     .transition(.opacity)

@@ -5,16 +5,14 @@ import SwiftUI
 final class NearbyViewModel: ObservableObject {
     @Published var nearbyConcertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
     @Published var nearbyConcerts: [Concert] = []
-    
-    private let coreDataManager = CoreDataManager.shared
-    
+        
     var homeLat: Double
     var homeLong: Double
     
     init() {
-        nearbyConcerts = coreDataManager.fetchItems(for: "nearby", type: Concert.self, sortKey: "date")
-        self.homeLat = UserDefaults.standard.double(forKey: "Home Lat")
-        self.homeLong = UserDefaults.standard.double(forKey: "Home Long")
+        nearbyConcerts = CoreDataManager.shared.fetchItems(for: ContentCategories.nearby.rawValue, type: Concert.self, sortKey: "date")
+        self.homeLat = UserDefaults.standard.double(forKey: AppStorageKeys.homeLat.rawValue)
+        self.homeLong = UserDefaults.standard.double(forKey: AppStorageKeys.homeLong.rawValue)
         
         Task {
             await getNearbyConcerts()
@@ -22,8 +20,8 @@ final class NearbyViewModel: ObservableObject {
     }
     
     func getNearbyConcerts() async {
-        self.homeLat = UserDefaults.standard.double(forKey: "Home Lat")
-        self.homeLong = UserDefaults.standard.double(forKey: "Home Long")
+        self.homeLat = UserDefaults.standard.double(forKey: AppStorageKeys.homeLat.rawValue)
+        self.homeLong = UserDefaults.standard.double(forKey: AppStorageKeys.homeLong.rawValue)
         
         withAnimation(.easeInOut(duration: 0.2)) {
             self.nearbyConcertsResponse = ApiResponse(status: .loading)
@@ -37,7 +35,7 @@ final class NearbyViewModel: ObservableObject {
                     self.nearbyConcerts = concerts
                     self.nearbyConcertsResponse = ApiResponse(status: .success, data: concerts)
                 }
-                coreDataManager.saveItems(concerts, category: "nearby")
+                CoreDataManager.shared.saveItems(concerts, category: ContentCategories.nearby.rawValue)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.nearbyConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch nearby concerts")

@@ -12,11 +12,11 @@ struct FallbackNearbyConcertCard: View {
                     .cornerRadius(5)
                 
                 ShimmerView()
-                    .frame(width: 150, height: 21)
+                    .frame(width: 100, height: 21)
                     .cornerRadius(5)
                 
                 ShimmerView()
-                    .frame(width: 100, height: 21)
+                    .frame(width: 150, height: 21)
                     .cornerRadius(5)
             }
             .padding(15)

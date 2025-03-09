@@ -50,7 +50,7 @@ struct SavedView: View {
                                         .fontWeight(.semibold)
                                     
                                     Text("No saved concerts")
-                                        .font(.system(size: 18, type: .Regular))
+                                        .font(.system(size: 17, type: .Regular))
                                 }
                                 .frame(height: 250)
                             } else {
@@ -70,8 +70,7 @@ struct SavedView: View {
                 } action: { oldValue, newValue in
                     offset = newValue
                     withAnimation(.linear(duration: 0.1)) {
-                        if newValue > -20 {
-                            //change numbers
+                        if newValue + geometry.safeAreaInsets.top > 20 {
                             isSearchBarVisible = false
                         } else {
                             isSearchBarVisible = true
@@ -102,5 +101,6 @@ struct SavedView: View {
 #Preview {
     NavigationStack {
         SavedView(viewModel: SavedViewModel())
+            .environmentObject(AnimationManager())
     }
 }

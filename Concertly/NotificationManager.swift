@@ -31,12 +31,12 @@ class NotificationManager {
         content.body = "\(concert.artistName) is coming up soon!"
         content.sound = .default
         content.userInfo = [
-                "aps": [
-                    "artistName": concert.artistName,
-                    "deepLink": "concertly://saved/\(concert.id)",
-                    "date": reminderDate.ISO8601Format()
-                ]
+            "aps": [
+                "artistName": concert.artistName,
+                "deepLink": "concertly://saved/\(concert.id)",
+                "date": reminderDate.ISO8601Format()
             ]
+        ]
         
         let triggerDate = calendar.dateComponents([.year, .month, .day, .hour, .minute], from: reminderDate)
         let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
@@ -52,37 +52,12 @@ class NotificationManager {
         }
     }
     
-    func testScheduleConcertReminder(for concert: Concert) {
-        let content = UNMutableNotificationContent()
-        content.title = "Concert Reminder"
-        content.body = "\(concert.artistName) is coming up soon!"
-        content.sound = .default
-        content.userInfo = [
-                "aps": [
-                    "artistName": concert.artistName,
-                    "deepLink": "concertly://saved/\(concert.id)",
-                    "date": Date().ISO8601Format()
-                ]
-            ]
-        
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 20, repeats: false)
-        let request = UNNotificationRequest(identifier: concert.id, content: content, trigger: trigger)
-        
-        notificationCenter.add(request) { error in
-            if let error = error {
-                print("Failed to schedule notification: \(error)")
-            } else {
-                print(error ?? "error")
-            }
-        }
-    }
-    
     func updateAllConcertReminders() {
         removeAllNotifications()
         
-        let concertRemindersPreference = UserDefaults.standard.integer(forKey: "Concert Reminders")
+        let concertRemindersPreference = UserDefaults.standard.integer(forKey: AppStorageKeys.concertReminders.rawValue)
         
-        let concerts = CoreDataManager.shared.fetchItems(for: "saved", type: Concert.self)
+        let concerts = CoreDataManager.shared.fetchItems(for: ContentCategories.saved.rawValue, type: Concert.self)
         
         if concertRemindersPreference != 0 {
             for concert in concerts {
@@ -90,8 +65,30 @@ class NotificationManager {
             }
         }
     }
+    
+    func updateNewTourDateNotifications() async {
+        do {
+            let concertRemindersPreference = UserDefaults.standard.bool(forKey: AppStorageKeys.concertReminders.rawValue)
+            
+            guard let pushNotificationToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue) else {
+                throw NSError(domain: "", code: 1, userInfo: nil)
+            }
+            
+            let followedArtists = CoreDataManager.shared.fetchItems(for: "following", type: Artist.self)
+            
+            for artist in followedArtists {
+                let response = try await toggleFollowArtist(artistId: artist.id, pushNotificationToken: pushNotificationToken, follow: concertRemindersPreference)
+                
+                if response.status == .error {
+                    throw NSError(domain: "", code: 1, userInfo: nil)
+                }
+            }
+        }
+        catch {
+            
+        }
+    }
 }
-
 
 struct SavedNotification: Identifiable {
     let type: String

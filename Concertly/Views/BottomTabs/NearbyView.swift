@@ -22,7 +22,6 @@ struct NearbyView: View {
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: 0) {
                         VStack(spacing: 15) {
-                            
                             HStack(alignment: .top) {
                                 VStack {
                                     HStack {
@@ -71,9 +70,15 @@ struct NearbyView: View {
                                     
                                 case .success:
                                     if viewModel.nearbyConcerts.isEmpty {
-                                        ForEach(0..<6, id: \.self) { _ in
-                                            ErrorNearbyConcertCard()
+                                        VStack(spacing: 10) {
+                                            Image(systemName: "music.note")
+                                                .font(.system(size: 20))
+                                                .fontWeight(.semibold)
+                                            
+                                            Text("No nearby concerts")
+                                                .font(.system(size: 17, type: .Regular))
                                         }
+                                        .frame(height: 250)
                                     } else {
                                         ForEach(viewModel.nearbyConcerts) { concert in
                                             NearbyConcertCard(concert: concert)
@@ -86,10 +91,9 @@ struct NearbyView: View {
                                             ErrorNearbyConcertCard()
                                         }
                                     } else {
-                                        ForEach(0..<6, id: \.self) { _ in
-                                            ErrorNearbyConcertCard()
+                                        ForEach(viewModel.nearbyConcerts) { concert in
+                                            NearbyConcertCard(concert: concert)
                                         }
-                                        // renderCards(for: data) NOTE: Keep for debugging
                                     }
                                 }
                             }
@@ -104,8 +108,7 @@ struct NearbyView: View {
                 } action: { oldValue, newValue in
                     offset = newValue
                     withAnimation(.linear(duration: 0.1)) {
-                        if newValue > 0 {
-                            //change numbers
+                        if newValue + geometry.safeAreaInsets.top > 20 {
                             isSearchBarVisible = false
                         } else {
                             isSearchBarVisible = true
@@ -131,5 +134,7 @@ struct NearbyView: View {
 #Preview {
     NavigationStack {
         NearbyView(viewModel: NearbyViewModel())
+            .environmentObject(AnimationManager())
+            .environmentObject(Router())
     }
 }

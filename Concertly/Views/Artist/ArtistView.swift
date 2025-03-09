@@ -47,7 +47,6 @@ struct ArtistView: View {
             BackButton(showBackground: true)
                 .padding(.leading, 15)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            
         }
         .navigationBarHidden(true)
     }
@@ -178,7 +177,6 @@ struct ArtistView: View {
                     .padding([.horizontal, .bottom], 15)
                     .padding(.top, 10)
                 }
-                .background(Color.background)
             } else {
                 ErrorView(text: "Error fetching artist details", action: {
                     await viewModel.getArtistDetails()

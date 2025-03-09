@@ -13,7 +13,7 @@ struct FlightsHeader: View {
     @State var detentHeight: CGFloat = 339
     
     var toAirportHeader: String {
-        return toAirport.isEmpty ? "   " : toAirport
+        return toAirport.isEmpty ? "\u{00A0}\u{00A0}\u{00A0}\u{00A0}\u{00A0}\u{00A0}\u{00A0}\u{00A0}\u{00A0}" : toAirport
     }
     
     var body: some View {

@@ -9,6 +9,8 @@ enum concertRemindersEnum: Int {
 enum AppStorageKeys: String {
     case hasSeenOnboarding
     case theme
+    case concertReminders
+    case newTourDates
     case pushNotificationToken
     case homeCity
     case homeLat
@@ -22,5 +24,6 @@ enum ContentCategories: String {
     case exploreFeatured = "explore_featured"
     case exploreSuggested = "explore_suggested"
     case following = "following"
-    
+    case nearby = "nearby"
+    case saved = "saved"
 }

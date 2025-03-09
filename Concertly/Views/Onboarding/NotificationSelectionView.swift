@@ -5,13 +5,14 @@ struct NotificationSelectionView: View {
     private let coreDataManager = CoreDataManager.shared
     private let notificationManager = NotificationManager.shared
     
-    @AppStorage("Has Seen Onboarding") private var hasSeenOnboarding: Bool = false
+    @AppStorage(AppStorageKeys.hasSeenOnboarding.rawValue) private var hasSeenOnboarding: Bool = false
     
     var selectedArtists: Set<SuggestedArtist>
     
     private func onTapDone(isNotificationsEnabled: Bool) {
         hasSeenOnboarding = true
-        UserDefaults.standard.set(isNotificationsEnabled ? 1 : 0, forKey: "Concert Reminders")
+        UserDefaults.standard.set(isNotificationsEnabled ? 1 : 0, forKey: AppStorageKeys.concertReminders.rawValue)
+        UserDefaults.standard.set(isNotificationsEnabled, forKey: AppStorageKeys.newTourDates.rawValue)
         
         for artist in selectedArtists {
             if !coreDataManager.isFollowingArtist(id: artist.id) {

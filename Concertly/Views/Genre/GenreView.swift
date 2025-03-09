@@ -19,7 +19,7 @@ struct GenreView: View {
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
-                HStack(spacing: 10) {
+                HStack(spacing: 0) {
                     BackButton()
                     
                     HStack {
@@ -40,8 +40,8 @@ struct GenreView: View {
             }
             .background(Color.background)
             
-            ScrollView {
-                LazyVStack(spacing: 15) {
+            ScrollView(showsIndicators: false) {
+                LazyVStack(spacing: 0) {
                     ExploreRow(title: "Trending Concerts", status: viewModel.trendingConcertsResponse.status, data: viewModel.trendingConcerts, contentType: ExploreContentType.concert) {
                         await viewModel.getTrendingConcerts()
                     }
@@ -63,9 +63,7 @@ struct GenreView: View {
             .onScrollGeometryChange(for: CGFloat.self) { geo in
                 return geo.contentOffset.y
             } action: { oldValue, newValue in
-                withAnimation(.linear(duration: 0.3)) {
-                    showHeaderBorder = newValue > 0
-                }
+                showHeaderBorder = newValue > 0
             }
         }
         .onAppear {
@@ -92,5 +90,9 @@ struct GenreView: View {
 }
 
 #Preview {
-    GenreView(genre: MusicGenre.pop)
+    NavigationStack {
+        GenreView(genre: MusicGenre.pop)
+            .environmentObject(Router())
+            .environmentObject(AnimationManager())
+    }
 }

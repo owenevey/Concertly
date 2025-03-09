@@ -110,7 +110,7 @@ struct ExploreView: View {
                 } action: { oldValue, newValue in
                     offset = newValue
                     withAnimation(.linear(duration: 0.1)) {
-                        if newValue > -(geometry.safeAreaInsets.top - 40) {
+                        if newValue + geometry.safeAreaInsets.top > 30 {
                             isSearchBarVisible = false
                         } else {
                             isSearchBarVisible = true

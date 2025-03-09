@@ -39,7 +39,7 @@ struct AirportSearchView: View {
                         .submitLabel(.done)
                         .disableAutocorrection(true)
                         .focused($isTextFieldFocused)
-                        .font(.system(size: 18, type: .Regular))
+                        .font(.system(size: 17, type: .Regular))
                         .padding(.trailing)
                 }
             })
@@ -57,7 +57,7 @@ struct AirportSearchView: View {
                                     .fontWeight(.semibold)
                                 
                                 Text("No Airports")
-                                    .font(.system(size: 18, type: .Regular))
+                                    .font(.system(size: 17, type: .Regular))
                             }
                             .frame(maxWidth: .infinity)
                             .frame(height: 250)
@@ -104,7 +104,9 @@ struct AirportSearchView: View {
                         .frame(maxWidth: .infinity)
                         .transition(.opacity)
                 case .error:
-                    ErrorView(text: "Error fetching airports", action: { await viewModel.getSuggestedAirports() })
+                    ErrorView(text: "Error fetching airports", action: {
+                        await viewModel.getSuggestedAirports()
+                    })
                         .frame(height: 250)
                         .frame(maxWidth: .infinity)
                         .transition(.opacity)

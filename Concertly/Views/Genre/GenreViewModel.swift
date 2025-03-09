@@ -10,7 +10,7 @@ final class GenreViewModel: ObservableObject {
     init(genre: MusicGenre) {
         self.genre = genre
         trendingConcerts = coreDataManager.fetchItems(for: "\(genre.apiLabel)_trending", type: Concert.self)
-        popularArtists = coreDataManager.fetchItems(for: "\(genre.apiLabel)_popular", type: SuggestedArtist.self)
+        popularArtists = coreDataManager.fetchItems(for: genre.apiLabel, type: SuggestedArtist.self)
         featuredConcert = coreDataManager.fetchItems(for: "\(genre.apiLabel)_featured", type: Concert.self).first
         suggestedConcerts = coreDataManager.fetchItems(for: "\(genre.apiLabel)_suggested", type: Concert.self)
     }
@@ -42,7 +42,7 @@ final class GenreViewModel: ObservableObject {
                     self.trendingConcerts = concerts
                     self.trendingConcertsResponse = ApiResponse(status: .success, data: concerts)
                 }
-                coreDataManager.saveItems(concerts, category: "\(genre.apiLabel)_trending")
+                coreDataManager.saveItems(concerts, category: category)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.trendingConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
@@ -69,7 +69,7 @@ final class GenreViewModel: ObservableObject {
                     self.suggestedConcerts = concerts
                     self.suggestedConcertsResponse = ApiResponse(status: .success, data: concerts)
                 }
-                coreDataManager.saveItems(concerts, category: "\(genre.apiLabel)_suggested")
+                coreDataManager.saveItems(concerts, category: category)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.suggestedConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
@@ -96,7 +96,7 @@ final class GenreViewModel: ObservableObject {
                     self.popularArtists = artists
                     self.popularArtistsResponse = ApiResponse(status: .success, data: artists)
                 }
-                coreDataManager.saveItems(artists, category: "\(genre.apiLabel)_popular")
+                coreDataManager.saveItems(artists, category: genre.apiLabel)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.popularArtistsResponse = ApiResponse(status: .error, error: "Couldn't fetch artists")

@@ -2,7 +2,7 @@ import SwiftUI
 import MapKit
 
 struct ConcertView: View {
-
+    
     var concert: Concert
     
     @StateObject var viewModel: ConcertViewModel
@@ -13,7 +13,7 @@ struct ConcertView: View {
         self.concert = concert
         _viewModel = StateObject(wrappedValue: ConcertViewModel(concert: concert))
     }
-        
+    
     var concertName: String {
         if viewModel.concert.name.count > 1 {
             return ""
@@ -27,29 +27,29 @@ struct ConcertView: View {
         ImageHeaderScrollView(title: viewModel.concert.artistName, imageUrl: viewModel.concert.imageUrl, rightIcon: "bookmark", rightIconFilled: viewModel.isSaved, onRightIconTap: viewModel.toggleConcertSaved) {
             VStack(spacing: 20) {
                 VStack(alignment: .leading, spacing: 5) {
-                        VStack(alignment: .leading, spacing: 5) {
-                            HStack(spacing: 5) {
-                                Image(systemName: "calendar")
-                                    .frame(width: 22)
-                                Text(viewModel.concert.date.fullWeekdayFormat(timeZoneIdentifier: viewModel.concert.timezone))
-                                    .font(.system(size: 18, type: .Regular))
-                            }
-                            .foregroundStyle(.gray3)
-                            
-                            HStack(spacing: 5) {
-                                Image(systemName: "mappin.and.ellipse")
-                                    .frame(width: 22)
-                                Text(viewModel.concert.cityName)
-                                    .font(.system(size: 18, type: .Regular))
-                            }
-                            .foregroundStyle(.gray3)
+                    VStack(alignment: .leading, spacing: 5) {
+                        HStack(spacing: 5) {
+                            Image(systemName: "calendar")
+                                .frame(width: 22)
+                            Text(viewModel.concert.date.fullWeekdayFormat(timeZoneIdentifier: viewModel.concert.timezone))
+                                .font(.system(size: 18, type: .Regular))
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-
+                        .foregroundStyle(.gray3)
+                        
+                        HStack(spacing: 5) {
+                            Image(systemName: "mappin.and.ellipse")
+                                .frame(width: 22)
+                            Text(viewModel.concert.cityName)
+                                .font(.system(size: 18, type: .Regular))
+                        }
+                        .foregroundStyle(.gray3)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
                     if concertName != "" {
                         HStack(alignment: .top, spacing: 5) {
                             Image(systemName: "music.microphone")
-                                .padding(.top, 3)
+                                .padding(.top, 2)
                                 .frame(width: 22)
                             Text(concertName)
                                 .font(.system(size: 18, type: .Regular))
@@ -138,7 +138,7 @@ struct ConcertView: View {
                                 }
                             }
                             .buttonStyle(PlainButtonStyle())
-
+                            
                             Spacer()
                         }
                     }

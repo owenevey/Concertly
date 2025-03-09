@@ -7,14 +7,15 @@ struct ProfileView: View {
     @StateObject var profileViewModel: ProfileViewModel
     @StateObject var nearbyViewModel: NearbyViewModel
     
-    @AppStorage("Home Airport") private var homeAirport: String = "JFK"
-    @AppStorage("Home City") private var homeCity: String = "New York, NY"
-    @AppStorage("Theme") private var theme: String = "Default"
-    @AppStorage("Concert Reminders") private var concertReminders: Int = concertRemindersEnum.dayBefore.rawValue
+    @AppStorage(AppStorageKeys.homeAirport.rawValue) private var homeAirport: String = "JFK"
+    @AppStorage(AppStorageKeys.homeCity.rawValue) private var homeCity: String = "New York, NY"
+    @AppStorage(AppStorageKeys.theme.rawValue) private var theme: String = "Default"
+    @AppStorage(AppStorageKeys.concertReminders.rawValue) private var concertReminders: Int = concertRemindersEnum.dayBefore.rawValue
+    @AppStorage(AppStorageKeys.newTourDates.rawValue) private var newTourDateNotifications: Bool = true
     
     @State private var isSearchBarVisible: Bool = true
     
-    @AppStorage("Has Seen Onboarding") private var hasSeenOnboarding: Bool = false
+    @AppStorage(AppStorageKeys.hasSeenOnboarding.rawValue) private var hasSeenOnboarding: Bool = false
     
     var concertRemindersSelection: String {
         switch concertReminders {
@@ -31,15 +32,13 @@ struct ProfileView: View {
         GeometryReader { geometry in
             ZStack(alignment: .top) {
                 ScrollView(showsIndicators: false) {
-                    VStack(spacing: 15) {
-                        
-                        HStack(alignment: .top) {
-                            Text("Profile")
-                                .font(.system(size: 30, type: .Bold))
-                                .foregroundStyle(.accent)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                        .shadow(color: .black.opacity(0.1), radius: 5)
+                    VStack(spacing: 0) {
+                        Text("Profile")
+                            .font(.system(size: 30, type: .Bold))
+                            .foregroundStyle(.accent)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .shadow(color: .black.opacity(0.1), radius: 5)
+                            .padding(.bottom, 10)
                         
                         VStack(spacing: 0) {
                             HStack {
@@ -48,18 +47,18 @@ struct ProfileView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
                                 if profileViewModel.followingArtists.count > 2 {
-                                        NavigationLink(value: profileViewModel.followingArtists) {
-                                            HStack(spacing: 5) {
-                                                Text("View all")
-                                                    .font(.system(size: 17, type: .Regular))
-                                                
-                                                Image(systemName: "chevron.right")
-                                                    .font(.system(size: 12))
-                                                    .fontWeight(.semibold)
-                                                    .padding(.top, 2)
-                                            }
+                                    NavigationLink(value: profileViewModel.followingArtists) {
+                                        HStack(spacing: 5) {
+                                            Text("View all")
+                                                .font(.system(size: 17, type: .Medium))
+                                            
+                                            Image(systemName: "chevron.right")
+                                                .font(.system(size: 12))
+                                                .fontWeight(.semibold)
+                                                .padding(.top, 2)
                                         }
-                                        .buttonStyle(PlainButtonStyle())
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
                                 }
                             }
                             ScrollView(.horizontal, showsIndicators: false) {
@@ -70,7 +69,7 @@ struct ProfileView: View {
                                 }
                                 .shadow(color: .black.opacity(0.2), radius: 5)
                                 .padding(.top, 10)
-                                .padding(.bottom, 15)
+                                .padding(.bottom, 20)
                                 .scrollTargetLayout()
                             }
                             .scrollTargetBehavior(.viewAligned)
@@ -84,16 +83,13 @@ struct ProfileView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
                             VStack(spacing: 0) {
-                                
                                 ProfileRow(imageName: "airplane.departure", name: "Home Airport", selection: homeAirport)
-//                                ProfileRow(imageName: "airplane.departure", name: "Home Airport", selection: homeAirport, destination: AirportSearchView(airportCode: $homeAirport, title: "Home Airport"))
                                 
                                 Divider()
                                     .frame(height: 1)
                                     .overlay(.gray2)
                                     .padding(.horizontal, 15)
                                 
-//                                ProfileRow(imageName: "building.2.fill", name: "Home City", selection: homeCity, destination: CitySearchView(location: $homeCity, title: "Home City"))
                                 ProfileRow(imageName: "building.2.fill", name: "Home City", selection: homeCity)
                                 
                                 Divider()
@@ -133,6 +129,7 @@ struct ProfileView: View {
                                     .frame(maxWidth: .infinity)
                             )
                         }
+                        .padding(.bottom, 20)
                         
                         VStack(spacing: 10) {
                             Text("Notifications")
@@ -140,7 +137,6 @@ struct ProfileView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
                             VStack(spacing: 0) {
-                                
                                 HStack {
                                     Image(systemName: "bookmark.fill")
                                         .frame(width: 22)
@@ -175,6 +171,41 @@ struct ProfileView: View {
                                 .padding(.vertical, 12)
                                 .padding(.horizontal, 15)
                                 .contentShape(Rectangle())
+                                
+                                HStack {
+                                    Image(systemName: "star.fill")
+                                        .frame(width: 22)
+                                    Text("New Tour Date Announcements")
+                                        .font(.system(size: 17, type: .Regular))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    Spacer()
+                                    
+                                    Menu {
+                                        Button("On") {
+                                            newTourDateNotifications = true
+                                            Task {
+                                                await NotificationManager.shared.updateNewTourDateNotifications()
+                                            }
+                                        }
+                                        Button("Off") {
+                                            newTourDateNotifications = false
+                                            Task {
+                                                await NotificationManager.shared.updateNewTourDateNotifications()
+                                            }
+                                        }
+                                    } label: {
+                                        Text(newTourDateNotifications ? "On" : "Off")
+                                            .font(.system(size: 17, type: .Regular))
+                                        Image(systemName: "chevron.right")
+                                            .font(.system(size: 13))
+                                            .fontWeight(.semibold)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                                .padding(.vertical, 12)
+                                .padding(.horizontal, 15)
+                                .contentShape(Rectangle())
                             }
                             .background(
                                 RoundedRectangle(cornerRadius: 10)
@@ -182,11 +213,6 @@ struct ProfileView: View {
                                     .frame(maxWidth: .infinity)
                             )
                         }
-                        
-                        ConcertlyButton(label: "Reset Onboarding") {
-                            hasSeenOnboarding = false
-                        }
-                        .padding(.top, 40)
                         
                         Spacer()
                     }
@@ -198,8 +224,7 @@ struct ProfileView: View {
                     return geo.contentOffset.y
                 } action: { oldValue, newValue in
                     withAnimation(.linear(duration: 0.1)) {
-                        if newValue > -20 {
-                            //change numbers
+                        if newValue + geometry.safeAreaInsets.top > 20 {
                             isSearchBarVisible = false
                         } else {
                             isSearchBarVisible = true

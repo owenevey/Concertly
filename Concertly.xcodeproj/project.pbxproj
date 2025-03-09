@@ -403,13 +403,13 @@
 			isa = PBXGroup;
 			children = (
 				F116401F2C8AAA610040C95D /* ExploreView.swift */,
+				F1CD3C8A2D25FB88004E3041 /* ExploreViewModel.swift */,
 				F10AA08A2D7BD8C000FB4EB9 /* NotificationsView.swift */,
 				F10AA08C2D7BD8F700FB4EB9 /* NotificationsViewModel.swift */,
-				F1CD3C8A2D25FB88004E3041 /* ExploreViewModel.swift */,
-				F11640212C8BA8270040C95D /* SavedView.swift */,
-				F10E0C932D558F7B0091940C /* SavedViewModel.swift */,
 				F14349D32D4D791100C63041 /* NearbyView.swift */,
 				F14349D52D4DAD6900C63041 /* NearbyViewModel.swift */,
+				F11640212C8BA8270040C95D /* SavedView.swift */,
+				F10E0C932D558F7B0091940C /* SavedViewModel.swift */,
 				F1611FDF2D57203400D4DF10 /* ProfileViewModel.swift */,
 				F13186282CB1EBD9003DBCC5 /* ProfileView.swift */,
 				F1CD3CC52D31F1D6004E3041 /* ExploreSearchView.swift */,

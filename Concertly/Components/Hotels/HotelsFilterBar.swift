@@ -70,7 +70,7 @@ struct HotelsFilterBar: View {
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(isFilterActive(filter) ? Color.primary : .gray2, style: StrokeStyle(lineWidth: 2))
                                     .padding(2)
-                                    .animation(.easeInOut(duration: 0.2), value: isFilterActive(filter))
+                                    .animation(.easeInOut(duration: 0.1), value: isFilterActive(filter))
                             )
                         }
                         .buttonStyle(PlainButtonStyle())
@@ -78,7 +78,7 @@ struct HotelsFilterBar: View {
                     
                     if isAnyFilterActive {
                         Button {
-                            withAnimation(.easeInOut(duration: 0.2)) {
+                            withAnimation(.easeInOut(duration: 0.1)) {
                                 resetFilters()
                             }
                         } label: {

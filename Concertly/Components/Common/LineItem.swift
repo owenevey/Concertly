@@ -95,7 +95,7 @@ struct LineItem<T: TripViewModelProtocol>: View {
                     CircleLoadingView(ringSize: 20)
                         .padding(.trailing, 10)
                 }
-                else if currentStatus == .success {
+                else if currentStatus == .success && price != -1 {
                     if case .ticket = item {
                         Text("View")
                             .font(.system(size: 17, type: .Medium))

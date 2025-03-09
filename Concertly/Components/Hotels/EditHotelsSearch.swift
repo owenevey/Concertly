@@ -61,8 +61,6 @@ struct EditHotelsSearch: View {
                     .labelsHidden()
             }
             
-            
-            
             ConcertlyButton(label: "Search") {
                 fromDate = tempFromDate
                 toDate = tempToDate
@@ -71,7 +69,6 @@ struct EditHotelsSearch: View {
                 dismiss()
             }
             .padding(.top, 10)
-            
         }
         .padding(15)
         .sheet(isPresented: $showSheet) {
@@ -79,9 +76,6 @@ struct EditHotelsSearch: View {
         }
     }
 }
-
-
-
 
 #Preview {
     @Previewable @State var fromDate = Date.now

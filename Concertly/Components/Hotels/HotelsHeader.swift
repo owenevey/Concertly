@@ -14,12 +14,13 @@ struct HotelsHeader: View {
     var body: some View {
         HStack {
             BackButton()
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(width: 80, alignment: .leading)
             
             VStack {
                 Text(location)
                     .font(.system(size: 18, type: .SemiBold))
-                    .minimumScaleFactor(0.9)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
                     .frame(maxWidth: .infinity)
                 
                 Text("\(fromDate.shortFormat()) - \(toDate.shortFormat())")
@@ -39,8 +40,7 @@ struct HotelsHeader: View {
                         .padding(.trailing, 20)
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .trailing)
-            
+            .frame(width: 80, alignment: .trailing)
         }
         .frame(height: 60)
         .background(Color.foreground)

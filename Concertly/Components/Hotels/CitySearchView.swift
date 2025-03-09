@@ -63,7 +63,7 @@ struct CitySearchView: View {
                         .submitLabel(.done)
                         .disableAutocorrection(true)
                         .focused($isTextFieldFocused)
-                        .font(.system(size: 18, type: .Regular))
+                        .font(.system(size: 17, type: .Regular))
                         .padding(.trailing)
                 }
             })
@@ -81,7 +81,7 @@ struct CitySearchView: View {
                                     .fontWeight(.semibold)
                                 
                                 Text("No Cities")
-                                    .font(.system(size: 18, type: .Regular))
+                                    .font(.system(size: 17, type: .Regular))
                             }
                             .frame(maxWidth: .infinity)
                             .frame(height: 250)

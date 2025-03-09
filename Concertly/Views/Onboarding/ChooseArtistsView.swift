@@ -22,7 +22,7 @@ struct ChooseArtistsView: View {
                     throw NSError(domain: "", code: 1, userInfo: nil)
                 }
                 
-                let response = try await followArtist(artistId: artist.id, pushNotificationToken: pushNotificationToken, follow: true)
+                let response = try await toggleFollowArtist(artistId: artist.id, pushNotificationToken: pushNotificationToken, follow: true)
                 
                 if response.status == .error {
                     throw NSError(domain: "", code: 1, userInfo: nil)

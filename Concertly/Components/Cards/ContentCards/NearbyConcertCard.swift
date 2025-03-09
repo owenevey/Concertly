@@ -18,13 +18,13 @@ struct NearbyConcertCard: View {
                         .minimumScaleFactor(0.9)
                         .lineLimit(1)
                     
-                    Text(concert.venueName)
+                    Text(concert.date.shortFormatWithYear(timeZoneIdentifier: concert.timezone))
                         .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
                         .minimumScaleFactor(0.9)
                         .lineLimit(1)
                     
-                    Text(concert.date.shortFormatWithYear(timeZoneIdentifier: concert.timezone))
+                    Text(concert.venueName)
                         .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
                         .minimumScaleFactor(0.9)

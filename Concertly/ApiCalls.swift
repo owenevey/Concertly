@@ -166,7 +166,7 @@ func fetchSuggestedConcerts(followingArtists: [SuggestedArtist]) async throws ->
     return response
 }
 
-func followArtist(artistId: String, pushNotificationToken: String, follow: Bool) async throws -> ApiResponse<String> {
+func toggleFollowArtist(artistId: String, pushNotificationToken: String, follow: Bool) async throws -> ApiResponse<String> {
     let endpoint = "\(baseUrl)/followArtist"
     
     let followRequest = FollowRequestBody(followRequest: FollowRequest(artistId: artistId, pushNotificationToken: pushNotificationToken, follow: follow))

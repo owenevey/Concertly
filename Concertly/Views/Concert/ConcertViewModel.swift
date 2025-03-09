@@ -160,11 +160,10 @@ class ConcertViewModel: TripViewModelProtocol {
         else {
             CoreDataManager.shared.saveConcert(concert)
             
-            let concertRemindersPreference = UserDefaults.standard.integer(forKey: "Concert Reminders")
+            let concertRemindersPreference = UserDefaults.standard.integer(forKey: AppStorageKeys.concertReminders.rawValue)
 
             if concertRemindersPreference != 0 {
-//                notificationManager.scheduleConcertReminder(for: concert, daysBefore: concertRemindersPreference)
-                NotificationManager.shared.testScheduleConcertReminder(for: concert)
+                NotificationManager.shared.scheduleConcertReminder(for: concert, daysBefore: concertRemindersPreference)
             }
         }
         

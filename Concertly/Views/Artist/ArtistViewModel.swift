@@ -79,7 +79,7 @@ class ArtistViewModel: ObservableObject {
                     throw NSError(domain: "", code: 1, userInfo: nil)
                 }
                 
-                let response = try await followArtist(artistId: artistId, pushNotificationToken: pushNotificationToken, follow: false)
+                let response = try await toggleFollowArtist(artistId: artistId, pushNotificationToken: pushNotificationToken, follow: false)
                 
                 if response.status == .error {
                     throw NSError(domain: "", code: 1, userInfo: nil)
@@ -103,7 +103,7 @@ class ArtistViewModel: ObservableObject {
                     throw NSError(domain: "", code: 1, userInfo: nil)
                 }
                 
-                let response = try await followArtist(artistId: artistId, pushNotificationToken: pushNotificationToken, follow: true)
+                let response = try await toggleFollowArtist(artistId: artistId, pushNotificationToken: pushNotificationToken, follow: true)
                 
                 if response.status == .error {
                     throw NSError(domain: "", code: 1, userInfo: nil)

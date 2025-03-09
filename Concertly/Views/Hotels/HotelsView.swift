@@ -33,10 +33,7 @@ struct HotelsView<T: TripViewModelProtocol>: View {
                 mainContent
             }
         )
-//        .onChange(of: viewModel.location, { handleLocationChange() })
         .onChange(of: viewModel.selectedHotel, { handleSelectedHotelChange() })
-//        .onChange(of: viewModel.fromDate, { handleDateChange() })
-//        .onChange(of: viewModel.toDate, { handleDateChange() })
         
         .sheet(isPresented: Binding<Bool>(
             get: { selectedHotel != nil },
@@ -74,7 +71,7 @@ struct HotelsView<T: TripViewModelProtocol>: View {
                             .fontWeight(.semibold)
                         
                         Text("No hotels")
-                            .font(.system(size: 18, type: .Regular))
+                            .font(.system(size: 17, type: .Regular))
                     }
                     .frame(height: 250)
                     .transition(.opacity)
@@ -93,7 +90,6 @@ struct HotelsView<T: TripViewModelProtocol>: View {
             else if viewModel.hotelsResponse.status == Status.error {
                 ErrorView(text: "Error fetching hotels", action: {
                     await viewModel.getHotels()
-                    
                 })
                 .frame(height: 250)
                 .transition(.opacity)
