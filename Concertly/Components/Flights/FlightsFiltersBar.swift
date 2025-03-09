@@ -146,7 +146,7 @@ struct FlightsFiltersBar: View {
                 }
             }
             Divider()
-                .frame(height: 1)
+                .frame(height: 1.5)
                 .overlay(.gray2)
         }
         .frame(height: 65)

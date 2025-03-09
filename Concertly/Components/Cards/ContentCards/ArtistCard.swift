@@ -1,4 +1,5 @@
 import SwiftUI
+import SmoothGradient
 
 struct ArtistCard: View {
     @EnvironmentObject var animationManager: AnimationManager
@@ -13,14 +14,12 @@ struct ArtistCard: View {
             .contentShape(RoundedRectangle(cornerRadius: 20))
             .overlay {
                 ZStack(alignment: .bottom) {
-                    LinearGradient(
-                        colors: [
-                            .black.opacity(0.8),
-                            .clear
-                        ],
-                        startPoint: .bottom,
-                        endPoint: .top
-                    )
+                    SmoothLinearGradient(
+                        from: .clear,
+                        to: .black.opacity(0.8),
+                        startPoint: .top,
+                        endPoint: .bottom,
+                        curve: .easeInOut)
                     .frame(height: 100)
                     .frame(maxWidth: .infinity)
                     
@@ -32,7 +31,8 @@ struct ArtistCard: View {
                             .lineLimit(2)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .multilineTextAlignment(.leading)
-                            .padding(15)
+                            .padding(.horizontal, 15)
+                            .padding(.bottom, 10)
                     }
                     .frame(maxHeight: .infinity, alignment: .bottom)
                 }

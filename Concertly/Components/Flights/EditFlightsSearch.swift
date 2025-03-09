@@ -47,7 +47,7 @@ struct EditFlightsSearch: View {
                         Image(systemName: "airplane.departure")
                             .fontWeight(.semibold)
                         Text(tempFromAirport)
-                            .font(.system(size: 18, type: .Regular))
+                            .font(.system(size: 17, type: .Regular))
                             .foregroundStyle(.primary)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -64,7 +64,7 @@ struct EditFlightsSearch: View {
                         Image(systemName: "airplane.arrival")
                             .fontWeight(.semibold)
                         Text(tempToAirport)
-                            .font(.system(size: 18, type: .Regular))
+                            .font(.system(size: 17, type: .Regular))
                             .foregroundStyle(.primary)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -72,20 +72,20 @@ struct EditFlightsSearch: View {
             }
             .buttonStyle(PlainButtonStyle())
             
-                Divider()
-                    .frame(height: 2)
-                    .overlay(.gray2)
+            Divider()
+                .frame(height: 2)
+                .overlay(.gray2)
+            
+            HStack(spacing: 30) {
+                DatePicker("", selection: $tempFromDate, in: Date.now..., displayedComponents: .date)
+                    .labelsHidden()
                 
-                HStack(spacing: 30) {
-                    DatePicker("", selection: $tempFromDate, in: Date.now..., displayedComponents: .date)
-                        .labelsHidden()
-                    
-                    Image(systemName: "arrow.right")
-                        .fontWeight(.semibold)
-                    
-                    DatePicker("", selection: $tempToDate, in: tempFromDate..., displayedComponents: .date)
-                        .labelsHidden()
-                }
+                Image(systemName: "arrow.right")
+                    .fontWeight(.semibold)
+                
+                DatePicker("", selection: $tempToDate, in: tempFromDate..., displayedComponents: .date)
+                    .labelsHidden()
+            }
             
             ConcertlyButton(label: "Search") {
                 fromDate = tempFromDate

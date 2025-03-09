@@ -78,20 +78,20 @@ struct ImageHeaderScrollView<Content: View>: View {
                 } action: { oldValue, newValue in
                     offset = newValue
                     
-                    // Threshold for toggling title visibility
-                    let threshold = 300 - 50 + 15 + 10 - geometry.safeAreaInsets.top
+                    let threshold = 300 - 70 - geometry.safeAreaInsets.top
                     
-                    withAnimation(.linear(duration: 0.3)) {
+                    withAnimation(.linear(duration: 0.1)) {
                         if newValue > threshold && isTitleVisible {
-                            isTitleVisible = false // Hide title
+                            isTitleVisible = false
                         } else if newValue <= threshold && !isTitleVisible {
-                            isTitleVisible = true // Show title
+                            isTitleVisible = true
                         }
                     }
                 }
                 
                 HStack {
                     BackButton(showBackground: true)
+                        .padding(.leading, 15)
                     
                     Spacer()
                     
@@ -118,7 +118,6 @@ struct ImageHeaderScrollView<Content: View>: View {
                 
                 ImageViewHeader(title: title, rightIcon: rightIcon, rightIconFilled: rightIconFilled, onRightIconTap: onRightIconTap)
                     .opacity(isTitleVisible ? 0 : 1)
-                    .animation(.linear(duration: 0.1), value: isTitleVisible)
                     .padding(.top, geometry.safeAreaInsets.top)
             }
             .ignoresSafeArea(edges: .top)

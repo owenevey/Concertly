@@ -69,11 +69,13 @@ class ArtistViewModel: ObservableObject {
     }
     
     func toggleArtistFollowing() async {
+        
         if isFollowing {
+            isFollowing = false
             coreDataManager.unSaveArtist(id: artistId, category: "following")
             
             do {
-                guard let pushNotificationToken = UserDefaults.standard.string(forKey: "pushNotificationToken") else {
+                guard let pushNotificationToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue) else {
                     throw NSError(domain: "", code: 1, userInfo: nil)
                 }
                 
@@ -85,17 +87,19 @@ class ArtistViewModel: ObservableObject {
             }
             catch {
                 if let artist = artistDetailsResponse.data {
+                    isFollowing = true
                     coreDataManager.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: "following")
                 }
             }
         }
         else {
+            isFollowing = true
             if let artist = artistDetailsResponse.data {
                 coreDataManager.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: "following")
             }
             
             do {
-                guard let pushNotificationToken = UserDefaults.standard.string(forKey: "pushNotificationToken") else {
+                guard let pushNotificationToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue) else {
                     throw NSError(domain: "", code: 1, userInfo: nil)
                 }
                 
@@ -106,10 +110,9 @@ class ArtistViewModel: ObservableObject {
                 }
             }
             catch {
+                isFollowing = false
                 coreDataManager.unSaveArtist(id: artistId, category: "following")
             }
         }
-        
-        isFollowing.toggle()
     }
 }

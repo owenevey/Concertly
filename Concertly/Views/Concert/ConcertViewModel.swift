@@ -9,8 +9,6 @@ class ConcertViewModel: TripViewModelProtocol {
     let longitude: Double
     var closestAirport: String
     
-    let notificationManager = NotificationManager.shared
-    
     @Published var tripStartDate: Date
     @Published var tripEndDate: Date
     @Published var flightsResponse: ApiResponse<FlightsResponse> = ApiResponse<FlightsResponse>()
@@ -21,8 +19,6 @@ class ConcertViewModel: TripViewModelProtocol {
     @Published var isSaved: Bool
     
     let homeAirport: String
-    
-    private let coreDataManager = CoreDataManager.shared
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -36,7 +32,7 @@ class ConcertViewModel: TripViewModelProtocol {
         self.tripStartDate = calendar.date(byAdding: .day, value: -2, to: concert.date) ?? Date()
         self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.date) ?? Date()
         self.cityName = concert.cityName
-        self.isSaved = coreDataManager.isConcertSaved(id: concert.id)
+        self.isSaved = CoreDataManager.shared.isConcertSaved(id: concert.id)
         
         self.homeAirport = UserDefaults.standard.string(forKey: "Home Airport") ?? "JFK"
         
@@ -49,7 +45,7 @@ class ConcertViewModel: TripViewModelProtocol {
                 guard let self = self else { return }
                 if isSaved {
                     self.concert.flightsPrice = newPrice
-                    self.coreDataManager.saveConcert(self.concert)
+                    CoreDataManager.shared.saveConcert(self.concert)
                 }
             }
             .store(in: &cancellables)
@@ -59,7 +55,7 @@ class ConcertViewModel: TripViewModelProtocol {
                 guard let self = self else { return }
                 if isSaved {
                     self.concert.hotelsPrice = newPrice
-                    self.coreDataManager.saveConcert(self.concert)
+                    CoreDataManager.shared.saveConcert(self.concert)
                 }
             }
             .store(in: &cancellables)
@@ -103,7 +99,7 @@ class ConcertViewModel: TripViewModelProtocol {
                 
                 let uniqueAirlineLogoURLs = Array(Set(airlineLogoURLs))
                 
-                ImagePrefetcher.instance.startPrefetching(urls: uniqueAirlineLogoURLs)
+                ImagePrefetcher.shared.startPrefetching(urls: uniqueAirlineLogoURLs)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.flightsResponse = ApiResponse(status: .error, error: fetchedFlights.error ?? "Couldn't fetch flights")
@@ -140,7 +136,7 @@ class ConcertViewModel: TripViewModelProtocol {
                     return nil
                 }
                 
-                ImagePrefetcher.instance.startPrefetching(urls: hotelPhotos)
+                ImagePrefetcher.shared.startPrefetching(urls: hotelPhotos)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.hotelsResponse = ApiResponse(status: .error, error: fetchedHotels.error ?? "Couldn't fetch hotels")
@@ -154,21 +150,21 @@ class ConcertViewModel: TripViewModelProtocol {
     }
     
     func checkIfSaved() {
-        isSaved = coreDataManager.isConcertSaved(id: concert.id)
+        isSaved = CoreDataManager.shared.isConcertSaved(id: concert.id)
     }
     
     func toggleConcertSaved() {
         if isSaved {
-            coreDataManager.unSaveConcert(id: concert.id)
+            CoreDataManager.shared.unSaveConcert(id: concert.id)
         }
         else {
-            coreDataManager.saveConcert(concert)
+            CoreDataManager.shared.saveConcert(concert)
             
             let concertRemindersPreference = UserDefaults.standard.integer(forKey: "Concert Reminders")
 
             if concertRemindersPreference != 0 {
 //                notificationManager.scheduleConcertReminder(for: concert, daysBefore: concertRemindersPreference)
-                notificationManager.testScheduleConcertReminder(for: concert)
+                NotificationManager.shared.testScheduleConcertReminder(for: concert)
             }
         }
         

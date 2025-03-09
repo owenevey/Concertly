@@ -22,12 +22,13 @@ struct BackButton: View {
                             .font(.system(size: 17))
                             .fontWeight(.semibold)
                     )
-                    .padding(.leading, 15)
             } else {
                 Image(systemName: showX ? "xmark" : "chevron.backward")
                     .font(.system(size: 17))
                     .fontWeight(.semibold)
                     .padding(.leading, 15)
+                    .padding(.trailing, 10)
+                    .padding(.vertical, 5)
             }
         }
         .buttonStyle(PlainButtonStyle())

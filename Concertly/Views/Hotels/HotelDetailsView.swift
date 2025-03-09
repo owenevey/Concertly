@@ -181,7 +181,7 @@ struct HotelDetailsView: View {
                     return nil
                 }
             }
-            ImagePrefetcher.instance.startPrefetching(urls: propertyImages)
+            ImagePrefetcher.shared.startPrefetching(urls: propertyImages)
         }
     }
 }

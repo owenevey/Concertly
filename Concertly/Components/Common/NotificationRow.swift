@@ -35,13 +35,11 @@ struct NotificationRow: View {
                 .padding(.horizontal, 10)
             
             VStack {
-                HStack {
-                    Text(titleString)
-                        .font(.system(size: 17, type: .SemiBold))
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.9)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
+                Text(titleString)
+                    .font(.system(size: 17, type: .SemiBold))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.9)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text(bodyString)
                     .font(.system(size: 17, type: .Regular))
@@ -63,7 +61,6 @@ struct NotificationRow: View {
         .padding(15)
         .contentShape(Rectangle())
         .onTapGesture {
-            print(notification.deepLink)
             if let url = URL(string: notification.deepLink) {
                 DispatchQueue.main.async {
                     UIApplication.shared.open(url)
@@ -81,6 +78,7 @@ struct NotificationRow: View {
             ForEach(0 ..< 5) { item in
                 NotificationRow(notification: SavedNotification(type: "saved", artistName: "Sabrina Carpenter", deepLink: "", date: Date()))
                 Divider()
+                    .padding(.horizontal)
             }
             Spacer()
         }

@@ -28,12 +28,12 @@ final class ExploreViewModel: ObservableObject {
     @Published var famousVenues: [Venue] = []
     
     init() {
-        trendingConcerts = coreDataManager.fetchItems(for: "explore_trending", type: Concert.self)
-        popularArtists = coreDataManager.fetchItems(for: "explore_popular", type: SuggestedArtist.self)
-        popularDestinations = coreDataManager.fetchItems(for: "", type: Destination.self)
-        featuredConcert = coreDataManager.fetchItems(for: "explore_featured", type: Concert.self).first
-        suggestedConcerts = coreDataManager.fetchItems(for: "explore_suggested", type: Concert.self)
-        famousVenues = coreDataManager.fetchItems(for: "", type: Venue.self)
+        trendingConcerts = coreDataManager.fetchItems(for: ContentCategories.exploreTrending.rawValue, type: Concert.self)
+        popularArtists = coreDataManager.fetchItems(for: ContentCategories.explore.rawValue, type: SuggestedArtist.self)
+        popularDestinations = coreDataManager.fetchItems(type: Destination.self)
+        featuredConcert = coreDataManager.fetchItems(for: ContentCategories.exploreFeatured.rawValue, type: Concert.self).first
+        suggestedConcerts = coreDataManager.fetchItems(for: ContentCategories.exploreSuggested.rawValue, type: Concert.self)
+        famousVenues = coreDataManager.fetchItems(type: Venue.self)
         
         Task {
             await getTrendingConcerts()
@@ -52,16 +52,16 @@ final class ExploreViewModel: ObservableObject {
         }
         
         do {
-            let fetchedConcerts = try await fetchConcerts(category: "explore_trending")
+            let fetchedConcerts = try await fetchConcerts(category: ContentCategories.exploreTrending.rawValue)
             
             if let concerts = fetchedConcerts.data?.concerts {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.trendingConcerts = concerts
                     self.trendingConcertsResponse = ApiResponse(status: .success, data: concerts)
-                    ImagePrefetcher.instance.startPrefetching(urls: concerts.prefix(5).compactMap{ URL(string: $0.imageUrl) })
+                    ImagePrefetcher.shared.startPrefetching(urls: concerts.prefix(5).compactMap{ URL(string: $0.imageUrl) })
                 }
                 
-                coreDataManager.saveItems(concerts, category: "explore_trending")
+                coreDataManager.saveItems(concerts, category: ContentCategories.exploreTrending.rawValue)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.trendingConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
@@ -74,48 +74,21 @@ final class ExploreViewModel: ObservableObject {
         }
     }
     
-    func getSuggestedConcerts() async {
-        withAnimation(.easeInOut(duration: 0.2)) {
-            self.suggestedConcertsResponse = ApiResponse(status: .loading)
-        }
-        
-        do {
-            let fetchedConcerts = try await fetchConcerts(category: "explore_suggested")
-            
-            if let concerts = fetchedConcerts.data?.concerts {
-                withAnimation(.easeInOut(duration: 0.2)) {
-                    self.suggestedConcerts = concerts
-                    self.suggestedConcertsResponse = ApiResponse(status: .success, data: concerts)
-                    ImagePrefetcher.instance.startPrefetching(urls: concerts.prefix(3).compactMap{ URL(string: $0.imageUrl) })
-                }
-                coreDataManager.saveItems(concerts, category: "explore_suggested")
-            } else {
-                withAnimation(.easeInOut(duration: 0.2)) {
-                    self.suggestedConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
-                }
-            }
-        } catch {
-            withAnimation(.easeInOut(duration: 0.2)) {
-                self.suggestedConcertsResponse = ApiResponse(status: .error, error: error.localizedDescription)
-            }
-        }
-    }
-    
     func getPopularArtists() async {
         withAnimation(.easeInOut(duration: 0.2)) {
             self.popularArtistsResponse = ApiResponse(status: .loading)
         }
         
         do {
-            let fetchedArtists = try await fetchPopularArtists(category: "explore")
+            let fetchedArtists = try await fetchPopularArtists(category: ContentCategories.explore.rawValue)
             
             if let artists = fetchedArtists.data?.artists {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.popularArtists = artists
                     self.popularArtistsResponse = ApiResponse(status: .success, data: artists)
-                    ImagePrefetcher.instance.startPrefetching(urls: artists.prefix(5).compactMap{ URL(string: $0.imageUrl) })
+                    ImagePrefetcher.shared.startPrefetching(urls: artists.prefix(5).compactMap{ URL(string: $0.imageUrl) })
                 }
-                coreDataManager.saveItems(artists, category: "explore_popular")
+                coreDataManager.saveItems(artists, category: ContentCategories.explore.rawValue)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.popularArtistsResponse = ApiResponse(status: .error, error: "Couldn't fetch artists")
@@ -128,24 +101,83 @@ final class ExploreViewModel: ObservableObject {
         }
     }
     
+    func getSimilarConcerts() async {
+        withAnimation(.easeInOut(duration: 0.2)) {
+            self.similarConcertsResponse = ApiResponse(status: .loading)
+        }
+        
+        do {
+            let followingArtists = getFollowingArtists()
+            
+            if followingArtists.count == 0 {
+                return
+            }
+            
+            let fetchedConcerts = try await fetchSuggestedConcerts(followingArtists: followingArtists)
+            
+            if let concerts = fetchedConcerts.data?.concerts, let artist = fetchedConcerts.data?.name {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.similarConcerts = concerts
+                    self.similarConcertsArtist = artist
+                    self.similarConcertsResponse = ApiResponse(status: .success, data: concerts)
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.similarConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
+                }
+            }
+        } catch {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                self.similarConcertsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
+        }
+    }
+    
+    func getSuggestedConcerts() async {
+        withAnimation(.easeInOut(duration: 0.2)) {
+            self.suggestedConcertsResponse = ApiResponse(status: .loading)
+        }
+        
+        do {
+            let fetchedConcerts = try await fetchConcerts(category: ContentCategories.exploreSuggested.rawValue)
+            
+            if let concerts = fetchedConcerts.data?.concerts {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.suggestedConcerts = concerts
+                    self.suggestedConcertsResponse = ApiResponse(status: .success, data: concerts)
+                    ImagePrefetcher.shared.startPrefetching(urls: concerts.prefix(3).compactMap{ URL(string: $0.imageUrl) })
+                }
+                coreDataManager.saveItems(concerts, category: ContentCategories.exploreSuggested.rawValue)
+            } else {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.suggestedConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
+                }
+            }
+        } catch {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                self.suggestedConcertsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
+        }
+    }
+    
     func getFeaturedConcert() async {
         withAnimation(.easeInOut(duration: 0.2)) {
             self.featuredConcertResponse = ApiResponse(status: .loading)
         }
         
         do {
-            let fetchedConcert = try await fetchFeaturedConcert(category: "explore")
+            let fetchedConcert = try await fetchFeaturedConcert(category: ContentCategories.explore.rawValue)
             
             if let concert = fetchedConcert.data?.concert {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.featuredConcert = concert
                     self.featuredConcertResponse = ApiResponse(status: .success, data: concert)
-                    ImagePrefetcher.instance.startPrefetching(urls: [URL(string: concert.imageUrl)].compactMap { $0 })
+                    ImagePrefetcher.shared.startPrefetching(urls: [URL(string: concert.imageUrl)].compactMap { $0 })
                 }
-                coreDataManager.saveItems([concert], category: "explore_featured")
+                coreDataManager.saveItems([concert], category: ContentCategories.exploreFeatured.rawValue)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
-                    self.featuredConcertResponse = ApiResponse(status: .error, error: "Couldn't fetch concert")
+                    self.featuredConcertResponse = ApiResponse(status: .error, error: "Couldn't fetch event")
                 }
             }
         } catch {
@@ -167,9 +199,9 @@ final class ExploreViewModel: ObservableObject {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.popularDestinations = destinations
                     self.popularDestinationsResponse = ApiResponse(status: .success, data: destinations)
-                    ImagePrefetcher.instance.startPrefetching(urls: destinations.prefix(3).compactMap{ URL(string: $0.images[0]) })
+                    ImagePrefetcher.shared.startPrefetching(urls: destinations.prefix(3).compactMap{ URL(string: $0.images[0]) })
                 }
-                coreDataManager.saveItems(destinations, category: "")
+                coreDataManager.saveItems(destinations)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.popularDestinationsResponse = ApiResponse(status: .error, error: "Couldn't fetch destinations")
@@ -194,9 +226,9 @@ final class ExploreViewModel: ObservableObject {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.famousVenues = venues
                     self.famousVenuesResponse = ApiResponse(status: .success, data: venues)
-                    ImagePrefetcher.instance.startPrefetching(urls: venues.prefix(3).compactMap{ URL(string: $0.imageUrl) })
+                    ImagePrefetcher.shared.startPrefetching(urls: venues.prefix(3).compactMap{ URL(string: $0.imageUrl) })
                 }
-                coreDataManager.saveItems(venues, category: "")
+                coreDataManager.saveItems(venues)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.famousVenuesResponse = ApiResponse(status: .error, error: "Couldn't fetch venues")
@@ -209,34 +241,7 @@ final class ExploreViewModel: ObservableObject {
         }
     }
     
-    func getSimilarConcerts() async {
-        withAnimation(.easeInOut(duration: 0.2)) {
-            self.similarConcertsResponse = ApiResponse(status: .loading)
-        }
-        
-        do {
-            let followingArtists = getFollowingArtists()
-            let fetchedConcerts = try await fetchSuggestedConcerts(followingArtists: followingArtists)
-            
-            if let concerts = fetchedConcerts.data?.concerts, let artist = fetchedConcerts.data?.name {
-                withAnimation(.easeInOut(duration: 0.2)) {
-                    self.similarConcerts = concerts
-                    self.similarConcertsArtist = artist
-                    self.similarConcertsResponse = ApiResponse(status: .success, data: concerts)
-                }
-            } else {
-                withAnimation(.easeInOut(duration: 0.2)) {
-                    self.similarConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
-                }
-            }
-        } catch {
-            withAnimation(.easeInOut(duration: 0.2)) {
-                self.similarConcertsResponse = ApiResponse(status: .error, error: error.localizedDescription)
-            }
-        }
-    }
-    
     func getFollowingArtists() -> [SuggestedArtist] {
-        return coreDataManager.fetchItems(for: "following", type: SuggestedArtist.self, sortKey: "id")
+        return coreDataManager.fetchItems(for: ContentCategories.following.rawValue, type: SuggestedArtist.self, sortKey: "id")
     }
 }

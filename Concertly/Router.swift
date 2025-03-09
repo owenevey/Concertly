@@ -79,3 +79,10 @@ class Router: ObservableObject {
         }
     }
 }
+
+enum Routes: String {
+    case notifications
+    case exploreSearch
+    case homeCity
+    case homeAirport
+}

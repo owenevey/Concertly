@@ -1,4 +1,5 @@
 import SwiftUI
+import SmoothGradient
 
 struct VenueCard: View {
     @EnvironmentObject var animationManager: AnimationManager
@@ -8,39 +9,38 @@ struct VenueCard: View {
     var body: some View {
         NavigationLink(value: venue) {
             ImageLoader(url: venue.imageUrl, contentMode: .fill)
-            .frame(width: 250, height: 200)
-            .clipped()
-            .overlay {
-                ZStack(alignment: .bottom) {
-                    LinearGradient(
-                        colors: [
-                            .black.opacity(0.8),
-                            .clear
-                        ],
-                        startPoint: .bottom,
-                        endPoint: .top
-                    )
-                    .frame(height: 100)
-                    .frame(maxWidth: .infinity)
-                    
-                    VStack {
-                        Text(venue.name)
-                            .font(.system(size: 23, type: .SemiBold))
-                            .foregroundStyle(.white)
-                            .minimumScaleFactor(0.9)
-                            .lineLimit(2)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(15)
+                .frame(width: 250, height: 200)
+                .clipped()
+                .overlay {
+                    ZStack(alignment: .bottom) {
+                        SmoothLinearGradient(
+                            from: .clear,
+                            to: .black.opacity(0.8),
+                            startPoint: .top,
+                            endPoint: .bottom,
+                            curve: .easeInOut)
+                        .frame(height: 100)
+                        .frame(maxWidth: .infinity)
+                        
+                        VStack {
+                            Text(venue.name)
+                                .font(.system(size: 23, type: .SemiBold))
+                                .foregroundStyle(.white)
+                                .minimumScaleFactor(0.9)
+                                .lineLimit(2)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal, 15)
+                                .padding(.bottom, 10)
+                        }
+                        .frame(maxHeight: .infinity, alignment: .bottom)
                     }
-                    .frame(maxHeight: .infinity, alignment: .bottom)
                 }
-            }
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-            .matchedTransitionSource(id: venue.id, in: animationManager.animation) {
-                $0
-                    .background(.clear)
-                    .clipShape(.rect(cornerRadius: 20))
-            }
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .matchedTransitionSource(id: venue.id, in: animationManager.animation) {
+                    $0
+                        .background(.clear)
+                        .clipShape(.rect(cornerRadius: 20))
+                }
         }
         .buttonStyle(PlainButtonStyle())
         

@@ -160,7 +160,7 @@ final class HotelsViewModel<T: TripViewModelProtocol>: ObservableObject {
                     return nil
                 }
                 
-                ImagePrefetcher.instance.startPrefetching(urls: hotelPhotos)
+                ImagePrefetcher.shared.startPrefetching(urls: hotelPhotos)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.hotelsResponse = ApiResponse(status: .error, error: fetchedHotels.error ?? "Couldn't fetch hotels")

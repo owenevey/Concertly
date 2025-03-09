@@ -58,4 +58,6 @@ struct ConcertCard: View {
                 ConcertView(concert: hotConcerts[0])
             }
     }
+    .environmentObject(Router())
+    .environmentObject(AnimationManager())
 }

@@ -11,6 +11,7 @@ struct ImageViewHeader: View {
         VStack(spacing: 0) {
             HStack(spacing: 15) {
                 BackButton(showBackground: true)
+                    .padding(.leading, 15)
                 
                 Text(title)
                     .font(.system(size: 23, type: .Medium))
@@ -43,7 +44,7 @@ struct ImageViewHeader: View {
             .background(Color.background)
             
             Divider()
-                .frame(height: 1)
+                .frame(height: 1.5)
                 .overlay(.gray2)
         }
         

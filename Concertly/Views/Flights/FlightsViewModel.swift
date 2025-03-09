@@ -215,7 +215,6 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
             return airlineDict
         }
         
-        
         for flightItem in flights.flights {
             for flight in flightItem.flights {
                 let airlineName = flight.airline

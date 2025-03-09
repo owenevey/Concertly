@@ -16,18 +16,18 @@ struct FeaturedEventItem: View {
                 
                 VStack(alignment: .leading, spacing: 5) {
                     Text(concert.artistName)
-                        .font(.system(size: 23, type: .SemiBold))
+                        .font(.system(size: 20, type: .SemiBold))
                         .minimumScaleFactor(0.9)
                         .lineLimit(1)
                     
                     Text(concert.cityName)
-                        .font(.system(size: 18, type: .Regular))
+                        .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
                         .minimumScaleFactor(0.9)
                         .lineLimit(1)
                     
                     Text(concert.date.shortFormatWithYear(timeZoneIdentifier: concert.timezone))
-                        .font(.system(size: 18, type: .Regular))
+                        .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
                         .minimumScaleFactor(0.9)
                         .lineLimit(1)

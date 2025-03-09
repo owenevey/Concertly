@@ -10,7 +10,7 @@ struct NotificationsView: View {
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
-                HStack(spacing: 10) {
+                HStack(spacing: 0) {
                     BackButton()
                     
                     Text("Notifications")
@@ -20,7 +20,7 @@ struct NotificationsView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Divider()
-                    .frame(height: 1)
+                    .frame(height: 1.5)
                     .overlay(.gray2)
                     .opacity(showHeaderBorder ? 1 : 0)
                     .animation(.linear(duration: 0.1), value: showHeaderBorder)
@@ -45,15 +45,11 @@ struct NotificationsView: View {
             .onScrollGeometryChange(for: CGFloat.self) { geo in
                 return geo.contentOffset.y
             } action: { oldValue, newValue in
-                withAnimation(.linear(duration: 0.3)) {
-                    showHeaderBorder = newValue > 0
-                }
+                showHeaderBorder = newValue > 0
             }
         }
         .navigationBarHidden(true)
     }
-    
-    
 }
 
 

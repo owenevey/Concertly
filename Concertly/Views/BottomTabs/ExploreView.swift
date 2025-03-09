@@ -20,17 +20,14 @@ struct ExploreView: View {
                     .transformEffect(.init(translationX: 0, y: -max(0, offset + geometry.safeAreaInsets.top)))
                 
                 ScrollView(showsIndicators: false) {
-                    
                     VStack(spacing: 15) {
-                        
-                        
                         HStack(alignment: .top) {
                             Text("Concertly")
                                 .font(.system(size: 30, type: .Bold))
                                 .foregroundStyle(.accent)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            NavigationLink(value: "notifications") {
+                            NavigationLink(value: Routes.notifications.rawValue) {
                                 Circle()
                                     .fill(Color.foreground)
                                     .frame(width: 40, height: 40)
@@ -46,12 +43,13 @@ struct ExploreView: View {
                         .padding(.horizontal, 15)
                         .frame(width: UIScreen.main.bounds.width)
                         
-                        NavigationLink(value: "exploreSearch") {
+                        NavigationLink(value: Routes.exploreSearch.rawValue) {
                             HStack {
                                 Image(systemName: "magnifyingglass")
                                     .fontWeight(.semibold)
                                 Text("Search Artists")
                                     .font(.system(size: 17, type: .Regular))
+                                    .foregroundStyle(.gray3)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                             }
                             .padding(.vertical, 12)
@@ -66,7 +64,6 @@ struct ExploreView: View {
                         .padding(.horizontal, 15)
                         
                         LazyVStack(spacing: 0) {
-                            
                             VStack(spacing: 0) {
                                 Text("Explore by Category")
                                     .font(.system(size: 20, type: .SemiBold))
@@ -113,7 +110,7 @@ struct ExploreView: View {
                 } action: { oldValue, newValue in
                     offset = newValue
                     withAnimation(.linear(duration: 0.1)) {
-                        if newValue > -20 {
+                        if newValue > -(geometry.safeAreaInsets.top - 40) {
                             isSearchBarVisible = false
                         } else {
                             isSearchBarVisible = true

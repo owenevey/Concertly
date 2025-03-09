@@ -16,7 +16,7 @@ struct ImageLoader: View {
 }
 
 final class ImagePrefetcher {
-    static let instance = ImagePrefetcher()
+    static let shared = ImagePrefetcher()
     private let prefetcher = SDWebImagePrefetcher()
     
     private init() {}

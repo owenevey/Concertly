@@ -460,8 +460,8 @@
 			isa = PBXGroup;
 			children = (
 				F17DCCCC2D3381E9000D477C /* ContentCards */,
-				F1CD3C8F2D261899004E3041 /* ErrorCards */,
 				F1CD3C872D25BCE9004E3041 /* FallbackCards */,
+				F1CD3C8F2D261899004E3041 /* ErrorCards */,
 			);
 			path = Cards;
 			sourceTree = "<group>";

@@ -12,13 +12,17 @@ struct FlightsHeader: View {
     @State var presentSheet = false
     @State var detentHeight: CGFloat = 339
     
+    var toAirportHeader: String {
+        return toAirport.isEmpty ? "   " : toAirport
+    }
+    
     var body: some View {
         HStack {
             BackButton()
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             VStack {
-                Text("\(fromAirport) - \(toAirport)")
+                Text("\(fromAirport) - \(toAirportHeader)")
                     .font(.system(size: 18, type: .SemiBold))
                 
                 Text("\(fromDate.shortFormat()) - \(toDate.shortFormat())")

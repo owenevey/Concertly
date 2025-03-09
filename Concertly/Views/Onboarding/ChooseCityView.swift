@@ -44,7 +44,7 @@ struct ChooseCityView: View {
                             .padding(.trailing)
                     }
                 })
-                .padding(.vertical, 15)
+                .padding(.vertical, 10)
                 
                 ScrollView(showsIndicators: false) {
                     switch viewModel.citiesResponse.status {

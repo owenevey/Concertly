@@ -45,10 +45,7 @@ struct ConcertView: View {
                             .foregroundStyle(.gray3)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    
-                    
-                    
+
                     if concertName != "" {
                         HStack(alignment: .top, spacing: 5) {
                             Image(systemName: "music.microphone")
@@ -59,7 +56,6 @@ struct ConcertView: View {
                         }
                         .foregroundStyle(.gray3)
                     }
-                    
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
@@ -73,7 +69,6 @@ struct ConcertView: View {
                             .foregroundStyle(.gray3)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    
                     
                     VStack(spacing: 10) {
                         let pairedArray = zip(viewModel.concert.name, viewModel.concert.url).map { ($0, $1) }
@@ -141,11 +136,9 @@ struct ConcertView: View {
                                         .fontWeight(.semibold)
                                         .padding(.top, 2)
                                 }
-                                
                             }
                             .buttonStyle(PlainButtonStyle())
-                            
-                            
+
                             Spacer()
                         }
                     }
@@ -182,13 +175,8 @@ struct ConcertView: View {
             .padding(.top, 10)
         }
         .background(Color.background)
-        .onAppear {
-            viewModel.checkIfSaved()
-        }
         .navigationBarHidden(true)
     }
-    
-    
 }
 
 #Preview {

@@ -90,7 +90,7 @@ class VenueViewModel: TripViewModelProtocol {
 
                 let uniqueAirlineLogoURLs = Array(Set(airlineLogoURLs))
 
-                ImagePrefetcher.instance.startPrefetching(urls: uniqueAirlineLogoURLs)
+                ImagePrefetcher.shared.startPrefetching(urls: uniqueAirlineLogoURLs)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.flightsResponse = ApiResponse(status: .error, error: "Couldn't fetch flights")
@@ -127,7 +127,7 @@ class VenueViewModel: TripViewModelProtocol {
                     return nil
                 }
                 
-                ImagePrefetcher.instance.startPrefetching(urls: hotelPhotos)
+                ImagePrefetcher.shared.startPrefetching(urls: hotelPhotos)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.hotelsResponse = ApiResponse(status: .error, error: fetchedHotels.error ?? "Couldn't fetch hotels")

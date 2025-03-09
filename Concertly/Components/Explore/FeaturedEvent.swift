@@ -1,18 +1,16 @@
 import SwiftUI
 
 struct FeaturedEvent: View {
-    @Namespace private var namespace
-    let id = "UIElement"
     
     var concert: Concert?
     let status: Status
     let onRetry: (() async -> Void)
     
     var body: some View {
-        VStack(spacing: 5) {
+        VStack(spacing: 0) {
             HStack {
                 Text("Featured Event")
-                    .font(.system(size: 23, type: .SemiBold))
+                    .font(.system(size: 20, type: .SemiBold))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -25,7 +23,7 @@ struct FeaturedEvent: View {
                         }
                     }
                 }
-                .font(.system(size: 17, type: .Regular))
+                .font(.system(size: 16, type: .Regular))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .transition(.opacity)
             }

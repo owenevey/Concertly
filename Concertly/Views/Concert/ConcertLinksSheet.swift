@@ -35,7 +35,7 @@ struct ConcertLinksSheet: View {
                 
                 if index < links.count - 1 {
                     Divider()
-                        .frame(height: 2)
+                        .frame(height: 1.5)
                         .overlay(.gray1)
                 }
             }
@@ -67,5 +67,4 @@ struct ConcertLinksSheet: View {
         ("SABRINA CARPENTER: SHORT N´ SWEET TOUR | Logen Seat", "https://www.ticketmaster.de/event/sabrina-carpenter-short-n-sweet-tour-%7C-logen-seat-tickets/549241?language=en-us")
     ]
     ConcertLinksSheet(links: links, showSheet: .constant(true))
-        .border(.black)
 }

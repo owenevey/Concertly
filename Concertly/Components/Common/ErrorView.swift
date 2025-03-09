@@ -10,8 +10,7 @@ struct ErrorView: View {
             Text(text)
                 .font(.system(size: 18, weight: .medium))
             
-            ConcertlyButton(label: "Retry", action: action)
-                .frame(width: 100)
+            ConcertlyButton(label: "Retry", fitText: true, action: action)
         }
         .frame(height: 250)
     }

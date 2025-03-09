@@ -8,7 +8,7 @@ final class NotificationsViewModel: ObservableObject {
     private let coreDataManager = CoreDataManager.shared
     
     init() {
-        notifications = coreDataManager.fetchItems(for: "", type: SavedNotification.self)
+        notifications = coreDataManager.fetchItems(type: SavedNotification.self)
     }
     
     func getNotifications() async {

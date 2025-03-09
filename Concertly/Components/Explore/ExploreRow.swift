@@ -24,7 +24,7 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                         }
                     }
                 }
-                .font(.system(size: 17, type: .Regular))
+                .font(.system(size: 16, type: .Regular))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 15)
                 .transition(.opacity)
@@ -141,9 +141,37 @@ struct ExploreRow<T: Codable & Identifiable>: View {
 #Preview {
     @Previewable @State var status: Status = .error
     NavigationStack {
-        VStack {
-                        Spacer()
-            
+        ScrollView {
+            ExploreRow(
+                title: "Trending Concerts",
+                status: status,
+                data: [
+                    hotConcerts[0], hotConcerts[0], hotConcerts[0],
+                ],
+                contentType: .concert,
+                onRetry: {
+                    Task {
+                        status = .loading
+                        try? await Task.sleep(nanoseconds: 2_000_000_000)
+                        status = .error
+                    }
+                }
+            )
+            ExploreRow(
+                title: "Trending Concerts",
+                status: status,
+                data: [
+                    hotConcerts[0], hotConcerts[0], hotConcerts[0],
+                ],
+                contentType: .concert,
+                onRetry: {
+                    Task {
+                        status = .loading
+                        try? await Task.sleep(nanoseconds: 2_000_000_000)
+                        status = .error
+                    }
+                }
+            )
             ExploreRow(
                 title: "Trending Concerts",
                 status: status,
@@ -160,10 +188,10 @@ struct ExploreRow<T: Codable & Identifiable>: View {
                 }
             )
             
-                        Spacer()
         }
         .background(Color.background)
     }
     .background(Color.background)
-    
+    .environmentObject(Router())
+    .environmentObject(AnimationManager())
 }

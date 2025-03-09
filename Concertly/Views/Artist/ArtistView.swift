@@ -44,15 +44,10 @@ struct ArtistView: View {
             .frame(maxWidth: .infinity)
             .background(Color.background)
             
-            HStack {
-                BackButton(showBackground: true)
-                
-                Spacer()
-            }
-            .frame(maxWidth: .infinity)
-        }
-        .onAppear {
-            viewModel.checkIfFollowing()
+            BackButton(showBackground: true)
+                .padding(.leading, 15)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
         }
         .navigationBarHidden(true)
     }
@@ -73,34 +68,31 @@ struct ArtistView: View {
                                 spacing: 5,
                                 singleItemHeight: 43
                             ) { social in
-                                
-                                HStack {
-                                    if let url = URL(string: social.url) {
-                                        Link(destination: url) {
-                                            HStack {
-                                                Image(determineSocialImage(for: social))
-                                                    .resizable()
-                                                    .frame(width: 20, height: 20)
-                                                    .scaledToFit()
-                                                
-                                                Text(social.name)
-                                                    .font(.system(size: 16, type: .Medium))
-                                                    .buttonStyle(PlainButtonStyle())
-                                            }
+                                if let url = URL(string: social.url) {
+                                    Link(destination: url) {
+                                        HStack {
+                                            Image(determineSocialImage(for: social))
+                                                .resizable()
+                                                .frame(width: 20, height: 20)
+                                                .scaledToFit()
+                                            
+                                            Text(social.name)
+                                                .font(.system(size: 16, type: .Medium))
+                                                .buttonStyle(PlainButtonStyle())
                                         }
-                                        .buttonStyle(PlainButtonStyle())
                                     }
+                                    .buttonStyle(PlainButtonStyle())
+                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, 15)
+                                    .background(
+                                        Capsule(style: .continuous)
+                                            .fill(Color.foreground)
+                                            .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
+                                            .padding(1)
+                                    )
+                                    .frame(height: 43)
+                                    .fixedSize(horizontal: true, vertical: true) // This is necessary for each item to be as tight as possible
                                 }
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 15)
-                                .background(
-                                    Capsule(style: .continuous)
-                                        .fill(Color.foreground)
-                                        .stroke(.gray2, style: StrokeStyle(lineWidth: 1))
-                                        .padding(1)
-                                )
-                                .frame(height: 43)
-                                .fixedSize(horizontal: true, vertical: true) // This is necessary for each item to be as tight as possible
                             }
                             .padding(.top, -10)
                         }
@@ -109,7 +101,7 @@ struct ArtistView: View {
                             VStack(spacing: 10) {
                                 if viewModel.nearbyConcerts.isEmpty {
                                     Text("No Nearby Concerts")
-                                        .font(.system(size: 23, type: .Medium))
+                                        .font(.system(size: 20, type: .Medium))
                                         .frame(maxWidth: .infinity, alignment: .center)
                                         .padding(.vertical, 5)
                                 } else {
@@ -130,7 +122,7 @@ struct ArtistView: View {
                         VStack(spacing: 10) {
                             if artistDetails.concerts.isEmpty {
                                 Text("No Upcoming Concerts")
-                                    .font(.system(size: 23, type: .Medium))
+                                    .font(.system(size: 20, type: .Medium))
                                     .frame(maxWidth: .infinity, alignment: .center)
                                     .padding(.vertical, 5)
                             } else {

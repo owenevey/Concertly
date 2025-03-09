@@ -30,7 +30,7 @@ struct ExploreHeader: View {
             .background(Color.background)
             
             Divider()
-                .frame(height: 1)
+                .frame(height: 1.5)
                 .overlay(.gray2)
         }
         
