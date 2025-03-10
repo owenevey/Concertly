@@ -22,6 +22,10 @@ class NotificationManager {
         notificationCenter.removeAllPendingNotificationRequests()
     }
     
+    func removeConcertReminder(for concert: Concert) {
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [concert.id])
+    }
+    
     func scheduleConcertReminder(for concert: Concert, daysBefore: Int) {
         let calendar = Calendar.current
         guard let reminderDate = calendar.date(byAdding: .day, value: -daysBefore, to: concert.date) else { return }
@@ -68,7 +72,7 @@ class NotificationManager {
     
     func updateNewTourDateNotifications() async {
         do {
-            let concertRemindersPreference = UserDefaults.standard.bool(forKey: AppStorageKeys.concertReminders.rawValue)
+            let newTourDateNotifications = UserDefaults.standard.bool(forKey: AppStorageKeys.newTourDates.rawValue)
             
             guard let pushNotificationToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue) else {
                 throw NSError(domain: "", code: 1, userInfo: nil)
@@ -77,7 +81,7 @@ class NotificationManager {
             let followedArtists = CoreDataManager.shared.fetchItems(for: "following", type: Artist.self)
             
             for artist in followedArtists {
-                let response = try await toggleFollowArtist(artistId: artist.id, pushNotificationToken: pushNotificationToken, follow: concertRemindersPreference)
+                let response = try await toggleFollowArtist(artistId: artist.id, pushNotificationToken: pushNotificationToken, follow: newTourDateNotifications)
                 
                 if response.status == .error {
                     throw NSError(domain: "", code: 1, userInfo: nil)

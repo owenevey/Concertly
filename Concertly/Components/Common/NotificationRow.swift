@@ -76,7 +76,7 @@ struct NotificationRow: View {
         VStack(spacing: 0) {
             Spacer()
             ForEach(0 ..< 5) { item in
-                NotificationRow(notification: SavedNotification(type: "saved", artistName: "Sabrina Carpenter", deepLink: "", date: Date()))
+                NotificationRow(notification: SavedNotification(type: ContentCategories.saved.rawValue, artistName: "Sabrina Carpenter", deepLink: "", date: Date()))
                 Divider()
                     .padding(.horizontal)
             }

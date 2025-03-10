@@ -4,15 +4,20 @@ import SwiftUI
 @MainActor
 final class GenreViewModel: ObservableObject {
     var genre: MusicGenre
-    
-    private let coreDataManager = CoreDataManager.shared
-    
+        
     init(genre: MusicGenre) {
         self.genre = genre
-        trendingConcerts = coreDataManager.fetchItems(for: "\(genre.apiLabel)_trending", type: Concert.self)
-        popularArtists = coreDataManager.fetchItems(for: genre.apiLabel, type: SuggestedArtist.self)
-        featuredConcert = coreDataManager.fetchItems(for: "\(genre.apiLabel)_featured", type: Concert.self).first
-        suggestedConcerts = coreDataManager.fetchItems(for: "\(genre.apiLabel)_suggested", type: Concert.self)
+        trendingConcerts = CoreDataManager.shared.fetchItems(for: "\(genre.apiLabel)_trending", type: Concert.self)
+        popularArtists = CoreDataManager.shared.fetchItems(for: genre.apiLabel, type: SuggestedArtist.self)
+        featuredConcert = CoreDataManager.shared.fetchItems(for: "\(genre.apiLabel)_featured", type: Concert.self).first
+        suggestedConcerts = CoreDataManager.shared.fetchItems(for: "\(genre.apiLabel)_suggested", type: Concert.self)
+        
+        Task {
+            await getTrendingConcerts()
+            await getPopularArtists()
+            await getFeaturedConcert()
+            await getSuggestedConcerts()
+        }
     }
     
     @Published var trendingConcertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
@@ -42,7 +47,7 @@ final class GenreViewModel: ObservableObject {
                     self.trendingConcerts = concerts
                     self.trendingConcertsResponse = ApiResponse(status: .success, data: concerts)
                 }
-                coreDataManager.saveItems(concerts, category: category)
+                CoreDataManager.shared.saveItems(concerts, category: category)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.trendingConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
@@ -69,7 +74,7 @@ final class GenreViewModel: ObservableObject {
                     self.suggestedConcerts = concerts
                     self.suggestedConcertsResponse = ApiResponse(status: .success, data: concerts)
                 }
-                coreDataManager.saveItems(concerts, category: category)
+                CoreDataManager.shared.saveItems(concerts, category: category)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.suggestedConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
@@ -96,7 +101,7 @@ final class GenreViewModel: ObservableObject {
                     self.popularArtists = artists
                     self.popularArtistsResponse = ApiResponse(status: .success, data: artists)
                 }
-                coreDataManager.saveItems(artists, category: genre.apiLabel)
+                CoreDataManager.shared.saveItems(artists, category: genre.apiLabel)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.popularArtistsResponse = ApiResponse(status: .error, error: "Couldn't fetch artists")
@@ -123,7 +128,7 @@ final class GenreViewModel: ObservableObject {
                     self.featuredConcert = concert
                     self.featuredConcertResponse = ApiResponse(status: .success, data: concert)
                 }
-                coreDataManager.saveItems([concert], category: "\(genre.apiLabel)_featured")
+                CoreDataManager.shared.saveItems([concert], category: "\(genre.apiLabel)_featured")
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.featuredConcertResponse = ApiResponse(status: .error, error: "Couldn't fetch concert")

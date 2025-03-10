@@ -1,4 +1,5 @@
 import SwiftUI
+import TipKit
 
 @main
 struct ConcertlyApp: App {
@@ -17,6 +18,10 @@ struct ConcertlyApp: App {
                 .environmentObject(animationManager)
                 .onOpenURL { url in
                     router.handleOpenUrl(url: url)
+                }
+                .task {
+                    try? Tips.configure([.displayFrequency(.immediate),
+                        .datastoreLocation(.applicationDefault)])
                 }
         }
     }

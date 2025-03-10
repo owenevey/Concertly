@@ -4,17 +4,15 @@ import SwiftUI
 @MainActor
 final class ProfileViewModel: ObservableObject {
     @Published var followingArtists: [SuggestedArtist] = []
-    
-    private let coreDataManager = CoreDataManager.shared
-    
+        
     init() {
-        followingArtists = coreDataManager.fetchItems(for: "following", type: SuggestedArtist.self, sortKey: "id")
+        followingArtists = CoreDataManager.shared.fetchItems(for: ContentCategories.following.rawValue, type: SuggestedArtist.self, sortKey: "id")
 
         getFollowingArtists()
     }
     
     func getFollowingArtists() {
-        followingArtists = coreDataManager.fetchItems(for: "following", type: SuggestedArtist.self, sortKey: "id")
+        followingArtists = CoreDataManager.shared.fetchItems(for: ContentCategories.following.rawValue, type: SuggestedArtist.self, sortKey: "id")
     }
     
 }

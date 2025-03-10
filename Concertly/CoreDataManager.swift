@@ -60,12 +60,12 @@ class CoreDataManager {
     func saveItems<T>(_ items: [T], category: String = "") {
         
         if T.self == Concert.self {
-            if category != "saved" {
+            if category != ContentCategories.saved.rawValue {
                 deleteItems(for: category, type: ConcertEntity.self)
             }
         }
         else if T.self == SuggestedArtist.self {
-            if category != "following" && category != "recentSearches" {
+            if category != ContentCategories.following.rawValue && category != ContentCategories.recentSearches.rawValue {
                 deleteItems(for: category, type: ArtistEntity.self)
             }
         }
@@ -96,7 +96,7 @@ class CoreDataManager {
             }
             
             if let entity = entity {
-                let storeName = ((T.self == Concert.self && category == "saved") || (T.self == SuggestedArtist.self && category == "following")) ? "Cloud" : "Local"
+                let storeName = ((T.self == Concert.self && category == ContentCategories.saved.rawValue) || (T.self == SuggestedArtist.self && category == ContentCategories.following.rawValue)) ? "Cloud" : "Local"
                 
                 assignEntityToStore(entity: entity, storeName: storeName)
             }
@@ -117,7 +117,7 @@ class CoreDataManager {
     
     func isConcertSaved(id: String) -> Bool {
         let request: NSFetchRequest<ConcertEntity> = ConcertEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "category = %@ AND id = %@", "saved", id)
+        request.predicate = NSPredicate(format: "category = %@ AND id = %@", ContentCategories.saved.rawValue, id)
         
         let items: [ConcertEntity] = fetchEntities(for: request)
         return items.count > 0
@@ -125,19 +125,19 @@ class CoreDataManager {
     
     func saveConcert(_ concert: Concert) {
         unSaveConcert(id: concert.id)
-        saveItems([concert], category: "saved")
+        saveItems([concert], category: ContentCategories.saved.rawValue)
     }
     
     func unSaveConcert(id: String) {
         let request: NSFetchRequest<ConcertEntity> = ConcertEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "category = %@ AND id = %@", "saved", id)
+        request.predicate = NSPredicate(format: "category = %@ AND id = %@", ContentCategories.saved.rawValue, id)
         
         deleteEntities(request: request)
     }
     
     func isFollowingArtist(id: String) -> Bool {
         let request: NSFetchRequest<ArtistEntity> = ArtistEntity.fetchRequest()
-        request.predicate = NSPredicate(format: "category = %@ AND id = %@", "following", id)
+        request.predicate = NSPredicate(format: "category = %@ AND id = %@", ContentCategories.following.rawValue, id)
         
         let items: [ArtistEntity] = fetchEntities(for: request)
         return items.count > 0
@@ -180,7 +180,7 @@ class CoreDataManager {
             request.predicate = NSPredicate(format: "category = %@", category)
             var sortDescriptors: [NSSortDescriptor] = []
             
-            if category == "recentSearches" {
+            if category == ContentCategories.recentSearches.rawValue {
                 sortDescriptors.append(NSSortDescriptor(key: "creationDate", ascending: false))
             }
             sortDescriptors.append(NSSortDescriptor(key: "id", ascending: true))
@@ -189,7 +189,7 @@ class CoreDataManager {
             
             let entities: [ArtistEntity] = fetchEntities(for: request)
             
-            if category == "recentSearches" {
+            if category == ContentCategories.recentSearches.rawValue {
                 let first15Items = entities.prefix(15)
                 let remainingItems = entities.dropFirst(15)
                 
@@ -349,7 +349,7 @@ class CoreDataManager {
         entity.imageUrl = artist.imageUrl
         entity.category = category
         
-        if category == "recentSearches" {
+        if category == ContentCategories.recentSearches.rawValue {
             entity.creationDate = Date()
         }
         

@@ -21,6 +21,7 @@ final class HotelsViewModel<T: TripViewModelProtocol>: ObservableObject {
     
     private var cancellables = Set<AnyCancellable>()
     private var combinedPublisher: AnyPublisher<(Date, Date, String), Never>?
+    
     private var isFirstEmissionSink = true
     
     

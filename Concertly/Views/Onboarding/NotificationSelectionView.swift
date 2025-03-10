@@ -2,7 +2,6 @@ import SwiftUI
 
 struct NotificationSelectionView: View {
     
-    private let coreDataManager = CoreDataManager.shared
     private let notificationManager = NotificationManager.shared
     
     @AppStorage(AppStorageKeys.hasSeenOnboarding.rawValue) private var hasSeenOnboarding: Bool = false
@@ -15,8 +14,8 @@ struct NotificationSelectionView: View {
         UserDefaults.standard.set(isNotificationsEnabled, forKey: AppStorageKeys.newTourDates.rawValue)
         
         for artist in selectedArtists {
-            if !coreDataManager.isFollowingArtist(id: artist.id) {
-                coreDataManager.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: "following")
+            if !CoreDataManager.shared.isFollowingArtist(id: artist.id) {
+                CoreDataManager.shared.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: ContentCategories.following.rawValue)
             }
         }
     }

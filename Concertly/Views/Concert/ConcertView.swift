@@ -1,5 +1,5 @@
 import SwiftUI
-import MapKit
+import StoreKit
 
 struct ConcertView: View {
     
@@ -8,6 +8,9 @@ struct ConcertView: View {
     @StateObject var viewModel: ConcertViewModel
     
     @EnvironmentObject var router: Router
+    @Environment(\.requestReview) private var requestReview
+    
+    @AppStorage(AppStorageKeys.concertViewCount.rawValue) var concertViewCount: Int = 0
     
     init(concert: Concert) {
         self.concert = concert
@@ -176,6 +179,16 @@ struct ConcertView: View {
         }
         .background(Color.background)
         .navigationBarHidden(true)
+        .onAppear {
+            concertViewCount += 1
+            
+            if concertViewCount > 30 {
+                Task {
+                    try await Task.sleep(for: .seconds(2))
+                    requestReview()
+                }
+            }
+        }
     }
 }
 

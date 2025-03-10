@@ -6,12 +6,12 @@ struct ArtistView: View {
     
     @StateObject var viewModel: ArtistViewModel
     
+    @State private var showError: Bool = false
+    
     init(artistID: String) {
         self.artistID = artistID
         _viewModel = StateObject(wrappedValue: ArtistViewModel(artistID: artistID))
     }
-    
-    @State var hasAppeared: Bool = false
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -49,6 +49,7 @@ struct ArtistView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
         .navigationBarHidden(true)
+        .snackbar(show: $viewModel.showError, bgColor: .red, txtColor: .white, icon: "xmark", iconColor: .white, message: "Sorry, an error occurred. Please try again later.")
     }
     
     private var mainContent: some View {

@@ -6,8 +6,8 @@ struct CitySearchView: View {
     @FocusState private var isTextFieldFocused: Bool
     @StateObject private var viewModel = CitySearchViewModel()
     
-    @AppStorage("Home Lat") private var homeLat: Double = 40.71417
-    @AppStorage("Home Long") private var homeLong: Double = -74.00583
+    @AppStorage(AppStorageKeys.homeLat.rawValue) private var homeLat: Double = 40.71417
+    @AppStorage(AppStorageKeys.homeLong.rawValue) private var homeLong: Double = -74.00583
     
     @Binding var location: String
     var title: String?

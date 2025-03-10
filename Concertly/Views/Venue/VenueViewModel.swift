@@ -30,7 +30,7 @@ class VenueViewModel: TripViewModelProtocol {
         self.tripStartDate = calendar.date(byAdding: .day, value: 21, to: Date()) ?? Date()
         self.tripEndDate = calendar.date(byAdding: .day, value: 25, to: Date()) ?? Date()
         
-        self.homeAirport = UserDefaults.standard.string(forKey: "Home Airport") ?? "JFK"
+        self.homeAirport = UserDefaults.standard.string(forKey: AppStorageKeys.homeAirport.rawValue) ?? "JFK"
         
         Task {
             await getConcerts()

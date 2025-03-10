@@ -107,6 +107,8 @@
 		F19C727F2CD0837700390BD6 /* FilterStops.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C727E2CD0837700390BD6 /* FilterStops.swift */; };
 		F19C72812CD089B800390BD6 /* FilterDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72802CD089B800390BD6 /* FilterDuration.swift */; };
 		F19C72832CD092AC00390BD6 /* DurationRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C72822CD092A900390BD6 /* DurationRange.swift */; };
+		F1A718752D7E6F6400B9D5B4 /* Tips.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A718742D7E6F5F00B9D5B4 /* Tips.swift */; };
+		F1A718772D7E845C00B9D5B4 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A718762D7E845A00B9D5B4 /* Snackbar.swift */; };
 		F1A858662D0140F0009A37E8 /* AirportSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A858652D0140F0009A37E8 /* AirportSearchResponse.swift */; };
 		F1A858682D0142C9009A37E8 /* AirportSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A858672D0142C9009A37E8 /* AirportSearchViewModel.swift */; };
 		F1A8586A2D027AF6009A37E8 /* AirportSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A858692D027AF6009A37E8 /* AirportSearchView.swift */; };
@@ -268,6 +270,8 @@
 		F19C727E2CD0837700390BD6 /* FilterStops.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterStops.swift; sourceTree = "<group>"; };
 		F19C72802CD089B800390BD6 /* FilterDuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDuration.swift; sourceTree = "<group>"; };
 		F19C72822CD092A900390BD6 /* DurationRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationRange.swift; sourceTree = "<group>"; };
+		F1A718742D7E6F5F00B9D5B4 /* Tips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tips.swift; sourceTree = "<group>"; };
+		F1A718762D7E845A00B9D5B4 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		F1A858652D0140F0009A37E8 /* AirportSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportSearchResponse.swift; sourceTree = "<group>"; };
 		F1A858672D0142C9009A37E8 /* AirportSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportSearchViewModel.swift; sourceTree = "<group>"; };
 		F1A858692D027AF6009A37E8 /* AirportSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportSearchView.swift; sourceTree = "<group>"; };
@@ -514,6 +518,7 @@
 			isa = PBXGroup;
 			children = (
 				F1FACFFA2D3B80C000D53A7D /* ConcertRow.swift */,
+				F1A718762D7E845A00B9D5B4 /* Snackbar.swift */,
 				F10AA08E2D7BDEFC00FB4EB9 /* NotificationRow.swift */,
 				F1F3A6482D0694E50042F4F2 /* PriceHistorySheet.swift */,
 				F1CD3C852D25BAF3004E3041 /* ShimmerView.swift */,
@@ -595,6 +600,7 @@
 		F19C726C2CC7496200390BD6 /* Concert */ = {
 			isa = PBXGroup;
 			children = (
+				F1A718742D7E6F5F00B9D5B4 /* Tips.swift */,
 				F114AA8F2D4B147E004F9C66 /* FullLineupView.swift */,
 				F181551E2C8D5D1F00E25003 /* ConcertView.swift */,
 				F19C72682CC7249E00390BD6 /* ConcertViewModel.swift */,
@@ -801,6 +807,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F17DCCD62D3398D4000D477C /* ErrorArtistCard.swift in Sources */,
+				F1A718752D7E6F6400B9D5B4 /* Tips.swift in Sources */,
 				F11611C12D6AAD8D00345C31 /* OnboardingArtists.swift in Sources */,
 				F1CD3CB82D2CBA0F004E3041 /* FeaturedEvent.swift in Sources */,
 				F19C72692CC7249E00390BD6 /* ConcertViewModel.swift in Sources */,
@@ -907,6 +914,7 @@
 				F116402E2C8C2F3E0040C95D /* DestinationCard.swift in Sources */,
 				F14349E02D4EFC8800C63041 /* FallbackSavedConcertCard.swift in Sources */,
 				F1CD3CC02D2CC60C004E3041 /* ErrorFeaturedEventItem.swift in Sources */,
+				F1A718772D7E845C00B9D5B4 /* Snackbar.swift in Sources */,
 				F117149C2D1253B0007A0052 /* ConcertlyButton.swift in Sources */,
 				F11714A52D13A0E3007A0052 /* HotelsResponse.swift in Sources */,
 				F1CCE0D22CB0B96600D15696 /* ViewExtensions.swift in Sources */,

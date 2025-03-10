@@ -45,6 +45,24 @@ struct ArtistCard: View {
             }
         }
         .buttonStyle(PlainButtonStyle())
+//        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20))
+//        .contextMenu {
+//            let isFollowing = CoreDataManager.shared.isFollowingArtist(id: artist.id)
+//            if isFollowing {
+//                Button {
+//                    CoreDataManager.shared.unSaveArtist(id: artist.id, category: ContentCategories.following.rawValue)
+//                } label: {
+//                    Label("Unfollow", systemImage: "xmark")
+//                }
+//            }
+//            else {
+//                Button {
+//                    CoreDataManager.shared.saveArtist(artist, category: ContentCategories.following.rawValue)
+//                } label: {
+//                    Label("Follow", systemImage: "star.fill")
+//                }
+//            }
+//        }
     }
 }
 

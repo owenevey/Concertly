@@ -16,6 +16,7 @@ enum AppStorageKeys: String {
     case homeLat
     case homeLong
     case homeAirport
+    case concertViewCount
 }
 
 enum ContentCategories: String {
@@ -24,6 +25,7 @@ enum ContentCategories: String {
     case exploreFeatured = "explore_featured"
     case exploreSuggested = "explore_suggested"
     case following = "following"
+    case recentSearches = "recentSearches"
     case nearby = "nearby"
     case saved = "saved"
 }

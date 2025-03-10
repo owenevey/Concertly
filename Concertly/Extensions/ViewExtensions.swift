@@ -14,6 +14,26 @@ extension View {
     func disableSwipeBack(_ isDisabled: Bool) -> some View {
         self.background(DisableSwipeBack(isDisabled: isDisabled))
     }
+    
+    func snackbar(show: Binding<Bool>, bgColor: Color, txtColor: Color, icon: String?, iconColor: Color, message: String) -> some View {
+        self.modifier(SnackbarModifier(show: show, bgColor: bgColor, txtColor: txtColor, icon: icon, iconColor: iconColor, message: message))
+    }
+}
+
+struct SnackbarModifier: ViewModifier {
+    @Binding var show: Bool
+    var bgColor: Color
+    var txtColor: Color
+    var icon: String?
+    var iconColor: Color
+    var message: String
+    
+    func body(content: Content) -> some View {
+        ZStack {
+            content
+            SnackbarView(show: $show, bgColor: bgColor, txtColor: txtColor, message: message)
+        }
+    }
 }
 
 struct RoundedCorner: Shape {

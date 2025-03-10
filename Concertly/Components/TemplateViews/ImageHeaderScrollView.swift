@@ -7,6 +7,9 @@ struct ImageHeaderScrollView<Content: View>: View {
     
     @State private var isTitleVisible: Bool = true
     
+    let saveConcertTip = SaveConcertTip()
+    let followArtistTip = FollowArtistTip()
+    
     let title: String
     let imageUrl: String
     let rightIcon: String?
@@ -97,6 +100,11 @@ struct ImageHeaderScrollView<Content: View>: View {
                     
                     if let rightIcon = rightIcon, let rightIconFilled = rightIconFilled {
                         Button {
+                            if rightIcon == "star" {
+                                followArtistTip.invalidate(reason: .actionPerformed)
+                            } else {
+                                saveConcertTip.invalidate(reason: .actionPerformed)
+                            }
                             Task {
                                 await onRightIconTap?()
                             }
@@ -112,6 +120,7 @@ struct ImageHeaderScrollView<Content: View>: View {
                                 .padding(.trailing, 15)
                         }
                         .buttonStyle(PlainButtonStyle())
+                        .popoverTip(rightIcon == "star" ? followArtistTip : saveConcertTip)
                     }
                 }
                 .padding(.top, geometry.safeAreaInsets.top)

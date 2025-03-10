@@ -83,14 +83,14 @@ struct ProfileView: View {
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
                             VStack(spacing: 0) {
-                                ProfileRow(imageName: "airplane.departure", name: "Home Airport", selection: homeAirport)
+                                ProfileRow(imageName: "airplane.departure", name: AppStorageKeys.homeAirport.rawValue, displayName: "Home Airport", selection: homeAirport)
                                 
                                 Divider()
                                     .frame(height: 1)
                                     .overlay(.gray2)
                                     .padding(.horizontal, 15)
                                 
-                                ProfileRow(imageName: "building.2.fill", name: "Home City", selection: homeCity)
+                                ProfileRow(imageName: "building.2.fill", name: AppStorageKeys.homeCity.rawValue, displayName: "Home City", selection: homeCity)
                                 
                                 Divider()
                                     .frame(height: 1)
@@ -113,6 +113,7 @@ struct ProfileView: View {
                                     } label: {
                                         Text(theme)
                                             .font(.system(size: 17, type: .Regular))
+                                            .padding(.leading, 10)
                                         Image(systemName: "chevron.right")
                                             .font(.system(size: 13))
                                             .fontWeight(.semibold)
@@ -162,6 +163,7 @@ struct ProfileView: View {
                                     } label: {
                                         Text(concertRemindersSelection)
                                             .font(.system(size: 17, type: .Regular))
+                                            .padding(.leading, 10)
                                         Image(systemName: "chevron.right")
                                             .font(.system(size: 13))
                                             .fontWeight(.semibold)
@@ -252,14 +254,16 @@ struct ProfileView: View {
     struct ProfileRow: View {
         let imageName: String
         let name: String
+        let displayName: String
         let selection: String
+        
         
         var body: some View {
             NavigationLink(value: name) {
                 HStack {
                     Image(systemName: imageName)
                         .frame(width: 22)
-                    Text(name)
+                    Text(displayName)
                         .font(.system(size: 17, type: .Regular))
                     
                     Spacer()

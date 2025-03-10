@@ -5,7 +5,7 @@ struct NearbyView: View {
     @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: NearbyViewModel
     
-    @AppStorage("Home City") private var homeCity: String = "New York"
+    @AppStorage(AppStorageKeys.homeCity.rawValue) private var homeCity: String = "New York, NY"
     
     @State private var offset: CGFloat = 0
     @State private var isSearchBarVisible: Bool = true

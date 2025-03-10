@@ -59,7 +59,7 @@ struct HotelDetailsView: View {
                         .scrollTargetBehavior(.viewAligned)
                         BackButton(showBackground: true, showX: true)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                            .padding(.top, 15)
+                            .padding([.top, .leading], 15)
                     }
                 }
                 
@@ -128,7 +128,7 @@ struct HotelDetailsView: View {
                     if let amenities = property.amenities {
                         VStack(alignment: .leading, spacing: 6) {
                             Text("Amenities")
-                                .font(.system(size: 20, type: .SemiBold))
+                                .font(.system(size: 23, type: .SemiBold))
                             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
                                 ForEach(amenities, id: \.self) { amenity in
                                     HStack(spacing: 5) {
@@ -166,7 +166,8 @@ struct HotelDetailsView: View {
                         }
                     }
                 }
-                .padding(15)
+                .padding([.horizontal, .bottom], 15)
+                .padding(.top, 10)
                 Spacer()
             }
         }

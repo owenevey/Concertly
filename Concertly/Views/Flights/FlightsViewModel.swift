@@ -36,7 +36,7 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
         self.tripViewModel = tripViewModel
         self.fromDate = fromDate
         self.toDate = toDate
-        self.fromAirport = UserDefaults.standard.string(forKey: "Home Airport") ?? "JFK"
+        self.fromAirport = UserDefaults.standard.string(forKey: AppStorageKeys.homeAirport.rawValue) ?? "JFK"
         self.toAirport = flightsResponse.data?.airports.first?.arrival.first?.airport.id ?? tripViewModel.closestAirport
         self.flightsResponse = flightsResponse
         self.priceInsights = flightsResponse.data?.priceInsights

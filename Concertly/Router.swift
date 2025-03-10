@@ -7,9 +7,7 @@ class Router: ObservableObject {
     @Published var profilePath = NavigationPath()
     
     @Published var selectedTab: Int = 0
-    
-    private let coreDataManager = CoreDataManager.shared
-    
+        
     func push<T: Hashable>(_ value: T, tab: String) {
         switch tab {
         case "Explore":
@@ -73,7 +71,7 @@ class Router: ObservableObject {
             selectedTab = 2
             
             let concertId = pathComponents[1]
-            if let concert = coreDataManager.fetchSavedConcert(id: concertId) {
+            if let concert = CoreDataManager.shared.fetchSavedConcert(id: concertId) {
                 push(concert, tab: "Saved")
             }
         }

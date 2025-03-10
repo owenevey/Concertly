@@ -3,7 +3,6 @@ import SwiftUI
 
 @MainActor
 final class ExploreViewModel: ObservableObject {
-    private let coreDataManager = CoreDataManager.shared
     
     @Published var trendingConcertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
     @Published var trendingConcerts: [Concert] = []
@@ -28,12 +27,12 @@ final class ExploreViewModel: ObservableObject {
     @Published var famousVenues: [Venue] = []
     
     init() {
-        trendingConcerts = coreDataManager.fetchItems(for: ContentCategories.exploreTrending.rawValue, type: Concert.self)
-        popularArtists = coreDataManager.fetchItems(for: ContentCategories.explore.rawValue, type: SuggestedArtist.self)
-        popularDestinations = coreDataManager.fetchItems(type: Destination.self)
-        featuredConcert = coreDataManager.fetchItems(for: ContentCategories.exploreFeatured.rawValue, type: Concert.self).first
-        suggestedConcerts = coreDataManager.fetchItems(for: ContentCategories.exploreSuggested.rawValue, type: Concert.self)
-        famousVenues = coreDataManager.fetchItems(type: Venue.self)
+        trendingConcerts = CoreDataManager.shared.fetchItems(for: ContentCategories.exploreTrending.rawValue, type: Concert.self)
+        popularArtists = CoreDataManager.shared.fetchItems(for: ContentCategories.explore.rawValue, type: SuggestedArtist.self)
+        popularDestinations = CoreDataManager.shared.fetchItems(type: Destination.self)
+        featuredConcert = CoreDataManager.shared.fetchItems(for: ContentCategories.exploreFeatured.rawValue, type: Concert.self).first
+        suggestedConcerts = CoreDataManager.shared.fetchItems(for: ContentCategories.exploreSuggested.rawValue, type: Concert.self)
+        famousVenues = CoreDataManager.shared.fetchItems(type: Venue.self)
         
         Task {
             await getTrendingConcerts()
@@ -61,7 +60,7 @@ final class ExploreViewModel: ObservableObject {
                     ImagePrefetcher.shared.startPrefetching(urls: concerts.prefix(5).compactMap{ URL(string: $0.imageUrl) })
                 }
                 
-                coreDataManager.saveItems(concerts, category: ContentCategories.exploreTrending.rawValue)
+                CoreDataManager.shared.saveItems(concerts, category: ContentCategories.exploreTrending.rawValue)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.trendingConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
@@ -88,7 +87,7 @@ final class ExploreViewModel: ObservableObject {
                     self.popularArtistsResponse = ApiResponse(status: .success, data: artists)
                     ImagePrefetcher.shared.startPrefetching(urls: artists.prefix(5).compactMap{ URL(string: $0.imageUrl) })
                 }
-                coreDataManager.saveItems(artists, category: ContentCategories.explore.rawValue)
+                CoreDataManager.shared.saveItems(artists, category: ContentCategories.explore.rawValue)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.popularArtistsResponse = ApiResponse(status: .error, error: "Couldn't fetch artists")
@@ -147,7 +146,7 @@ final class ExploreViewModel: ObservableObject {
                     self.suggestedConcertsResponse = ApiResponse(status: .success, data: concerts)
                     ImagePrefetcher.shared.startPrefetching(urls: concerts.prefix(3).compactMap{ URL(string: $0.imageUrl) })
                 }
-                coreDataManager.saveItems(concerts, category: ContentCategories.exploreSuggested.rawValue)
+                CoreDataManager.shared.saveItems(concerts, category: ContentCategories.exploreSuggested.rawValue)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.suggestedConcertsResponse = ApiResponse(status: .error, error: "Couldn't fetch concerts")
@@ -174,7 +173,7 @@ final class ExploreViewModel: ObservableObject {
                     self.featuredConcertResponse = ApiResponse(status: .success, data: concert)
                     ImagePrefetcher.shared.startPrefetching(urls: [URL(string: concert.imageUrl)].compactMap { $0 })
                 }
-                coreDataManager.saveItems([concert], category: ContentCategories.exploreFeatured.rawValue)
+                CoreDataManager.shared.saveItems([concert], category: ContentCategories.exploreFeatured.rawValue)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.featuredConcertResponse = ApiResponse(status: .error, error: "Couldn't fetch event")
@@ -201,7 +200,7 @@ final class ExploreViewModel: ObservableObject {
                     self.popularDestinationsResponse = ApiResponse(status: .success, data: destinations)
                     ImagePrefetcher.shared.startPrefetching(urls: destinations.prefix(3).compactMap{ URL(string: $0.images[0]) })
                 }
-                coreDataManager.saveItems(destinations)
+                CoreDataManager.shared.saveItems(destinations)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.popularDestinationsResponse = ApiResponse(status: .error, error: "Couldn't fetch destinations")
@@ -228,7 +227,7 @@ final class ExploreViewModel: ObservableObject {
                     self.famousVenuesResponse = ApiResponse(status: .success, data: venues)
                     ImagePrefetcher.shared.startPrefetching(urls: venues.prefix(3).compactMap{ URL(string: $0.imageUrl) })
                 }
-                coreDataManager.saveItems(venues)
+                CoreDataManager.shared.saveItems(venues)
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.famousVenuesResponse = ApiResponse(status: .error, error: "Couldn't fetch venues")
@@ -242,6 +241,6 @@ final class ExploreViewModel: ObservableObject {
     }
     
     func getFollowingArtists() -> [SuggestedArtist] {
-        return coreDataManager.fetchItems(for: ContentCategories.following.rawValue, type: SuggestedArtist.self, sortKey: "id")
+        return CoreDataManager.shared.fetchItems(for: ContentCategories.following.rawValue, type: SuggestedArtist.self, sortKey: "id")
     }
 }

@@ -56,6 +56,14 @@ struct SavedView: View {
                             } else {
                                 ForEach(viewModel.savedConcerts) { concert in
                                     SavedConcertCard(concert: concert)
+                                        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20))
+                                        .contextMenu {
+                                            Button {
+                                                CoreDataManager.shared.saveConcert(concert)
+                                            } label: {
+                                                Label("Remove", systemImage: "xmark")
+                                            }
+                                        }
                                 }
                             }
                         }

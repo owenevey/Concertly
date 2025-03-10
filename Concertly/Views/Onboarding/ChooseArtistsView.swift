@@ -2,9 +2,7 @@ import SwiftUI
 import SmoothGradient
 
 struct ChooseArtistsView: View {
-    
-    private let coreDataManager = CoreDataManager.shared
-    
+        
     @AppStorage(AppStorageKeys.hasSeenOnboarding.rawValue) private var hasSeenOnboarding = false
     @FocusState private var isTextFieldFocused: Bool
     @State private var showHeaderBorder: Bool = false
@@ -13,8 +11,8 @@ struct ChooseArtistsView: View {
     private func onTapDone() async {
         hasSeenOnboarding = true
         for artist in selectedArtists {
-            if !coreDataManager.isFollowingArtist(id: artist.id) {
-                coreDataManager.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: "following")
+            if !CoreDataManager.shared.isFollowingArtist(id: artist.id) {
+                CoreDataManager.shared.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: ContentCategories.following.rawValue)
             }
             
             do {

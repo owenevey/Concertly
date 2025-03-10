@@ -13,9 +13,7 @@ struct GenreView: View {
         self.genre = genre
         _viewModel = StateObject(wrappedValue: GenreViewModel(genre: genre))
     }
-    
-    @State private var hasAppeared: Bool = false
-    
+        
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
@@ -64,17 +62,6 @@ struct GenreView: View {
                 return geo.contentOffset.y
             } action: { oldValue, newValue in
                 showHeaderBorder = newValue > 0
-            }
-        }
-        .onAppear {
-            if !hasAppeared {
-                Task {
-                    await viewModel.getTrendingConcerts()
-                    await viewModel.getPopularArtists()
-                    await viewModel.getFeaturedConcert()
-                    await viewModel.getSuggestedConcerts()
-                }
-                hasAppeared = true
             }
         }
         .refreshable {

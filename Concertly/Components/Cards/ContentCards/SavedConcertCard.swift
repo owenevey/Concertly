@@ -115,6 +115,15 @@ struct SavedConcertCard: View {
             }
         }
         .buttonStyle(PlainButtonStyle())
+//        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20))
+//        .contextMenu {
+//            Button {
+//                CoreDataManager.shared.unSaveConcert(id: concert.id)
+//                NotificationManager.shared.removeConcertReminder(for: concert)
+//            } label: {
+//                Label("Remove from saved", systemImage: "xmark")
+//            }
+//        }
     }
 }
 

@@ -7,9 +7,7 @@ class ExploreSearchViewModel: ObservableObject {
     @Published var artistsResponse: ApiResponse<[SuggestedArtist]> = ApiResponse<[SuggestedArtist]>()
     
     @Published var recentSearches: [SuggestedArtist] = []
-    
-    private let coreDataManager = CoreDataManager.shared
-    
+        
     private var cancellables = Set<AnyCancellable>()
     
     init() {        
@@ -54,11 +52,11 @@ class ExploreSearchViewModel: ObservableObject {
     }
     
     func getFollowingArtists() {
-        recentSearches = coreDataManager.fetchItems(for: "recentSearches", type: SuggestedArtist.self, sortKey: "creationDate")
+        recentSearches = CoreDataManager.shared.fetchItems(for: "recentSearches", type: SuggestedArtist.self, sortKey: "creationDate")
     }
     
     func saveArtistToRecentSearches(artist: SuggestedArtist) {
-        coreDataManager.unSaveArtist(id: artist.id, category: "recentSearches")
-        coreDataManager.saveArtist(artist, category: "recentSearches")
+        CoreDataManager.shared.unSaveArtist(id: artist.id, category: "recentSearches")
+        CoreDataManager.shared.saveArtist(artist, category: "recentSearches")
     }
 }

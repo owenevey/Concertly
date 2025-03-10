@@ -20,6 +20,10 @@ class ConcertViewModel: TripViewModelProtocol {
     
     let homeAirport: String
     
+    // Ignores the first emission of each sink
+    private var isFirstEmissionSink1 = true
+    private var isFirstEmissionSink2 = true
+    
     private var cancellables = Set<AnyCancellable>()
     
     init(concert: Concert) {
@@ -29,32 +33,54 @@ class ConcertViewModel: TripViewModelProtocol {
         self.closestAirport = concert.closestAirport ?? ""
         
         let calendar = Calendar.current
-        self.tripStartDate = calendar.date(byAdding: .day, value: -2, to: concert.date) ?? Date()
+        let calculatedStartDate = calendar.date(byAdding: .day, value: -2, to: concert.date) ?? Date()
+        self.tripStartDate = max(calculatedStartDate, Date())
+        
         self.tripEndDate = calendar.date(byAdding: .day, value: 1, to: concert.date) ?? Date()
         self.cityName = concert.cityName
         self.isSaved = CoreDataManager.shared.isConcertSaved(id: concert.id)
         
-        self.homeAirport = UserDefaults.standard.string(forKey: "Home Airport") ?? "JFK"
+        self.homeAirport = UserDefaults.standard.string(forKey: AppStorageKeys.homeAirport.rawValue) ?? "JFK"
         
         setupBindings()
+        
+        Task {
+            await SaveConcertTip.visitConcertEvent.donate()
+        }
     }
     
     private func setupBindings() {
         $flightsPrice
+            .filter { [weak self] _ in
+                guard let self = self else { return false }
+                if self.isFirstEmissionSink1 {
+                    self.isFirstEmissionSink1 = false
+                    return false
+                }
+                return true
+            }
             .sink { [weak self] newPrice in
                 guard let self = self else { return }
+                self.concert.flightsPrice = newPrice
                 if isSaved {
-                    self.concert.flightsPrice = newPrice
                     CoreDataManager.shared.saveConcert(self.concert)
                 }
             }
             .store(in: &cancellables)
         
         $hotelsPrice
+            .filter { [weak self] _ in
+                guard let self = self else { return false }
+                if self.isFirstEmissionSink2 {
+                    self.isFirstEmissionSink2 = false
+                    return false
+                }
+                return true
+            }
             .sink { [weak self] newPrice in
                 guard let self = self else { return }
+                self.concert.hotelsPrice = newPrice
                 if isSaved {
-                    self.concert.hotelsPrice = newPrice
                     CoreDataManager.shared.saveConcert(self.concert)
                 }
             }
@@ -156,12 +182,18 @@ class ConcertViewModel: TripViewModelProtocol {
     func toggleConcertSaved() {
         if isSaved {
             CoreDataManager.shared.unSaveConcert(id: concert.id)
+            
+            NotificationManager.shared.removeConcertReminder(for: concert)
         }
         else {
+            Task {
+                await SaveConcertTip.saveConcertEvent.donate()
+            }
+            
             CoreDataManager.shared.saveConcert(concert)
             
             let concertRemindersPreference = UserDefaults.standard.integer(forKey: AppStorageKeys.concertReminders.rawValue)
-
+            
             if concertRemindersPreference != 0 {
                 NotificationManager.shared.scheduleConcertReminder(for: concert, daysBefore: concertRemindersPreference)
             }

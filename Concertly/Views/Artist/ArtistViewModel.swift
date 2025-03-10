@@ -9,22 +9,23 @@ class ArtistViewModel: ObservableObject {
     @Published var artistDetailsResponse: ApiResponse<Artist> = ApiResponse<Artist>()
     @Published var nearbyConcerts: [Concert] = []
     @Published var isFollowing: Bool
-    
-    private let coreDataManager = CoreDataManager.shared
-    
+    @Published var showError: Bool
+        
     let homeLat: Double
     let homeLong: Double
     
     init(artistID: String) {
         self.artistId = artistID
+        self.showError = false
         
-        self.homeLat = UserDefaults.standard.double(forKey: "Home Lat")
-        self.homeLong = UserDefaults.standard.double(forKey: "Home Long")
+        self.homeLat = UserDefaults.standard.double(forKey: AppStorageKeys.homeLat.rawValue)
+        self.homeLong = UserDefaults.standard.double(forKey: AppStorageKeys.homeLong.rawValue)
         
-        self.isFollowing = coreDataManager.isFollowingArtist(id: artistId)
+        self.isFollowing = CoreDataManager.shared.isFollowingArtist(id: artistId)
         
         Task {
             await getArtistDetails()
+            await FollowArtistTip.visitArtistEvent.donate()
         }
     }
     
@@ -65,53 +66,64 @@ class ArtistViewModel: ObservableObject {
     }
     
     func checkIfFollowing() {
-        isFollowing = coreDataManager.isFollowingArtist(id: artistId)
+        isFollowing = CoreDataManager.shared.isFollowingArtist(id: artistId)
     }
     
     func toggleArtistFollowing() async {
-        
+        let newTourDateNotifications = UserDefaults.standard.bool(forKey: AppStorageKeys.newTourDates.rawValue)
+        showError = true
         if isFollowing {
             isFollowing = false
-            coreDataManager.unSaveArtist(id: artistId, category: "following")
-            
-            do {
-                guard let pushNotificationToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue) else {
-                    throw NSError(domain: "", code: 1, userInfo: nil)
+            CoreDataManager.shared.unSaveArtist(id: artistId, category: ContentCategories.following.rawValue)
+
+            if newTourDateNotifications {
+                do {
+                    guard let pushNotificationToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue) else {
+                        throw NSError(domain: "", code: 1, userInfo: nil)
+                    }
+                    
+                    let response = try await toggleFollowArtist(artistId: artistId, pushNotificationToken: pushNotificationToken, follow: false)
+                    
+                    if response.status == .error {
+                        throw NSError(domain: "", code: 1, userInfo: nil)
+                    }
                 }
-                
-                let response = try await toggleFollowArtist(artistId: artistId, pushNotificationToken: pushNotificationToken, follow: false)
-                
-                if response.status == .error {
-                    throw NSError(domain: "", code: 1, userInfo: nil)
-                }
-            }
-            catch {
-                if let artist = artistDetailsResponse.data {
-                    isFollowing = true
-                    coreDataManager.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: "following")
+                catch {
+                    if let artist = artistDetailsResponse.data {
+                        showError = true
+                        isFollowing = true
+                        CoreDataManager.shared.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: ContentCategories.following.rawValue)
+                    }
                 }
             }
         }
         else {
             isFollowing = true
             if let artist = artistDetailsResponse.data {
-                coreDataManager.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: "following")
+                CoreDataManager.shared.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: ContentCategories.following.rawValue)
             }
             
-            do {
-                guard let pushNotificationToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue) else {
-                    throw NSError(domain: "", code: 1, userInfo: nil)
+            if newTourDateNotifications {
+                Task {
+                    await FollowArtistTip.followArtistEvent.donate()
                 }
                 
-                let response = try await toggleFollowArtist(artistId: artistId, pushNotificationToken: pushNotificationToken, follow: true)
-                
-                if response.status == .error {
-                    throw NSError(domain: "", code: 1, userInfo: nil)
+                do {
+                    guard let pushNotificationToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue) else {
+                        throw NSError(domain: "", code: 1, userInfo: nil)
+                    }
+                    
+                    let response = try await toggleFollowArtist(artistId: artistId, pushNotificationToken: pushNotificationToken, follow: true)
+                    
+                    if response.status == .error {
+                        throw NSError(domain: "", code: 1, userInfo: nil)
+                    }
                 }
-            }
-            catch {
-                isFollowing = false
-                coreDataManager.unSaveArtist(id: artistId, category: "following")
+                catch {
+                    showError = true
+                    isFollowing = false
+                    CoreDataManager.shared.unSaveArtist(id: artistId, category: ContentCategories.following.rawValue)
+                }
             }
         }
     }

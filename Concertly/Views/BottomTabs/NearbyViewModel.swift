@@ -10,7 +10,8 @@ final class NearbyViewModel: ObservableObject {
     var homeLong: Double
     
     init() {
-        nearbyConcerts = CoreDataManager.shared.fetchItems(for: ContentCategories.nearby.rawValue, type: Concert.self, sortKey: "date")
+        let upcomingConcerts = CoreDataManager.shared.fetchItems(for: ContentCategories.nearby.rawValue, type: Concert.self, sortKey: "date")
+        nearbyConcerts = upcomingConcerts.filter { $0.date >= Date() }
         self.homeLat = UserDefaults.standard.double(forKey: AppStorageKeys.homeLat.rawValue)
         self.homeLong = UserDefaults.standard.double(forKey: AppStorageKeys.homeLong.rawValue)
         
