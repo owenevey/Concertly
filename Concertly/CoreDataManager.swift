@@ -183,7 +183,12 @@ class CoreDataManager {
             if category == ContentCategories.recentSearches.rawValue {
                 sortDescriptors.append(NSSortDescriptor(key: "creationDate", ascending: false))
             }
-            sortDescriptors.append(NSSortDescriptor(key: "id", ascending: true))
+            else if category == ContentCategories.following.rawValue {
+                sortDescriptors.append(NSSortDescriptor(key: "name", ascending: true))
+            }
+            else {
+                sortDescriptors.append(NSSortDescriptor(key: "id", ascending: true))
+            }
             
             request.sortDescriptors = sortDescriptors
             

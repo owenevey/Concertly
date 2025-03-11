@@ -50,7 +50,7 @@ struct FlightDetailsView: View {
             .padding(15)
             
             Divider()
-                .frame(height: 2)
+                .frame(height: 1.5)
                 .overlay(.gray2)
                 .padding(.horizontal, -15)
             

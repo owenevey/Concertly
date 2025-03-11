@@ -47,9 +47,15 @@ struct ArtistView: View {
             BackButton(showBackground: true)
                 .padding(.leading, 15)
                 .frame(maxWidth: .infinity, alignment: .leading)
+            
+            VStack {
+                Spacer()
+                SnackbarView(show: $viewModel.showError, message: "Sorry, an error occurred. Please try again later.")
+                    .opacity(viewModel.showError ? 1 : 0)
+                    .animation(.easeInOut(duration: 0.2), value: viewModel.showError)
+            }
         }
         .navigationBarHidden(true)
-        .snackbar(show: $viewModel.showError, bgColor: .red, txtColor: .white, icon: "xmark", iconColor: .white, message: "Sorry, an error occurred. Please try again later.")
     }
     
     private var mainContent: some View {

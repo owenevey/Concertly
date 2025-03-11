@@ -67,8 +67,7 @@ struct CitySearchView: View {
                         .padding(.trailing)
                 }
             })
-            .padding(.top, 10)
-            .padding(.bottom, 20)
+            .padding(.vertical, 10)
             
             ScrollView(showsIndicators: false) {
                 switch viewModel.citiesResponse.status {

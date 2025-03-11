@@ -8,22 +8,51 @@ struct ConcertlyApp: App {
     @StateObject var router = Router()
     @StateObject private var animationManager = AnimationManager()
     
+    @Environment(\.scenePhase) private var scenePhase
+    @AppStorage(AppStorageKeys.minimumVersion.rawValue) var minimumVersion = "0.0.0"
+    @State private var forceUpdateNeeded = false
+    
     var body: some Scene {
         WindowGroup {
             RootView()
+                .disabled(forceUpdateNeeded)
+                .overlay(
+                    forceUpdateNeeded ? ForceUpdateView() : nil
+                )
+                .animation(.easeInOut(duration: 0.3), value: forceUpdateNeeded)
                 .onAppear(perform: {
                     appDelegate.app = self
                 })
+                .onChange(of: scenePhase) { oldPhase, newPhase in
+                    if newPhase == .active {
+                        forceUpdateNeeded = isForceUpdateNeeded(minimumVersion: minimumVersion)
+                        
+                        Task {
+                            if let fetchedVersion = try await fetchMinimumVersion() {
+                                minimumVersion = fetchedVersion
+                                forceUpdateNeeded = isForceUpdateNeeded(minimumVersion: minimumVersion)
+                            }
+                        }
+                    }
+                }
                 .environmentObject(router)
                 .environmentObject(animationManager)
                 .onOpenURL { url in
                     router.handleOpenUrl(url: url)
                 }
                 .task {
-                    try? Tips.configure([.displayFrequency(.immediate),
-                        .datastoreLocation(.applicationDefault)])
+                    try? Tips.configure([.displayFrequency(.daily),
+                                         .datastoreLocation(.applicationDefault)])
                 }
         }
+    }
+    
+    private func isForceUpdateNeeded(minimumVersion: String) -> Bool {
+        guard let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
+            return false
+        }
+        print("Comparing minimum version of \(minimumVersion) with current version of \(currentVersion)")
+        return currentVersion.compare(minimumVersion, options: .numeric) == .orderedAscending
     }
 }
 

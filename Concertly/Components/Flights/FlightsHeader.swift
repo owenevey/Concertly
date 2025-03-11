@@ -13,7 +13,10 @@ struct FlightsHeader: View {
     @State var detentHeight: CGFloat = 339
     
     var toAirportHeader: String {
-        return toAirport.isEmpty ? "\u{00A0}\u{00A0}\u{00A0}\u{00A0}\u{00A0}\u{00A0}\u{00A0}\u{00A0}\u{00A0}" : toAirport
+        if toAirport.isEmpty {
+            return "Loading"
+        }
+        return "\(fromAirport) - \(toAirport)"
     }
     
     var body: some View {
@@ -22,7 +25,7 @@ struct FlightsHeader: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             VStack {
-                Text("\(fromAirport) - \(toAirportHeader)")
+                Text(toAirportHeader)
                     .font(.system(size: 18, type: .SemiBold))
                 
                 Text("\(fromDate.shortFormat()) - \(toDate.shortFormat())")

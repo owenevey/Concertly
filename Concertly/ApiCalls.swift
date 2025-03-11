@@ -66,7 +66,12 @@ func customDateFormatter() -> DateFormatter {
 }
 
 ////////////////////////////////////////////////////////
-///NEW API CALLS
+func fetchMinimumVersion() async throws -> String? {
+    let endpoint = "\(baseUrl)/minimumVersion"
+    let response: ApiResponse<String> = try await fetchData(endpoint: endpoint)
+    return response.data
+}
+
 func fetchConcerts(category: String) async throws -> ApiResponse<ConcertsResponse> {
     let endpoint = "\(baseUrl)/concerts?category=\(category)"
     let response: ApiResponse<ConcertsResponse> = try await fetchData(endpoint: endpoint)

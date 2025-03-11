@@ -44,7 +44,7 @@ struct ImageViewHeader: View {
             .background(Color.background)
             
             Divider()
-                .frame(height: 1.5)
+                .frame(height: 1)
                 .overlay(.gray2)
         }
         

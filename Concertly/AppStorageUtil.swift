@@ -7,6 +7,7 @@ enum concertRemindersEnum: Int {
 }
 
 enum AppStorageKeys: String {
+    case minimumVersion
     case hasSeenOnboarding
     case theme
     case concertReminders

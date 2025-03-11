@@ -108,7 +108,7 @@ struct HotelsFilterBar: View {
                 }
             }
             Divider()
-                .frame(height: 1.5)
+                .frame(height: 1)
                 .overlay(.gray2)
         }
         .frame(height: 65)

@@ -71,7 +71,7 @@ class ArtistViewModel: ObservableObject {
     
     func toggleArtistFollowing() async {
         let newTourDateNotifications = UserDefaults.standard.bool(forKey: AppStorageKeys.newTourDates.rawValue)
-        showError = true
+
         if isFollowing {
             isFollowing = false
             CoreDataManager.shared.unSaveArtist(id: artistId, category: ContentCategories.following.rawValue)
@@ -103,11 +103,11 @@ class ArtistViewModel: ObservableObject {
                 CoreDataManager.shared.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: ContentCategories.following.rawValue)
             }
             
+            Task {
+                await FollowArtistTip.followArtistEvent.donate()
+            }
+            
             if newTourDateNotifications {
-                Task {
-                    await FollowArtistTip.followArtistEvent.donate()
-                }
-                
                 do {
                     guard let pushNotificationToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue) else {
                         throw NSError(domain: "", code: 1, userInfo: nil)
