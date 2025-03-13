@@ -23,7 +23,7 @@ func fetchData<T: Decodable, U: Encodable>(
     
     let (data, response) = try await URLSession.shared.data(for: request)
     
-    if endpoint.contains("followArtist") {
+    if endpoint.contains("hotels") {
         print(response)
         if let rawData = String(data: data, encoding: .utf8) {
             print("Raw Response: \(rawData)")
@@ -156,9 +156,22 @@ func fetchReturnFlights(fromAirport: String, toAirport: String, fromDate: String
     return response
 }
 
+func fetchFlightsBookingUrl(fromAirport: String, toAirport: String, fromDate: String, toDate: String, bookingToken: String) async throws -> ApiResponse<String> {
+    let endpoint = "\(baseUrl)/flights?fromAirport=\(fromAirport)&toAirport=\(toAirport)&fromDate=\(fromDate)&toDate=\(toDate)&bookingToken=\(bookingToken)"
+    let response: ApiResponse<String> = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
+    return response
+}
+
 func fetchHotels(location: String, fromDate: String, toDate: String) async throws -> ApiResponse<HotelsResponse> {
     let endpoint = "\(baseUrl)/hotels?location=\(location)&fromDate=\(fromDate)&toDate=\(toDate)"
     let response: ApiResponse<HotelsResponse> = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
+    return response
+}
+
+func fetchHotelsBookingUrl(location: String, fromDate: String, toDate: String, propertyToken: String) async throws -> ApiResponse<String> {
+    let endpoint = "\(baseUrl)/hotels?location=\(location)&fromDate=\(fromDate)&toDate=\(toDate)&propertyToken=\(propertyToken)"
+    let response: ApiResponse<String> = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
+    print("YY", response)
     return response
 }
 
@@ -186,4 +199,5 @@ enum ConcertlyError: Error {
     case invalidResponse
     case invalidData
     case missingDepartureToken
+    case missingBookingToken
 }

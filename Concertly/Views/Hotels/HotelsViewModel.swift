@@ -11,6 +11,7 @@ final class HotelsViewModel<T: TripViewModelProtocol>: ObservableObject {
     @Published var toDate: Date
     
     @Published var hotelsResponse: ApiResponse<HotelsResponse>
+    @Published var bookingLinkResponse: ApiResponse<String> = ApiResponse<String>()
     
     @Published var sortMethod = SortHotelsEnum.recommended
     @Published var priceFilter: Int = Int.max
@@ -170,6 +171,33 @@ final class HotelsViewModel<T: TripViewModelProtocol>: ObservableObject {
         } catch {
             withAnimation(.easeInOut(duration: 0.3)) {
                 self.hotelsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
+        }
+    }
+    
+    func getBookingLink(propertyToken: String) async {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            self.bookingLinkResponse = ApiResponse(status: .loading)
+        }
+        
+        do {
+            let response = try await fetchHotelsBookingUrl(location: location,
+                                                                fromDate: fromDate.EuropeanFormat(),
+                                                                toDate: toDate.EuropeanFormat(),
+                                                           propertyToken: propertyToken)
+            
+            if let bookingLink = response.data {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    self.bookingLinkResponse = ApiResponse(status: .success, data: bookingLink)
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.bookingLinkResponse = ApiResponse(status: .error, error: response.error ?? "Couldn't fetch booking link")
+                }
+            }
+        } catch {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                self.bookingLinkResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }
     }

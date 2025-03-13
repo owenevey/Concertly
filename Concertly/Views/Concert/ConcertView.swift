@@ -182,7 +182,7 @@ struct ConcertView: View {
         .onAppear {
             concertViewCount += 1
             
-            if concertViewCount > 30 {
+            if concertViewCount > 30 && concertViewCount % 10 == 0 {
                 Task {
                     try await Task.sleep(for: .seconds(2))
                     requestReview()

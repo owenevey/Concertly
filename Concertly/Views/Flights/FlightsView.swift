@@ -46,7 +46,8 @@ struct FlightsView<T: TripViewModelProtocol>: View {
                 FlightDetailsView(
                     flightItem: flight,
                     departingFlight: $viewModel.departingFlight,
-                    returningFlight: $viewModel.returningFlight
+                    returningFlight: $viewModel.returningFlight,
+                    viewModel: viewModel
                 )
                 .presentationDetents([.large])
                 .presentationBackground(Color.background)

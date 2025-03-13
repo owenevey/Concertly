@@ -13,6 +13,7 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
     @Published var toAirport: String
     
     @Published var flightsResponse: ApiResponse<FlightsResponse>
+    @Published var bookingLinkResponse: ApiResponse<String> = ApiResponse<String>()
     @Published var priceInsights: PriceInsights?
     
     @Published var sortFlightsMethod = SortFlightsEnum.recommended
@@ -24,14 +25,14 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
     
     @Published var departingFlight: FlightItem?
     @Published var returningFlight: FlightItem?
-    
+        
     private var cancellables = Set<AnyCancellable>()
     private var combinedPublisher: AnyPublisher<(Date, Date, String, String), Never>?
     
     // Ignores the first emission of each sink
     private var isFirstEmissionSink1 = true
     private var isFirstEmissionSink2 = true
-        
+    
     init(tripViewModel: T, fromDate: Date, toDate: Date, flightsResponse: ApiResponse<FlightsResponse>) {
         self.tripViewModel = tripViewModel
         self.fromDate = fromDate
@@ -240,9 +241,9 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
             var fetchedFlights = ApiResponse<FlightsResponse>()
             if toAirport != "" {
                 fetchedFlights = try await fetchDepartureFlights(fromAirport: fromAirport,
-                                                                     toAirport: toAirport,
-                                                                     fromDate: fromDate.EuropeanFormat(),
-                                                                     toDate: toDate.EuropeanFormat())
+                                                                 toAirport: toAirport,
+                                                                 fromDate: fromDate.EuropeanFormat(),
+                                                                 toDate: toDate.EuropeanFormat())
             } else {
                 fetchedFlights = try await fetchDepartureFlights(fromAirport: fromAirport,
                                                                  lat: tripViewModel.latitude,
@@ -305,6 +306,34 @@ final class FlightsViewModel<T: TripViewModelProtocol>: ObservableObject {
         } catch {
             withAnimation(.easeInOut(duration: 0.3)) {
                 self.flightsResponse = ApiResponse(status: .error, error: error.localizedDescription)
+            }
+        }
+    }
+    
+    func getBookingLink(bookingToken: String) async {
+        withAnimation(.easeInOut(duration: 0.3)) {
+            self.bookingLinkResponse = ApiResponse(status: .loading)
+        }
+        
+        do {
+            let response = try await fetchFlightsBookingUrl(fromAirport: fromAirport,
+                                                       toAirport: toAirport,
+                                                       fromDate: fromDate.EuropeanFormat(),
+                                                       toDate: toDate.EuropeanFormat(),
+                                                       bookingToken: bookingToken)
+            
+            if let bookingLink = response.data {
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    self.bookingLinkResponse = ApiResponse(status: .success, data: bookingLink)
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    self.bookingLinkResponse = ApiResponse(status: .error, error: response.error ?? "Couldn't fetch booking link")
+                }
+            }
+        } catch {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                self.bookingLinkResponse = ApiResponse(status: .error, error: error.localizedDescription)
             }
         }
     }

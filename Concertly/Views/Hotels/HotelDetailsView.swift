@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct HotelDetailsView: View {
+struct HotelDetailsView<T: TripViewModelProtocol>: View {
     
     @Environment(\.dismiss) var dismiss
     
@@ -8,6 +8,10 @@ struct HotelDetailsView: View {
     let generalLocation: String
     
     @Binding var selectedHotel: Property?
+    
+    var viewModel: HotelsViewModel<T>
+    
+    @State private var showSheet = false
     
     var locationRating: String {
         if let rating = property.locationRating {
@@ -102,6 +106,56 @@ struct HotelDetailsView: View {
                         dismiss()
                     }
                     
+                    Button {
+                        showSheet = true
+                    } label: {
+                        HStack {
+                            HStack {
+                                switch viewModel.bookingLinkResponse.status {
+                                case .loading, .empty:
+                                    CircleLoadingView(ringSize: 20)
+                                case .success:
+                                    EmptyView()
+                                case .error:
+                                    Text("Error")
+                                        .font(.system(size: 16, type: .Medium))
+                                        .lineLimit(1)
+                                }
+                                Spacer()
+                            }
+                            .padding(.leading, 15)
+                            .frame(width: 90)
+                            .transition(.opacity)
+                            
+                            Text("Booking Link")
+                                .font(.system(size: 17, type: .SemiBold))
+                                .lineLimit(1)
+                                .foregroundStyle(.primary)
+                                .padding(.horizontal, 30)
+                                .padding(.vertical, 12)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                            
+                            HStack {
+                                Spacer()
+                                Image(systemName: "arrow.up.forward.square")
+                                    .font(.system(size: 17, weight: .semibold))
+                            }
+                            .padding(.trailing, 15)
+                            .frame(width: 90)
+                            
+                        }
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            RoundedRectangle(cornerRadius: 15)
+                                .stroke(.primary, lineWidth: 3)
+                            
+                        )
+                        .contentShape(RoundedRectangle(cornerRadius: 15))
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                    }
+                    .disabled(viewModel.bookingLinkResponse.status != .success)
+                    .buttonStyle(PlainButtonStyle())
+                    
                     HStack(spacing: 30) {
                         if let totalRate = property.totalRate?.extractedLowest {
                             HStack(alignment: .bottom, spacing: 3) {
@@ -172,7 +226,25 @@ struct HotelDetailsView: View {
             }
         }
         .background(Color.background)
+        .sheet(isPresented: $showSheet) {
+            if let urlString = viewModel.bookingLinkResponse.data, let url = URL(string: urlString) {
+                SFSafariView(url: url)
+            } else {
+                VStack {
+                    Spacer()
+                    Text("Sorry, the link is broken")
+                        .font(.system(size: 20, type: .Medium))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 30)
+                    Spacer()
+                }
+            }
+        }
         .onAppear {
+            Task {
+                await viewModel.getBookingLink(propertyToken: property.propertyToken)
+            }
+            
             var propertyImages: [URL] = []
             if let images = property.images {
                 propertyImages = images.compactMap { propertyImage in
@@ -183,6 +255,9 @@ struct HotelDetailsView: View {
                 }
             }
             ImagePrefetcher.shared.startPrefetching(urls: propertyImages)
+        }
+        .onDisappear{
+            viewModel.bookingLinkResponse = ApiResponse<String>()
         }
     }
 }
@@ -221,4 +296,4 @@ struct HotelDetailsView: View {
         amenities: ["Wi-Fi", "Air Conditioning", "Pool"],
         propertyToken: "12345",
         serpapiPropertyDetailsLink: "https://www.serpapi.com/property/12345"
-    ), generalLocation: "Bali", selectedHotel: $selectedHotel)}
+    ), generalLocation: "Bali", selectedHotel: $selectedHotel, viewModel: HotelsViewModel(tripViewModel: ConcertViewModel(concert: hotConcerts[0]), location: "Bali", fromDate: Date(), toDate: Date(), hotelsResponse: ApiResponse<HotelsResponse>()))}

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct FlightDetailsView: View {
+struct FlightDetailsView<T: TripViewModelProtocol>: View {
     
     @Environment(\.dismiss) var dismiss
     
@@ -9,8 +9,11 @@ struct FlightDetailsView: View {
     @Binding var departingFlight: FlightItem?
     @Binding var returningFlight: FlightItem?
     
+    var viewModel: FlightsViewModel<T>
+    
+    @State private var showSheet = false
+    
     var body: some View {
-        
         VStack(spacing: 0) {
             VStack {
                 HStack(alignment: .top) {
@@ -68,6 +71,59 @@ struct FlightDetailsView: View {
                         dismiss()
                     }
                     
+                    if flightItem.bookingToken != nil {
+                        Button {
+                            showSheet = true
+                        } label: {
+                            HStack {
+                                HStack {
+                                    switch viewModel.bookingLinkResponse.status {
+                                    case .loading, .empty:
+                                        CircleLoadingView(ringSize: 20)
+                                    case .success:
+                                        EmptyView()
+                                    case .error:
+                                        Text("Error")
+                                            .font(.system(size: 16, type: .Medium))
+                                            .lineLimit(1)
+                                    }
+                                    Spacer()
+                                }
+                                .padding(.leading, 15)
+                                .frame(width: 90)
+                                .transition(.opacity)
+                                
+                                Text("Booking Link")
+                                    .font(.system(size: 17, type: .SemiBold))
+                                    .lineLimit(1)
+                                    .foregroundStyle(.primary)
+                                    .padding(.horizontal, 30)
+                                    .padding(.vertical, 12)
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                
+                                HStack {
+                                    Spacer()
+                                    Image(systemName: "arrow.up.forward.square")
+                                        .font(.system(size: 17, weight: .semibold))
+                                }
+                                .padding(.trailing, 15)
+                                .frame(width: 90)
+                                
+                            }
+                            .frame(maxWidth: .infinity)
+                            .background(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .stroke(.primary, lineWidth: 3)
+                                
+                            )
+                            .contentShape(RoundedRectangle(cornerRadius: 15))
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                        }
+                        .disabled(viewModel.bookingLinkResponse.status != .success)
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                    
+                    
                     VStack(spacing: 10) {
                         Text("Itinerary")
                             .font(.system(size: 20, type: .SemiBold))
@@ -120,7 +176,6 @@ struct FlightDetailsView: View {
                             }
                             
                         }
-//                        .foregroundStyle(.gray3)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(15)
                         .background(
@@ -135,6 +190,30 @@ struct FlightDetailsView: View {
             }
         }
         .background(Color.background)
+        .sheet(isPresented: $showSheet) {
+            if let urlString = viewModel.bookingLinkResponse.data, let url = URL(string: urlString) {
+                SFSafariView(url: url)
+            } else {
+                VStack {
+                    Spacer()
+                    Text("Sorry, the link is broken")
+                        .font(.system(size: 20, type: .Medium))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 30)
+                    Spacer()
+                }
+            }
+        }
+        .onAppear {
+            if let bookingToken = flightItem.bookingToken {
+                Task {
+                    await viewModel.getBookingLink(bookingToken: bookingToken)
+                }
+            }
+        }
+        .onDisappear{
+            viewModel.bookingLinkResponse = ApiResponse<String>()
+        }
     }
 }
 
@@ -365,7 +444,7 @@ struct FlightLeg: View {
     
     
     // Use the decoded FlightItem in the preview
-    return FlightDetailsView(flightItem: flightItem, departingFlight: $departingFlight, returningFlight: $returningFlight)
+    return FlightDetailsView(flightItem: flightItem, departingFlight: $departingFlight, returningFlight: $returningFlight, viewModel: FlightsViewModel(tripViewModel: ConcertViewModel(concert: hotConcerts[0]), fromDate: Date(), toDate: Date(), flightsResponse: ApiResponse<FlightsResponse>()))
 }
 
 

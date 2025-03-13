@@ -47,7 +47,8 @@ struct HotelsView<T: TripViewModelProtocol>: View {
                 HotelDetailsView(
                     property: hotel,
                     generalLocation: viewModel.location,
-                    selectedHotel: $viewModel.selectedHotel
+                    selectedHotel: $viewModel.selectedHotel,
+                    viewModel: viewModel
                 )
                 .presentationDetents([.large])
                 .presentationBackground(Color.background)
