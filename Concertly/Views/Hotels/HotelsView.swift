@@ -1,4 +1,5 @@
 import SwiftUI
+import GoogleMobileAds
 
 struct HotelsView<T: TripViewModelProtocol>: View {
     
@@ -57,8 +58,10 @@ struct HotelsView<T: TripViewModelProtocol>: View {
         .navigationBarHidden(true)
     }
     
+    let adSize = currentOrientationAnchoredAdaptiveBanner(width: UIScreen.main.bounds.width - 40)
+    
     private var mainContent: some View {
-        LazyVStack(spacing: 15) {
+        VStack {
             if viewModel.hotelsResponse.status == Status.loading {
                 LoadingView()
                     .frame(height: 250)
@@ -77,13 +80,21 @@ struct HotelsView<T: TripViewModelProtocol>: View {
                     .frame(height: 250)
                     .transition(.opacity)
                 } else {
-                    ForEach(viewModel.filteredHotels) { property in
-                        HotelCard(property: property)
-                            .shadow(color: .black.opacity(0.05), radius: 5)
-                            .transition(.opacity)
-                            .onTapGesture {
-                                selectedHotel = property
+                    LazyVStack(spacing: 15) {
+                        ForEach(Array(viewModel.filteredHotels.enumerated()), id: \.offset) { index, property in
+                            HotelCard(property: property)
+                                .shadow(color: .black.opacity(0.05), radius: 5)
+                                .transition(.opacity)
+                                .onTapGesture {
+                                    selectedHotel = property
+                                }
+                            
+                            if index != 0 && (index % 7) == 0 {
+                                BannerViewContainer(adSize, adUnitID: AdUnitIds.hotelsBanner.rawValue)
+                                    .frame(height: adSize.size.height)
+                                    .padding(.vertical, 5)
                             }
+                        }
                     }
                     .transition(.opacity)
                 }
@@ -105,7 +116,7 @@ struct HotelsView<T: TripViewModelProtocol>: View {
     }
 }
 
-#Preview {    
+#Preview {
     NavigationStack {
         ConcertView(concert: hotConcerts[0])
     }

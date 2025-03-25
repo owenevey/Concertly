@@ -47,6 +47,8 @@
 		F11714B72D150EDD007A0052 /* FilterRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11714B62D150EDD007A0052 /* FilterRating.swift */; };
 		F11714B92D15129F007A0052 /* LocationRatingFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11714B82D15129F007A0052 /* LocationRatingFilter.swift */; };
 		F11714BB2D1526AB007A0052 /* HotelDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11714BA2D1526AB007A0052 /* HotelDetailsView.swift */; };
+		F11724002D92366600871D3A /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = F11723FF2D92366600871D3A /* GoogleMobileAds */; };
+		F11724022D923B9B00871D3A /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11724012D923B9400871D3A /* BannerView.swift */; };
 		F12B95162D375D5A00EFD489 /* VenuesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12B95152D375D5700EFD489 /* VenuesResponse.swift */; };
 		F12B95182D375E9600EFD489 /* VenueCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12B95172D375E9600EFD489 /* VenueCard.swift */; };
 		F12B951A2D37605A00EFD489 /* ErrorVenueCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12B95192D37605600EFD489 /* ErrorVenueCard.swift */; };
@@ -211,6 +213,7 @@
 		F11714B62D150EDD007A0052 /* FilterRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterRating.swift; sourceTree = "<group>"; };
 		F11714B82D15129F007A0052 /* LocationRatingFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRatingFilter.swift; sourceTree = "<group>"; };
 		F11714BA2D1526AB007A0052 /* HotelDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsView.swift; sourceTree = "<group>"; };
+		F11724012D923B9400871D3A /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
 		F12B95152D375D5700EFD489 /* VenuesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenuesResponse.swift; sourceTree = "<group>"; };
 		F12B95172D375E9600EFD489 /* VenueCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueCard.swift; sourceTree = "<group>"; };
 		F12B95192D37605600EFD489 /* ErrorVenueCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorVenueCard.swift; sourceTree = "<group>"; };
@@ -340,6 +343,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F11724002D92366600871D3A /* GoogleMobileAds in Frameworks */,
 				F10AA0892D7A9C3300FB4EB9 /* SmoothGradient in Frameworks */,
 				F17252BF2D345581006C3454 /* SDWebImageSwiftUI in Frameworks */,
 			);
@@ -371,6 +375,7 @@
 				F199FFF62CAA3A6E00EE005F /* Info.plist */,
 				F11640142C8A8A300040C95D /* Assets.xcassets */,
 				F11640102C8A8A2F0040C95D /* ConcertlyApp.swift */,
+				F11724012D923B9400871D3A /* BannerView.swift */,
 				F10AA0902D7CEA3A00FB4EB9 /* AnimationManager.swift */,
 				F1C145092D6D64C100D63EBB /* CustomAppDelegate.swift */,
 				F192E3142D77DD6A009EACB9 /* Router.swift */,
@@ -779,6 +784,7 @@
 			packageReferences = (
 				F17252BD2D345581006C3454 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				F10AA0872D7A9C3300FB4EB9 /* XCRemoteSwiftPackageReference "SmoothGradient" */,
+				F11723FE2D92366600871D3A /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			productRefGroup = F116400E2C8A8A2F0040C95D /* Products */;
 			projectDirPath = "";
@@ -819,6 +825,7 @@
 				F12B951C2D37607B00EFD489 /* FallbackVenueCard.swift in Sources */,
 				F1DAE69E2CC37F7F00901914 /* DateExtensions.swift in Sources */,
 				F12B951A2D37605A00EFD489 /* ErrorVenueCard.swift in Sources */,
+				F11724022D923B9B00871D3A /* BannerView.swift in Sources */,
 				F1CD3CB22D2A35F2004E3041 /* ColorExtensions.swift in Sources */,
 				F1F3A64B2D0698850042F4F2 /* IntExtensions.swift in Sources */,
 				F176C9262CB5E7F9006BAE35 /* FlightFilter.swift in Sources */,
@@ -1184,6 +1191,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		F11723FE2D92366600871D3A /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.2.0;
+			};
+		};
 		F17252BD2D345581006C3454 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -1199,6 +1214,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F10AA0872D7A9C3300FB4EB9 /* XCRemoteSwiftPackageReference "SmoothGradient" */;
 			productName = SmoothGradient;
+		};
+		F11723FF2D92366600871D3A /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F11723FE2D92366600871D3A /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
 		};
 		F17252BE2D345581006C3454 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;

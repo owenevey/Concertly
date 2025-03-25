@@ -1,4 +1,5 @@
 import SwiftUI
+import GoogleMobileAds
 
 struct FlightsView<T: TripViewModelProtocol>: View {
     
@@ -55,6 +56,8 @@ struct FlightsView<T: TripViewModelProtocol>: View {
         }
         .navigationBarHidden(true)
     }
+    
+    let adSize = currentOrientationAnchoredAdaptiveBanner(width: UIScreen.main.bounds.width - 40)
     
     private var mainContent: some View {
         VStack(spacing: 15) {
@@ -120,13 +123,21 @@ struct FlightsView<T: TripViewModelProtocol>: View {
                     .transition(.opacity)
                 } else {
                     LazyVStack(spacing: 15) {
-                        ForEach(viewModel.filteredFlights) { flightItem in
-                            FlightCard(flightItem: flightItem)
-                                .shadow(color: .black.opacity(0.05), radius: 5)
-                                .transition(.opacity)
-                                .onTapGesture {
-                                    selectedFlight = flightItem
+                        ForEach(Array(viewModel.filteredFlights.enumerated()), id: \.offset) { index, flightItem in
+                            VStack {
+                                FlightCard(flightItem: flightItem)
+                                    .shadow(color: .black.opacity(0.05), radius: 5)
+                                    .transition(.opacity)
+                                    .onTapGesture {
+                                        selectedFlight = flightItem
+                                    }
+                                
+                                if index != 0 && (index % 7) == 0 {
+                                    BannerViewContainer(adSize, adUnitID: AdUnitIds.flightsBanner.rawValue)
+                                        .frame(height: adSize.size.height)
+                                        .padding(.vertical, 5)
                                 }
+                            }
                         }
                     }
                 }
@@ -152,7 +163,7 @@ struct FlightsView<T: TripViewModelProtocol>: View {
     }
 }
 
-#Preview {    
+#Preview {
     NavigationStack {
         ConcertView(concert: hotConcerts[0])
     }

@@ -1,4 +1,5 @@
 import SwiftUI
+import GoogleMobileAds
 
 struct NearbyView: View {
     
@@ -9,6 +10,8 @@ struct NearbyView: View {
     
     @State private var offset: CGFloat = 0
     @State private var isSearchBarVisible: Bool = true
+    
+    let adSize = currentOrientationAnchoredAdaptiveBanner(width: UIScreen.main.bounds.width - 40)
     
     var body: some View {
         GeometryReader { geometry in
@@ -80,8 +83,14 @@ struct NearbyView: View {
                                         }
                                         .frame(height: 250)
                                     } else {
-                                        ForEach(viewModel.nearbyConcerts) { concert in
+                                        ForEach(Array(viewModel.nearbyConcerts.enumerated()), id: \.offset) { index, concert in
                                             NearbyConcertCard(concert: concert)
+                                            
+                                            if index != 0 && (index % 10) == 0 {
+                                                BannerViewContainer(adSize, adUnitID: AdUnitIds.nearbyBanner.rawValue)
+                                                    .frame(height: adSize.size.height)
+                                                    .padding(.vertical, 5)
+                                            }
                                         }
                                     }
                                     

@@ -1,5 +1,6 @@
 import SwiftUI
 import UserNotifications
+import GoogleMobileAds
 
 class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     var app: ConcertlyApp?
@@ -7,6 +8,7 @@ class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         application.registerForRemoteNotifications()
         UNUserNotificationCenter.current().delegate = self
+        MobileAds.shared.start(completionHandler: nil)
         return true
     }
     

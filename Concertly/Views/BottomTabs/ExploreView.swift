@@ -1,4 +1,5 @@
 import SwiftUI
+import GoogleMobileAds
 
 struct ExploreView: View {
     
@@ -12,6 +13,8 @@ struct ExploreView: View {
     
     var body: some View {
         GeometryReader { geometry in
+            let adSize = currentOrientationAnchoredAdaptiveBanner(width: geometry.size.width - 40)
+            
             ZStack(alignment: .top) {
                 Image(colorScheme == .light ? .exploreBlobLight : .exploreBlobDark)
                     .resizable()
@@ -90,6 +93,11 @@ struct ExploreView: View {
                                 await viewModel.getPopularDestinations()
                             }
                             
+                            BannerViewContainer(adSize, adUnitID: AdUnitIds.exploreBanner.rawValue)
+                                .frame(height: adSize.size.height)
+                                .padding(.top, 10)
+                                .padding(.bottom, 20)
+                            
                             FeaturedEvent(concert: viewModel.featuredConcert, status: viewModel.featuredConcertResponse.status) {
                                 await viewModel.getFeaturedConcert()
                             }
@@ -97,7 +105,7 @@ struct ExploreView: View {
                             ExploreRow(title: "Suggested Concerts", status: viewModel.suggestedConcertsResponse.status, data: viewModel.suggestedConcerts, contentType: ExploreContentType.concert) {
                                 await viewModel.getSuggestedConcerts()
                             }
-                            
+
                             ExploreRow(title: "Famous Venues", status: viewModel.famousVenuesResponse.status, data: viewModel.famousVenues, contentType: ExploreContentType.venue) {
                                 await viewModel.getFamousVenues()
                             }
