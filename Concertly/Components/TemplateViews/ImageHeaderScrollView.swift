@@ -1,5 +1,6 @@
 import SwiftUI
 import SmoothGradient
+import FirebaseAnalytics
 
 struct ImageHeaderScrollView<Content: View>: View {
     
@@ -102,8 +103,16 @@ struct ImageHeaderScrollView<Content: View>: View {
                         Button {
                             if rightIcon == "star" {
                                 followArtistTip.invalidate(reason: .actionPerformed)
+                                Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                                    AnalyticsParameterItemName: "toggle_follow_artist",
+                                    AnalyticsParameterContentType: "cont",
+                                ])
                             } else {
                                 saveConcertTip.invalidate(reason: .actionPerformed)
+                                Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                                    AnalyticsParameterItemName: "toggle_save_concert",
+                                    AnalyticsParameterContentType: "cont",
+                                ])
                             }
                             Task {
                                 await onRightIconTap?()

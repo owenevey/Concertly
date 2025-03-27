@@ -1,5 +1,6 @@
 import SwiftUI
 import SmoothGradient
+import FirebaseAnalytics
 
 struct ArtistCard: View {
     @EnvironmentObject var animationManager: AnimationManager
@@ -45,24 +46,13 @@ struct ArtistCard: View {
             }
         }
         .buttonStyle(PlainButtonStyle())
-//        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20))
-//        .contextMenu {
-//            let isFollowing = CoreDataManager.shared.isFollowingArtist(id: artist.id)
-//            if isFollowing {
-//                Button {
-//                    CoreDataManager.shared.unSaveArtist(id: artist.id, category: ContentCategories.following.rawValue)
-//                } label: {
-//                    Label("Unfollow", systemImage: "xmark")
-//                }
-//            }
-//            else {
-//                Button {
-//                    CoreDataManager.shared.saveArtist(artist, category: ContentCategories.following.rawValue)
-//                } label: {
-//                    Label("Follow", systemImage: "star.fill")
-//                }
-//            }
-//        }
+        .simultaneousGesture(TapGesture().onEnded {
+            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                AnalyticsParameterItemID: "id-\(artist.id)",
+                AnalyticsParameterItemName: artist.name,
+              AnalyticsParameterContentType: "cont",
+            ])
+        })
     }
 }
 

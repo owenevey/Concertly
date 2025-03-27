@@ -1,5 +1,6 @@
 import SwiftUI
 import SmoothGradient
+import FirebaseAnalytics
 
 struct VenueCard: View {
     @EnvironmentObject var animationManager: AnimationManager
@@ -43,7 +44,13 @@ struct VenueCard: View {
                 }
         }
         .buttonStyle(PlainButtonStyle())
-        
+        .simultaneousGesture(TapGesture().onEnded {
+            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                AnalyticsParameterItemID: "id-\(venue.id)",
+                AnalyticsParameterItemName: venue.name,
+              AnalyticsParameterContentType: "cont",
+            ])
+        })
     }
 }
 

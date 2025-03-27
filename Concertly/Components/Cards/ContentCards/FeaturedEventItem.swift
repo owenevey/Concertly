@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import FirebaseAnalytics
 
 struct FeaturedEventItem: View {
     
@@ -42,30 +43,13 @@ struct FeaturedEventItem: View {
             }
         }
         .buttonStyle(PlainButtonStyle())
-//        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20))
-//        .contextMenu {
-//            let isSaved = CoreDataManager.shared.isConcertSaved(id: concert.id)
-//            if isSaved {
-//                Button {
-//                    CoreDataManager.shared.unSaveConcert(id: concert.id)
-//                    NotificationManager.shared.removeConcertReminder(for: concert)
-//                } label: {
-//                    Label("Remove from saved", systemImage: "xmark")
-//                }
-//            }
-//            else {
-//                Button {
-//                    CoreDataManager.shared.saveConcert(concert)
-//                    let concertRemindersPreference = UserDefaults.standard.integer(forKey: AppStorageKeys.concertReminders.rawValue)
-//                    
-//                    if concertRemindersPreference != 0 {
-//                        NotificationManager.shared.scheduleConcertReminder(for: concert, daysBefore: concertRemindersPreference)
-//                    }
-//                } label: {
-//                    Label("Save", systemImage: "bookmark.fill")
-//                }
-//            }
-//        }
+        .simultaneousGesture(TapGesture().onEnded {
+            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                AnalyticsParameterItemID: "id-\(concert.id)",
+                AnalyticsParameterItemName: "\(concert.artistName), \(concert.name.first ?? "no name")",
+              AnalyticsParameterContentType: "cont",
+            ])
+        })
     }
 }
 

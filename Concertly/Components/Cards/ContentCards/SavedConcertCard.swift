@@ -1,4 +1,5 @@
 import SwiftUI
+import FirebaseAnalytics
 
 struct SavedConcertCard: View {
     @EnvironmentObject var animationManager: AnimationManager
@@ -115,15 +116,13 @@ struct SavedConcertCard: View {
             }
         }
         .buttonStyle(PlainButtonStyle())
-//        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 20))
-//        .contextMenu {
-//            Button {
-//                CoreDataManager.shared.unSaveConcert(id: concert.id)
-//                NotificationManager.shared.removeConcertReminder(for: concert)
-//            } label: {
-//                Label("Remove from saved", systemImage: "xmark")
-//            }
-//        }
+        .simultaneousGesture(TapGesture().onEnded {
+            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                AnalyticsParameterItemID: "id-\(concert.id)",
+                AnalyticsParameterItemName: "\(concert.artistName), \(concert.name.first ?? "no name")",
+              AnalyticsParameterContentType: "cont",
+            ])
+        })
     }
 }
 

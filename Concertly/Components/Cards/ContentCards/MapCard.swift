@@ -1,5 +1,6 @@
 import SwiftUI
 import MapKit
+import FirebaseAnalytics
 
 struct MapCard: View {
     
@@ -10,6 +11,10 @@ struct MapCard: View {
     
     var body: some View {
         Button {
+            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                AnalyticsParameterItemName: "open_address_in_maps",
+                AnalyticsParameterContentType: "cont",
+            ])
             openAddressInMaps(address: addressToSearch)
         } label: {
                 Map(initialPosition: MapCameraPosition.region( MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta))), interactionModes: [])

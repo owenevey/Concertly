@@ -1,4 +1,5 @@
 import SwiftUI
+import FirebaseAnalytics
 
 struct LineItem<T: TripViewModelProtocol>: View {
     
@@ -29,6 +30,10 @@ struct LineItem<T: TripViewModelProtocol>: View {
             if case .ticket = item {
                 Button(action: {
                     showSheet.toggle()
+                    Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                        AnalyticsParameterItemName: "line_item_ticket",
+                        AnalyticsParameterContentType: "cont",
+                    ])
                 }) {
                     lineItemContent
                 }
@@ -39,6 +44,12 @@ struct LineItem<T: TripViewModelProtocol>: View {
                         lineItemContent
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .simultaneousGesture(TapGesture().onEnded {
+                        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                            AnalyticsParameterItemName: "line_item_\(item)",
+                            AnalyticsParameterContentType: "cont",
+                        ])
+                    })
                 }
                 else {
                     lineItemContent

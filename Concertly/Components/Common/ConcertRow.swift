@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import FirebaseAnalytics
 
 struct ConcertRow: View {
     
@@ -65,6 +66,13 @@ struct ConcertRow: View {
         .padding(5)
         .background(Color.gray1)
         .cornerRadius(15)
+        .simultaneousGesture(TapGesture().onEnded {
+            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                AnalyticsParameterItemID: "id-\(concert.id)",
+                AnalyticsParameterItemName: "\(concert.artistName), \(concert.name.first ?? "no name")",
+              AnalyticsParameterContentType: "cont",
+            ])
+        })
     }
 }
 

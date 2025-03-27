@@ -1,4 +1,5 @@
 import SwiftUI
+import FirebaseAnalytics
 
 struct GenrePills: View {
     var body: some View {
@@ -9,6 +10,13 @@ struct GenrePills: View {
                         GenrePill(genre: genre)
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .simultaneousGesture(TapGesture().onEnded {
+                        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                            AnalyticsParameterItemID: genre.apiLabel,
+                            AnalyticsParameterItemName: genre.title,
+                          AnalyticsParameterContentType: "cont",
+                        ])
+                    })
                 }
             }
             .shadow(color: .black.opacity(0.2), radius: 5)

@@ -1,4 +1,5 @@
 import SwiftUI
+import FirebaseAnalytics
 
 struct PriceInsightsCard: View {
     
@@ -26,6 +27,10 @@ struct PriceInsightsCard: View {
     var body: some View {
         Button {
             showPriceHistorySheet = true
+            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                AnalyticsParameterItemName: "price_analytic_card",
+                AnalyticsParameterContentType: "cont",
+            ])
         }
         label: {
             HStack(spacing: 10) {

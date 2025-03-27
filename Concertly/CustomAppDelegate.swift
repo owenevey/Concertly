@@ -1,6 +1,8 @@
 import SwiftUI
 import UserNotifications
 import GoogleMobileAds
+import Firebase
+import FirebaseCore
 
 class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     var app: ConcertlyApp?
@@ -9,6 +11,7 @@ class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
         application.registerForRemoteNotifications()
         UNUserNotificationCenter.current().delegate = self
         MobileAds.shared.start(completionHandler: nil)
+        FirebaseApp.configure()
         return true
     }
     

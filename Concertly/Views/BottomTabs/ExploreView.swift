@@ -1,5 +1,6 @@
 import SwiftUI
 import GoogleMobileAds
+import FirebaseAnalytics
 
 struct ExploreView: View {
     
@@ -29,6 +30,10 @@ struct ExploreView: View {
                                 .font(.system(size: 30, type: .Bold))
                                 .foregroundStyle(.accent)
                                 .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            Button("Crash") {
+                              fatalError("Crash was triggered")
+                            }
                             
                             NavigationLink(value: Routes.notifications.rawValue) {
                                 Circle()
@@ -64,6 +69,12 @@ struct ExploreView: View {
                             )
                         }
                         .buttonStyle(PlainButtonStyle())
+                        .simultaneousGesture(TapGesture().onEnded {
+                            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                                AnalyticsParameterItemName: "Explore Search bar",
+                              AnalyticsParameterContentType: "cont",
+                            ])
+                        })
                         .padding(.horizontal, 15)
                         
                         LazyVStack(spacing: 0) {

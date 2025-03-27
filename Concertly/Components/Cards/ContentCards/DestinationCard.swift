@@ -1,4 +1,5 @@
 import SwiftUI
+import FirebaseAnalytics
 
 struct DestinationCard: View {
     @EnvironmentObject var animationManager: AnimationManager
@@ -46,6 +47,13 @@ struct DestinationCard: View {
             }
         }
         .buttonStyle(PlainButtonStyle())
+        .simultaneousGesture(TapGesture().onEnded {
+            Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                AnalyticsParameterItemID: "id-\(destination.id)",
+                AnalyticsParameterItemName: destination.name,
+              AnalyticsParameterContentType: "cont",
+            ])
+        })
     }
 }
 
