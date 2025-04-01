@@ -9,7 +9,7 @@ struct DestinationCard: View {
     var body: some View {
         NavigationLink(value: destination) {
             VStack(alignment: .leading, spacing: 0) {
-                ImageLoader(url: destination.images[0], contentMode: .fill)
+                ImageLoader(url: destination.imageUrl, contentMode: .fill)
                     .frame(width: 250, height: 150)
                     .clipped()
                 

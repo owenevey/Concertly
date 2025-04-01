@@ -307,11 +307,11 @@ class CoreDataManager {
             entity.lineup = lineupData
         }
         
-        if let nameData = try? JSONEncoder().encode(concert.name) {
+        if let nameData = try? JSONEncoder().encode(concert.names) {
             entity.name = nameData
         }
         
-        if let urlData = try? JSONEncoder().encode(concert.url) {
+        if let urlData = try? JSONEncoder().encode(concert.urls) {
             entity.url = urlData
         }
         
@@ -344,7 +344,7 @@ class CoreDataManager {
             url = []
         }
         
-        return Concert(name: name, id: entity.id ?? "", artistName: entity.artistName ?? "", artistId: entity.artistId ?? "", url: url, imageUrl: entity.imageUrl ?? "", date: entity.date ?? Date(), timezone: entity.timezone ?? "", venueName: entity.venueName ?? "", venueAddress: entity.venueAddress ?? "", cityName: entity.cityName ?? "", latitude: entity.latitude, longitude: entity.longitude, lineup: lineup, closestAirport: entity.closestAirport, sortKey: Int(entity.sortKey), flightsPrice: Int(entity.flightsPrice), hotelsPrice: Int(entity.hotelsPrice))
+        return Concert(names: name, id: entity.id ?? "", artistName: entity.artistName ?? "", artistId: entity.artistId ?? "", urls: url, imageUrl: entity.imageUrl ?? "", date: entity.date ?? Date(), timezone: entity.timezone ?? "", venueName: entity.venueName ?? "", venueAddress: entity.venueAddress ?? "", cityName: entity.cityName ?? "", latitude: entity.latitude, longitude: entity.longitude, lineup: lineup, closestAirport: entity.closestAirport, sortKey: Int(entity.sortKey), flightsPrice: Int(entity.flightsPrice), hotelsPrice: Int(entity.hotelsPrice))
     }
     
     private func convertToArtistEntity(_ artist: SuggestedArtist, category: String, context: NSManagedObjectContext) -> NSManagedObject {
@@ -371,30 +371,18 @@ class CoreDataManager {
         entity.closestAirport = destination.closestAirport
         entity.countryName = destination.countryName
         entity.geoHash = destination.geoHash
+        entity.imageUrl = destination.imageUrl
         entity.latitude = destination.latitude
         entity.long_Description = destination.longDescription
         entity.longitude = destination.longitude
         entity.name = destination.name
         entity.short_Description = destination.shortDescription
         
-        if let imageData = try? JSONEncoder().encode(destination.images) {
-            entity.images = imageData
-        }
-        
         return entity
     }
     
     private func convertToDestination(_ entity: DestinationEntity) -> Destination {
-        let images: [String]
-        
-        if let imagesData = entity.images,
-           let decodedImages = try? JSONDecoder().decode([String].self, from: imagesData) {
-            images = decodedImages
-        } else {
-            images = []
-        }
-        
-        return Destination(name: entity.name ?? "", shortDescription: entity.short_Description ?? "", longDescription: entity.long_Description ?? "", images: images, cityName: entity.cityName ?? "", countryName: entity.countryName ?? "", latitude: entity.latitude, longitude: entity.longitude, geoHash: entity.geoHash ?? "", closestAirport: entity.closestAirport ?? "")
+        return Destination(name: entity.name ?? "", shortDescription: entity.short_Description ?? "", longDescription: entity.long_Description ?? "", imageUrl: entity.imageUrl ?? "", cityName: entity.cityName ?? "", countryName: entity.countryName ?? "", latitude: entity.latitude, longitude: entity.longitude, geoHash: entity.geoHash ?? "", closestAirport: entity.closestAirport ?? "")
     }
     
     private func convertToVenueEntity(_ venue: Venue, context: NSManagedObjectContext) -> NSManagedObject {

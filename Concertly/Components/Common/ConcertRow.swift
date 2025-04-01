@@ -25,7 +25,7 @@ struct ConcertRow: View {
         case .destination:
             return concert.venueName
         case .venue:
-            return concert.name[0]
+            return concert.names[0]
         }
     }
     
@@ -69,7 +69,7 @@ struct ConcertRow: View {
         .simultaneousGesture(TapGesture().onEnded {
             Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
                 AnalyticsParameterItemID: "id-\(concert.id)",
-                AnalyticsParameterItemName: "\(concert.artistName), \(concert.name.first ?? "no name")",
+                AnalyticsParameterItemName: "\(concert.artistName), \(concert.names.first ?? "no name")",
               AnalyticsParameterContentType: "cont",
             ])
         })

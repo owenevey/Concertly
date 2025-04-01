@@ -22,7 +22,7 @@ struct SaveConcertTip: Tip {
         }
         
         #Rule(Self.visitConcertEvent) { event in
-            event.donations.count > 5
+            event.donations.count > 15
         }
     }
 }
@@ -48,7 +48,7 @@ struct FollowArtistTip: Tip {
         }
         
         #Rule(Self.visitArtistEvent) { event in
-            event.donations.count > 5
+            event.donations.count > 15
         }
     }
 }

@@ -35,8 +35,6 @@ class DestinationViewModel: TripViewModelProtocol {
         Task {
             await getConcerts()
         }
-        let destinationUrls = destination.images.compactMap { return URL(string: $0) }
-        ImagePrefetcher.shared.startPrefetching(urls: destinationUrls)
     }
     
     var totalPrice: Int {

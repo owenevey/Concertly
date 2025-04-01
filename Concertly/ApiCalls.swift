@@ -23,7 +23,7 @@ func fetchData<T: Decodable, U: Encodable>(
     
     let (data, response) = try await URLSession.shared.data(for: request)
     
-    if endpoint.contains("hotels") {
+    if endpoint.contains("concerts?category=") {
         print(response)
         if let rawData = String(data: data, encoding: .utf8) {
             print("Raw Response: \(rawData)")

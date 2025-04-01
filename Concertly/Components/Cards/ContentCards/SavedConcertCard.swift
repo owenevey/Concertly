@@ -119,7 +119,7 @@ struct SavedConcertCard: View {
         .simultaneousGesture(TapGesture().onEnded {
             Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
                 AnalyticsParameterItemID: "id-\(concert.id)",
-                AnalyticsParameterItemName: "\(concert.artistName), \(concert.name.first ?? "no name")",
+                AnalyticsParameterItemName: "\(concert.artistName), \(concert.names.first ?? "no name")",
               AnalyticsParameterContentType: "cont",
             ])
         })

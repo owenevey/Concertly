@@ -33,7 +33,7 @@
         <attribute name="closestAirport" optional="YES" attributeType="String"/>
         <attribute name="countryName" optional="YES" attributeType="String"/>
         <attribute name="geoHash" optional="YES" attributeType="String"/>
-        <attribute name="images" optional="YES" attributeType="Binary"/>
+        <attribute name="imageUrl" optional="YES" attributeType="String"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="long_Description" optional="YES" attributeType="String"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>

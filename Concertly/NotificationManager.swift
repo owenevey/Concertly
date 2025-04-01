@@ -51,7 +51,7 @@ class NotificationManager {
             if let error = error {
                 print("Failed to schedule notification: \(error)")
             } else {
-                print("Notification scheduled for \(concert.name) on \(reminderDate)")
+                print("Notification scheduled for \(concert.names) on \(reminderDate)")
             }
         }
     }

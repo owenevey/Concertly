@@ -198,7 +198,7 @@ final class ExploreViewModel: ObservableObject {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.popularDestinations = destinations
                     self.popularDestinationsResponse = ApiResponse(status: .success, data: destinations)
-                    ImagePrefetcher.shared.startPrefetching(urls: destinations.prefix(3).compactMap{ URL(string: $0.images[0]) })
+                    ImagePrefetcher.shared.startPrefetching(urls: destinations.prefix(3).compactMap{ URL(string: $0.imageUrl) })
                 }
                 CoreDataManager.shared.saveItems(destinations)
             } else {

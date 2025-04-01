@@ -11,7 +11,7 @@ struct Destination: Codable, Identifiable, Hashable {
     let name: String
     let shortDescription: String
     let longDescription: String
-    let images: [String]
+    let imageUrl: String
     let cityName: String
     let countryName: String
     let latitude: Double

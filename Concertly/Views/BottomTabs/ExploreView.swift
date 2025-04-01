@@ -31,10 +31,6 @@ struct ExploreView: View {
                                 .foregroundStyle(.accent)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
-                            Button("Crash") {
-                              fatalError("Crash was triggered")
-                            }
-                            
                             NavigationLink(value: Routes.notifications.rawValue) {
                                 Circle()
                                     .fill(Color.foreground)

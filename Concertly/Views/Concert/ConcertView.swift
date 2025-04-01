@@ -18,10 +18,10 @@ struct ConcertView: View {
     }
     
     var concertName: String {
-        if viewModel.concert.name.count > 1 {
+        if viewModel.concert.names.count > 1 {
             return ""
-        } else if viewModel.concert.name.count == 1 && (viewModel.concert.name[0].lowercased() != viewModel.concert.artistName.lowercased()) {
-            return viewModel.concert.name[0]
+        } else if viewModel.concert.names.count == 1 && (viewModel.concert.names[0].lowercased() != viewModel.concert.artistName.lowercased()) {
+            return viewModel.concert.names[0]
         }
         return ""
     }
@@ -74,7 +74,7 @@ struct ConcertView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
                     VStack(spacing: 10) {
-                        let pairedArray = zip(viewModel.concert.name, viewModel.concert.url).map { ($0, $1) }
+                        let pairedArray = zip(viewModel.concert.names, viewModel.concert.urls).map { ($0, $1) }
                         ForEach((LineItemType.concertItems(concertViewModel: viewModel, links: pairedArray)), id: \.title) { item in
                             switch item {
                             case .flights:

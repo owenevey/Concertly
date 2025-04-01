@@ -16,7 +16,7 @@ struct DestinationView: View {
     @State private var isTitleVisible: Bool = true
     
     var body: some View {
-        ImageHeaderScrollView(title: destination.name, imageUrl: destination.images[0]) {
+        ImageHeaderScrollView(title: destination.name, imageUrl: destination.imageUrl) {
             VStack(spacing: 20) {
                 Text(destination.longDescription)
                     .font(.system(size: 17, type: .Regular))
@@ -139,13 +139,7 @@ struct DestinationView: View {
         name: "Las Vegas",
         shortDescription: "Known for its casinos, nightlife, shows, and extravagance",
         longDescription: "A dazzling desert oasis famous for its vibrant nightlife, world-class entertainment, luxurious resorts, and iconic casinos, offering an endless array of shows, dining, and nightlife options.",
-        images: [
-            "https://owenevey-camino.s3.us-east-1.amazonaws.com/destinationPhotos/lasVegas1.jpg",
-            "https://owenevey-camino.s3.us-east-1.amazonaws.com/destinationPhotos/lasVegas2.jpg",
-            "https://owenevey-camino.s3.us-east-1.amazonaws.com/destinationPhotos/lasVegas3.jpg",
-            "https://owenevey-camino.s3.us-east-1.amazonaws.com/destinationPhotos/lasVegas4.jpg",
-            "https://owenevey-camino.s3.us-east-1.amazonaws.com/destinationPhotos/lasVegas5.jpg"
-        ],
+        imageUrl: "https://owenevey-camino.s3.us-east-1.amazonaws.com/destinationPhotos/lasVegas1.jpg",
         cityName: "Las Vegas, NV",
         countryName: "United States",
         latitude: 36.1716,
