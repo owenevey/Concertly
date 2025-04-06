@@ -23,14 +23,14 @@ func fetchData<T: Decodable, U: Encodable>(
     
     let (data, response) = try await URLSession.shared.data(for: request)
     
-    if endpoint.contains("concerts?category=") {
-        print(response)
-        if let rawData = String(data: data, encoding: .utf8) {
-            print("Raw Response: \(rawData)")
-        } else {
-            print("Unable to convert data to string")
-        }
-    }
+//    if endpoint.contains("similarConcerts") {
+//        print(response)
+//        if let rawData = String(data: data, encoding: .utf8) {
+//            print("Raw Response: \(rawData)")
+//        } else {
+//            print("Unable to convert data to string")
+//        }
+//    }
     
     guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
         throw ConcertlyError.invalidResponse
@@ -175,8 +175,8 @@ func fetchHotelsBookingUrl(location: String, fromDate: String, toDate: String, p
     return response
 }
 
-func fetchSuggestedConcerts(followingArtists: [SuggestedArtist]) async throws -> ApiResponse<SuggestedConcertsResponse> {
-    let endpoint = "\(baseUrl)/suggestedConcerts"
+func fetchSimilarConcerts(followingArtists: [SuggestedArtist]) async throws -> ApiResponse<SuggestedConcertsResponse> {
+    let endpoint = "\(baseUrl)/similarConcerts"
     
     let artistsRequest = SuggestedArtistsRequest(artists: followingArtists)
     

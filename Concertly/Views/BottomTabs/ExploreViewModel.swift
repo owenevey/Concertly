@@ -112,7 +112,7 @@ final class ExploreViewModel: ObservableObject {
                 return
             }
             
-            let fetchedConcerts = try await fetchSuggestedConcerts(followingArtists: followingArtists)
+            let fetchedConcerts = try await fetchSimilarConcerts(followingArtists: followingArtists)
             
             if let concerts = fetchedConcerts.data?.concerts, let artist = fetchedConcerts.data?.name {
                 withAnimation(.easeInOut(duration: 0.2)) {
