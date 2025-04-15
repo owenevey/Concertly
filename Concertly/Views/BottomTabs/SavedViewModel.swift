@@ -12,7 +12,7 @@ final class SavedViewModel: ObservableObject {
     }
     
     func getSavedConcerts() async {
-        let allConcerts = CoreDataManager.shared.fetchItems(for: ContentCategories.saved.rawValue, type: Concert.self)
+        let allConcerts = CoreDataManager.shared.fetchItems(for: ContentCategories.saved.rawValue, type: Concert.self, sortKey: "date")
         let upcomingConcerts = allConcerts.filter { $0.date >= Date() }
         withAnimation(.easeInOut(duration: 0.2)) {
             savedConcerts = upcomingConcerts
