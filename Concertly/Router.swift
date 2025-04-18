@@ -39,6 +39,7 @@ class Router: ObservableObject {
     }
     
     func popToRoot(tab: String) {
+        print("Popping to root", tab, explorePath.count)
         switch tab {
         case "Explore":
             explorePath.removeLast(explorePath.count)
@@ -64,7 +65,9 @@ class Router: ObservableObject {
             selectedTab = 0
             
             let navString = "\(host)/\(pathComponents[1])"
-            push(navString, tab: "Explore")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    self.push(navString, tab: "Explore")
+                }
         }
         else if host == "saved" {
             popToRoot(tab: "Saved")

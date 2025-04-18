@@ -51,7 +51,6 @@ struct ConcertlyApp: App {
         guard let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
             return false
         }
-        print("Comparing minimum version of \(minimumVersion) with current version of \(currentVersion)")
         return currentVersion.compare(minimumVersion, options: .numeric) == .orderedAscending
     }
 }
