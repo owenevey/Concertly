@@ -169,6 +169,7 @@
 		F1F3A6472D068C1C0042F4F2 /* PriceGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F3A6462D068C1C0042F4F2 /* PriceGraph.swift */; };
 		F1F3A6492D0694E50042F4F2 /* PriceHistorySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F3A6482D0694E50042F4F2 /* PriceHistorySheet.swift */; };
 		F1F3A64B2D0698850042F4F2 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F3A64A2D0698850042F4F2 /* IntExtensions.swift */; };
+		F1F8C6F52DB1D8AA002975B6 /* OutageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F8C6F42DB1D8A7002975B6 /* OutageView.swift */; };
 		F1FACFF32D39D05C00D53A7D /* VenueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF22D39D05C00D53A7D /* VenueView.swift */; };
 		F1FACFF72D39D3F600D53A7D /* VenueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF62D39D3F200D53A7D /* VenueViewModel.swift */; };
 		F1FACFF92D3B681600D53A7D /* DestinationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF82D3B681100D53A7D /* DestinationsResponse.swift */; };
@@ -336,6 +337,7 @@
 		F1F3A6462D068C1C0042F4F2 /* PriceGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceGraph.swift; sourceTree = "<group>"; };
 		F1F3A6482D0694E50042F4F2 /* PriceHistorySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHistorySheet.swift; sourceTree = "<group>"; };
 		F1F3A64A2D0698850042F4F2 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
+		F1F8C6F42DB1D8A7002975B6 /* OutageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutageView.swift; sourceTree = "<group>"; };
 		F1FACFF22D39D05C00D53A7D /* VenueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueView.swift; sourceTree = "<group>"; };
 		F1FACFF62D39D3F200D53A7D /* VenueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueViewModel.swift; sourceTree = "<group>"; };
 		F1FACFF82D3B681100D53A7D /* DestinationsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationsResponse.swift; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 				F10AA0902D7CEA3A00FB4EB9 /* AnimationManager.swift */,
 				F1C145092D6D64C100D63EBB /* CustomAppDelegate.swift */,
 				F192E3142D77DD6A009EACB9 /* Router.swift */,
+				F1F8C6F42DB1D8A7002975B6 /* OutageView.swift */,
 				F11611BE2D6A978800345C31 /* RootView.swift */,
 				F1A718782D7FBF7800B9D5B4 /* ForceUpdateView.swift */,
 				F11640122C8A8A2F0040C95D /* ContentView.swift */,
@@ -878,6 +881,7 @@
 				F14349D42D4D791500C63041 /* NearbyView.swift in Sources */,
 				F18155212C8EB35A00E25003 /* ConcertsResponse.swift in Sources */,
 				F11714B92D15129F007A0052 /* LocationRatingFilter.swift in Sources */,
+				F1F8C6F52DB1D8AA002975B6 /* OutageView.swift in Sources */,
 				F11640132C8A8A2F0040C95D /* ContentView.swift in Sources */,
 				F11714B52D14FFBB007A0052 /* SortHotels.swift in Sources */,
 				F17252BC2D344192006C3454 /* ImageViewHeader.swift in Sources */,

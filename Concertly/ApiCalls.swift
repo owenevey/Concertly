@@ -23,7 +23,7 @@ func fetchData<T: Decodable, U: Encodable>(
     
     let (data, response) = try await URLSession.shared.data(for: request)
     
-//    if endpoint.contains("followArtist") {
+//    if endpoint.contains("outage") {
 //        print(response)
 //        if let rawData = String(data: data, encoding: .utf8) {
 //            print("Raw Response: \(rawData)")
@@ -69,6 +69,12 @@ func customDateFormatter() -> DateFormatter {
 func fetchMinimumVersion() async throws -> String? {
     let endpoint = "\(baseUrl)/minimumVersion"
     let response: ApiResponse<String> = try await fetchData(endpoint: endpoint)
+    return response.data
+}
+
+func fetchOutage() async throws -> Bool? {
+    let endpoint = "\(baseUrl)/outage"
+    let response: ApiResponse<Bool> = try await fetchData(endpoint: endpoint)
     return response.data
 }
 

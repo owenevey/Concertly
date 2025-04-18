@@ -11,15 +11,24 @@ struct ConcertlyApp: App {
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage(AppStorageKeys.minimumVersion.rawValue) var minimumVersion = "0.0.0"
     @State private var forceUpdateNeeded = false
+    @State private var isOutage = false
     
     var body: some Scene {
         WindowGroup {
             RootView()
-                .disabled(forceUpdateNeeded)
+                .disabled(forceUpdateNeeded || isOutage)
                 .overlay(
-                    forceUpdateNeeded ? ForceUpdateView() : nil
-                )
-                .animation(.easeInOut(duration: 0.3), value: forceUpdateNeeded)
+                        Group {
+                            if forceUpdateNeeded {
+                                ForceUpdateView()
+                                    .transition(.opacity)
+                            } else if isOutage {
+                                OutageView()
+                                    .transition(.opacity)
+                            }
+                        }
+                    )
+                    .animation(.easeInOut(duration: 0.3), value: forceUpdateNeeded || isOutage)
                 .onAppear(perform: {
                     appDelegate.app = self
                 })
@@ -31,6 +40,10 @@ struct ConcertlyApp: App {
                             if let fetchedVersion = try await fetchMinimumVersion() {
                                 minimumVersion = fetchedVersion
                                 forceUpdateNeeded = isForceUpdateNeeded(minimumVersion: minimumVersion)
+                            }
+                            
+                            if let outage = try await fetchOutage() {
+                                isOutage = outage
                             }
                         }
                     }

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct ForceUpdateView: View {
+struct OutageView: View {
     
     @Environment(\.colorScheme) var colorScheme
     
@@ -15,22 +15,17 @@ struct ForceUpdateView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 15) {
-                Image(systemName: "arrow.clockwise")
+                Image(systemName: "icloud.slash")
                     .font(.system(size: 30, weight: .semibold))
                 
-                Text("Force Update")
+                Text("Outage")
                     .font(.system(size: 25, type: .SemiBold))
                     .multilineTextAlignment(.center)
                 
-                Text("Please update to the latest version to keep using Concertly!")
+                Text("Concertly is temporarily down for maintenance")
                     .font(.system(size: 18, type: .Regular))
                     .multilineTextAlignment(.center)
-                
-                ConcertlyButton(label: "Open App Store", fitText: true) {
-                    if let url = URL(string: "https://apps.apple.com/app/id1234567890"), UIApplication.shared.canOpenURL(url) {
-                        UIApplication.shared.open(url)
-                    }
-                }
+
             }
             .padding(30)
             .background(
@@ -44,5 +39,5 @@ struct ForceUpdateView: View {
 }
 
 #Preview {
-    ForceUpdateView()
+    OutageView()
 }
