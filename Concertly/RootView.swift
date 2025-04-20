@@ -2,7 +2,9 @@ import SwiftUI
 
 struct RootView: View {
     
-    @AppStorage(AppStorageKeys.hasSeenOnboarding.rawValue) private var hasSeenOnboarding = false
+    @AppStorage(AppStorageKeys.isSignedIn.rawValue) private var isSignedIn = false
+    @AppStorage(AppStorageKeys.hasFinishedOnboarding.rawValue) private var hasFinishedOnboarding = false
+    @AppStorage(AppStorageKeys.selectedNotificationPref.rawValue) private var selectedNotificationPref = false
     
     @StateObject var exploreViewModel: ExploreViewModel = ExploreViewModel()
     @StateObject var nearbyViewModel: NearbyViewModel = NearbyViewModel()
@@ -11,13 +13,24 @@ struct RootView: View {
     
     var body: some View {
         Group {
-            if hasSeenOnboarding {
-                ContentView(exploreViewModel: exploreViewModel, nearbyViewModel: nearbyViewModel, savedViewModel: savedViewModel, profileViewModel: profileViewModel)
+            if isSignedIn {
+                if hasFinishedOnboarding {
+                    if selectedNotificationPref {
+                        ContentView(exploreViewModel: exploreViewModel, nearbyViewModel: nearbyViewModel, savedViewModel: savedViewModel, profileViewModel: profileViewModel)
+                    }
+                    else {
+                        NotificationSelectionView()
+                    }
+                } else {
+                    NavigationStack {
+                        ChooseCityView()
+                    }
+                }
             } else {
                 LandingView()
             }
         }
-        .animation(.easeInOut(duration: 0.5), value: hasSeenOnboarding)
+        .animation(.easeInOut(duration: 0.5), value: isSignedIn || hasFinishedOnboarding || selectedNotificationPref)
     }
 }
 

@@ -1,5 +1,6 @@
 import Foundation
 import UserNotifications
+import UIKit
 
 class NotificationManager {
     static let shared = NotificationManager()
@@ -12,6 +13,9 @@ class NotificationManager {
             DispatchQueue.main.async {
                 if let error = error {
                     print("Notification permission error: \(error)")
+                }
+                if granted {
+                    UIApplication.shared.registerForRemoteNotifications()
                 }
                 completion(granted)
             }
@@ -78,7 +82,7 @@ class NotificationManager {
                 throw NSError(domain: "", code: 1, userInfo: nil)
             }
             
-            let followedArtists = CoreDataManager.shared.fetchItems(for: "following", type: Artist.self)
+            let followedArtists = CoreDataManager.shared.fetchItems(for: ContentCategories.following.rawValue, type: Artist.self)
             
             for artist in followedArtists {
                 let response = try await toggleFollowArtist(artistId: artist.id, pushNotificationToken: pushNotificationToken, follow: newTourDateNotifications)

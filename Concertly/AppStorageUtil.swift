@@ -7,8 +7,11 @@ enum concertRemindersEnum: Int {
 }
 
 enum AppStorageKeys: String {
+    case email
+    case isSignedIn
     case minimumVersion
-    case hasSeenOnboarding
+    case hasFinishedOnboarding
+    case selectedNotificationPref
     case theme
     case concertReminders
     case newTourDates

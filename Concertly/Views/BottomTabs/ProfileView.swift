@@ -15,7 +15,7 @@ struct ProfileView: View {
     
     @State private var isSearchBarVisible: Bool = true
     
-    @AppStorage(AppStorageKeys.hasSeenOnboarding.rawValue) private var hasSeenOnboarding: Bool = false
+    @AppStorage(AppStorageKeys.hasFinishedOnboarding.rawValue) private var hasSeenOnboarding: Bool = false
     
     var concertRemindersSelection: String {
         switch concertReminders {

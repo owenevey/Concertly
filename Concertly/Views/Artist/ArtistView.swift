@@ -50,7 +50,7 @@ struct ArtistView: View {
             
             VStack {
                 Spacer()
-                SnackbarView(show: $viewModel.showError, message: "Sorry, an error occurred. Please try again later.")
+                SnackbarView(show: $viewModel.showError, message: "Sorry, an error occurred. Please try again.")
                     .opacity(viewModel.showError ? 1 : 0)
                     .animation(.easeInOut(duration: 0.2), value: viewModel.showError)
             }

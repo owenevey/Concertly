@@ -3,32 +3,40 @@ import UserNotifications
 import GoogleMobileAds
 import Firebase
 import FirebaseCore
+import AWSCore
+import AWSCognitoIdentityProvider
 
 class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     var app: ConcertlyApp?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
-            if granted {
-                DispatchQueue.main.async {
-                    application.registerForRemoteNotifications()
-                }
-            } else {
-                print("Notification permission denied: \(error?.localizedDescription ?? "No error")")
-            }
-        }
-        
         UNUserNotificationCenter.current().delegate = self
         MobileAds.shared.start(completionHandler: nil)
         FirebaseApp.configure()
+        
+        let serviceConfig = AWSServiceConfiguration(
+            region: .USEast1,
+            credentialsProvider: nil
+        )
+
+        let poolConfig = AWSCognitoIdentityUserPoolConfiguration(
+            clientId: "",
+            clientSecret: nil,
+            poolId: ""
+        )
+
+        AWSCognitoIdentityUserPool.register(
+            with: serviceConfig,
+            userPoolConfiguration: poolConfig,
+            forKey: "UserPool"
+        )
+        
         return true
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let stringifiedToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
         UserDefaults.standard.set(stringifiedToken, forKey: AppStorageKeys.pushNotificationToken.rawValue)
-        print("Device token: \(stringifiedToken)")
     }
 }
 

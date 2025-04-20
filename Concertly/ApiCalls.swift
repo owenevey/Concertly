@@ -198,6 +198,15 @@ func toggleFollowArtist(artistId: String, pushNotificationToken: String, follow:
     let response: ApiResponse<String> = try await fetchData(endpoint: endpoint, method: "POST", body: followRequest)
     return response
 }
+
+func updateUserPreferences(request: UserPreferencesRequest) async throws -> ApiResponse<String> {
+    let endpoint = "\(baseUrl)/updatePreferences"
+        
+    let response: ApiResponse<String> = try await fetchData(endpoint: endpoint, method: "POST", body: request)
+    return response
+}
+
+
 ////////////////////////////////////////////////////////
 
 enum ConcertlyError: Error {

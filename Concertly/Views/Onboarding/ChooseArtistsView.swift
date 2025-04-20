@@ -2,32 +2,50 @@ import SwiftUI
 import SmoothGradient
 
 struct ChooseArtistsView: View {
-        
-    @AppStorage(AppStorageKeys.hasSeenOnboarding.rawValue) private var hasSeenOnboarding = false
+    
+    @AppStorage(AppStorageKeys.hasFinishedOnboarding.rawValue) private var hasFinishedOnboarding = false
+    @AppStorage(AppStorageKeys.email.rawValue) private var emailStorage: String = ""
+    @AppStorage(AppStorageKeys.homeCity.rawValue) private var homeCity = ""
+    @AppStorage(AppStorageKeys.homeLat.rawValue) private var homeLat: Double = 0
+    @AppStorage(AppStorageKeys.homeLong.rawValue) private var homeLong: Double = 0
+    @AppStorage(AppStorageKeys.homeAirport.rawValue) private var homeAirport = ""
+    
     @FocusState private var isTextFieldFocused: Bool
     @State private var showHeaderBorder: Bool = false
     @State private var selectedArtists: Set<SuggestedArtist> = []
     
+    @State var savePreferencesResponse: ApiResponse<String> = ApiResponse<String>()
+    @State var showError = false
+    
+    
     private func onTapDone() async {
-        hasSeenOnboarding = true
-        for artist in selectedArtists {
-            if !CoreDataManager.shared.isFollowingArtist(id: artist.id) {
+        let followedArtists: [FollowedArtist] = selectedArtists.map { suggestedArtist in
+            FollowedArtist(id: suggestedArtist.id, name: suggestedArtist.name)
+        }
+        
+        let userPreferencesRequest = UserPreferencesRequest(email: emailStorage, artists: followedArtists, follow: true, city: homeCity, latitude: homeLat, longitude: homeLong, airport: homeAirport)
+        
+        withAnimation(.easeInOut(duration: 0.2)) {
+            savePreferencesResponse = ApiResponse(status: .loading)
+        }
+        
+        do {
+            let response = try await updateUserPreferences(request: userPreferencesRequest)
+            
+            if response.status == .error {
+                throw NSError(domain: "", code: 1, userInfo: nil)
+            }
+            
+            hasFinishedOnboarding = true
+            
+            for artist in selectedArtists {
                 CoreDataManager.shared.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: ContentCategories.following.rawValue)
             }
             
-            do {
-                guard let pushNotificationToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue) else {
-                    throw NSError(domain: "", code: 1, userInfo: nil)
-                }
-                
-                let response = try await toggleFollowArtist(artistId: artist.id, pushNotificationToken: pushNotificationToken, follow: true)
-                
-                if response.status == .error {
-                    throw NSError(domain: "", code: 1, userInfo: nil)
-                }
-            }
-            catch {
-                print("Error following the artist")
+        } catch {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                savePreferencesResponse = ApiResponse(status: .error, error: error.localizedDescription)
+                showError = true
             }
         }
     }
@@ -76,25 +94,20 @@ struct ChooseArtistsView: View {
                     }
                 }
                 .safeAreaInset(edge: .bottom) {
-                    NavigationLink(destination: NotificationSelectionView(selectedArtists: selectedArtists)) {
-                        Text("Next")
-                            .font(.system(size: 17, type: .SemiBold))
-                            .foregroundStyle(.white)
-                            .padding(.horizontal, 60)
-                            .padding(.vertical, 12)
-                            .background(
-                                RoundedRectangle(cornerRadius: 15)
-                                    .fill(Color.accentColor)
-                            )
-                            .contentShape(RoundedRectangle(cornerRadius: 15))
-                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                    ConcertlyButton(label: "               Next               ", fitText: true) {
+                        await onTapDone()
                     }
-                    .buttonStyle(PlainButtonStyle())
                     .shadow(radius: 5)
                 }
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal, 10)
+            
+            
+            
+            SnackbarView(show: $showError, message: "Sorry, an error occurred. Please try again.")
+                .opacity(showError ? 1 : 0)
+                .animation(.easeInOut(duration: 0.2), value: showError)
             
         }
         .background(Color.background)

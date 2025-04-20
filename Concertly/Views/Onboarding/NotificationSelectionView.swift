@@ -4,19 +4,15 @@ struct NotificationSelectionView: View {
     
     private let notificationManager = NotificationManager.shared
     
-    @AppStorage(AppStorageKeys.hasSeenOnboarding.rawValue) private var hasSeenOnboarding: Bool = false
-    
-    var selectedArtists: Set<SuggestedArtist>
-    
+    @AppStorage(AppStorageKeys.selectedNotificationPref.rawValue) private var selectedNotificationPref = false
+        
     private func onTapDone(isNotificationsEnabled: Bool) {
-        hasSeenOnboarding = true
+        selectedNotificationPref = true
         UserDefaults.standard.set(isNotificationsEnabled ? 1 : 0, forKey: AppStorageKeys.concertReminders.rawValue)
         UserDefaults.standard.set(isNotificationsEnabled, forKey: AppStorageKeys.newTourDates.rawValue)
         
-        for artist in selectedArtists {
-            if !CoreDataManager.shared.isFollowingArtist(id: artist.id) {
-                CoreDataManager.shared.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: ContentCategories.following.rawValue)
-            }
+        Task {
+            await notificationManager.updateNewTourDateNotifications()
         }
     }
     
@@ -59,5 +55,5 @@ struct NotificationSelectionView: View {
 }
 
 #Preview {
-    NotificationSelectionView(selectedArtists: [])
+    NotificationSelectionView()
 }
