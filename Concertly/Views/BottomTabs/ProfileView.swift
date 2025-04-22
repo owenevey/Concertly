@@ -15,6 +15,8 @@ struct ProfileView: View {
     
     @State private var isSearchBarVisible: Bool = true
     
+    @EnvironmentObject var router: Router
+    
     @AppStorage(AppStorageKeys.hasFinishedOnboarding.rawValue) private var hasSeenOnboarding: Bool = false
     
     var concertRemindersSelection: String {
@@ -214,6 +216,12 @@ struct ProfileView: View {
                                     .fill(.gray1)
                                     .frame(maxWidth: .infinity)
                             )
+                        }
+                        
+                        ConcertlyButton(label: "SignOut") {
+                            AuthenticationService.shared.signOut { _ in
+                                router.selectedTab = 0
+                            }
                         }
                         
                         Spacer()

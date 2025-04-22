@@ -21,6 +21,7 @@ class AuthenticationService {
         
         userPool.signUp(email, password: password, userAttributes: userAttributes, validationData: nil).continueWith { task in
             if let error = task.error {
+                print("AWS ERROR", error)
                 completion(.failure(error))
             } else {
                 completion(.success(()))
@@ -99,4 +100,6 @@ class AuthenticationService {
             return nil
         }
     }
+    
+    
 }

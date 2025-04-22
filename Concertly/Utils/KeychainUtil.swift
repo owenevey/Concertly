@@ -31,4 +31,13 @@ struct KeychainUtil {
         }
         return nil
     }
+    
+    static func delete(forKey key: String) {
+            let query = [
+                kSecClass: kSecClassGenericPassword,
+                kSecAttrAccount: key
+            ] as CFDictionary
+            
+            SecItemDelete(query)
+        }
 }

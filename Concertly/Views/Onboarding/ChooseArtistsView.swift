@@ -13,7 +13,7 @@ struct ChooseArtistsView: View {
     @FocusState private var isTextFieldFocused: Bool
     @State private var showHeaderBorder: Bool = false
     @State private var selectedArtists: Set<SuggestedArtist> = []
-    
+        
     @State var savePreferencesResponse: ApiResponse<String> = ApiResponse<String>()
     @State var showError = false
     
@@ -34,6 +34,10 @@ struct ChooseArtistsView: View {
             
             if response.status == .error {
                 throw NSError(domain: "", code: 1, userInfo: nil)
+            }
+            
+            withAnimation(.easeInOut(duration: 0.2)) {
+                savePreferencesResponse = ApiResponse(status: .success)
             }
             
             hasFinishedOnboarding = true

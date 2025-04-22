@@ -64,10 +64,8 @@ struct VerifyEmailView: View {
                             emailStorage = email
                             errorMessage = nil
                             showResendButton = false
-                            Task {
-                                try? await Task.sleep(for: .seconds(1))
-                                shouldNavigateToChooseCity = true
-                            }
+                            shouldNavigateToChooseCity = true
+                            
                         case .failure(let error as NSError):
                             if error.domain == AWSCognitoIdentityProviderErrorDomain {
                                 switch error.code {
@@ -92,9 +90,9 @@ struct VerifyEmailView: View {
         }
         .padding(15)
         .navigationBarHidden(true)
-        .navigationDestination(isPresented: $shouldNavigateToChooseCity) {
-            ChooseCityView()
-        }
+//        .navigationDestination(isPresented: $shouldNavigateToChooseCity) {
+//            ChooseCityView()
+//        }
     }
 }
 
