@@ -105,12 +105,7 @@ struct ArtistView: View {
                         
                         if !artistDetails.concerts.isEmpty {
                             VStack(spacing: 10) {
-                                if viewModel.nearbyConcerts.isEmpty {
-                                    Text("No Nearby Concerts")
-                                        .font(.system(size: 20, type: .Medium))
-                                        .frame(maxWidth: .infinity, alignment: .center)
-                                        .padding(.vertical, 5)
-                                } else {
+                                if !viewModel.nearbyConcerts.isEmpty {
                                     Text("Nearby Concerts")
                                         .font(.system(size: 23, type: .SemiBold))
                                         .frame(maxWidth: .infinity, alignment: .leading)

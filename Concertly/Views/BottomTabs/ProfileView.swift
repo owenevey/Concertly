@@ -17,7 +17,9 @@ struct ProfileView: View {
     
     @EnvironmentObject var router: Router
     
-    @AppStorage(AppStorageKeys.hasFinishedOnboarding.rawValue) private var hasSeenOnboarding: Bool = false
+    @AppStorage(AppStorageKeys.isSignedIn.rawValue) private var isSignedIn = false
+    @AppStorage(AppStorageKeys.hasFinishedOnboarding.rawValue) private var hasFinishedOnboarding = false
+    @AppStorage(AppStorageKeys.selectedNotificationPref.rawValue) private var selectedNotificationPref = false
     
     var concertRemindersSelection: String {
         switch concertReminders {
@@ -221,8 +223,12 @@ struct ProfileView: View {
                         ConcertlyButton(label: "SignOut") {
                             AuthenticationService.shared.signOut { _ in
                                 router.selectedTab = 0
+                                isSignedIn = false
+                                hasFinishedOnboarding = false
+                                selectedNotificationPref = false
                             }
                         }
+                        .padding(.vertical, 15)
                         
                         Spacer()
                     }

@@ -3,8 +3,13 @@ import SwiftUI
 struct CircleLoadingView: View {
     @State private var rotationAngle = 0.0
     let ringSize: CGFloat
+    var useWhite: Bool = false
 
-    var colors: [Color] = [Color.accent, Color.accent.opacity(0.3)]
+        var colors: [Color] {
+            useWhite
+                ? [Color.white, Color.white.opacity(0.3)]
+                : [Color.accent, Color.accent.opacity(0.3)]
+        }
 
     var body: some View {
         ZStack {
@@ -23,7 +28,7 @@ struct CircleLoadingView: View {
 
             Circle()
                 .frame(width: ringSize/5, height: ringSize/5)
-                .foregroundColor(Color.accent)
+                .foregroundColor(useWhite ? .white : Color.accent)
                 .offset(x: ringSize/2)
 
         }
@@ -41,5 +46,5 @@ struct CircleLoadingView: View {
 }
 
 #Preview {
-    CircleLoadingView(ringSize: 20)
+    CircleLoadingView(ringSize: 20, useWhite: true)
 }

@@ -21,7 +21,6 @@ class AuthenticationService {
         
         userPool.signUp(email, password: password, userAttributes: userAttributes, validationData: nil).continueWith { task in
             if let error = task.error {
-                print("AWS ERROR", error)
                 completion(.failure(error))
             } else {
                 completion(.success(()))
@@ -101,5 +100,21 @@ class AuthenticationService {
         }
     }
     
-    
+    func signOut(completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let userPool = userPool else {
+            completion(.failure(NSError(domain: "UserPoolNotInitialized", code: -1, userInfo: nil)))
+            return
+        }
+
+        let user = userPool.currentUser()
+        user?.signOut()
+
+        // Clear tokens and sign-in state
+        KeychainUtil.delete(forKey: "accessToken")
+        KeychainUtil.delete(forKey: "idToken")
+        KeychainUtil.delete(forKey: "refreshToken")
+        UserDefaults.standard.set(false, forKey: AppStorageKeys.isSignedIn.rawValue)
+
+        completion(.success(()))
+    }
 }

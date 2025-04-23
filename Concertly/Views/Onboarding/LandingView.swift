@@ -61,7 +61,7 @@ struct LandingView: View {
                             .blurOpacityEffect(initialAnimation)
                     }
                     
-                    NavigationLink(destination: AuthLandingView()) {
+                    NavigationLink(destination: SignInView()) {
                         Text("Get Started")
                             .font(.system(size: 17, type: .SemiBold))
                             .foregroundStyle(.white)

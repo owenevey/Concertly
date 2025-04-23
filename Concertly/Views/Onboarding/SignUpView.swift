@@ -2,18 +2,28 @@ import SwiftUI
 import AWSCognitoIdentityProvider
 import AuthenticationServices
 
-struct SignInView: View {
-    
-    @AppStorage(AppStorageKeys.isSignedIn.rawValue) private var isSignedIn = false
-    
+struct SignUpView: View {
+        
     @State var email: String = ""
-    @State var password: String = ""
+    @State var password1: String = ""
+    @State var password2: String = ""
     @State var errorMessage: String?
     @State var isLoading = false
+    
+    @State private var navigateToVerify = false
     
     var isValidEmail: Bool {
         let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         return NSPredicate(format: "SELF MATCHES %@", emailFormat).evaluate(with: email)
+    }
+    
+    func isValidPassword(_ password: String) -> Bool {
+        let minLengthRule = password.count >= 8
+        let uppercaseRule = password.range(of: "[A-Z]", options: .regularExpression) != nil
+        let lowercaseRule = password.range(of: "[a-z]", options: .regularExpression) != nil
+        let numberRule = password.range(of: "[0-9]", options: .regularExpression) != nil
+
+        return minLengthRule && uppercaseRule && lowercaseRule && numberRule
     }
     
     var body: some View {
@@ -27,7 +37,7 @@ struct SignInView: View {
                     .foregroundStyle(.accent)
                     .padding(.bottom, 20)
                 
-                Text("Sign in to your account")
+                Text("Create your account")
                     .font(.system(size: 23, type: .SemiBold))
                 
                 HStack {
@@ -48,12 +58,30 @@ struct SignInView: View {
                         .frame(maxWidth: .infinity)
                 )
                 
+                HStack {
+                    Image(systemName: "lock")
+                        .fontWeight(.semibold)
+                    TextField("Password", text: $password1)
+                        .textContentType(.newPassword)
+                        .submitLabel(.done)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                        .font(.system(size: 17, type: .Regular))
+                        .padding(.trailing)
+                }
+                .padding(15)
+                .background(
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.gray1)
+                        .frame(maxWidth: .infinity)
+                )
+                
                 VStack {
                     HStack {
                         Image(systemName: "lock")
                             .fontWeight(.semibold)
-                        TextField("Password", text: $password)
-                            .textContentType(.password)
+                        TextField("Confirm Password", text: $password2)
+                            .textContentType(.newPassword)
                             .submitLabel(.done)
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
@@ -78,6 +106,7 @@ struct SignInView: View {
                     }
                 }
                 
+                
                 Button {
                     withAnimation {
                         errorMessage = nil
@@ -90,9 +119,23 @@ struct SignInView: View {
                         return
                     }
                     
-                    if password.isEmpty {
+                    if password1.isEmpty {
                         withAnimation {
                             errorMessage = "Please enter a password."
+                        }
+                        return
+                    }
+                    
+                    if password1 != password2 {
+                        withAnimation {
+                            errorMessage = "Passwords do not match."
+                        }
+                        return
+                    }
+                    
+                    if !isValidPassword(password1) {
+                        withAnimation {
+                            errorMessage = "Password must be at least 8 characters long, contain an uppercase and lowercase character, and a number."
                         }
                         return
                     }
@@ -101,37 +144,30 @@ struct SignInView: View {
                         isLoading = true
                     }
                     
-                    AuthenticationService.shared.signIn(email: email, password: password) { result in
+                    AuthenticationService.shared.signUp(email: email, password: password1) { result in
                         DispatchQueue.main.async {
                             switch result {
-                            case .success(_):
-                                isSignedIn = true
-                                
+                            case .success:
+                                navigateToVerify = true
                             case .failure(let error as NSError):
                                 withAnimation {
                                     if error.domain == AWSCognitoIdentityProviderErrorDomain {
                                         switch error.code {
-                                        case AWSCognitoIdentityProviderErrorType.notAuthorized.rawValue:
-                                            errorMessage = "Incorrect credentials. Please check your email and password."
-                                        case AWSCognitoIdentityProviderErrorType.userNotFound.rawValue:
-                                            errorMessage = "User not found. Please check your email or sign up."
+                                        case AWSCognitoIdentityProviderErrorType.usernameExists.rawValue:
+                                            errorMessage = "That email is already registered. Please sign in."
+                                        case AWSCognitoIdentityProviderErrorType.invalidPassword.rawValue:
+                                            errorMessage = "Password must be at least 8 characters, contain uppercase and lowercase, number, and symbol."
                                         case AWSCognitoIdentityProviderErrorType.invalidParameter.rawValue:
                                             errorMessage = "Invalid input. Double-check your info."
-                                        case AWSCognitoIdentityProviderErrorType.passwordResetRequired.rawValue:
-                                            errorMessage = "Password reset required. Follow the instructions to reset your password."
-                                        case AWSCognitoIdentityProviderErrorType.tooManyRequests.rawValue:
-                                            errorMessage = "Too many requests. Please try again later."
-                                        case AWSCognitoIdentityProviderErrorType.expiredCode.rawValue:
-                                            errorMessage = "Session expired. Please sign in again."
                                         default:
-                                            errorMessage = "Something went wrong. Please try again."
+                                            errorMessage = "Something went wrong. Try again."
                                         }
                                     } else {
-                                        errorMessage = "Something went wrong. Please try again."
+                                        errorMessage = "Something went wrong. Try again."
                                     }
-                                    isLoading = false
                                 }
                             }
+                            isLoading = false
                         }
                     }
                 } label: {
@@ -148,7 +184,7 @@ struct SignInView: View {
                         .frame(width: 90, height: isLoading ? nil : 1)
                         .transition(.opacity)
                         
-                        Text("Sign In")
+                        Text("Sign Up")
                             .font(.system(size: 17, type: .SemiBold))
                             .lineLimit(1)
                             .foregroundStyle(.primary)
@@ -176,24 +212,24 @@ struct SignInView: View {
                     .foregroundStyle(.gray3)
                     .padding(.vertical, 15)
                 
-                SignInWithAppleButton(.signIn) { request in
-                    request.requestedScopes = [.fullName, .email]
-                } onCompletion: { result in
-                    switch result {
-                    case .success(let authorization):
-                        handleSuccessfulLogin(with: authorization)
-                    case .failure(let error):
-                        handleLoginError(with: error)
-                    }
-                }
-                .frame(height: 45)
+                SignInWithAppleButton(.signUp) { request in
+                            request.requestedScopes = [.fullName, .email]
+                        } onCompletion: { result in
+                            switch result {
+                            case .success(let authorization):
+                                handleSuccessfulLogin(with: authorization)
+                            case .failure(let error):
+                                handleLoginError(with: error)
+                            }
+                        }
+                        .frame(height: 45)
                 
                 Spacer()
                 
                 HStack {
-                    Text("Don't have an account?")
-                    NavigationLink(destination: SignUpView()) {
-                        Text("Sign Up")
+                    Text("Have an account?")
+                    NavigationLink(destination: SignInView()) {
+                        Text("Sign In")
                     }
                 }
                 .font(.system(size: 16, type: .Medium))
@@ -205,28 +241,31 @@ struct SignInView: View {
         }
         .navigationBarHidden(true)
         .disableSwipeBack(true)
+        .navigationDestination(isPresented: $navigateToVerify) {
+            VerifyEmailView(email: email, password: password1)
+        }
     }
     
     
     private func handleSuccessfulLogin(with authorization: ASAuthorization) {
-        if let userCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            print(userCredential.user)
-            
-            if userCredential.authorizedScopes.contains(.fullName) {
-                print(userCredential.fullName?.givenName ?? "No given name")
-            }
-            
-            if userCredential.authorizedScopes.contains(.email) {
-                print(userCredential.email ?? "No email")
+            if let userCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+                print(userCredential.user)
+                
+                if userCredential.authorizedScopes.contains(.fullName) {
+                    print(userCredential.fullName?.givenName ?? "No given name")
+                }
+                
+                if userCredential.authorizedScopes.contains(.email) {
+                    print(userCredential.email ?? "No email")
+                }
             }
         }
-    }
-    
-    private func handleLoginError(with error: Error) {
-        print("Could not authenticate: \\(error.localizedDescription)")
-    }
+        
+        private func handleLoginError(with error: Error) {
+            print("Could not authenticate: \\(error.localizedDescription)")
+        }
 }
 
 #Preview {
-    SignInView()
+    SignUpView()
 }
