@@ -103,20 +103,19 @@ struct ArtistView: View {
                             .padding(.top, -10)
                         }
                         
-                        if !artistDetails.concerts.isEmpty {
+                        if !viewModel.nearbyConcerts.isEmpty {
                             VStack(spacing: 10) {
-                                if !viewModel.nearbyConcerts.isEmpty {
-                                    Text("Nearby Concerts")
-                                        .font(.system(size: 23, type: .SemiBold))
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                    
-                                    ForEach(viewModel.nearbyConcerts) { concert in
-                                        NavigationLink(value: concert) {
-                                            ConcertRow(concert: concert, screen: .artist)
-                                        }
-                                        .buttonStyle(PlainButtonStyle())
+                                Text("Nearby Concerts")
+                                    .font(.system(size: 23, type: .SemiBold))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                ForEach(viewModel.nearbyConcerts) { concert in
+                                    NavigationLink(value: concert) {
+                                        ConcertRow(concert: concert, screen: .artist)
                                     }
+                                    .buttonStyle(PlainButtonStyle())
                                 }
+                                
                             }
                         }
                         

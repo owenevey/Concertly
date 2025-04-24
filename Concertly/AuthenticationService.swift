@@ -29,7 +29,7 @@ class AuthenticationService {
         }
     }
     
-    func confirmSignUp(email: String, password: String, confirmationCode: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func confirmSignUp(email: String, confirmationCode: String, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let userPool = userPool else {
             completion(.failure(NSError(domain: "UserPoolNotInitialized", code: -1, userInfo: nil)))
             return
@@ -40,14 +40,7 @@ class AuthenticationService {
             if let error = task.error {
                 completion(.failure(error))
             } else {
-                self.signIn(email: email, password: password, completion: { result in
-                    switch result {
-                    case .success:
-                        completion(.success(()))
-                    case .failure(let signInError):
-                        completion(.failure(signInError))
-                    }
-                })
+                completion(.success(()))
             }
             return nil
         }
@@ -89,6 +82,7 @@ class AuthenticationService {
                 KeychainUtil.save(idToken, forKey: "idToken")
                 KeychainUtil.save(refreshToken, forKey: "refreshToken")
                 
+                UserDefaults.standard.set(email, forKey: AppStorageKeys.email.rawValue)
                 UserDefaults.standard.set(true, forKey: AppStorageKeys.isSignedIn.rawValue)
                 
                 completion(.success(session))

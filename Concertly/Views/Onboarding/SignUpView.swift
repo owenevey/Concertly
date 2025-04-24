@@ -3,12 +3,14 @@ import AWSCognitoIdentityProvider
 import AuthenticationServices
 
 struct SignUpView: View {
-        
+    
     @State var email: String = ""
     @State var password1: String = ""
     @State var password2: String = ""
     @State var errorMessage: String?
     @State var isLoading = false
+    
+    @Environment(\.dismiss) var dismiss
     
     @State private var navigateToVerify = false
     
@@ -22,7 +24,7 @@ struct SignUpView: View {
         let uppercaseRule = password.range(of: "[A-Z]", options: .regularExpression) != nil
         let lowercaseRule = password.range(of: "[a-z]", options: .regularExpression) != nil
         let numberRule = password.range(of: "[0-9]", options: .regularExpression) != nil
-
+        
         return minLengthRule && uppercaseRule && lowercaseRule && numberRule
     }
     
@@ -76,35 +78,24 @@ struct SignUpView: View {
                         .frame(maxWidth: .infinity)
                 )
                 
-                VStack {
-                    HStack {
-                        Image(systemName: "lock")
-                            .fontWeight(.semibold)
-                        TextField("Confirm Password", text: $password2)
-                            .textContentType(.newPassword)
-                            .submitLabel(.done)
-                            .autocapitalization(.none)
-                            .disableAutocorrection(true)
-                            .font(.system(size: 17, type: .Regular))
-                            .padding(.trailing)
-                    }
-                    .padding(15)
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(.gray1)
-                            .frame(maxWidth: .infinity)
-                    )
-                    
-                    if let error = errorMessage {
-                        Text(error)
-                            .foregroundColor(.red)
-                            .font(.system(size: 16, type: .Regular))
-                            .multilineTextAlignment(.center)
-                            .lineLimit(nil)
-                            .padding(.top, 10)
-                            .transition(.opacity)
-                    }
+                HStack {
+                    Image(systemName: "lock")
+                        .fontWeight(.semibold)
+                    TextField("Confirm Password", text: $password2)
+                        .textContentType(.newPassword)
+                        .submitLabel(.done)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                        .font(.system(size: 17, type: .Regular))
+                        .padding(.trailing)
                 }
+                .padding(15)
+                .background(
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.gray1)
+                        .frame(maxWidth: .infinity)
+                )
+                
                 
                 
                 Button {
@@ -149,6 +140,9 @@ struct SignUpView: View {
                             switch result {
                             case .success:
                                 navigateToVerify = true
+                                withAnimation {
+                                    isLoading = false
+                                }
                             case .failure(let error as NSError):
                                 withAnimation {
                                     if error.domain == AWSCognitoIdentityProviderErrorDomain {
@@ -167,7 +161,9 @@ struct SignUpView: View {
                                     }
                                 }
                             }
-                            isLoading = false
+                            withAnimation {
+                                isLoading = false
+                            }
                         }
                     }
                 } label: {
@@ -186,12 +182,13 @@ struct SignUpView: View {
                         
                         Text("Sign Up")
                             .font(.system(size: 17, type: .SemiBold))
+                            .foregroundStyle(.white)
                             .lineLimit(1)
                             .foregroundStyle(.primary)
                             .padding(.horizontal, 30)
                             .padding(.vertical, 12)
                             .frame(maxWidth: .infinity, alignment: .center)
-                                                
+                        
                         Color.clear
                             .padding(.trailing, 15)
                             .frame(width: 90, height: 1)
@@ -207,29 +204,42 @@ struct SignUpView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
                 
-                Text("Or")
-                    .font(.system(size: 16, type: .Regular))
-                    .foregroundStyle(.gray3)
-                    .padding(.vertical, 15)
-                
-                SignInWithAppleButton(.signUp) { request in
-                            request.requestedScopes = [.fullName, .email]
-                        } onCompletion: { result in
-                            switch result {
-                            case .success(let authorization):
-                                handleSuccessfulLogin(with: authorization)
-                            case .failure(let error):
-                                handleLoginError(with: error)
-                            }
+                VStack {
+                    if let error = errorMessage {
+                        Text(error)
+                            .foregroundColor(.red)
+                            .font(.system(size: 16, type: .Regular))
+                            .multilineTextAlignment(.center)
+                            .lineLimit(2, reservesSpace: true)
+                            .padding(.top, 10)
+                            .transition(.opacity)
+                    }
+                    
+                    Text("Or")
+                        .font(.system(size: 16, type: .Regular))
+                        .foregroundStyle(.gray3)
+                        .padding(.vertical, 15)
+                    
+                    SignInWithAppleButton(.signUp) { request in
+                        request.requestedScopes = [.fullName, .email]
+                    } onCompletion: { result in
+                        switch result {
+                        case .success(let authorization):
+                            handleSuccessfulLogin(with: authorization)
+                        case .failure(let error):
+                            handleLoginError(with: error)
                         }
-                        .frame(height: 45)
+                    }
+                    .frame(height: 45)
+                }
+                .frame(height: 200)
                 
                 Spacer()
                 
                 HStack {
                     Text("Have an account?")
-                    NavigationLink(destination: SignInView()) {
-                        Text("Sign In")
+                    Button("Sign In") {
+                        dismiss()
                     }
                 }
                 .font(.system(size: 16, type: .Medium))
@@ -242,28 +252,28 @@ struct SignUpView: View {
         .navigationBarHidden(true)
         .disableSwipeBack(true)
         .navigationDestination(isPresented: $navigateToVerify) {
-            VerifyEmailView(email: email, password: password1)
+            CodeInputView(email: email, password: password1)
         }
     }
     
     
     private func handleSuccessfulLogin(with authorization: ASAuthorization) {
-            if let userCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-                print(userCredential.user)
-                
-                if userCredential.authorizedScopes.contains(.fullName) {
-                    print(userCredential.fullName?.givenName ?? "No given name")
-                }
-                
-                if userCredential.authorizedScopes.contains(.email) {
-                    print(userCredential.email ?? "No email")
-                }
+        if let userCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            print(userCredential.user)
+            
+            if userCredential.authorizedScopes.contains(.fullName) {
+                print(userCredential.fullName?.givenName ?? "No given name")
+            }
+            
+            if userCredential.authorizedScopes.contains(.email) {
+                print(userCredential.email ?? "No email")
             }
         }
-        
-        private func handleLoginError(with error: Error) {
-            print("Could not authenticate: \\(error.localizedDescription)")
-        }
+    }
+    
+    private func handleLoginError(with error: Error) {
+        print("Could not authenticate: \\(error.localizedDescription)")
+    }
 }
 
 #Preview {

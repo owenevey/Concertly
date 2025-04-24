@@ -7,6 +7,7 @@ struct ProfileView: View {
     @StateObject var profileViewModel: ProfileViewModel
     @StateObject var nearbyViewModel: NearbyViewModel
     
+    @AppStorage(AppStorageKeys.email.rawValue) private var email: String = "owenevey@gmail.com"
     @AppStorage(AppStorageKeys.homeAirport.rawValue) private var homeAirport: String = "JFK"
     @AppStorage(AppStorageKeys.homeCity.rawValue) private var homeCity: String = "New York, NY"
     @AppStorage(AppStorageKeys.theme.rawValue) private var theme: String = "Default"
@@ -65,13 +66,37 @@ struct ProfileView: View {
                                     .buttonStyle(PlainButtonStyle())
                                 }
                             }
+                            
                             ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHStack(spacing: 15) {
-                                    ForEach(profileViewModel.followingArtists) { artist in
-                                        ArtistCard(artist: artist)
+                                    if profileViewModel.followingArtists.count > 0 {
+                                        ForEach(profileViewModel.followingArtists) { artist in
+                                            ArtistCard(artist: artist)
+                                        }
+                                        .shadow(color: .black.opacity(0.2), radius: 5)
+                                    } else {
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(Color.gray2, lineWidth: 4)
+                                            .frame(width: 200, height: 230)
+                                            .overlay(
+                                                VStack(spacing: 15) {
+                                                    Image(systemName: "plus.circle")
+                                                        .font(.system(size: 35, weight: .semibold))
+                                                    Text("Follow artists to see them here")
+                                                        .font(.system(size: 16, type: .Medium))
+                                                        .multilineTextAlignment(.center)
+                                                }
+                                            )
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(Color.gray2, lineWidth: 4)
+                                            .frame(width: 200, height: 230)
+                                        
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .stroke(Color.gray2, lineWidth: 4)
+                                            .frame(width: 200, height: 230)
                                     }
                                 }
-                                .shadow(color: .black.opacity(0.2), radius: 5)
+                                
                                 .padding(.top, 10)
                                 .padding(.bottom, 20)
                                 .scrollTargetLayout()
@@ -212,6 +237,47 @@ struct ProfileView: View {
                                 .padding(.vertical, 12)
                                 .padding(.horizontal, 15)
                                 .contentShape(Rectangle())
+                            }
+                            .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .fill(.gray1)
+                                    .frame(maxWidth: .infinity)
+                            )
+                        }
+                        .padding(.bottom, 20)
+                        
+                        VStack {
+                            Text("Account")
+                                .font(.system(size: 20, type: .SemiBold))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            VStack(spacing: 0) {
+                                
+                                Text(email)
+                                    .font(.system(size: 17, type: .Regular))
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .padding(.vertical, 12)
+                                    .padding(.horizontal, 15)
+                                    .contentShape(Rectangle())
+                                
+                                NavigationLink(value: "name") {
+                                    HStack {
+                                        Image(systemName: "gear")
+                                            .frame(width: 22)
+                                        Text("Settings")
+                                            .font(.system(size: 17, type: .Regular))
+                                        
+                                        Spacer()
+  
+                                        Image(systemName: "chevron.right")
+                                            .font(.system(size: 13))
+                                            .fontWeight(.semibold)
+                                    }
+                                    .padding(.vertical, 12)
+                                    .padding(.horizontal, 15)
+                                    .contentShape(Rectangle())
+                                }
+                                .buttonStyle(PlainButtonStyle())
                             }
                             .background(
                                 RoundedRectangle(cornerRadius: 10)

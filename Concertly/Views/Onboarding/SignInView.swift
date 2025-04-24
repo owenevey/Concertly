@@ -66,16 +66,7 @@ struct SignInView: View {
                             .fill(.gray1)
                             .frame(maxWidth: .infinity)
                     )
-                    
-                    if let error = errorMessage {
-                        Text(error)
-                            .foregroundColor(.red)
-                            .font(.system(size: 16, type: .Regular))
-                            .multilineTextAlignment(.center)
-                            .lineLimit(nil)
-                            .padding(.top, 10)
-                            .transition(.opacity)
-                    }
+                
                 }
                 
                 Button {
@@ -106,6 +97,9 @@ struct SignInView: View {
                             switch result {
                             case .success(_):
                                 isSignedIn = true
+                                withAnimation {
+                                    isLoading = false
+                                }
                                 
                             case .failure(let error as NSError):
                                 withAnimation {
@@ -150,6 +144,7 @@ struct SignInView: View {
                         
                         Text("Sign In")
                             .font(.system(size: 17, type: .SemiBold))
+                            .foregroundStyle(.white)
                             .lineLimit(1)
                             .foregroundStyle(.primary)
                             .padding(.horizontal, 30)
@@ -171,22 +166,35 @@ struct SignInView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
                 
-                Text("Or")
-                    .font(.system(size: 16, type: .Regular))
-                    .foregroundStyle(.gray3)
-                    .padding(.vertical, 15)
-                
-                SignInWithAppleButton(.signIn) { request in
-                    request.requestedScopes = [.fullName, .email]
-                } onCompletion: { result in
-                    switch result {
-                    case .success(let authorization):
-                        handleSuccessfulLogin(with: authorization)
-                    case .failure(let error):
-                        handleLoginError(with: error)
+                VStack {
+                    if let error = errorMessage {
+                        Text(error)
+                            .foregroundColor(.red)
+                            .font(.system(size: 16, type: .Regular))
+                            .multilineTextAlignment(.center)
+                            .lineLimit(2, reservesSpace: true)
+                            .padding(.top, 10)
+                            .transition(.opacity)
                     }
+                    
+                    Text("Or")
+                        .font(.system(size: 16, type: .Regular))
+                        .foregroundStyle(.gray3)
+                        .padding(.vertical, 15)
+                    
+                    SignInWithAppleButton(.signIn) { request in
+                        request.requestedScopes = [.fullName, .email]
+                    } onCompletion: { result in
+                        switch result {
+                        case .success(let authorization):
+                            handleSuccessfulLogin(with: authorization)
+                        case .failure(let error):
+                            handleLoginError(with: error)
+                        }
+                    }
+                    .frame(height: 45)
                 }
-                .frame(height: 45)
+                .frame(height: 200)
                 
                 Spacer()
                 

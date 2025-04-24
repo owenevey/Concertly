@@ -60,6 +60,12 @@
 		F131862E2CB2E5D5003DBCC5 /* MapCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131862D2CB2E5D5003DBCC5 /* MapCard.swift */; };
 		F13186302CB2F03E003DBCC5 /* FlightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F131862F2CB2F03E003DBCC5 /* FlightsView.swift */; };
 		F13186322CB2F198003DBCC5 /* LineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13186312CB2F198003DBCC5 /* LineItem.swift */; };
+		F13DF2762DB467DF001A0FB3 /* KeychainUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DF2752DB467DF001A0FB3 /* KeychainUtil.swift */; };
+		F13DF2782DB48D33001A0FB3 /* UserPreferencesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DF2772DB48D33001A0FB3 /* UserPreferencesRequest.swift */; };
+		F13DF27A2DB71426001A0FB3 /* TransitionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DF2792DB7141D001A0FB3 /* TransitionExtensions.swift */; };
+		F13DF27C2DB85B28001A0FB3 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DF27B2DB85B28001A0FB3 /* SignInView.swift */; };
+		F13DF27E2DB86A87001A0FB3 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DF27D2DB86A87001A0FB3 /* SignUpView.swift */; };
+		F13DF2802DB87FB5001A0FB3 /* CodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DF27F2DB87FB5001A0FB3 /* CodeInputView.swift */; };
 		F14349D42D4D791500C63041 /* NearbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14349D32D4D791100C63041 /* NearbyView.swift */; };
 		F14349D62D4DAD7000C63041 /* NearbyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14349D52D4DAD6900C63041 /* NearbyViewModel.swift */; };
 		F14349D82D4DC73700C63041 /* NearbyConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14349D72D4DC73300C63041 /* NearbyConcertCard.swift */; };
@@ -170,6 +176,10 @@
 		F1F3A6492D0694E50042F4F2 /* PriceHistorySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F3A6482D0694E50042F4F2 /* PriceHistorySheet.swift */; };
 		F1F3A64B2D0698850042F4F2 /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F3A64A2D0698850042F4F2 /* IntExtensions.swift */; };
 		F1F8C6F52DB1D8AA002975B6 /* OutageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F8C6F42DB1D8A7002975B6 /* OutageView.swift */; };
+		F1F8C6F82DB3ED4D002975B6 /* AWSCognitoIdentityProvider in Frameworks */ = {isa = PBXBuildFile; productRef = F1F8C6F72DB3ED4D002975B6 /* AWSCognitoIdentityProvider */; };
+		F1F8C6FA2DB3ED4D002975B6 /* AWSCore in Frameworks */ = {isa = PBXBuildFile; productRef = F1F8C6F92DB3ED4D002975B6 /* AWSCore */; };
+		F1F8C6FE2DB3F307002975B6 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F8C6FD2DB3F307002975B6 /* Secrets.swift */; };
+		F1F8C7002DB3F812002975B6 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F8C6FF2DB3F812002975B6 /* AuthenticationService.swift */; };
 		F1FACFF32D39D05C00D53A7D /* VenueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF22D39D05C00D53A7D /* VenueView.swift */; };
 		F1FACFF72D39D3F600D53A7D /* VenueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF62D39D3F200D53A7D /* VenueViewModel.swift */; };
 		F1FACFF92D3B681600D53A7D /* DestinationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF82D3B681100D53A7D /* DestinationsResponse.swift */; };
@@ -227,6 +237,12 @@
 		F131862D2CB2E5D5003DBCC5 /* MapCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCard.swift; sourceTree = "<group>"; };
 		F131862F2CB2F03E003DBCC5 /* FlightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightsView.swift; sourceTree = "<group>"; };
 		F13186312CB2F198003DBCC5 /* LineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineItem.swift; sourceTree = "<group>"; };
+		F13DF2752DB467DF001A0FB3 /* KeychainUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainUtil.swift; sourceTree = "<group>"; };
+		F13DF2772DB48D33001A0FB3 /* UserPreferencesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesRequest.swift; sourceTree = "<group>"; };
+		F13DF2792DB7141D001A0FB3 /* TransitionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionExtensions.swift; sourceTree = "<group>"; };
+		F13DF27B2DB85B28001A0FB3 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		F13DF27D2DB86A87001A0FB3 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		F13DF27F2DB87FB5001A0FB3 /* CodeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeInputView.swift; sourceTree = "<group>"; };
 		F14349D32D4D791100C63041 /* NearbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyView.swift; sourceTree = "<group>"; };
 		F14349D52D4DAD6900C63041 /* NearbyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyViewModel.swift; sourceTree = "<group>"; };
 		F14349D72D4DC73300C63041 /* NearbyConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyConcertCard.swift; sourceTree = "<group>"; };
@@ -338,6 +354,8 @@
 		F1F3A6482D0694E50042F4F2 /* PriceHistorySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceHistorySheet.swift; sourceTree = "<group>"; };
 		F1F3A64A2D0698850042F4F2 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 		F1F8C6F42DB1D8A7002975B6 /* OutageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutageView.swift; sourceTree = "<group>"; };
+		F1F8C6FD2DB3F307002975B6 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		F1F8C6FF2DB3F812002975B6 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		F1FACFF22D39D05C00D53A7D /* VenueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueView.swift; sourceTree = "<group>"; };
 		F1FACFF62D39D3F200D53A7D /* VenueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueViewModel.swift; sourceTree = "<group>"; };
 		F1FACFF82D3B681100D53A7D /* DestinationsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationsResponse.swift; sourceTree = "<group>"; };
@@ -349,11 +367,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1F8C6FA2DB3ED4D002975B6 /* AWSCore in Frameworks */,
 				F11724002D92366600871D3A /* GoogleMobileAds in Frameworks */,
 				F10AA0892D7A9C3300FB4EB9 /* SmoothGradient in Frameworks */,
 				F11EB36C2D94D64200EAB414 /* FirebaseCrashlytics in Frameworks */,
 				F11EB3692D94CA4600EAB414 /* FirebaseAnalytics in Frameworks */,
 				F17252BF2D345581006C3454 /* SDWebImageSwiftUI in Frameworks */,
+				F1F8C6F82DB3ED4D002975B6 /* AWSCognitoIdentityProvider in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +421,7 @@
 				F11714A12D127278007A0052 /* Enums */,
 				F1DAE6A12CC42EA500901914 /* ApiCalls.swift */,
 				F11640272C8BEABD0040C95D /* CustomClasses.swift */,
+				F1F8C6FF2DB3F812002975B6 /* AuthenticationService.swift */,
 				F1C1450D2D6FAE0100D63EBB /* AppStorageUtil.swift */,
 				F14349E32D506DF800C63041 /* SavedDataContainer.xcdatamodeld */,
 				F14349E62D513FEA00C63041 /* CoreDataManager.swift */,
@@ -443,6 +464,7 @@
 		F11714A12D127278007A0052 /* Enums */ = {
 			isa = PBXGroup;
 			children = (
+				F1F8C6FD2DB3F307002975B6 /* Secrets.swift */,
 				F176C9252CB5E7F9006BAE35 /* FlightFilter.swift */,
 				F11714AE2D13CC11007A0052 /* HotelFilter.swift */,
 				F19C727A2CD0691200390BD6 /* SortFlightsEnum.swift */,
@@ -492,6 +514,9 @@
 			isa = PBXGroup;
 			children = (
 				F11611B82D6A8F5700345C31 /* LandingView.swift */,
+				F13DF27B2DB85B28001A0FB3 /* SignInView.swift */,
+				F13DF27D2DB86A87001A0FB3 /* SignUpView.swift */,
+				F13DF27F2DB87FB5001A0FB3 /* CodeInputView.swift */,
 				F1D364A62D6AB2DB0083680D /* InfiniteScrollView.swift */,
 				F1D364A82D6AC6130083680D /* TitleTextRenderer.swift */,
 				F15109272D6A4E630041B794 /* ChooseCityView.swift */,
@@ -574,6 +599,7 @@
 		F19C72632CC71B8B00390BD6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				F13DF2792DB7141D001A0FB3 /* TransitionExtensions.swift */,
 				F1CD3CD52D32EBCE004E3041 /* StringExtensions.swift */,
 				F18DE2EB2CFD309200C4D1B5 /* FontExtensions.swift */,
 				F1F3A64A2D0698850042F4F2 /* IntExtensions.swift */,
@@ -587,6 +613,7 @@
 		F19C72642CC71BC200390BD6 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				F13DF2752DB467DF001A0FB3 /* KeychainUtil.swift */,
 				F18C460D2CC5B30D00756472 /* TimeUtil.swift */,
 			);
 			path = Utils;
@@ -595,6 +622,7 @@
 		F19C72652CC71BF700390BD6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F13DF2772DB48D33001A0FB3 /* UserPreferencesRequest.swift */,
 				F192E3122D768336009EACB9 /* FollowRequest.swift */,
 				F12B95152D375D5700EFD489 /* VenuesResponse.swift */,
 				F1611FE12D58166C00D4DF10 /* SuggestedConcertsResponse.swift */,
@@ -797,6 +825,7 @@
 				F10AA0872D7A9C3300FB4EB9 /* XCRemoteSwiftPackageReference "SmoothGradient" */,
 				F11723FE2D92366600871D3A /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 				F11EB3672D94CA4600EAB414 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				F1F8C6F62DB3ED4D002975B6 /* XCRemoteSwiftPackageReference "aws-sdk-ios-spm" */,
 			);
 			productRefGroup = F116400E2C8A8A2F0040C95D /* Products */;
 			projectDirPath = "";
@@ -860,6 +889,7 @@
 				F1CD3CB82D2CBA0F004E3041 /* FeaturedEvent.swift in Sources */,
 				F19C72692CC7249E00390BD6 /* ConcertViewModel.swift in Sources */,
 				F1CD3C9E2D275628004E3041 /* DestinationViewModel.swift in Sources */,
+				F13DF2802DB87FB5001A0FB3 /* CodeInputView.swift in Sources */,
 				F1F3A6472D068C1C0042F4F2 /* PriceGraph.swift in Sources */,
 				F12B951C2D37607B00EFD489 /* FallbackVenueCard.swift in Sources */,
 				F1DAE69E2CC37F7F00901914 /* DateExtensions.swift in Sources */,
@@ -870,7 +900,9 @@
 				F176C9262CB5E7F9006BAE35 /* FlightFilter.swift in Sources */,
 				F1C1450E2D6FAE0100D63EBB /* AppStorageUtil.swift in Sources */,
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
+				F13DF27A2DB71426001A0FB3 /* TransitionExtensions.swift in Sources */,
 				F1CD3C8B2D25FB88004E3041 /* ExploreViewModel.swift in Sources */,
+				F1F8C7002DB3F812002975B6 /* AuthenticationService.swift in Sources */,
 				F10AA08F2D7BDEFE00FB4EB9 /* NotificationRow.swift in Sources */,
 				F1FACFF92D3B681600D53A7D /* DestinationsResponse.swift in Sources */,
 				F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */,
@@ -886,6 +918,7 @@
 				F11714B52D14FFBB007A0052 /* SortHotels.swift in Sources */,
 				F17252BC2D344192006C3454 /* ImageViewHeader.swift in Sources */,
 				F1FACFFB2D3B80C400D53A7D /* ConcertRow.swift in Sources */,
+				F13DF2762DB467DF001A0FB3 /* KeychainUtil.swift in Sources */,
 				F1DAE69A2CC34D4700901914 /* ApiResponse.swift in Sources */,
 				F1DAE6A22CC42EA500901914 /* ApiCalls.swift in Sources */,
 				F1CD3CCC2D320403004E3041 /* ArtistView.swift in Sources */,
@@ -901,6 +934,7 @@
 				F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */,
 				F11611BF2D6A978800345C31 /* RootView.swift in Sources */,
 				F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */,
+				F13DF27E2DB86A87001A0FB3 /* SignUpView.swift in Sources */,
 				F18C460E2CC5B30D00756472 /* TimeUtil.swift in Sources */,
 				F18075312D0568DA00D67622 /* PriceInsightsCard.swift in Sources */,
 				F19C72672CC71C5E00390BD6 /* FlightsViewModel.swift in Sources */,
@@ -938,6 +972,7 @@
 				F15109282D6A4E630041B794 /* ChooseCityView.swift in Sources */,
 				F1CD3C822D24CA6B004E3041 /* CitySearchViewModel.swift in Sources */,
 				F11640242C8BAD140040C95D /* GenrePills.swift in Sources */,
+				F13DF27C2DB85B28001A0FB3 /* SignInView.swift in Sources */,
 				F1611FE22D58167100D4DF10 /* SuggestedConcertsResponse.swift in Sources */,
 				F14349D82D4DC73700C63041 /* NearbyConcertCard.swift in Sources */,
 				F1F3A6492D0694E50042F4F2 /* PriceHistorySheet.swift in Sources */,
@@ -1000,12 +1035,14 @@
 				F10AA08B2D7BD8C700FB4EB9 /* NotificationsView.swift in Sources */,
 				F18DE2412CFADDBD00C4D1B5 /* FlightDetailsView.swift in Sources */,
 				F11714B32D14FF93007A0052 /* SortHotelsEnum.swift in Sources */,
+				F13DF2782DB48D33001A0FB3 /* UserPreferencesRequest.swift in Sources */,
 				F11714AD2D13C6C4007A0052 /* HotelsFilterBar.swift in Sources */,
 				F13186292CB1EBD9003DBCC5 /* ProfileView.swift in Sources */,
 				F11640112C8A8A2F0040C95D /* ConcertlyApp.swift in Sources */,
 				F1A858662D0140F0009A37E8 /* AirportSearchResponse.swift in Sources */,
 				F19C727B2CD0691200390BD6 /* SortFlightsEnum.swift in Sources */,
 				F1FACFF32D39D05C00D53A7D /* VenueView.swift in Sources */,
+				F1F8C6FE2DB3F307002975B6 /* Secrets.swift in Sources */,
 				F18DE2EC2CFD309500C4D1B5 /* FontExtensions.swift in Sources */,
 				F11640222C8BA8270040C95D /* SavedView.swift in Sources */,
 				F1C1450C2D6E9B0000D63EBB /* NotificationManager.swift in Sources */,
@@ -1264,6 +1301,14 @@
 				minimumVersion = 3.1.3;
 			};
 		};
+		F1F8C6F62DB3ED4D002975B6 /* XCRemoteSwiftPackageReference "aws-sdk-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aws-amplify/aws-sdk-ios-spm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.40.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1290,6 +1335,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F17252BD2D345581006C3454 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		F1F8C6F72DB3ED4D002975B6 /* AWSCognitoIdentityProvider */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F1F8C6F62DB3ED4D002975B6 /* XCRemoteSwiftPackageReference "aws-sdk-ios-spm" */;
+			productName = AWSCognitoIdentityProvider;
+		};
+		F1F8C6F92DB3ED4D002975B6 /* AWSCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F1F8C6F62DB3ED4D002975B6 /* XCRemoteSwiftPackageReference "aws-sdk-ios-spm" */;
+			productName = AWSCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 
