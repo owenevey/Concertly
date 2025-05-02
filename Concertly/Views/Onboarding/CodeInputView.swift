@@ -13,6 +13,8 @@ struct CodeInputView: View {
     @State var state: TypingState = .typing
     @FocusState var isActive
     
+//    @AppStorage(AppStorageKeys.isSignedIn.rawValue) private var isSignedIn = false
+    
     var body: some View {
         ZStack {
             Color.background
@@ -57,18 +59,15 @@ struct CodeInputView: View {
                                         withAnimation {
                                             state = .valid
                                         }
-                                        Task {
-                                            try? await Task.sleep(nanoseconds: 1_000_000_000)
-                                            
-                                            AuthenticationService.shared.signIn(email: email, password: password) { result in
-                                                DispatchQueue.main.async {
-                                                    switch result {
-                                                    case .success:
-                                                        infoMessage = nil
-                                                    case .failure(_):
-                                                        withAnimation {
-                                                            infoMessage = "Code verified, but failed to sign in."
-                                                        }
+                                        AuthenticationService.shared.signIn(email: email, password: password) { result in
+                                            DispatchQueue.main.async {
+                                                switch result {
+                                                case .success:
+                                                    infoMessage = nil
+                                                    UserDefaults.standard.set(true, forKey: AppStorageKeys.isSignedIn.rawValue)
+                                                case .failure(_):
+                                                    withAnimation {
+                                                        infoMessage = "Code verified, but failed to sign in."
                                                     }
                                                 }
                                             }

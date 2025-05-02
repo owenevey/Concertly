@@ -96,7 +96,7 @@ struct SignInView: View {
                         DispatchQueue.main.async {
                             switch result {
                             case .success(_):
-                                isSignedIn = true
+//                                isSignedIn = true
                                 withAnimation {
                                     isLoading = false
                                 }

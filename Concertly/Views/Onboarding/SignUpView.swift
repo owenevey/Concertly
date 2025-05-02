@@ -135,7 +135,7 @@ struct SignUpView: View {
                         isLoading = true
                     }
                     
-                    AuthenticationService.shared.signUp(email: email, password: password1) { result in
+                    AuthenticationService.shared.signUp(email: email.lowercased(), password: password1) { result in
                         DispatchQueue.main.async {
                             switch result {
                             case .success:
@@ -252,7 +252,7 @@ struct SignUpView: View {
         .navigationBarHidden(true)
         .disableSwipeBack(true)
         .navigationDestination(isPresented: $navigateToVerify) {
-            CodeInputView(email: email, password: password1)
+            CodeInputView(email: email.lowercased(), password: password1)
         }
     }
     

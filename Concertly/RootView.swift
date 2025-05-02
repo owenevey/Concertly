@@ -5,7 +5,6 @@ struct RootView: View {
     @AppStorage(AppStorageKeys.hasFinishedOnboarding.rawValue) private var hasFinishedOnboarding = false
     @AppStorage(AppStorageKeys.selectedNotificationPref.rawValue) private var selectedNotificationPref = false
 
-    // Stores the screen as a string persistently
     @AppStorage("startingScreen") private var startingScreenRaw: String = RootScreen.landing.rawValue
 
     @StateObject var exploreViewModel = ExploreViewModel()
@@ -13,7 +12,6 @@ struct RootView: View {
     @StateObject var savedViewModel = SavedViewModel()
     @StateObject var profileViewModel = ProfileViewModel()
 
-    // Converts stored string to enum at launch
     @State private var screen: RootScreen = RootScreen(rawValue: UserDefaults.standard.string(forKey: "startingScreen") ?? RootScreen.landing.rawValue) ?? .landing
 
     var body: some View {
@@ -45,7 +43,10 @@ struct RootView: View {
             updateScreen()
         }
         .onChange(of: isSignedIn) { updateScreen() }
-        .onChange(of: hasFinishedOnboarding) {  updateScreen() }
+        .onChange(of: hasFinishedOnboarding) {
+            updateScreen()
+            Task { await nearbyViewModel.getNearbyConcerts() }
+        }
         .onChange(of: selectedNotificationPref) { updateScreen() }
     }
 

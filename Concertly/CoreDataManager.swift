@@ -1,64 +1,26 @@
 import Foundation
 import CoreData
-import CloudKit
 
 class CoreDataManager {
     static let shared = CoreDataManager()
-    let container: NSPersistentCloudKitContainer
+    let container: NSPersistentContainer
     
     private init() {
-        container = NSPersistentCloudKitContainer(name: "SavedDataContainer")
-        let defaultDirectoryURL = NSPersistentCloudKitContainer.defaultDirectoryURL()
-        
-        let localStoreURL = defaultDirectoryURL.appendingPathComponent("Local.sqlite")
-        let localStoreDescription = NSPersistentStoreDescription(url: localStoreURL)
-        localStoreDescription.configuration = "Local"
-        localStoreDescription.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey) //
-        
-        let cloudStoreURL = defaultDirectoryURL.appendingPathComponent("Cloud.sqlite")
-        let cloudStoreDescription = NSPersistentStoreDescription(url: cloudStoreURL)
-        cloudStoreDescription.configuration = "Cloud"
-        cloudStoreDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.com.owenevey.Concertly")
-        cloudStoreDescription.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey) //
-        
-        container.persistentStoreDescriptions = [localStoreDescription, cloudStoreDescription]
+        container = NSPersistentContainer(name: "SavedDataContainer")
         
         container.loadPersistentStores { description, error in
             if let error = error {
                 fatalError("Failed to load stores: \(error)")
             }
             
-            try? self.container.viewContext.setQueryGenerationFrom(.current) //
         }
-        
-        container.viewContext.automaticallyMergesChangesFromParent = true //
     }
-    
-//    private var isCloudKitEnabled: Bool {
-//        // Access the persistent store descriptions from the container
-//        let descriptions = container.persistentStoreDescriptions
-//
-//        // 1. Check if ANY persistent store description is configured for CloudKit
-//        let hasCloudStore = descriptions.contains { description in
-//            return description.cloudKitContainerOptions != nil // Check for cloudKitContainerOptions
-//        }
-//
-//        if !hasCloudStore {
-//            return false // No CloudKit store configured, so iCloud is not enabled for this app
-//        }
-//
-//        // 2. If a CloudKit store is configured, check for ubiquity container (more reliable)
-//        let ubiquityURL = FileManager.default.url(forUbiquityContainerIdentifier: "iCloud.com.owenevey.Concertly")
-//
-//        return ubiquityURL != nil // iCloud is enabled if ubiquity container is available
-//    }
     
     var context: NSManagedObjectContext {
         return container.viewContext
     }
     
     func saveItems<T>(_ items: [T], category: String = "") {
-        
         if T.self == Concert.self {
             if category != ContentCategories.saved.rawValue {
                 deleteItems(for: category, type: ConcertEntity.self)
@@ -70,10 +32,10 @@ class CoreDataManager {
             }
         }
         else if T.self == Destination.self {
-            deleteItems(for: "", type: DestinationEntity.self)
+            deleteItems(type: DestinationEntity.self)
         }
         else if T.self == Venue.self {
-            deleteItems(for: "", type: VenueEntity.self)
+            deleteItems(type: VenueEntity.self)
         }
         
         items.forEach { item in
@@ -94,25 +56,9 @@ class CoreDataManager {
             else if let notification = item as? SavedNotification {
                 entity = convertToNotificationEntity(notification, context: context)
             }
-            
-            if let entity = entity {
-                let storeName = ((T.self == Concert.self && category == ContentCategories.saved.rawValue) || (T.self == SuggestedArtist.self && category == ContentCategories.following.rawValue)) ? "Cloud" : "Local"
-                
-                assignEntityToStore(entity: entity, storeName: storeName)
-            }
         }
         
         saveContext()
-    }
-    
-    private func assignEntityToStore(entity: NSManagedObject, storeName: String) {
-        let coordinator = container.persistentStoreCoordinator
-                
-        if let store = coordinator.persistentStores.first(where: { $0.configurationName == storeName }) {
-            entity.managedObjectContext?.assign(entity, to: store)
-        } else {
-            print("Store with name \(storeName) not found")
-        }
     }
     
     func isConcertSaved(id: String) -> Bool {
@@ -249,7 +195,7 @@ class CoreDataManager {
         return items
     }
     
-    func deleteItems<T: NSManagedObject>(for category: String, type: T.Type) {
+    func deleteItems<T: NSManagedObject>(for category: String = "", type: T.Type) {
         let request: NSFetchRequest<T> = NSFetchRequest(entityName: String(describing: T.self))
         
         switch type {
@@ -417,5 +363,4 @@ class CoreDataManager {
     private func convertToNotification(_ entity: SavedNotificationEntity) -> SavedNotification {
         return SavedNotification(type: entity.type ?? "", artistName: entity.artistName ?? "", deepLink: entity.deepLink ?? "", date: entity.date ?? Date())
     }
-    
 }

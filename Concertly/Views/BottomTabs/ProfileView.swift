@@ -324,11 +324,11 @@ struct ProfileView: View {
         .onAppear {
             profileViewModel.getFollowingArtists()
         }
-        .onChange(of: homeCity) {
-            Task {
-                await nearbyViewModel.getNearbyConcerts()
-            }
-        }
+//        .onChange(of: homeCity) {
+//            Task {
+//                await nearbyViewModel.getNearbyConcerts()
+//            }
+//        }
     }
     
     struct ProfileRow: View {

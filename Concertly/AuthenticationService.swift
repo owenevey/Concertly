@@ -83,7 +83,7 @@ class AuthenticationService {
                 KeychainUtil.save(refreshToken, forKey: "refreshToken")
                 
                 UserDefaults.standard.set(email, forKey: AppStorageKeys.email.rawValue)
-                UserDefaults.standard.set(true, forKey: AppStorageKeys.isSignedIn.rawValue)
+//                UserDefaults.standard.set(true, forKey: AppStorageKeys.isSignedIn.rawValue)
                 
                 completion(.success(session))
             } else {

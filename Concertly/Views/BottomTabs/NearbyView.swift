@@ -6,7 +6,9 @@ struct NearbyView: View {
     @Environment(\.colorScheme) var colorScheme
     @StateObject var viewModel: NearbyViewModel
     
-    @AppStorage(AppStorageKeys.homeCity.rawValue) private var homeCity: String = "New York, NY"
+    @AppStorage(AppStorageKeys.homeCity.rawValue) private var homeCity: String = ""
+    @AppStorage(AppStorageKeys.homeLat.rawValue) private var homeLat: Double = 0
+    @AppStorage(AppStorageKeys.homeLong.rawValue) private var homeLong: Double = 0
     
     @State private var offset: CGFloat = 0
     @State private var isSearchBarVisible: Bool = true
@@ -137,6 +139,14 @@ struct NearbyView: View {
                 await viewModel.getNearbyConcerts()
             }
         }
+        .onChange(of: homeCity) { checkAndFetch() }
+        .onChange(of: homeLat) { checkAndFetch() }
+        .onChange(of: homeLong) { checkAndFetch() }
+    }
+    
+    private func checkAndFetch() {
+        guard homeCity != "", homeLat != 0, homeLong != 0 else { return }
+        Task { await viewModel.getNearbyConcerts() }
     }
 }
 

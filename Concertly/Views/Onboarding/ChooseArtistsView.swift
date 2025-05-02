@@ -43,7 +43,7 @@ struct ChooseArtistsView: View {
             hasFinishedOnboarding = true
             
             for artist in selectedArtists {
-                CoreDataManager.shared.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: ContentCategories.following.rawValue)
+                CoreDataManager.shared.saveArtist(artist, category: ContentCategories.following.rawValue)
             }
             
         } catch {
