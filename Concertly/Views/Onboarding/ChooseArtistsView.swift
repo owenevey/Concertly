@@ -4,7 +4,6 @@ import SmoothGradient
 struct ChooseArtistsView: View {
     
     @AppStorage(AppStorageKeys.hasFinishedOnboarding.rawValue) private var hasFinishedOnboarding = false
-    @AppStorage(AppStorageKeys.email.rawValue) private var emailStorage: String = ""
     @AppStorage(AppStorageKeys.homeCity.rawValue) private var homeCity = ""
     @AppStorage(AppStorageKeys.homeLat.rawValue) private var homeLat: Double = 0
     @AppStorage(AppStorageKeys.homeLong.rawValue) private var homeLong: Double = 0
@@ -23,7 +22,7 @@ struct ChooseArtistsView: View {
             FollowedArtist(id: suggestedArtist.id, name: suggestedArtist.name)
         }
         
-        let userPreferencesRequest = UserPreferencesRequest(email: emailStorage, artists: followedArtists, follow: true, city: homeCity, latitude: homeLat, longitude: homeLong, airport: homeAirport)
+        let userPreferencesRequest = UserPreferencesRequest(artists: followedArtists, follow: true, city: homeCity, latitude: homeLat, longitude: homeLong, airport: homeAirport)
         
         withAnimation(.easeInOut(duration: 0.2)) {
             savePreferencesResponse = ApiResponse(status: .loading)
@@ -47,6 +46,7 @@ struct ChooseArtistsView: View {
             }
             
         } catch {
+            print(error)
             withAnimation(.easeInOut(duration: 0.2)) {
                 savePreferencesResponse = ApiResponse(status: .error, error: error.localizedDescription)
                 showError = true

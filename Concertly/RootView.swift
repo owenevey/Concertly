@@ -42,10 +42,17 @@ struct RootView: View {
         .onAppear {
             updateScreen()
         }
-        .onChange(of: isSignedIn) { updateScreen() }
+        .onChange(of: isSignedIn) {
+            updateScreen()
+            if isSignedIn {
+                Task { await exploreViewModel.getAllData() }
+            }
+        }
         .onChange(of: hasFinishedOnboarding) {
             updateScreen()
-            Task { await nearbyViewModel.getNearbyConcerts() }
+            if hasFinishedOnboarding {
+                Task { await nearbyViewModel.getNearbyConcerts() }
+            }
         }
         .onChange(of: selectedNotificationPref) { updateScreen() }
     }

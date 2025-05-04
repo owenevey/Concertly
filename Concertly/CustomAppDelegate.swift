@@ -13,6 +13,7 @@ class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
         UNUserNotificationCenter.current().delegate = self
         MobileAds.shared.start(completionHandler: nil)
         FirebaseApp.configure()
+        FirebaseConfiguration.shared.setLoggerLevel(.min)
         
         let serviceConfig = AWSServiceConfiguration(
             region: .USEast1,

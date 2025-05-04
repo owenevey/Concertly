@@ -6,17 +6,21 @@ final class NearbyViewModel: ObservableObject {
     @Published var nearbyConcertsResponse: ApiResponse<[Concert]> = ApiResponse<[Concert]>()
     @Published var nearbyConcerts: [Concert] = []
         
-    var homeLat: Double
-    var homeLong: Double
+    var homeLat: Double = 0.0
+    var homeLong: Double = 0.0
     
     init() {
-        let upcomingConcerts = CoreDataManager.shared.fetchItems(for: ContentCategories.nearby.rawValue, type: Concert.self, sortKey: "date")
-        nearbyConcerts = upcomingConcerts.filter { $0.date >= Date() }
-        self.homeLat = UserDefaults.standard.double(forKey: AppStorageKeys.homeLat.rawValue)
-        self.homeLong = UserDefaults.standard.double(forKey: AppStorageKeys.homeLong.rawValue)
-        
-        Task {
-            await getNearbyConcerts()
+        let isSignedIn = UserDefaults.standard.bool(forKey: AppStorageKeys.isSignedIn.rawValue)
+
+        if isSignedIn {
+            let upcomingConcerts = CoreDataManager.shared.fetchItems(for: ContentCategories.nearby.rawValue, type: Concert.self, sortKey: "date")
+            nearbyConcerts = upcomingConcerts.filter { $0.date >= Date() }
+            self.homeLat = UserDefaults.standard.double(forKey: AppStorageKeys.homeLat.rawValue)
+            self.homeLong = UserDefaults.standard.double(forKey: AppStorageKeys.homeLong.rawValue)
+            
+            Task {
+                await getNearbyConcerts()
+            }
         }
     }
     

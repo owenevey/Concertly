@@ -9,6 +9,65 @@ class AuthenticationService {
     
     private let userPool = AWSCognitoIdentityUserPool(forKey: "UserPool")
     
+    private var isRefreshing = false
+    private var refreshCompletionHandlers: [(Result<Void, Error>) -> Void] = []
+    
+    func refreshTokens() async throws {
+        if isRefreshing {
+            try await withCheckedThrowingContinuation { continuation in
+                refreshCompletionHandlers.append { result in
+                    switch result {
+                    case .success:
+                        continuation.resume(returning: ())
+                    case .failure(let error):
+                        continuation.resume(throwing: error)
+                    }
+                }
+            }
+            return
+        }
+        
+        isRefreshing = true
+        
+        do {
+            guard let refreshToken = KeychainUtil.get(forKey: "refreshToken") else {
+                throw NSError(domain: "NoRefreshToken", code: -1, userInfo: nil)
+            }
+            
+            guard let user = userPool?.currentUser() else {
+                throw NSError(domain: "UserNotLoggedIn", code: -1, userInfo: nil)
+            }
+            
+            let task = user.getSession()
+            if let session = task.result {
+                let accessToken = session.accessToken?.tokenString ?? ""
+                let idToken = session.idToken?.tokenString ?? ""
+                let refreshToken = session.refreshToken?.tokenString ?? ""
+                
+                KeychainUtil.save(accessToken, forKey: "accessToken")
+                KeychainUtil.save(idToken, forKey: "idToken")
+                KeychainUtil.save(refreshToken, forKey: "refreshToken")
+                
+                notifyRefreshCompletionHandlers(with: .success(()))
+            } else {
+                throw NSError(domain: "could not refresh session", code: -1, userInfo: nil)
+            }
+            
+        } catch {
+            notifyRefreshCompletionHandlers(with: .failure(error))
+            throw error
+        }
+    }
+    
+    private func notifyRefreshCompletionHandlers(with result: Result<Void, Error>) {
+        for handler in refreshCompletionHandlers {
+            handler(result)
+        }
+        refreshCompletionHandlers.removeAll()
+        
+        isRefreshing = false
+    }
+    
     func signUp(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let userPool = userPool else {
             completion(.failure(NSError(domain: "UserPoolNotInitialized", code: -1, userInfo: nil)))
@@ -81,9 +140,8 @@ class AuthenticationService {
                 KeychainUtil.save(accessToken, forKey: "accessToken")
                 KeychainUtil.save(idToken, forKey: "idToken")
                 KeychainUtil.save(refreshToken, forKey: "refreshToken")
-                
+                                
                 UserDefaults.standard.set(email, forKey: AppStorageKeys.email.rawValue)
-//                UserDefaults.standard.set(true, forKey: AppStorageKeys.isSignedIn.rawValue)
                 
                 completion(.success(session))
             } else {
@@ -99,16 +157,16 @@ class AuthenticationService {
             completion(.failure(NSError(domain: "UserPoolNotInitialized", code: -1, userInfo: nil)))
             return
         }
-
+        
         let user = userPool.currentUser()
         user?.signOut()
-
+        
         // Clear tokens and sign-in state
         KeychainUtil.delete(forKey: "accessToken")
         KeychainUtil.delete(forKey: "idToken")
         KeychainUtil.delete(forKey: "refreshToken")
         UserDefaults.standard.set(false, forKey: AppStorageKeys.isSignedIn.rawValue)
-
+        
         completion(.success(()))
     }
 }

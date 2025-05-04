@@ -1,7 +1,6 @@
 import Foundation
 
 struct UserPreferencesRequest: Codable {
-    let email: String
     let artists: [FollowedArtist]?
     let follow: Bool?
     let city: String?
@@ -10,7 +9,6 @@ struct UserPreferencesRequest: Codable {
     let airport: String?
 
     enum CodingKeys: String, CodingKey {
-        case email
         case artists
         case follow
         case city

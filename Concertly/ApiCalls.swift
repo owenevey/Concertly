@@ -1,52 +1,69 @@
 import Foundation
 
-let baseUrl = "https://d9hepdo8p4.execute-api.us-east-1.amazonaws.com/prod"
+let baseUrl = "https://d9hepdo8p4.execute-api.us-east-1.amazonaws.com/dev"
 
-func fetchData<T: Decodable, U: Encodable>(
-    endpoint: String,
-    method: String = "GET",
-    body: U? = nil,
-    dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .iso8601
-) async throws -> T {
-    guard let url = URL(string: endpoint) else {
-        throw ConcertlyError.invalidURL
+func fetchData<T: Decodable, U: Encodable>(endpoint: String, method: String = "GET", body: U? = nil, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .iso8601) async throws -> T {
+    func makeRequest(with token: String) throws -> URLRequest {
+        guard let url = URL(string: endpoint) else {
+            throw ConcertlyError.invalidURL
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = method
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        if let body = body {
+            request.httpBody = try JSONEncoder().encode(body)
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        }
+        
+        return request
     }
     
-    var request = URLRequest(url: url)
-    request.httpMethod = method
-    
-    
-    if let body = body {
-        request.httpBody = try JSONEncoder().encode(body)
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    }
-    
-    let (data, response) = try await URLSession.shared.data(for: request)
-    
-//    if endpoint.contains("outage") {
-//        print(response)
+    func makeCall(with request: URLRequest, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy) async throws -> T {
+        let (data, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw ConcertlyError.invalidResponse
+        }
+        
 //        if let rawData = String(data: data, encoding: .utf8) {
 //            print("Raw Response: \(rawData)")
 //        } else {
 //            print("Unable to convert data to string")
 //        }
-//    }
-    
-    guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-        throw ConcertlyError.invalidResponse
+        
+        if httpResponse.statusCode == 401 {
+            throw ConcertlyError.unauthorized
+        }
+        
+        guard httpResponse.statusCode == 200 else {
+            throw ConcertlyError.invalidResponse
+        }
+        
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = dateDecodingStrategy
+        return try decoder.decode(T.self, from: data)
     }
     
-    let decoder = JSONDecoder()
-    decoder.dateDecodingStrategy = dateDecodingStrategy
+    guard let token = KeychainUtil.get(forKey: "idToken") else {
+        throw ConcertlyError.missingIdToken
+    }
     
     do {
-        return try decoder.decode(T.self, from: data)
-    } catch let DecodingError.keyNotFound(key, _) {
-        print("Missing key: \(key.stringValue)") // Print the missing key
-        throw ConcertlyError.invalidData
-    } catch {
-        print("Decoding error: \(error)")
-        throw ConcertlyError.invalidData
+        let request = try makeRequest(with: token)
+        print("Calling \(endpoint)")
+        return try await makeCall(with: request, dateDecodingStrategy: dateDecodingStrategy)
+    } catch ConcertlyError.unauthorized {
+        
+        try await AuthenticationService.shared.refreshTokens()
+        
+        guard let newToken = KeychainUtil.get(forKey: "idToken") else {
+            throw ConcertlyError.missingIdToken
+        }
+        
+        let retryRequest = try makeRequest(with: newToken)
+        return try await makeCall(with: retryRequest, dateDecodingStrategy: dateDecodingStrategy)
     }
 }
 
@@ -201,7 +218,7 @@ func toggleFollowArtist(artistId: String, pushNotificationToken: String, follow:
 
 func updateUserPreferences(request: UserPreferencesRequest) async throws -> ApiResponse<String> {
     let endpoint = "\(baseUrl)/updatePreferences"
-        
+    
     let response: ApiResponse<String> = try await fetchData(endpoint: endpoint, method: "POST", body: request)
     return response
 }
@@ -213,6 +230,8 @@ enum ConcertlyError: Error {
     case invalidURL
     case invalidResponse
     case invalidData
+    case unauthorized
+    case missingIdToken
     case missingDepartureToken
     case missingBookingToken
 }
