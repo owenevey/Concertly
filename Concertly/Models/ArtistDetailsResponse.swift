@@ -8,6 +8,7 @@ struct Artist: Codable, Identifiable {
     let name: String
     let id: String
     let imageUrl: String
+    let cardImageUrl: String
     let socials: [Social]
     let concerts: [Concert]
     let description: String

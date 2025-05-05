@@ -222,6 +222,25 @@ class CoreDataManager {
         }
     }
     
+    func deleteAllSavedItems() {
+        let concertRequest: NSFetchRequest<ConcertEntity> = ConcertEntity.fetchRequest()
+        deleteEntities(request: concertRequest)
+        
+        let artistRequest: NSFetchRequest<ArtistEntity> = ArtistEntity.fetchRequest()
+        deleteEntities(request: artistRequest)
+        
+        let destinationRequest: NSFetchRequest<DestinationEntity> = DestinationEntity.fetchRequest()
+        deleteEntities(request: destinationRequest)
+        
+        let venueRequest: NSFetchRequest<VenueEntity> = VenueEntity.fetchRequest()
+        deleteEntities(request: venueRequest)
+        
+        let notificationRequest: NSFetchRequest<SavedNotificationEntity> = SavedNotificationEntity.fetchRequest()
+        deleteEntities(request: notificationRequest)
+    }
+
+
+    
     func saveContext() {
         do {
             try context.save()

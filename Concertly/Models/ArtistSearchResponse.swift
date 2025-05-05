@@ -7,7 +7,7 @@ struct ArtistSearchResponse: Codable {
 struct SuggestedArtist: Codable, Identifiable, Equatable, Hashable {
     let name: String
     let id: String
-    let imageUrl: String
+    var imageUrl: String
     let localImageName: String?
     
     init(name: String, id: String, imageUrl: String, localImageName: String? = nil) {

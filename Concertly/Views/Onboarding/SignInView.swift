@@ -5,6 +5,7 @@ import AuthenticationServices
 struct SignInView: View {
     
     @AppStorage(AppStorageKeys.isSignedIn.rawValue) private var isSignedIn = false
+    @AppStorage(AppStorageKeys.hasFinishedOnboarding.rawValue) private var hasFinishedOnboarding = false
     
     @State var email: String = ""
     @State var password: String = ""
@@ -66,69 +67,10 @@ struct SignInView: View {
                             .fill(.gray1)
                             .frame(maxWidth: .infinity)
                     )
-                
+                    
                 }
                 
-                Button {
-                    withAnimation {
-                        errorMessage = nil
-                    }
-                    
-                    if (!isValidEmail) {
-                        withAnimation {
-                            errorMessage = "Please enter a valid email."
-                        }
-                        return
-                    }
-                    
-                    if password.isEmpty {
-                        withAnimation {
-                            errorMessage = "Please enter a password."
-                        }
-                        return
-                    }
-                    
-                    withAnimation {
-                        isLoading = true
-                    }
-                    
-                    AuthenticationService.shared.signIn(email: email, password: password) { result in
-                        DispatchQueue.main.async {
-                            switch result {
-                            case .success(_):
-                                isSignedIn = true
-                                withAnimation {
-                                    isLoading = false
-                                }
-                                
-                            case .failure(let error as NSError):
-                                withAnimation {
-                                    if error.domain == AWSCognitoIdentityProviderErrorDomain {
-                                        switch error.code {
-                                        case AWSCognitoIdentityProviderErrorType.notAuthorized.rawValue:
-                                            errorMessage = "Incorrect credentials. Please check your email and password."
-                                        case AWSCognitoIdentityProviderErrorType.userNotFound.rawValue:
-                                            errorMessage = "User not found. Please check your email or sign up."
-                                        case AWSCognitoIdentityProviderErrorType.invalidParameter.rawValue:
-                                            errorMessage = "Invalid input. Double-check your info."
-                                        case AWSCognitoIdentityProviderErrorType.passwordResetRequired.rawValue:
-                                            errorMessage = "Password reset required. Follow the instructions to reset your password."
-                                        case AWSCognitoIdentityProviderErrorType.tooManyRequests.rawValue:
-                                            errorMessage = "Too many requests. Please try again later."
-                                        case AWSCognitoIdentityProviderErrorType.expiredCode.rawValue:
-                                            errorMessage = "Session expired. Please sign in again."
-                                        default:
-                                            errorMessage = "Something went wrong. Please try again."
-                                        }
-                                    } else {
-                                        errorMessage = "Something went wrong. Please try again."
-                                    }
-                                    isLoading = false
-                                }
-                            }
-                        }
-                    }
-                } label: {
+                Button { Task { await onTapSignIn() } } label: {
                     HStack {
                         HStack {
                             if isLoading {
@@ -150,7 +92,7 @@ struct SignInView: View {
                             .padding(.horizontal, 30)
                             .padding(.vertical, 12)
                             .frame(maxWidth: .infinity, alignment: .center)
-                                                
+                        
                         Color.clear
                             .padding(.trailing, 15)
                             .frame(width: 90, height: 1)
@@ -213,6 +155,113 @@ struct SignInView: View {
         }
         .navigationBarHidden(true)
         .disableSwipeBack(true)
+    }
+    
+    func onTapSignIn() async {
+        withAnimation {
+            errorMessage = nil
+        }
+        
+        if (!isValidEmail) {
+            withAnimation {
+                errorMessage = "Please enter a valid email."
+            }
+            return
+        }
+        
+        if password.isEmpty {
+            withAnimation {
+                errorMessage = "Please enter a password."
+            }
+            return
+        }
+        
+        withAnimation {
+            isLoading = true
+        }
+        
+        AuthenticationService.shared.signIn(email: email, password: password) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(_):
+                    Task {
+                        do {
+                            try await getUserPreferences()
+                            DispatchQueue.main.async {
+                                isSignedIn = true
+                                hasFinishedOnboarding = true
+                                withAnimation {
+                                    isLoading = false
+                                }
+                            }
+                        } catch {
+                            DispatchQueue.main.async {
+                                errorMessage = "Failed to load user. Please try again."
+                                withAnimation {
+                                    isLoading = false
+                                }
+                            }
+                        }
+                    }
+                    
+                case .failure(let error as NSError):
+                    withAnimation {
+                        if error.domain == AWSCognitoIdentityProviderErrorDomain {
+                            switch error.code {
+                            case AWSCognitoIdentityProviderErrorType.notAuthorized.rawValue:
+                                errorMessage = "Incorrect credentials. Please check your email and password."
+                            case AWSCognitoIdentityProviderErrorType.userNotFound.rawValue:
+                                errorMessage = "User not found. Please check your email or sign up."
+                            case AWSCognitoIdentityProviderErrorType.invalidParameter.rawValue:
+                                errorMessage = "Invalid input. Double-check your info."
+                            case AWSCognitoIdentityProviderErrorType.passwordResetRequired.rawValue:
+                                errorMessage = "Password reset required. Follow the instructions to reset your password."
+                            case AWSCognitoIdentityProviderErrorType.tooManyRequests.rawValue:
+                                errorMessage = "Too many requests. Please try again later."
+                            case AWSCognitoIdentityProviderErrorType.expiredCode.rawValue:
+                                errorMessage = "Session expired. Please sign in again."
+                            default:
+                                errorMessage = "Something went wrong. Please try again."
+                            }
+                        } else {
+                            errorMessage = "Something went wrong. Please try again."
+                        }
+                        isLoading = false
+                    }
+                }
+            }
+        }
+    }
+    
+    func getUserPreferences() async throws {
+        let response = try await fetchUserPreferences()
+        if let preferences = response.data {
+            UserDefaults.standard.set(preferences.city, forKey: AppStorageKeys.homeCity.rawValue)
+            UserDefaults.standard.set(preferences.latitude, forKey: AppStorageKeys.homeLat.rawValue)
+            UserDefaults.standard.set(preferences.longitude, forKey: AppStorageKeys.homeLong.rawValue)
+            UserDefaults.standard.set(preferences.airport, forKey: AppStorageKeys.homeAirport.rawValue)
+            
+            var artistArray: [SuggestedArtist] = []
+            
+            for artist in preferences.followingArtists {
+                var newArtist = SuggestedArtist(name: artist.name, id: artist.id, imageUrl: "")
+                
+                do {
+                    let imageResponse = try await fetchArtistImage(id: artist.id)
+                    if let imageUrl = imageResponse.data {
+                        newArtist.imageUrl = imageUrl
+                    }
+                } catch {
+                    print("Failed to fetch image for artist \(artist.id): \(error)")
+                }
+                
+                artistArray.append(newArtist)
+            }
+            
+            CoreDataManager.shared.saveItems(artistArray, category: ContentCategories.following.rawValue)
+        } else {
+            throw NSError(domain: "getUserPreferences failed", code: 1, userInfo: nil)
+        }
     }
     
     

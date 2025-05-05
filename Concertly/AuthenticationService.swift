@@ -28,7 +28,7 @@ class AuthenticationService {
         }
         
         isRefreshing = true
-        
+        print("Authentication service is refreshing tokens...")
         do {
             guard let refreshToken = KeychainUtil.get(forKey: "refreshToken") else {
                 throw NSError(domain: "NoRefreshToken", code: -1, userInfo: nil)
@@ -145,7 +145,6 @@ class AuthenticationService {
                 
                 completion(.success(session))
             } else {
-                // If no session is returned, handle that case
                 completion(.failure(NSError(domain: "NoSessionReturned", code: -1, userInfo: nil)))
             }
             return nil

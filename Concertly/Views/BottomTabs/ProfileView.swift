@@ -292,6 +292,12 @@ struct ProfileView: View {
                                 isSignedIn = false
                                 hasFinishedOnboarding = false
                                 selectedNotificationPref = false
+                                
+                                CoreDataManager.shared.deleteAllSavedItems()
+                                
+                                KeychainUtil.delete(forKey: "accessToken")
+                                KeychainUtil.delete(forKey: "idToken")
+                                KeychainUtil.delete(forKey: "refreshToken")
                             }
                         }
                         .padding(.vertical, 15)

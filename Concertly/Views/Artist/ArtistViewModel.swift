@@ -43,6 +43,12 @@ class ArtistViewModel: ObservableObject {
                     self.artistDetailsResponse = ApiResponse(status: .success, data: artist)
                     self.nearbyConcerts = filterNearbyConcerts(concerts: artist.concerts)
                 }
+                
+                if isFollowing {
+                    CoreDataManager.shared.unSaveArtist(id: artistId, category: ContentCategories.following.rawValue)
+                    CoreDataManager.shared.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.cardImageUrl), category: ContentCategories.following.rawValue)
+                }
+                
             } else {
                 withAnimation(.easeInOut(duration: 0.2)) {
                     self.artistDetailsResponse = ApiResponse(status: .error, error: "Couldn't fetch artist details")
@@ -100,7 +106,7 @@ class ArtistViewModel: ObservableObject {
         else {
             isFollowing = true
             if let artist = artistDetailsResponse.data {
-                CoreDataManager.shared.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.imageUrl), category: ContentCategories.following.rawValue)
+                CoreDataManager.shared.saveArtist(SuggestedArtist(name: artist.name, id: artist.id, imageUrl: artist.cardImageUrl), category: ContentCategories.following.rawValue)
             }
             
             Task {

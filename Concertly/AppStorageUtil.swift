@@ -21,6 +21,7 @@ enum AppStorageKeys: String {
     case homeLong
     case homeAirport
     case concertViewCount
+    case lastCheckedImages
 }
 
 enum ContentCategories: String {

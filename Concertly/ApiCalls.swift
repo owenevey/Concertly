@@ -27,11 +27,11 @@ func fetchData<T: Decodable, U: Encodable>(endpoint: String, method: String = "G
             throw ConcertlyError.invalidResponse
         }
         
-//        if let rawData = String(data: data, encoding: .utf8) {
-//            print("Raw Response: \(rawData)")
-//        } else {
-//            print("Unable to convert data to string")
-//        }
+        if let rawData = String(data: data, encoding: .utf8) {
+            print("Raw Response: \(rawData)")
+        } else {
+            print("Unable to convert data to string")
+        }
         
         if httpResponse.statusCode == 401 {
             throw ConcertlyError.unauthorized
@@ -52,18 +52,18 @@ func fetchData<T: Decodable, U: Encodable>(endpoint: String, method: String = "G
     
     do {
         let request = try makeRequest(with: token)
-        print("Calling \(endpoint)")
         return try await makeCall(with: request, dateDecodingStrategy: dateDecodingStrategy)
     } catch ConcertlyError.unauthorized {
-        
         try await AuthenticationService.shared.refreshTokens()
         
         guard let newToken = KeychainUtil.get(forKey: "idToken") else {
             throw ConcertlyError.missingIdToken
         }
-        
+                
         let retryRequest = try makeRequest(with: newToken)
         return try await makeCall(with: retryRequest, dateDecodingStrategy: dateDecodingStrategy)
+    } catch {
+        throw ConcertlyError.invalidData
     }
 }
 
@@ -116,6 +116,12 @@ func fetchPopularArtists(category: String) async throws -> ApiResponse<PopularAr
 func fetchArtistDetails(id: String) async throws -> ApiResponse<ArtistDetailsResponse> {
     let endpoint = "\(baseUrl)/artistDetails?id=\(id)"
     let response: ApiResponse<ArtistDetailsResponse> = try await fetchData(endpoint: endpoint)
+    return response
+}
+
+func fetchArtistImage(id: String) async throws -> ApiResponse<String> {
+    let endpoint = "\(baseUrl)/artistImage?id=\(id)"
+    let response: ApiResponse<String> = try await fetchData(endpoint: endpoint)
     return response
 }
 
@@ -194,7 +200,6 @@ func fetchHotels(location: String, fromDate: String, toDate: String) async throw
 func fetchHotelsBookingUrl(location: String, fromDate: String, toDate: String, propertyToken: String) async throws -> ApiResponse<String> {
     let endpoint = "\(baseUrl)/hotels?location=\(location)&fromDate=\(fromDate)&toDate=\(toDate)&propertyToken=\(propertyToken)"
     let response: ApiResponse<String> = try await fetchData(endpoint: endpoint, dateDecodingStrategy: .formatted(customDateFormatter()))
-    print("YY", response)
     return response
 }
 
@@ -223,8 +228,13 @@ func updateUserPreferences(request: UserPreferencesRequest) async throws -> ApiR
     return response
 }
 
+func fetchUserPreferences() async throws -> ApiResponse<UserPreferencesResponse> {
+    let endpoint = "\(baseUrl)/user"
+    
+    let response: ApiResponse<UserPreferencesResponse> = try await fetchData(endpoint: endpoint, method: "GET")
+    return response
+}
 
-////////////////////////////////////////////////////////
 
 enum ConcertlyError: Error {
     case invalidURL
