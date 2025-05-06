@@ -84,11 +84,7 @@ class ArtistViewModel: ObservableObject {
 
             if newTourDateNotifications {
                 do {
-                    guard let pushNotificationToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue) else {
-                        throw NSError(domain: "", code: 1, userInfo: nil)
-                    }
-                    
-                    let response = try await toggleFollowArtist(artistId: artistId, pushNotificationToken: pushNotificationToken, follow: false)
+                    let response = try await toggleFollowArtist(artistId: artistId, follow: false)
                     
                     if response.status == .error {
                         throw NSError(domain: "", code: 1, userInfo: nil)
@@ -115,11 +111,7 @@ class ArtistViewModel: ObservableObject {
             
             if newTourDateNotifications {
                 do {
-                    guard let pushNotificationToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue) else {
-                        throw NSError(domain: "", code: 1, userInfo: nil)
-                    }
-                    
-                    let response = try await toggleFollowArtist(artistId: artistId, pushNotificationToken: pushNotificationToken, follow: true)
+                    let response = try await toggleFollowArtist(artistId: artistId, follow: true)
                     
                     if response.status == .error {
                         throw NSError(domain: "", code: 1, userInfo: nil)

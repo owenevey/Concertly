@@ -19,13 +19,13 @@ class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
             region: .USEast1,
             credentialsProvider: nil
         )
-
+        
         let poolConfig = AWSCognitoIdentityUserPoolConfiguration(
             clientId: "",
             clientSecret: nil,
             poolId: ""
         )
-
+        
         AWSCognitoIdentityUserPool.register(
             with: serviceConfig,
             userPoolConfiguration: poolConfig,
@@ -36,8 +36,30 @@ class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        let stringifiedToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        UserDefaults.standard.set(stringifiedToken, forKey: AppStorageKeys.pushNotificationToken.rawValue)
+        print("RUNNING didRegisterForRemoteNotificationsWithDeviceToken")
+        Task {
+            let stringifiedToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+            
+            let storedToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue)
+            
+            if storedToken != stringifiedToken {
+                UserDefaults.standard.set(stringifiedToken, forKey: AppStorageKeys.pushNotificationToken.rawValue)
+                
+                let isSignedIn = UserDefaults.standard.bool(forKey: AppStorageKeys.isSignedIn.rawValue)
+                
+                if isSignedIn {
+                    do {
+                        let response = try await updateDeviceToken(deviceId: DeviceIdManager.getDeviceId(), pushNotificationToken: stringifiedToken, isNotificationsEnabled: true)
+                        
+                        if response.status == .error {
+                            throw NSError(domain: "", code: 0, userInfo: nil)
+                        }
+                    } catch {
+                        print("Failed to update device token: \(error)")
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -45,7 +67,7 @@ extension CustomAppDelegate: UNUserNotificationCenterDelegate {
     // This function lets us do something when the user interacts with a notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         let userInfo = response.notification.request.content.userInfo
-                
+        
         if let aps = userInfo["aps"] as? [String: Any] {
             if let deepLink = aps["deepLink"] as? String, let url = URL(string: deepLink) {
                 DispatchQueue.main.async {
@@ -62,11 +84,11 @@ extension CustomAppDelegate: UNUserNotificationCenterDelegate {
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
         let userInfo = notification.request.content.userInfo
-
+        
         if let aps = userInfo["aps"] as? [String: Any] {
             saveNotification(data: aps)
         }
-
+        
         // Show banner, badge, and play sound
         completionHandler([.banner, .sound, .badge])
     }
@@ -80,7 +102,7 @@ extension CustomAppDelegate: UNUserNotificationCenterDelegate {
         else {
             return
         }
-
+        
         let type: String
         if deepLink.contains("artist") {
             type = "artist"
@@ -89,7 +111,7 @@ extension CustomAppDelegate: UNUserNotificationCenterDelegate {
         } else {
             return
         }
-
+        
         let notification = SavedNotification(
             type: type,
             artistName: artistName,

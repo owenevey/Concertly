@@ -140,8 +140,14 @@ class AuthenticationService {
                 KeychainUtil.save(accessToken, forKey: "accessToken")
                 KeychainUtil.save(idToken, forKey: "idToken")
                 KeychainUtil.save(refreshToken, forKey: "refreshToken")
-                                
+                
                 UserDefaults.standard.set(email, forKey: AppStorageKeys.email.rawValue)
+                
+                if let idTokenPayload = self.parseJWT(idToken) {
+                    if let sub = idTokenPayload["sub"] as? String {
+                        UserDefaults.standard.set(sub, forKey: "userId")
+                    }
+                }
                 
                 completion(.success(session))
             } else {
@@ -168,4 +174,22 @@ class AuthenticationService {
         
         completion(.success(()))
     }
+    
+    func parseJWT(_ token: String) -> [String: Any]? {
+        let components = token.split(separator: ".")
+        if components.count == 3 {
+            let base64UrlString = String(components[1])
+            let base64 = base64UrlString
+                .replacingOccurrences(of: "-", with: "+")
+                .replacingOccurrences(of: "_", with: "/")
+            
+            guard let data = Data(base64Encoded: base64, options: .ignoreUnknownCharacters),
+                  let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+                return nil
+            }
+            return json
+        }
+        return nil
+    }
+
 }

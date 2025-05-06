@@ -75,25 +75,19 @@ class NotificationManager {
     }
     
     func updateNewTourDateNotifications() async {
+        let newTourDateNotifications = UserDefaults.standard.bool(forKey: AppStorageKeys.newTourDates.rawValue)
+        
         do {
-            let newTourDateNotifications = UserDefaults.standard.bool(forKey: AppStorageKeys.newTourDates.rawValue)
-            
-            guard let pushNotificationToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue) else {
+            let response = try await updateDeviceToken(deviceId: DeviceIdManager.getDeviceId(), isNotificationsEnabled: newTourDateNotifications)
+        
+            if response.status == .error {
                 throw NSError(domain: "", code: 1, userInfo: nil)
-            }
-            
-            let followedArtists = CoreDataManager.shared.fetchItems(for: ContentCategories.following.rawValue, type: Artist.self)
-            
-            for artist in followedArtists {
-                let response = try await toggleFollowArtist(artistId: artist.id, pushNotificationToken: pushNotificationToken, follow: newTourDateNotifications)
-                
-                if response.status == .error {
-                    throw NSError(domain: "", code: 1, userInfo: nil)
-                }
             }
         }
         catch {
-            
+            // NEED TO DO SOMETHING HERE
+            UserDefaults.standard.set(!newTourDateNotifications, forKey: AppStorageKeys.newTourDates.rawValue)
+            print("error in updateNewTourDateNotifications")
         }
     }
 }

@@ -241,24 +241,24 @@ struct SignInView: View {
             UserDefaults.standard.set(preferences.longitude, forKey: AppStorageKeys.homeLong.rawValue)
             UserDefaults.standard.set(preferences.airport, forKey: AppStorageKeys.homeAirport.rawValue)
             
-            var artistArray: [SuggestedArtist] = []
-            
-            for artist in preferences.followingArtists {
-                var newArtist = SuggestedArtist(name: artist.name, id: artist.id, imageUrl: "")
-                
-                do {
-                    let imageResponse = try await fetchArtistImage(id: artist.id)
-                    if let imageUrl = imageResponse.data {
-                        newArtist.imageUrl = imageUrl
-                    }
-                } catch {
-                    print("Failed to fetch image for artist \(artist.id): \(error)")
-                }
-                
-                artistArray.append(newArtist)
-            }
-            
-            CoreDataManager.shared.saveItems(artistArray, category: ContentCategories.following.rawValue)
+//            var artistArray: [SuggestedArtist] = []
+//            
+//            for artist in preferences.followingArtists {
+//                var newArtist = SuggestedArtist(name: artist.name, id: artist.id, imageUrl: "")
+//                
+//                do {
+//                    let imageResponse = try await fetchArtistImage(id: artist.id)
+//                    if let imageUrl = imageResponse.data {
+//                        newArtist.imageUrl = imageUrl
+//                    }
+//                } catch {
+//                    print("Failed to fetch image for artist \(artist.id): \(error)")
+//                }
+//                
+//                artistArray.append(newArtist)
+//            }
+//            
+//            CoreDataManager.shared.saveItems(artistArray, category: ContentCategories.following.rawValue)
         } else {
             throw NSError(domain: "getUserPreferences failed", code: 1, userInfo: nil)
         }

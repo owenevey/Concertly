@@ -18,11 +18,11 @@ struct ChooseArtistsView: View {
     
     
     private func onTapDone() async {
-        let followedArtists: [FollowedArtist] = selectedArtists.map { suggestedArtist in
-            FollowedArtist(id: suggestedArtist.id, name: suggestedArtist.name)
-        }
+//        let followedArtists: [FollowedArtist] = selectedArtists.map { suggestedArtist in
+//            FollowedArtist(id: suggestedArtist.id, name: suggestedArtist.name)
+//        }
         
-        let userPreferencesRequest = UserPreferencesRequest(artists: followedArtists, follow: true, city: homeCity, latitude: homeLat, longitude: homeLong, airport: homeAirport)
+        let userPreferencesRequest = UserPreferencesRequest(city: homeCity, latitude: homeLat, longitude: homeLong, airport: homeAirport)
         
         withAnimation(.easeInOut(duration: 0.2)) {
             savePreferencesResponse = ApiResponse(status: .loading)

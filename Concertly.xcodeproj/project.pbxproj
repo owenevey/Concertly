@@ -77,6 +77,8 @@
 		F14349E52D506DF800C63041 /* SavedDataContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F14349E32D506DF800C63041 /* SavedDataContainer.xcdatamodeld */; };
 		F14349E72D513FEA00C63041 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14349E62D513FEA00C63041 /* CoreDataManager.swift */; };
 		F14F624D2DC7FC05008ACC06 /* UserPreferencesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14F624C2DC7FBFC008ACC06 /* UserPreferencesResponse.swift */; };
+		F14F62502DC91E61008ACC06 /* DeviceIdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14F624F2DC91E61008ACC06 /* DeviceIdManager.swift */; };
+		F14F62522DC920CD008ACC06 /* UpdateTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14F62512DC920C4008ACC06 /* UpdateTokenRequest.swift */; };
 		F15109282D6A4E630041B794 /* ChooseCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15109272D6A4E630041B794 /* ChooseCityView.swift */; };
 		F1611FE02D57203800D4DF10 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1611FDF2D57203400D4DF10 /* ProfileViewModel.swift */; };
 		F1611FE22D58167100D4DF10 /* SuggestedConcertsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1611FE12D58166C00D4DF10 /* SuggestedConcertsResponse.swift */; };
@@ -255,6 +257,8 @@
 		F14349E42D506DF800C63041 /* SavedDataContainer.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SavedDataContainer.xcdatamodel; sourceTree = "<group>"; };
 		F14349E62D513FEA00C63041 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F14F624C2DC7FBFC008ACC06 /* UserPreferencesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesResponse.swift; sourceTree = "<group>"; };
+		F14F624F2DC91E61008ACC06 /* DeviceIdManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceIdManager.swift; sourceTree = "<group>"; };
+		F14F62512DC920C4008ACC06 /* UpdateTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTokenRequest.swift; sourceTree = "<group>"; };
 		F15109272D6A4E630041B794 /* ChooseCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCityView.swift; sourceTree = "<group>"; };
 		F1611FDF2D57203400D4DF10 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		F1611FE12D58166C00D4DF10 /* SuggestedConcertsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedConcertsResponse.swift; sourceTree = "<group>"; };
@@ -418,16 +422,14 @@
 				F19C72622CC71B7500390BD6 /* Views */,
 				F19C72632CC71B8B00390BD6 /* Extensions */,
 				F19C72642CC71BC200390BD6 /* Utils */,
+				F14F624E2DC91E4C008ACC06 /* Managers */,
 				F19C72652CC71BF700390BD6 /* Models */,
 				F19C72742CCB3F4400390BD6 /* Components */,
 				F11714A12D127278007A0052 /* Enums */,
 				F1DAE6A12CC42EA500901914 /* ApiCalls.swift */,
 				F11640272C8BEABD0040C95D /* CustomClasses.swift */,
-				F1F8C6FF2DB3F812002975B6 /* AuthenticationService.swift */,
 				F1C1450D2D6FAE0100D63EBB /* AppStorageUtil.swift */,
 				F14349E32D506DF800C63041 /* SavedDataContainer.xcdatamodeld */,
-				F14349E62D513FEA00C63041 /* CoreDataManager.swift */,
-				F1C1450B2D6E9AFA00D63EBB /* NotificationManager.swift */,
 				F18DE2442CFCB6A800C4D1B5 /* sampleData.json */,
 				F18DE2F12CFE745300C4D1B5 /* Outfit.ttf */,
 				F11640162C8A8A300040C95D /* Preview Content */,
@@ -510,6 +512,17 @@
 				F1CD3C8F2D261899004E3041 /* ErrorCards */,
 			);
 			path = Cards;
+			sourceTree = "<group>";
+		};
+		F14F624E2DC91E4C008ACC06 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				F14F624F2DC91E61008ACC06 /* DeviceIdManager.swift */,
+				F14349E62D513FEA00C63041 /* CoreDataManager.swift */,
+				F1C1450B2D6E9AFA00D63EBB /* NotificationManager.swift */,
+				F1F8C6FF2DB3F812002975B6 /* AuthenticationService.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		F15109202D6991FB0041B794 /* Onboarding */ = {
@@ -624,6 +637,7 @@
 		F19C72652CC71BF700390BD6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F14F62512DC920C4008ACC06 /* UpdateTokenRequest.swift */,
 				F14F624C2DC7FBFC008ACC06 /* UserPreferencesResponse.swift */,
 				F13DF2772DB48D33001A0FB3 /* UserPreferencesRequest.swift */,
 				F192E3122D768336009EACB9 /* FollowRequest.swift */,
@@ -1026,7 +1040,9 @@
 				F11714AB2D13C4FE007A0052 /* HotelsHeader.swift in Sources */,
 				F19685B42D7957BD00FF2FC4 /* ZoomLinks.swift in Sources */,
 				F1E786272CB300A200F4E462 /* HotelsView.swift in Sources */,
+				F14F62502DC91E61008ACC06 /* DeviceIdManager.swift in Sources */,
 				F1CD3C8D2D260876004E3041 /* ExploreContentType.swift in Sources */,
+				F14F62522DC920CD008ACC06 /* UpdateTokenRequest.swift in Sources */,
 				F1CD3C842D24CAEB004E3041 /* CitySearchResponse.swift in Sources */,
 				F1CD3C992D264208004E3041 /* ErrorDestinationCard.swift in Sources */,
 				F19C72812CD089B800390BD6 /* FilterDuration.swift in Sources */,

@@ -13,6 +13,7 @@ func fetchData<T: Decodable, U: Encodable>(endpoint: String, method: String = "G
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         if let body = body {
+            print("BODY", body)
             request.httpBody = try JSONEncoder().encode(body)
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
@@ -62,8 +63,6 @@ func fetchData<T: Decodable, U: Encodable>(endpoint: String, method: String = "G
                 
         let retryRequest = try makeRequest(with: newToken)
         return try await makeCall(with: retryRequest, dateDecodingStrategy: dateDecodingStrategy)
-    } catch {
-        throw ConcertlyError.invalidData
     }
 }
 
@@ -212,10 +211,10 @@ func fetchSimilarConcerts(followingArtists: [SuggestedArtist]) async throws -> A
     return response
 }
 
-func toggleFollowArtist(artistId: String, pushNotificationToken: String, follow: Bool) async throws -> ApiResponse<String> {
+func toggleFollowArtist(artistId: String, follow: Bool) async throws -> ApiResponse<String> {
     let endpoint = "\(baseUrl)/followArtist"
     
-    let followRequest = FollowRequestBody(followRequest: FollowRequest(artistId: artistId, pushNotificationToken: pushNotificationToken, follow: follow))
+    let followRequest = FollowRequest(artistId: artistId, follow: follow)
     
     let response: ApiResponse<String> = try await fetchData(endpoint: endpoint, method: "POST", body: followRequest)
     return response
@@ -232,6 +231,15 @@ func fetchUserPreferences() async throws -> ApiResponse<UserPreferencesResponse>
     let endpoint = "\(baseUrl)/user"
     
     let response: ApiResponse<UserPreferencesResponse> = try await fetchData(endpoint: endpoint, method: "GET")
+    return response
+}
+
+func updateDeviceToken(deviceId: String, pushNotificationToken: String? = nil, isNotificationsEnabled: Bool? = nil) async throws -> ApiResponse<String> {
+    let endpoint = "\(baseUrl)/updateToken"
+    
+    let request = UpdateTokenRequest(deviceId: deviceId, pushNotificationToken: pushNotificationToken, isNotificationsEnabled: isNotificationsEnabled)
+    
+    let response: ApiResponse<String> = try await fetchData(endpoint: endpoint, method: "POST", body: request)
     return response
 }
 
