@@ -32,12 +32,19 @@ class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
             forKey: "UserPool"
         )
         
+        let isSignedIn = UserDefaults.standard.bool(forKey: AppStorageKeys.isSignedIn.rawValue)
+        
+        if isSignedIn {
+            NotificationManager.shared.refreshNotificationPermissions()
+        }
+        
         return true
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        print("RUNNING didRegisterForRemoteNotificationsWithDeviceToken")
         Task {
+            UserDefaults.standard.set(true, forKey: AppStorageKeys.isPushNotificationsOn.rawValue)
+            
             let stringifiedToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
             
             let storedToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue)

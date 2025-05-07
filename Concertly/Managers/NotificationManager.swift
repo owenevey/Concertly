@@ -79,15 +79,34 @@ class NotificationManager {
         
         do {
             let response = try await updateDeviceToken(deviceId: DeviceIdManager.getDeviceId(), isNotificationsEnabled: newTourDateNotifications)
-        
+            
             if response.status == .error {
                 throw NSError(domain: "", code: 1, userInfo: nil)
             }
         }
         catch {
-            // NEED TO DO SOMETHING HERE
+            // NEED TO DO SOMETHING HERE, show snackbar
             UserDefaults.standard.set(!newTourDateNotifications, forKey: AppStorageKeys.newTourDates.rawValue)
             print("error in updateNewTourDateNotifications")
+        }
+    }
+    
+    func refreshNotificationPermissions() {
+        let isPushNotificationsOn = UserDefaults.standard.bool(forKey: AppStorageKeys.isPushNotificationsOn.rawValue)
+        
+        notificationCenter.getNotificationSettings { settings in
+            if settings.authorizationStatus == .authorized {
+                if !isPushNotificationsOn {
+                    DispatchQueue.main.async {
+                        UIApplication.shared.registerForRemoteNotifications()
+                        UserDefaults.standard.set(true, forKey: AppStorageKeys.isPushNotificationsOn.rawValue)
+                    }
+                }
+            } else {
+                if isPushNotificationsOn {
+                    UserDefaults.standard.set(false, forKey: AppStorageKeys.isPushNotificationsOn.rawValue)
+                }
+            }
         }
     }
 }

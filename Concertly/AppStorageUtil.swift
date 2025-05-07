@@ -14,6 +14,7 @@ enum AppStorageKeys: String {
     case selectedNotificationPref
     case theme
     case concertReminders
+    case isPushNotificationsOn
     case newTourDates
     case pushNotificationToken
     case homeCity
