@@ -12,27 +12,33 @@ struct ChooseArtistsView: View {
     @FocusState private var isTextFieldFocused: Bool
     @State private var showHeaderBorder: Bool = false
     @State private var selectedArtists: Set<SuggestedArtist> = []
-        
+    
     @State var savePreferencesResponse: ApiResponse<String> = ApiResponse<String>()
     @State var showError = false
     
     
     private func onTapDone() async {
-//        let followedArtists: [FollowedArtist] = selectedArtists.map { suggestedArtist in
-//            FollowedArtist(id: suggestedArtist.id, name: suggestedArtist.name)
-//        }
-        
-        let userPreferencesRequest = UserPreferencesRequest(city: homeCity, latitude: homeLat, longitude: homeLong, airport: homeAirport)
-        
         withAnimation(.easeInOut(duration: 0.2)) {
             savePreferencesResponse = ApiResponse(status: .loading)
         }
         
+        let userPreferencesRequest = UserPreferencesRequest(city: homeCity, latitude: homeLat, longitude: homeLong, airport: homeAirport)
+        
         do {
-            let response = try await updateUserPreferences(request: userPreferencesRequest)
+            let preferencesResponse = try await updateUserPreferences(request: userPreferencesRequest)
             
-            if response.status == .error {
+            if preferencesResponse.status == .error {
                 throw NSError(domain: "", code: 1, userInfo: nil)
+            }
+            
+            for artist in selectedArtists {
+                let followResponse = try await toggleFollowArtist(artistId: artist.id, follow: true)
+                
+                if followResponse.status == .error {
+                    throw NSError(domain: "Error following artist: \(artist.name)", code: 1, userInfo: nil)
+                }
+                
+                CoreDataManager.shared.saveArtist(artist, category: ContentCategories.following.rawValue)
             }
             
             withAnimation(.easeInOut(duration: 0.2)) {
@@ -40,13 +46,7 @@ struct ChooseArtistsView: View {
             }
             
             hasFinishedOnboarding = true
-            
-            for artist in selectedArtists {
-                CoreDataManager.shared.saveArtist(artist, category: ContentCategories.following.rawValue)
-            }
-            
         } catch {
-            print(error)
             withAnimation(.easeInOut(duration: 0.2)) {
                 savePreferencesResponse = ApiResponse(status: .error, error: error.localizedDescription)
                 showError = true

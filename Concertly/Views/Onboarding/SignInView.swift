@@ -186,10 +186,9 @@ struct SignInView: View {
                 case .success(_):
                     Task {
                         do {
-                            try await getUserPreferences()
+                            try await getUserData()
                             DispatchQueue.main.async {
                                 isSignedIn = true
-                                hasFinishedOnboarding = true
                                 withAnimation {
                                     isLoading = false
                                 }
@@ -233,35 +232,33 @@ struct SignInView: View {
         }
     }
     
-    func getUserPreferences() async throws {
+    func getUserData() async throws {
         let response = try await fetchUserPreferences()
         if let preferences = response.data {
-            UserDefaults.standard.set(preferences.city, forKey: AppStorageKeys.homeCity.rawValue)
-            UserDefaults.standard.set(preferences.latitude, forKey: AppStorageKeys.homeLat.rawValue)
-            UserDefaults.standard.set(preferences.longitude, forKey: AppStorageKeys.homeLong.rawValue)
-            UserDefaults.standard.set(preferences.airport, forKey: AppStorageKeys.homeAirport.rawValue)
-            
-//            var artistArray: [SuggestedArtist] = []
-//            
-//            for artist in preferences.followingArtists {
-//                var newArtist = SuggestedArtist(name: artist.name, id: artist.id, imageUrl: "")
-//                
-//                do {
-//                    let imageResponse = try await fetchArtistImage(id: artist.id)
-//                    if let imageUrl = imageResponse.data {
-//                        newArtist.imageUrl = imageUrl
-//                    }
-//                } catch {
-//                    print("Failed to fetch image for artist \(artist.id): \(error)")
-//                }
-//                
-//                artistArray.append(newArtist)
-//            }
-//            
-//            CoreDataManager.shared.saveItems(artistArray, category: ContentCategories.following.rawValue)
+            if let city = preferences.city {
+                UserDefaults.standard.set(preferences.city, forKey: AppStorageKeys.homeCity.rawValue)
+                UserDefaults.standard.set(preferences.latitude, forKey: AppStorageKeys.homeLat.rawValue)
+                UserDefaults.standard.set(preferences.longitude, forKey: AppStorageKeys.homeLong.rawValue)
+                UserDefaults.standard.set(preferences.airport, forKey: AppStorageKeys.homeAirport.rawValue)
+            } else {
+                // They haven't saved preferences
+                return
+            }
         } else {
-            throw NSError(domain: "getUserPreferences failed", code: 1, userInfo: nil)
+            throw NSError(domain: "getUserData preferences failed", code: 1, userInfo: nil)
         }
+        
+        let artistsResponse = try await fetchFollowedArtists()
+        
+        if let artistsData = artistsResponse.data {
+            if artistsData.count > 0 {
+                CoreDataManager.shared.saveItems(artistsData, category: ContentCategories.following.rawValue)
+            }
+        } else {
+            throw NSError(domain: "getUserData preferences failed", code: 1, userInfo: nil)
+        }
+        
+        UserDefaults.standard.set(true, forKey: AppStorageKeys.hasFinishedOnboarding.rawValue)
     }
     
     

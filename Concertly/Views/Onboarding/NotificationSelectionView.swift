@@ -31,7 +31,12 @@ struct NotificationSelectionView: View {
                 .multilineTextAlignment(.center)
             
             ConcertlyButton(label: "Notify me") {
-                notificationManager.requestPermission(completion: onTapDone)
+                if let token = UserDefaults.standard.string(forKey: "pushToken") {
+                    onTapDone(isNotificationsEnabled: true)
+                    Task { await NotificationManager.shared.updateNewTourDateNotifications() }
+                } else {
+                    notificationManager.requestPermission(completion: onTapDone)
+                }
             }
             .frame(width: 200)
             

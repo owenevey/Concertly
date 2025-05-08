@@ -234,6 +234,13 @@ func fetchUserPreferences() async throws -> ApiResponse<UserPreferencesResponse>
     return response
 }
 
+func fetchFollowedArtists() async throws -> ApiResponse<[SuggestedArtist]> {
+    let endpoint = "\(baseUrl)/followedArtists"
+    
+    let response: ApiResponse<[SuggestedArtist]> = try await fetchData(endpoint: endpoint, method: "GET")
+    return response
+}
+
 func updateDeviceToken(deviceId: String, pushNotificationToken: String? = nil, isNotificationsEnabled: Bool? = nil) async throws -> ApiResponse<String> {
     let endpoint = "\(baseUrl)/updateToken"
     
