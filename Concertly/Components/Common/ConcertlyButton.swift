@@ -14,7 +14,7 @@ struct ConcertlyButton: View {
         } label: {
             Text(label)
                 .font(.system(size: 17, type: .SemiBold))
-                .foregroundStyle(style == .primary ? .white : .primary)
+                .foregroundStyle(style == .secondary ? .primary : Color.white)
                 .padding(.horizontal, 30)
                 .padding(.vertical, 12)
                 .frame(maxWidth: fitText ? nil : .infinity)
@@ -26,6 +26,9 @@ struct ConcertlyButton: View {
                         } else if style == .secondary {
                             RoundedRectangle(cornerRadius: 15)
                                 .stroke(.primary, lineWidth: 3)
+                        } else if style == .warning {
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(Color.red)
                         }
                     }
                     
@@ -40,6 +43,7 @@ struct ConcertlyButton: View {
 enum ConcertlyButtonStyle: String {
     case primary
     case secondary
+    case warning
 }
 
 #Preview {

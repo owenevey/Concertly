@@ -135,7 +135,7 @@ struct SignUpView: View {
                         isLoading = true
                     }
                     
-                    AuthenticationService.shared.signUp(email: email.lowercased(), password: password1) { result in
+                    AuthenticationManager.shared.signUp(email: email.lowercased(), password: password1) { result in
                         DispatchQueue.main.async {
                             switch result {
                             case .success:

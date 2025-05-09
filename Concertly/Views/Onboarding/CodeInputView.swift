@@ -52,14 +52,14 @@ struct CodeInputView: View {
                     value = String(newValue.prefix(6))
                     if value.count == 6 {
                         Task { @MainActor in
-                            AuthenticationService.shared.confirmSignUp(email: email, confirmationCode: value) { result in
+                            AuthenticationManager.shared.confirmSignUp(email: email, confirmationCode: value) { result in
                                 DispatchQueue.main.async {
                                     switch result {
                                     case .success:
                                         withAnimation {
                                             state = .valid
                                         }
-                                        AuthenticationService.shared.signIn(email: email, password: password) { result in
+                                        AuthenticationManager.shared.signIn(email: email, password: password) { result in
                                             DispatchQueue.main.async {
                                                 switch result {
                                                 case .success:
@@ -87,7 +87,7 @@ struct CodeInputView: View {
                 
                 if showResendButton {
                     ConcertlyButton(label: "Resend Code", fitText: true) {
-                        AuthenticationService.shared.resendConfirmationCode(email: email) { result in
+                        AuthenticationManager.shared.resendConfirmationCode(email: email) { result in
                             DispatchQueue.main.async {
                                 switch result {
                                 case .success:

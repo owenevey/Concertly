@@ -55,7 +55,7 @@ func fetchData<T: Decodable, U: Encodable>(endpoint: String, method: String = "G
         let request = try makeRequest(with: token)
         return try await makeCall(with: request, dateDecodingStrategy: dateDecodingStrategy)
     } catch ConcertlyError.unauthorized {
-        try await AuthenticationService.shared.refreshTokens()
+        try await AuthenticationManager.shared.refreshTokens()
         
         guard let newToken = KeychainUtil.get(forKey: "idToken") else {
             throw ConcertlyError.missingIdToken

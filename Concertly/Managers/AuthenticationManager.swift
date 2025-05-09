@@ -170,7 +170,18 @@ class AuthenticationManager {
         KeychainUtil.delete(forKey: "accessToken")
         KeychainUtil.delete(forKey: "idToken")
         KeychainUtil.delete(forKey: "refreshToken")
-        UserDefaults.standard.set(false, forKey: AppStorageKeys.isSignedIn.rawValue)
+        UserDefaults.standard.removeObject(forKey: AppStorageKeys.email.rawValue)
+        UserDefaults.standard.removeObject(forKey: AppStorageKeys.isSignedIn.rawValue)
+        UserDefaults.standard.removeObject(forKey: AppStorageKeys.hasFinishedOnboarding.rawValue)
+        UserDefaults.standard.removeObject(forKey: AppStorageKeys.selectedNotificationPref.rawValue)
+        UserDefaults.standard.removeObject(forKey: AppStorageKeys.concertReminders.rawValue)
+        UserDefaults.standard.removeObject(forKey: AppStorageKeys.newTourDates.rawValue)
+        UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeCity.rawValue)
+        UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeLat.rawValue)
+        UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeLong.rawValue)
+        UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeAirport.rawValue)
+        
+        CoreDataManager.shared.deleteAllSavedItems()
         
         completion(.success(()))
     }

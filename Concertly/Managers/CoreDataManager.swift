@@ -223,21 +223,26 @@ class CoreDataManager {
     }
     
     func deleteAllSavedItems() {
-        let concertRequest: NSFetchRequest<ConcertEntity> = ConcertEntity.fetchRequest()
-        deleteEntities(request: concertRequest)
+        let persistentStoreCoordinator = container.persistentStoreCoordinator
+        let context = container.viewContext
         
-        let artistRequest: NSFetchRequest<ArtistEntity> = ArtistEntity.fetchRequest()
-        deleteEntities(request: artistRequest)
-        
-        let destinationRequest: NSFetchRequest<DestinationEntity> = DestinationEntity.fetchRequest()
-        deleteEntities(request: destinationRequest)
-        
-        let venueRequest: NSFetchRequest<VenueEntity> = VenueEntity.fetchRequest()
-        deleteEntities(request: venueRequest)
-        
-        let notificationRequest: NSFetchRequest<SavedNotificationEntity> = SavedNotificationEntity.fetchRequest()
-        deleteEntities(request: notificationRequest)
+        for entityName in persistentStoreCoordinator.managedObjectModel.entities.compactMap({ $0.name }) {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+            let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+            batchDeleteRequest.resultType = .resultTypeObjectIDs
+            
+            do {
+                let result = try context.execute(batchDeleteRequest) as? NSBatchDeleteResult
+                if let objectIDs = result?.result as? [NSManagedObjectID] {
+                    let changes = [NSDeletedObjectsKey: objectIDs]
+                    NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [context])
+                }
+            } catch {
+                print("Failed to batch delete \(entityName): \(error)")
+            }
+        }
     }
+
 
 
     

@@ -79,6 +79,7 @@
 		F14F624D2DC7FC05008ACC06 /* UserPreferencesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14F624C2DC7FBFC008ACC06 /* UserPreferencesResponse.swift */; };
 		F14F62502DC91E61008ACC06 /* DeviceIdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14F624F2DC91E61008ACC06 /* DeviceIdManager.swift */; };
 		F14F62522DC920CD008ACC06 /* UpdateTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14F62512DC920C4008ACC06 /* UpdateTokenRequest.swift */; };
+		F14F62542DCD7AED008ACC06 /* DeleteAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14F62532DCD7AED008ACC06 /* DeleteAccountView.swift */; };
 		F15109282D6A4E630041B794 /* ChooseCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15109272D6A4E630041B794 /* ChooseCityView.swift */; };
 		F1611FE02D57203800D4DF10 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1611FDF2D57203400D4DF10 /* ProfileViewModel.swift */; };
 		F1611FE22D58167100D4DF10 /* SuggestedConcertsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1611FE12D58166C00D4DF10 /* SuggestedConcertsResponse.swift */; };
@@ -182,7 +183,7 @@
 		F1F8C6F82DB3ED4D002975B6 /* AWSCognitoIdentityProvider in Frameworks */ = {isa = PBXBuildFile; productRef = F1F8C6F72DB3ED4D002975B6 /* AWSCognitoIdentityProvider */; };
 		F1F8C6FA2DB3ED4D002975B6 /* AWSCore in Frameworks */ = {isa = PBXBuildFile; productRef = F1F8C6F92DB3ED4D002975B6 /* AWSCore */; };
 		F1F8C6FE2DB3F307002975B6 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F8C6FD2DB3F307002975B6 /* Secrets.swift */; };
-		F1F8C7002DB3F812002975B6 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F8C6FF2DB3F812002975B6 /* AuthenticationService.swift */; };
+		F1F8C7002DB3F812002975B6 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F8C6FF2DB3F812002975B6 /* AuthenticationManager.swift */; };
 		F1FACFF32D39D05C00D53A7D /* VenueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF22D39D05C00D53A7D /* VenueView.swift */; };
 		F1FACFF72D39D3F600D53A7D /* VenueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF62D39D3F200D53A7D /* VenueViewModel.swift */; };
 		F1FACFF92D3B681600D53A7D /* DestinationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF82D3B681100D53A7D /* DestinationsResponse.swift */; };
@@ -259,6 +260,7 @@
 		F14F624C2DC7FBFC008ACC06 /* UserPreferencesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesResponse.swift; sourceTree = "<group>"; };
 		F14F624F2DC91E61008ACC06 /* DeviceIdManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceIdManager.swift; sourceTree = "<group>"; };
 		F14F62512DC920C4008ACC06 /* UpdateTokenRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTokenRequest.swift; sourceTree = "<group>"; };
+		F14F62532DCD7AED008ACC06 /* DeleteAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountView.swift; sourceTree = "<group>"; };
 		F15109272D6A4E630041B794 /* ChooseCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCityView.swift; sourceTree = "<group>"; };
 		F1611FDF2D57203400D4DF10 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		F1611FE12D58166C00D4DF10 /* SuggestedConcertsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedConcertsResponse.swift; sourceTree = "<group>"; };
@@ -361,7 +363,7 @@
 		F1F3A64A2D0698850042F4F2 /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
 		F1F8C6F42DB1D8A7002975B6 /* OutageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutageView.swift; sourceTree = "<group>"; };
 		F1F8C6FD2DB3F307002975B6 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
-		F1F8C6FF2DB3F812002975B6 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		F1F8C6FF2DB3F812002975B6 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		F1FACFF22D39D05C00D53A7D /* VenueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueView.swift; sourceTree = "<group>"; };
 		F1FACFF62D39D3F200D53A7D /* VenueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueViewModel.swift; sourceTree = "<group>"; };
 		F1FACFF82D3B681100D53A7D /* DestinationsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationsResponse.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				F10E0C932D558F7B0091940C /* SavedViewModel.swift */,
 				F1611FDF2D57203400D4DF10 /* ProfileViewModel.swift */,
 				F13186282CB1EBD9003DBCC5 /* ProfileView.swift */,
+				F14F62532DCD7AED008ACC06 /* DeleteAccountView.swift */,
 				F1CD3CC52D31F1D6004E3041 /* ExploreSearchView.swift */,
 				F1CD3CC72D31F9F1004E3041 /* ExploreSearchViewModel.swift */,
 			);
@@ -520,7 +523,7 @@
 				F14F624F2DC91E61008ACC06 /* DeviceIdManager.swift */,
 				F14349E62D513FEA00C63041 /* CoreDataManager.swift */,
 				F1C1450B2D6E9AFA00D63EBB /* NotificationManager.swift */,
-				F1F8C6FF2DB3F812002975B6 /* AuthenticationService.swift */,
+				F1F8C6FF2DB3F812002975B6 /* AuthenticationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -920,7 +923,7 @@
 				F116402C2C8C274E0040C95D /* ExploreHeader.swift in Sources */,
 				F13DF27A2DB71426001A0FB3 /* TransitionExtensions.swift in Sources */,
 				F1CD3C8B2D25FB88004E3041 /* ExploreViewModel.swift in Sources */,
-				F1F8C7002DB3F812002975B6 /* AuthenticationService.swift in Sources */,
+				F1F8C7002DB3F812002975B6 /* AuthenticationManager.swift in Sources */,
 				F10AA08F2D7BDEFE00FB4EB9 /* NotificationRow.swift in Sources */,
 				F1FACFF92D3B681600D53A7D /* DestinationsResponse.swift in Sources */,
 				F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */,
@@ -1033,6 +1036,7 @@
 				F14349D62D4DAD7000C63041 /* NearbyViewModel.swift in Sources */,
 				F11611B92D6A8F5700345C31 /* LandingView.swift in Sources */,
 				F1D364A92D6AC61A0083680D /* TitleTextRenderer.swift in Sources */,
+				F14F62542DCD7AED008ACC06 /* DeleteAccountView.swift in Sources */,
 				F17252C32D346F96006C3454 /* GenreView.swift in Sources */,
 				F1CD3CCA2D31FE04004E3041 /* ArtistSearchResponse.swift in Sources */,
 				F17252C12D3455B2006C3454 /* ImageLoader.swift in Sources */,

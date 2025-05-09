@@ -180,7 +180,7 @@ struct SignInView: View {
             isLoading = true
         }
         
-        AuthenticationService.shared.signIn(email: email, password: password) { result in
+        AuthenticationManager.shared.signIn(email: email, password: password) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(_):

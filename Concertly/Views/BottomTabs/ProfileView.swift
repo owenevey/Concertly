@@ -203,6 +203,11 @@ struct ProfileView: View {
                                 .padding(.horizontal, 15)
                                 .contentShape(Rectangle())
                                 
+                                Divider()
+                                    .frame(height: 1)
+                                    .overlay(.gray2)
+                                    .padding(.horizontal, 15)
+                                
                                 HStack {
                                     Image(systemName: "star.fill")
                                         .frame(width: 22)
@@ -254,21 +259,56 @@ struct ProfileView: View {
                             VStack(spacing: 0) {
                                 
                                 Text(email)
-                                    .font(.system(size: 17, type: .Regular))
+                                    .font(.system(size: 17, type: .Medium))
                                     .frame(maxWidth: .infinity, alignment: .center)
                                     .padding(.vertical, 12)
                                     .padding(.horizontal, 15)
                                     .contentShape(Rectangle())
                                 
-                                NavigationLink(value: "name") {
+                                Divider()
+                                    .frame(height: 1)
+                                    .overlay(.gray2)
+                                    .padding(.horizontal, 15)
+                                
+                                Menu {
+                                    Button("Confirm Sign Out") {
+                                        AuthenticationManager.shared.signOut(completion: { _ in })
+                                    }
+                                } label: {
                                     HStack {
-                                        Image(systemName: "gear")
+                                        Image(systemName: "rectangle.portrait.and.arrow.right.fill")
                                             .frame(width: 22)
-                                        Text("Settings")
+                                        Text("Sign Out")
+                                            .font(.system(size: 17, type: .Regular))
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                        
+                                        Spacer()
+                                        
+                                        Image(systemName: "chevron.right")
+                                            .font(.system(size: 13))
+                                            .fontWeight(.semibold)
+                                    }
+                                    .padding(.vertical, 12)
+                                    .padding(.horizontal, 15)
+                                    .contentShape(Rectangle())
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                                
+                                
+                                Divider()
+                                    .frame(height: 1)
+                                    .overlay(.gray2)
+                                    .padding(.horizontal, 15)
+                                
+                                NavigationLink(value: Routes.deleteAccount.rawValue) {
+                                    HStack {
+                                        Image(systemName: "trash.fill")
+                                            .frame(width: 22)
+                                        Text("Delete Account")
                                             .font(.system(size: 17, type: .Regular))
                                         
                                         Spacer()
-  
+                                        
                                         Image(systemName: "chevron.right")
                                             .font(.system(size: 13))
                                             .fontWeight(.semibold)
@@ -286,25 +326,9 @@ struct ProfileView: View {
                             )
                         }
                         
-                        ConcertlyButton(label: "SignOut") {
-                            AuthenticationService.shared.signOut { _ in
-                                router.selectedTab = 0
-                                isSignedIn = false
-                                hasFinishedOnboarding = false
-                                selectedNotificationPref = false
-                                
-                                CoreDataManager.shared.deleteAllSavedItems()
-                                
-                                KeychainUtil.delete(forKey: "accessToken")
-                                KeychainUtil.delete(forKey: "idToken")
-                                KeychainUtil.delete(forKey: "refreshToken")
-                            }
-                        }
-                        .padding(.vertical, 15)
-                        
                         Spacer()
                     }
-                    .padding(.horizontal, 15)
+                    .padding([.horizontal, .bottom], 15)
                     
                 }
                 .padding(.top, geometry.safeAreaInsets.top)
@@ -330,11 +354,6 @@ struct ProfileView: View {
         .onAppear {
             profileViewModel.getFollowingArtists()
         }
-//        .onChange(of: homeCity) {
-//            Task {
-//                await nearbyViewModel.getNearbyConcerts()
-//            }
-//        }
     }
     
     struct ProfileRow: View {

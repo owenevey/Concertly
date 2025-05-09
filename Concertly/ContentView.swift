@@ -111,6 +111,8 @@ struct NavigationDestinationModifier: ViewModifier {
                         AirportSearchView(airportCode: $homeAirport, title: "Home Airport")
                     case Routes.homeCity.rawValue:
                         CitySearchView(location: $homeCity, title: "Home City")
+                    case Routes.deleteAccount.rawValue:
+                        DeleteAccountView()
                     default:
                         EmptyView()
                     }

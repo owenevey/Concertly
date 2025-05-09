@@ -86,4 +86,5 @@ enum Routes: String {
     case exploreSearch
     case homeCity
     case homeAirport
+    case deleteAccount
 }

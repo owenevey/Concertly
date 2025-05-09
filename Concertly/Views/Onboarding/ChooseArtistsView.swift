@@ -98,10 +98,32 @@ struct ChooseArtistsView: View {
                     }
                 }
                 .safeAreaInset(edge: .bottom) {
-                    ConcertlyButton(label: "               Next               ", fitText: true) {
-                        await onTapDone()
+                    Button { Task { await onTapDone() } } label: {
+                        ZStack(alignment: .leading) {
+                            Text("Next")
+                                .font(.system(size: 17, type: .SemiBold))
+                                .foregroundStyle(.white)
+                                .padding(.vertical, 12)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                            
+                            HStack {
+                                CircleLoadingView(ringSize: 20, useWhite: true)
+                                    .opacity(savePreferencesResponse.status == .loading ? 1 : 0)
+                                    .animation(.easeInOut(duration: 0.2), value: savePreferencesResponse.status == .loading)
+                                    .padding(.leading, 15)
+                                Spacer()
+                            }
+                        }
+                        .frame(width: 200)
+                        .background(
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(Color.accentColor)
+                        )
+                        .contentShape(RoundedRectangle(cornerRadius: 15))
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        .shadow(radius: 5)
                     }
-                    .shadow(radius: 5)
+                    .buttonStyle(PlainButtonStyle())
                 }
             }
             .frame(maxWidth: .infinity)
@@ -112,6 +134,7 @@ struct ChooseArtistsView: View {
             SnackbarView(show: $showError, message: "Sorry, an error occurred. Please try again.")
                 .opacity(showError ? 1 : 0)
                 .animation(.easeInOut(duration: 0.2), value: showError)
+                .padding(.bottom, 50)
             
         }
         .background(Color.background)
