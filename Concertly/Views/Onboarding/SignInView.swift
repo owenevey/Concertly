@@ -12,35 +12,48 @@ struct SignInView: View {
     @State var errorMessage: String?
     @State var isLoading = false
     
+    @State private var navigateToSignUp = false
+    @State private var navigateToVerify = false
+    
+    @FocusState private var focusedField: Field?
+    
+    enum Field {
+        case email
+        case password
+    }
+    
     var isValidEmail: Bool {
         let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
         return NSPredicate(format: "SELF MATCHES %@", emailFormat).evaluate(with: email)
     }
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .bottom) {
             Color.background
                 .ignoresSafeArea()
             
-            VStack(spacing: 20) {
+            VStack(spacing: 15) {
                 Text("Concertly")
-                    .font(.system(size: 40, type: .SemiBold))
+                    .font(.system(size: 45, type: .SemiBold))
                     .foregroundStyle(.accent)
                     .padding(.bottom, 20)
-                
-                Text("Sign in to your account")
-                    .font(.system(size: 23, type: .SemiBold))
                 
                 HStack {
                     Image(systemName: "envelope")
                         .fontWeight(.semibold)
+                        .frame(width: 25)
                     TextField("Email", text: $email)
                         .textContentType(.emailAddress)
-                        .autocapitalization(.none)
                         .keyboardType(.emailAddress)
-                        .submitLabel(.done)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                        .submitLabel(.next)
                         .font(.system(size: 17, type: .Regular))
                         .padding(.trailing)
+                        .focused($focusedField, equals: .email)
+                        .onSubmit {
+                            focusedField = .password
+                        }
                 }
                 .padding(15)
                 .background(
@@ -48,26 +61,34 @@ struct SignInView: View {
                         .fill(.gray1)
                         .frame(maxWidth: .infinity)
                 )
+                .onTapGesture {
+                    focusedField = .email
+                }
                 
-                VStack {
-                    HStack {
-                        Image(systemName: "lock")
-                            .fontWeight(.semibold)
-                        TextField("Password", text: $password)
-                            .textContentType(.password)
-                            .submitLabel(.done)
-                            .autocapitalization(.none)
-                            .disableAutocorrection(true)
-                            .font(.system(size: 17, type: .Regular))
-                            .padding(.trailing)
-                    }
-                    .padding(15)
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(.gray1)
-                            .frame(maxWidth: .infinity)
-                    )
-                    
+                HStack {
+                    Image(systemName: "lock")
+                        .fontWeight(.semibold)
+                        .frame(width: 25)
+                    SecureField("Password", text: $password)
+                        .textContentType(.password)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                        .submitLabel(.done)
+                        .font(.system(size: 17, type: .Regular))
+                        .padding(.trailing)
+                        .focused($focusedField, equals: .password)
+                        .onSubmit {
+                            focusedField = nil
+                        }
+                }
+                .padding(15)
+                .background(
+                    RoundedRectangle(cornerRadius: 15)
+                        .fill(.gray1)
+                        .frame(maxWidth: .infinity)
+                )
+                .onTapGesture {
+                    focusedField = .password
                 }
                 
                 Button { Task { await onTapSignIn() } } label: {
@@ -108,53 +129,44 @@ struct SignInView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
                 
-                VStack {
-                    if let error = errorMessage {
-                        Text(error)
-                            .foregroundColor(.red)
-                            .font(.system(size: 16, type: .Regular))
-                            .multilineTextAlignment(.center)
-                            .lineLimit(2, reservesSpace: true)
-                            .padding(.top, 10)
-                            .transition(.opacity)
-                    }
-                    
-                    Text("Or")
-                        .font(.system(size: 16, type: .Regular))
-                        .foregroundStyle(.gray3)
-                        .padding(.vertical, 15)
-                    
-                    SignInWithAppleButton(.signIn) { request in
-                        request.requestedScopes = [.fullName, .email]
-                    } onCompletion: { result in
-                        switch result {
-                        case .success(let authorization):
-                            handleSuccessfulLogin(with: authorization)
-                        case .failure(let error):
-                            handleLoginError(with: error)
-                        }
-                    }
-                    .frame(height: 45)
-                }
-                .frame(height: 200)
-                
-                Spacer()
-                
-                HStack {
-                    Text("Don't have an account?")
-                    NavigationLink(destination: SignUpView()) {
-                        Text("Sign Up")
-                    }
+                NavigationLink(destination: ForgotPasswordView()) {
+                    Text("Forgot Password?")
                 }
                 .font(.system(size: 16, type: .Medium))
+                .foregroundStyle(.primary)
                 .frame(maxWidth: .infinity, alignment: .center)
+                .padding(.top, 10)
                 
+                if let error = errorMessage {
+                    Text(error)
+                        .foregroundColor(.red)
+                        .font(.system(size: 16, type: .Regular))
+                        .multilineTextAlignment(.center)
+                        .lineLimit(nil)
+                        .padding(.top, 10)
+                        .transition(.opacity)
+                }
+                
+                Spacer()
+
+                ConcertlyButton(label: "Sign Up", style: .secondary) {
+                    navigateToSignUp = true
+                }
             }
             .padding(30)
-            .padding(.vertical, 30)
+        }
+        .onTapGesture {
+            focusedField = nil
         }
         .navigationBarHidden(true)
         .disableSwipeBack(true)
+        .navigationDestination(isPresented: $navigateToSignUp) {
+            SignUpView()
+        }
+        .navigationDestination(isPresented: $navigateToVerify) {
+            CodeInputView(email: email.lowercased(), password: password)
+        }
+        .ignoresSafeArea(.keyboard)
     }
     
     func onTapSignIn() async {
@@ -219,6 +231,11 @@ struct SignInView: View {
                                 errorMessage = "Too many requests. Please try again later."
                             case AWSCognitoIdentityProviderErrorType.expiredCode.rawValue:
                                 errorMessage = "Session expired. Please sign in again."
+                            case AWSCognitoIdentityProviderErrorType.userNotConfirmed.rawValue:
+                                navigateToVerify = true
+                                AuthenticationManager.shared.resendConfirmationCode(email: email) { result in
+                                    
+                                }
                             default:
                                 errorMessage = "Something went wrong. Please try again."
                             }
@@ -230,54 +247,6 @@ struct SignInView: View {
                 }
             }
         }
-    }
-    
-    func getUserData() async throws {
-        let response = try await fetchUserPreferences()
-        if let preferences = response.data {
-            if let city = preferences.city {
-                UserDefaults.standard.set(preferences.city, forKey: AppStorageKeys.homeCity.rawValue)
-                UserDefaults.standard.set(preferences.latitude, forKey: AppStorageKeys.homeLat.rawValue)
-                UserDefaults.standard.set(preferences.longitude, forKey: AppStorageKeys.homeLong.rawValue)
-                UserDefaults.standard.set(preferences.airport, forKey: AppStorageKeys.homeAirport.rawValue)
-            } else {
-                // They haven't saved preferences
-                return
-            }
-        } else {
-            throw NSError(domain: "getUserData preferences failed", code: 1, userInfo: nil)
-        }
-        
-        let artistsResponse = try await fetchFollowedArtists()
-        
-        if let artistsData = artistsResponse.data {
-            if artistsData.count > 0 {
-                CoreDataManager.shared.saveItems(artistsData, category: ContentCategories.following.rawValue)
-            }
-        } else {
-            throw NSError(domain: "getUserData preferences failed", code: 1, userInfo: nil)
-        }
-        
-        UserDefaults.standard.set(true, forKey: AppStorageKeys.hasFinishedOnboarding.rawValue)
-    }
-    
-    
-    private func handleSuccessfulLogin(with authorization: ASAuthorization) {
-        if let userCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            print(userCredential.user)
-            
-            if userCredential.authorizedScopes.contains(.fullName) {
-                print(userCredential.fullName?.givenName ?? "No given name")
-            }
-            
-            if userCredential.authorizedScopes.contains(.email) {
-                print(userCredential.email ?? "No email")
-            }
-        }
-    }
-    
-    private func handleLoginError(with error: Error) {
-        print("Could not authenticate: \\(error.localizedDescription)")
     }
 }
 

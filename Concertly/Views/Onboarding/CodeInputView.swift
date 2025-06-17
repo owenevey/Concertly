@@ -8,122 +8,138 @@ struct CodeInputView: View {
     
     @State private var infoMessage: String? = nil
     @State private var showResendButton: Bool = false
+    @State private var showGoToSignIn: Bool = false
     
     @State var value: String = ""
     @State var state: TypingState = .typing
     @FocusState var isActive
-    
-//    @AppStorage(AppStorageKeys.isSignedIn.rawValue) private var isSignedIn = false
-    
+        
     var body: some View {
         ZStack {
             Color.background
                 .ignoresSafeArea()
             
             VStack {
-                Text("Enter the code sent to your email")
-                    .font(.system(size: 23, type: .SemiBold))
+                BackButton()
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.top, 90)
-                    .padding(.bottom, 30)
                 
-                HStack {
-                    ForEach(0..<6, id: \.self) { index in
-                        CharacterView(index)
-                    }
-                }
-                .compositingGroup()
-                .background {
-                    TextField("", text: $value)
-                        .focused($isActive)
-                        .keyboardType(.numberPad)
-                        .mask(alignment: .trailing) {
-                            Rectangle()
-                                .frame(width: 1, height: 1)
-                                .opacity(0.01)
+                VStack(spacing: 15) {
+                    Text("Enter the code sent to your email")
+                        .font(.system(size: 23, type: .SemiBold))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    HStack {
+                        ForEach(0..<6, id: \.self) { index in
+                            CharacterView(index)
                         }
-                        .allowsHitTesting(false)
-                }
-                .contentShape(.rect)
-                .onTapGesture {
-                    isActive = true
-                }
-                .onChange(of: value) { oldValue, newValue in
-                    value = String(newValue.prefix(6))
-                    if value.count == 6 {
-                        Task { @MainActor in
-                            AuthenticationManager.shared.confirmSignUp(email: email, confirmationCode: value) { result in
+                    }
+                    .compositingGroup()
+                    .background {
+                        TextField("", text: $value)
+                            .focused($isActive)
+                            .keyboardType(.numberPad)
+                            .mask(alignment: .trailing) {
+                                Rectangle()
+                                    .frame(width: 1, height: 1)
+                                    .opacity(0.01)
+                            }
+                            .allowsHitTesting(false)
+                    }
+                    .contentShape(.rect)
+                    .onTapGesture {
+                        isActive = true
+                    }
+                    .onChange(of: value) { oldValue, newValue in
+                        value = String(newValue.prefix(6))
+                        if value.count == 6 {
+                            Task { @MainActor in
+                                AuthenticationManager.shared.confirmSignUp(email: email, confirmationCode: value) { result in
+                                    DispatchQueue.main.async {
+                                        switch result {
+                                        case .success:
+                                            withAnimation {
+                                                state = .valid
+                                            }
+                                            AuthenticationManager.shared.signIn(email: email, password: password) { result in
+                                                DispatchQueue.main.async {
+                                                    switch result {
+                                                    case .success:
+                                                        UserDefaults.standard.set(true, forKey: AppStorageKeys.isSignedIn.rawValue)
+                                                    case .failure(_):
+                                                        withAnimation {
+                                                            infoMessage = "Code verified, but failed to sign in."
+                                                            showGoToSignIn = true
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            
+                                        case .failure( _ as NSError):
+                                            withAnimation {
+                                                state = .invalid
+                                                infoMessage = nil
+                                                showResendButton = true
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    if showResendButton {
+                        ConcertlyButton(label: "Resend Code", style: .secondary) {
+                            AuthenticationManager.shared.resendConfirmationCode(email: email) { result in
                                 DispatchQueue.main.async {
                                     switch result {
                                     case .success:
                                         withAnimation {
-                                            state = .valid
+                                            value = ""
+                                            state = .typing
+                                            infoMessage = "Code resent. Check your email."
+                                            showResendButton = false
                                         }
-                                        AuthenticationManager.shared.signIn(email: email, password: password) { result in
-                                            DispatchQueue.main.async {
-                                                switch result {
-                                                case .success:
-                                                    infoMessage = nil
-                                                    UserDefaults.standard.set(true, forKey: AppStorageKeys.isSignedIn.rawValue)
-                                                case .failure(_):
-                                                    withAnimation {
-                                                        infoMessage = "Code verified, but failed to sign in."
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        
-                                    case .failure( _ as NSError):
+                                    case .failure(_):
                                         withAnimation {
-                                            state = .invalid
-                                            showResendButton = true
+                                            infoMessage = "Couldn't resend code. Try again."
                                         }
                                     }
                                 }
                             }
                         }
-                    }
-                }
-                
-                if showResendButton {
-                    ConcertlyButton(label: "Resend Code", fitText: true) {
-                        AuthenticationManager.shared.resendConfirmationCode(email: email) { result in
-                            DispatchQueue.main.async {
-                                switch result {
-                                case .success:
-                                    withAnimation {
-                                        value = ""
-                                        state = .typing
-                                        infoMessage = "Code resent. Check your email."
-                                    }
-                                case .failure(_):
-                                    withAnimation {
-                                        infoMessage = "Couldn't resend code. Try again."
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .padding(.top, 30)
-                    .transition(.opacity)
-                }
-                
-                if let info = infoMessage {
-                    Text(info)
-                        .font(.system(size: 16, type: .Regular))
-                        .multilineTextAlignment(.center)
-                        .lineLimit(nil)
                         .padding(.top, 10)
                         .transition(.opacity)
+                    }
+                    
+                    if let info = infoMessage {
+                        Text(info)
+                            .font(.system(size: 16, type: .Regular))
+                            .multilineTextAlignment(.center)
+                            .lineLimit(nil)
+                            .padding(.top, 10)
+                            .transition(.opacity)
+                    }
+                    
+                    if showGoToSignIn {
+                        NavigationLink(destination: SignInView()) {
+                            Text("Go to Sign In")
+                        }
+                        .font(.system(size: 16, type: .Medium))
+                        .foregroundStyle(.primary)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding(.top, 10)
+                    }
+                    
+                    Spacer()
                 }
-                
-                Spacer()
-            }
-            .padding(.horizontal, 30)
-            .onAppear {
-                isActive = true
+                .padding(.horizontal, 30)
+                .onAppear {
+                    isActive = true
+                }
             }
         }
+        .navigationBarHidden(true)
+        .ignoresSafeArea(.keyboard)
     }
     
     @ViewBuilder

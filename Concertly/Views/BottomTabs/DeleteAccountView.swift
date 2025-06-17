@@ -37,6 +37,7 @@ struct DeleteAccountView: View {
                     .multilineTextAlignment(.center)
                 
                 ConcertlyButton(label: "Delete Account", style: .warning) {
+                    AuthenticationManager.shared.deleteAccount(completion: { _ in })
                 }
                 .frame(width: 200)
                 

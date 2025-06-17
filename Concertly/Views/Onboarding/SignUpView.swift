@@ -12,6 +12,14 @@ struct SignUpView: View {
     
     @Environment(\.dismiss) var dismiss
     
+    @FocusState private var focusedField: Field?
+    
+    enum Field {
+        case email
+        case password1
+        case password2
+    }
+    
     @State private var navigateToVerify = false
     
     var isValidEmail: Bool {
@@ -33,25 +41,29 @@ struct SignUpView: View {
             Color.background
                 .ignoresSafeArea()
             
-            VStack(spacing: 20) {
-                Text("Concertly")
-                    .font(.system(size: 40, type: .SemiBold))
-                    .foregroundStyle(.accent)
-                    .padding(.bottom, 20)
+            VStack(spacing: 15) {
+                Spacer()
                 
                 Text("Create your account")
-                    .font(.system(size: 23, type: .SemiBold))
+                    .font(.system(size: 27, type: .SemiBold))
+                    .padding(.bottom, 15)
                 
                 HStack {
                     Image(systemName: "envelope")
                         .fontWeight(.semibold)
+                        .frame(width: 25)
                     TextField("Email", text: $email)
                         .textContentType(.emailAddress)
-                        .autocapitalization(.none)
                         .keyboardType(.emailAddress)
-                        .submitLabel(.done)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                        .submitLabel(.next)
                         .font(.system(size: 17, type: .Regular))
                         .padding(.trailing)
+                        .focused($focusedField, equals: .email)
+                        .onSubmit {
+                            focusedField = .password1
+                        }
                 }
                 .padding(15)
                 .background(
@@ -59,17 +71,25 @@ struct SignUpView: View {
                         .fill(.gray1)
                         .frame(maxWidth: .infinity)
                 )
+                .onTapGesture {
+                    focusedField = .email
+                }
                 
                 HStack {
                     Image(systemName: "lock")
                         .fontWeight(.semibold)
-                    TextField("Password", text: $password1)
+                        .frame(width: 25)
+                    SecureField("Password", text: $password1)
                         .textContentType(.newPassword)
-                        .submitLabel(.done)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
+                        .submitLabel(.next)
                         .font(.system(size: 17, type: .Regular))
                         .padding(.trailing)
+                        .focused($focusedField, equals: .password1)
+                        .onSubmit {
+                            focusedField = .password2
+                        }
                 }
                 .padding(15)
                 .background(
@@ -77,17 +97,25 @@ struct SignUpView: View {
                         .fill(.gray1)
                         .frame(maxWidth: .infinity)
                 )
+                .onTapGesture {
+                    focusedField = .password1
+                }
                 
                 HStack {
                     Image(systemName: "lock")
                         .fontWeight(.semibold)
-                    TextField("Confirm Password", text: $password2)
+                        .frame(width: 25)
+                    SecureField("Confirm Password", text: $password2)
                         .textContentType(.newPassword)
-                        .submitLabel(.done)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
+                        .submitLabel(.done)
                         .font(.system(size: 17, type: .Regular))
                         .padding(.trailing)
+                        .focused($focusedField, equals: .password2)
+                        .onSubmit {
+                            focusedField = nil
+                        }
                 }
                 .padding(15)
                 .background(
@@ -95,78 +123,13 @@ struct SignUpView: View {
                         .fill(.gray1)
                         .frame(maxWidth: .infinity)
                 )
+                .onTapGesture {
+                    focusedField = .password2
+                }
                 
                 
                 
-                Button {
-                    withAnimation {
-                        errorMessage = nil
-                    }
-                    
-                    if (!isValidEmail) {
-                        withAnimation {
-                            errorMessage = "Please enter a valid email."
-                        }
-                        return
-                    }
-                    
-                    if password1.isEmpty {
-                        withAnimation {
-                            errorMessage = "Please enter a password."
-                        }
-                        return
-                    }
-                    
-                    if password1 != password2 {
-                        withAnimation {
-                            errorMessage = "Passwords do not match."
-                        }
-                        return
-                    }
-                    
-                    if !isValidPassword(password1) {
-                        withAnimation {
-                            errorMessage = "Password must be at least 8 characters long, contain an uppercase and lowercase character, and a number."
-                        }
-                        return
-                    }
-                    
-                    withAnimation {
-                        isLoading = true
-                    }
-                    
-                    AuthenticationManager.shared.signUp(email: email.lowercased(), password: password1) { result in
-                        DispatchQueue.main.async {
-                            switch result {
-                            case .success:
-                                navigateToVerify = true
-                                withAnimation {
-                                    isLoading = false
-                                }
-                            case .failure(let error as NSError):
-                                withAnimation {
-                                    if error.domain == AWSCognitoIdentityProviderErrorDomain {
-                                        switch error.code {
-                                        case AWSCognitoIdentityProviderErrorType.usernameExists.rawValue:
-                                            errorMessage = "That email is already registered. Please sign in."
-                                        case AWSCognitoIdentityProviderErrorType.invalidPassword.rawValue:
-                                            errorMessage = "Password must be at least 8 characters, contain uppercase and lowercase, number, and symbol."
-                                        case AWSCognitoIdentityProviderErrorType.invalidParameter.rawValue:
-                                            errorMessage = "Invalid input. Double-check your info."
-                                        default:
-                                            errorMessage = "Something went wrong. Try again."
-                                        }
-                                    } else {
-                                        errorMessage = "Something went wrong. Try again."
-                                    }
-                                }
-                            }
-                            withAnimation {
-                                isLoading = false
-                            }
-                        }
-                    }
-                } label: {
+                Button { Task { await onTapSignUp() } } label: {
                     HStack {
                         HStack {
                             if isLoading {
@@ -204,36 +167,17 @@ struct SignUpView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
                 
-                VStack {
-                    if let error = errorMessage {
-                        Text(error)
-                            .foregroundColor(.red)
-                            .font(.system(size: 16, type: .Regular))
-                            .multilineTextAlignment(.center)
-                            .lineLimit(2, reservesSpace: true)
-                            .padding(.top, 10)
-                            .transition(.opacity)
-                    }
-                    
-                    Text("Or")
+                if let error = errorMessage {
+                    Text(error)
+                        .foregroundColor(.red)
                         .font(.system(size: 16, type: .Regular))
-                        .foregroundStyle(.gray3)
-                        .padding(.vertical, 15)
-                    
-                    SignInWithAppleButton(.signUp) { request in
-                        request.requestedScopes = [.fullName, .email]
-                    } onCompletion: { result in
-                        switch result {
-                        case .success(let authorization):
-                            handleSuccessfulLogin(with: authorization)
-                        case .failure(let error):
-                            handleLoginError(with: error)
-                        }
-                    }
-                    .frame(height: 45)
+                        .multilineTextAlignment(.center)
+                        .lineLimit(nil)
+                        .padding(.top, 10)
+                        .transition(.opacity)
                 }
-                .frame(height: 200)
                 
+                Spacer()
                 Spacer()
                 
                 HStack {
@@ -247,7 +191,9 @@ struct SignUpView: View {
                 
             }
             .padding(30)
-            .padding(.vertical, 30)
+        }
+        .onTapGesture {
+            focusedField = nil
         }
         .navigationBarHidden(true)
         .disableSwipeBack(true)
@@ -256,23 +202,75 @@ struct SignUpView: View {
         }
     }
     
-    
-    private func handleSuccessfulLogin(with authorization: ASAuthorization) {
-        if let userCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            print(userCredential.user)
-            
-            if userCredential.authorizedScopes.contains(.fullName) {
-                print(userCredential.fullName?.givenName ?? "No given name")
+    private func onTapSignUp() async {
+        withAnimation {
+            errorMessage = nil
+        }
+        
+        if (!isValidEmail) {
+            withAnimation {
+                errorMessage = "Please enter a valid email."
             }
-            
-            if userCredential.authorizedScopes.contains(.email) {
-                print(userCredential.email ?? "No email")
+            return
+        }
+        
+        if password1.isEmpty {
+            withAnimation {
+                errorMessage = "Please enter a password."
+            }
+            return
+        }
+        
+        if password1 != password2 {
+            withAnimation {
+                errorMessage = "Passwords do not match."
+            }
+            return
+        }
+        
+        if !isValidPassword(password1) {
+            withAnimation {
+                errorMessage = "Password must be at least 8 characters long, contain an uppercase and lowercase character, and a number."
+            }
+            return
+        }
+        
+        withAnimation {
+            isLoading = true
+        }
+        
+        AuthenticationManager.shared.signUp(email: email.lowercased(), password: password1) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    navigateToVerify = true
+                case .failure(let error as NSError):
+                    withAnimation {
+                        if error.domain == AWSCognitoIdentityProviderErrorDomain {
+                            switch error.code {
+                            case AWSCognitoIdentityProviderErrorType.usernameExists.rawValue:
+                                errorMessage = "That email is already registered. Please sign in."
+                            case AWSCognitoIdentityProviderErrorType.invalidPassword.rawValue:
+                                errorMessage = "Password must be at least 8 characters, contain uppercase and lowercase, number, and symbol."
+                            case AWSCognitoIdentityProviderErrorType.invalidParameter.rawValue:
+                                errorMessage = "Invalid input. Double-check your info."
+                            case AWSCognitoIdentityProviderErrorType.limitExceeded.rawValue:
+                                errorMessage = "Too many attempts. Please wait a moment and try again."
+                            case AWSCognitoIdentityProviderErrorType.codeDeliveryFailure.rawValue:
+                                errorMessage = "Failed to send verification code. Please check your email and try again."
+                            default:
+                                errorMessage = "Something went wrong. Try again."
+                            }
+                        } else {
+                            errorMessage = "Something went wrong. Try again."
+                        }
+                    }
+                }
+                withAnimation {
+                    isLoading = false
+                }
             }
         }
-    }
-    
-    private func handleLoginError(with error: Error) {
-        print("Could not authenticate: \\(error.localizedDescription)")
     }
 }
 

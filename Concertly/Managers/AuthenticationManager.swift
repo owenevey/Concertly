@@ -30,7 +30,7 @@ class AuthenticationManager {
         isRefreshing = true
         print("Authentication service is refreshing tokens...")
         do {
-            guard let refreshToken = KeychainUtil.get(forKey: "refreshToken") else {
+            guard KeychainUtil.get(forKey: "refreshToken") != nil else {
                 throw NSError(domain: "NoRefreshToken", code: -1, userInfo: nil)
             }
             
@@ -186,6 +186,40 @@ class AuthenticationManager {
         completion(.success(()))
     }
     
+    func forgotPassword(email: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let userPool = userPool else {
+            completion(.failure(NSError(domain: "UserPoolNotInitialized", code: -1, userInfo: nil)))
+            return
+        }
+        
+        let user = userPool.getUser(email)
+        user.forgotPassword().continueWith { task in
+            if let error = task.error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+            return nil
+        }
+    }
+    
+    func confirmForgotPassword(email: String, confirmationCode: String, newPassword: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let userPool = userPool else {
+            completion(.failure(NSError(domain: "UserPoolNotInitialized", code: -1, userInfo: nil)))
+            return
+        }
+        
+        let user = userPool.getUser(email)
+        user.confirmForgotPassword(confirmationCode, password: newPassword).continueWith { task in
+            if let error = task.error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+            return nil
+        }
+    }
+    
     func parseJWT(_ token: String) -> [String: Any]? {
         let components = token.split(separator: ".")
         if components.count == 3 {
@@ -202,5 +236,72 @@ class AuthenticationManager {
         }
         return nil
     }
+    
+    
+    func deleteAccount(completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let user = userPool?.currentUser() else {
+            completion(.failure(NSError(domain: "UserNotLoggedIn", code: -1, userInfo: nil)))
+            return
+        }
 
+        user.delete().continueWith { task in
+            if let error = task.error {
+                completion(.failure(error))
+            } else {
+                
+                // Clear tokens and sign-in state
+                KeychainUtil.delete(forKey: "accessToken")
+                KeychainUtil.delete(forKey: "idToken")
+                KeychainUtil.delete(forKey: "refreshToken")
+                UserDefaults.standard.removeObject(forKey: AppStorageKeys.email.rawValue)
+                UserDefaults.standard.removeObject(forKey: AppStorageKeys.isSignedIn.rawValue)
+                UserDefaults.standard.removeObject(forKey: AppStorageKeys.hasFinishedOnboarding.rawValue)
+                UserDefaults.standard.removeObject(forKey: AppStorageKeys.selectedNotificationPref.rawValue)
+                UserDefaults.standard.removeObject(forKey: AppStorageKeys.concertReminders.rawValue)
+                UserDefaults.standard.removeObject(forKey: AppStorageKeys.newTourDates.rawValue)
+                UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeCity.rawValue)
+                UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeLat.rawValue)
+                UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeLong.rawValue)
+                UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeAirport.rawValue)
+                
+                CoreDataManager.shared.deleteAllSavedItems()
+                
+                completion(.success(()))
+            }
+            return nil
+        }
+    }
+
+    
+}
+
+
+
+func getUserData() async throws {
+    let response = try await fetchUserPreferences()
+    if let preferences = response.data {
+        if preferences.city != nil {
+            UserDefaults.standard.set(preferences.city, forKey: AppStorageKeys.homeCity.rawValue)
+            UserDefaults.standard.set(preferences.latitude, forKey: AppStorageKeys.homeLat.rawValue)
+            UserDefaults.standard.set(preferences.longitude, forKey: AppStorageKeys.homeLong.rawValue)
+            UserDefaults.standard.set(preferences.airport, forKey: AppStorageKeys.homeAirport.rawValue)
+        } else {
+            // They haven't saved preferences
+            return
+        }
+    } else {
+        throw NSError(domain: "getUserData preferences failed", code: 1, userInfo: nil)
+    }
+    
+    let artistsResponse = try await fetchFollowedArtists()
+    
+    if let artistsData = artistsResponse.data {
+        if artistsData.count > 0 {
+            CoreDataManager.shared.saveItems(artistsData, category: ContentCategories.following.rawValue)
+        }
+    } else {
+        throw NSError(domain: "getUserData artistsResponse failed", code: 1, userInfo: nil)
+    }
+    
+    UserDefaults.standard.set(true, forKey: AppStorageKeys.hasFinishedOnboarding.rawValue)
 }

@@ -184,6 +184,8 @@
 		F1F8C6FA2DB3ED4D002975B6 /* AWSCore in Frameworks */ = {isa = PBXBuildFile; productRef = F1F8C6F92DB3ED4D002975B6 /* AWSCore */; };
 		F1F8C6FE2DB3F307002975B6 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F8C6FD2DB3F307002975B6 /* Secrets.swift */; };
 		F1F8C7002DB3F812002975B6 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F8C6FF2DB3F812002975B6 /* AuthenticationManager.swift */; };
+		F1F986752E01086D00ED17BC /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F986742E01086D00ED17BC /* ForgotPasswordView.swift */; };
+		F1F986772E0115D300ED17BC /* VerifyPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F986762E0115CF00ED17BC /* VerifyPasswordView.swift */; };
 		F1FACFF32D39D05C00D53A7D /* VenueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF22D39D05C00D53A7D /* VenueView.swift */; };
 		F1FACFF72D39D3F600D53A7D /* VenueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF62D39D3F200D53A7D /* VenueViewModel.swift */; };
 		F1FACFF92D3B681600D53A7D /* DestinationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1FACFF82D3B681100D53A7D /* DestinationsResponse.swift */; };
@@ -364,6 +366,8 @@
 		F1F8C6F42DB1D8A7002975B6 /* OutageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutageView.swift; sourceTree = "<group>"; };
 		F1F8C6FD2DB3F307002975B6 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		F1F8C6FF2DB3F812002975B6 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		F1F986742E01086D00ED17BC /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		F1F986762E0115CF00ED17BC /* VerifyPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPasswordView.swift; sourceTree = "<group>"; };
 		F1FACFF22D39D05C00D53A7D /* VenueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueView.swift; sourceTree = "<group>"; };
 		F1FACFF62D39D3F200D53A7D /* VenueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueViewModel.swift; sourceTree = "<group>"; };
 		F1FACFF82D3B681100D53A7D /* DestinationsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestinationsResponse.swift; sourceTree = "<group>"; };
@@ -532,6 +536,8 @@
 			isa = PBXGroup;
 			children = (
 				F11611B82D6A8F5700345C31 /* LandingView.swift */,
+				F1F986742E01086D00ED17BC /* ForgotPasswordView.swift */,
+				F1F986762E0115CF00ED17BC /* VerifyPasswordView.swift */,
 				F13DF27B2DB85B28001A0FB3 /* SignInView.swift */,
 				F13DF27D2DB86A87001A0FB3 /* SignUpView.swift */,
 				F13DF27F2DB87FB5001A0FB3 /* CodeInputView.swift */,
@@ -986,6 +992,7 @@
 				F1A8586A2D027AF6009A37E8 /* AirportSearchView.swift in Sources */,
 				F10AA0912D7CEA3D00FB4EB9 /* AnimationManager.swift in Sources */,
 				F12B95182D375E9600EFD489 /* VenueCard.swift in Sources */,
+				F1F986772E0115D300ED17BC /* VerifyPasswordView.swift in Sources */,
 				F11640262C8BB4F00040C95D /* ExploreRow.swift in Sources */,
 				F1CD3C862D25BAF3004E3041 /* ShimmerView.swift in Sources */,
 				F1CD3C972D26419C004E3041 /* FallbackDestinationCard.swift in Sources */,
@@ -1041,6 +1048,7 @@
 				F1CD3CCA2D31FE04004E3041 /* ArtistSearchResponse.swift in Sources */,
 				F17252C12D3455B2006C3454 /* ImageLoader.swift in Sources */,
 				F19C726F2CCB27D900390BD6 /* HidingHeaderView.swift in Sources */,
+				F1F986752E01086D00ED17BC /* ForgotPasswordView.swift in Sources */,
 				F11714AB2D13C4FE007A0052 /* HotelsHeader.swift in Sources */,
 				F19685B42D7957BD00FF2FC4 /* ZoomLinks.swift in Sources */,
 				F1E786272CB300A200F4E462 /* HotelsView.swift in Sources */,
