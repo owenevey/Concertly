@@ -47,6 +47,9 @@ struct ExploreSearchView: View {
                     }
                 }
             })
+            .onTapGesture {
+                isTextFieldFocused = true
+            }
             .padding(.vertical, 10)
             
             ScrollView(showsIndicators: false) {
@@ -157,6 +160,9 @@ struct ExploreSearchView: View {
         .padding([.leading, .trailing], 15)
         .padding(.top, 5)
         .background(Color.background)
+        .onTapGesture {
+            isTextFieldFocused = false
+        }
         .onAppear {
             viewModel.getFollowingArtists()
             isTextFieldFocused = true

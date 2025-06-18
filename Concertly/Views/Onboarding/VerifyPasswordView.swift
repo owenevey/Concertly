@@ -8,12 +8,11 @@ struct VerifyPasswordView: View {
     
     @State var code: String = ""
     @State var newPassword: String = ""
-    @State private var errorMessage: String? = nil
+    @State var errorMessage: String? = nil
+    @State var showResendButton = false
     @State var isLoading = false
     
     @State var navigateToSignIn = false
-    
-    @FocusState var isActive
     
     @FocusState private var focusedField: Field?
     
@@ -22,11 +21,11 @@ struct VerifyPasswordView: View {
         case newPassword
     }
     
-    func isValidPassword(_ password: String) -> Bool {
-        let minLengthRule = password.count >= 8
-        let uppercaseRule = password.range(of: "[A-Z]", options: .regularExpression) != nil
-        let lowercaseRule = password.range(of: "[a-z]", options: .regularExpression) != nil
-        let numberRule = password.range(of: "[0-9]", options: .regularExpression) != nil
+    var isValidPassword: Bool {
+        let minLengthRule = newPassword.count >= 8
+        let uppercaseRule = newPassword.range(of: "[A-Z]", options: .regularExpression) != nil
+        let lowercaseRule = newPassword.range(of: "[a-z]", options: .regularExpression) != nil
+        let numberRule = newPassword.range(of: "[0-9]", options: .regularExpression) != nil
         
         return minLengthRule && uppercaseRule && lowercaseRule && numberRule
     }
@@ -56,8 +55,8 @@ struct VerifyPasswordView: View {
                             .fontWeight(.semibold)
                             .frame(width: 25)
                         TextField("Code", text: $code)
-                            .textContentType(.emailAddress)
-                            .keyboardType(.emailAddress)
+                            .textContentType(.oneTimeCode)
+                            .keyboardType(.numberPad)
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
                             .submitLabel(.next)
@@ -74,14 +73,18 @@ struct VerifyPasswordView: View {
                             .fill(.gray1)
                             .frame(maxWidth: .infinity)
                     )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(.gray2, lineWidth: 1)
+                    )
                     
                     HStack {
                         Image(systemName: "lock")
                             .fontWeight(.semibold)
                             .frame(width: 25)
                         TextField("New Password", text: $newPassword)
-                            .textContentType(.emailAddress)
-                            .keyboardType(.emailAddress)
+                            .textContentType(.newPassword)
+                            .keyboardType(.default)
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
                             .submitLabel(.done)
@@ -94,6 +97,10 @@ struct VerifyPasswordView: View {
                         RoundedRectangle(cornerRadius: 15)
                             .fill(.gray1)
                             .frame(maxWidth: .infinity)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(.gray2, lineWidth: 1)
                     )
                     
                     Button { Task { await onTapSubmit() } } label: {
@@ -134,7 +141,7 @@ struct VerifyPasswordView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     
-                    if let error = errorMessage {
+                    if showResendButton {
                         ConcertlyButton(label: "Resend Code", style: .secondary) {
                             AuthenticationManager.shared.forgotPassword(email: email) { result in
                                 DispatchQueue.main.async {
@@ -152,14 +159,14 @@ struct VerifyPasswordView: View {
                                 }
                             }
                         }
-                        
-                        Text(error)
-                            .foregroundColor(.red)
-                            .font(.system(size: 16, type: .Regular))
-                            .multilineTextAlignment(.center)
-                            .lineLimit(nil)
-                            .transition(.opacity)
                     }
+                    
+                    Text(errorMessage ?? "")
+                        .foregroundColor(.red)
+                        .font(.system(size: 16, type: .Regular))
+                        .multilineTextAlignment(.center)
+                        .lineLimit(nil)
+                        .transition(.opacity)
                 }
                 .padding(.horizontal, 15)
                 
@@ -167,7 +174,7 @@ struct VerifyPasswordView: View {
             }
         }
         .onAppear {
-            isActive = true
+            focusedField = .code
         }
         .navigationDestination(isPresented: $navigateToSignIn) {
             SignInView()
@@ -186,11 +193,15 @@ struct VerifyPasswordView: View {
             return
         }
         
-        if !isValidPassword(newPassword) {
+        if !isValidPassword {
             withAnimation {
                 errorMessage = "Password must be at least 8 characters long, contain an uppercase and lowercase character, and a number."
             }
             return
+        }
+        
+        withAnimation {
+            isLoading = true
         }
         
         AuthenticationManager.shared.confirmForgotPassword(email: email, confirmationCode: code, newPassword: newPassword) { result in
@@ -205,18 +216,27 @@ struct VerifyPasswordView: View {
                                     do {
                                         try await getUserData()
                                     } catch {
-                                        navigateToSignIn = true
+                                        
                                     }
+                                    withAnimation {
+                                        isLoading = false
+                                    }
+                                    UserDefaults.standard.set(true, forKey: AppStorageKeys.isSignedIn.rawValue)
                                 }
-                                UserDefaults.standard.set(true, forKey: AppStorageKeys.isSignedIn.rawValue)
+                                
                                 
                             case .failure(_):
+                                withAnimation {
+                                    isLoading = false
+                                }
                                 navigateToSignIn = true
                             }
                         }
                     }
                 case .failure(let error as NSError):
                     withAnimation {
+                        isLoading = false
+                        showResendButton = true
                         if error.domain == AWSCognitoIdentityProviderErrorDomain {
                             switch error.code {
                             case AWSCognitoIdentityProviderErrorType.codeMismatch.rawValue:

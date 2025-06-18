@@ -42,7 +42,7 @@ struct DeleteAccountView: View {
                 .frame(width: 200)
                 
                 Button {
-
+                    dismiss()
                 } label: {
                     Text("No thanks")
                         .font(.system(size: 17, type: .Regular))

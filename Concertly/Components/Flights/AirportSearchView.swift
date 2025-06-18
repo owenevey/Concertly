@@ -43,6 +43,9 @@ struct AirportSearchView: View {
                         .padding(.trailing)
                 }
             })
+            .onTapGesture {
+                isTextFieldFocused = true
+            }
             .padding(.vertical, 10)
             
             ScrollView(showsIndicators: false) {
@@ -121,6 +124,9 @@ struct AirportSearchView: View {
         .padding([.leading, .trailing], 15)
         .padding(.top, topPadding)
         .background(Color.background)
+        .onTapGesture {
+            isTextFieldFocused = false
+        }
         .navigationBarHidden(true)
         .onAppear {
             isTextFieldFocused = true

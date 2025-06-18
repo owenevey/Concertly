@@ -11,7 +11,7 @@ struct ForgotPasswordView: View {
     
     @State private var navigateToVerify = false
     
-    @FocusState var isActive
+    @FocusState var isFocused
     
     var isValidEmail: Bool {
         let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
@@ -40,16 +40,20 @@ struct ForgotPasswordView: View {
                             .textContentType(.emailAddress)
                             .keyboardType(.emailAddress)
                             .autocapitalization(.none)
-                            .disableAutocorrection(true)
                             .submitLabel(.done)
                             .font(.system(size: 17, type: .Regular))
                             .padding(.trailing)
+                            .focused($isFocused)
                     }
                     .padding(15)
                     .background(
                         RoundedRectangle(cornerRadius: 15)
                             .fill(.gray1)
                             .frame(maxWidth: .infinity)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(.gray2, lineWidth: 1)
                     )
                     
                     Button { Task { await onTapSubmit() } } label: {
@@ -90,15 +94,13 @@ struct ForgotPasswordView: View {
                     }
                     .buttonStyle(PlainButtonStyle())
                     
-                    if let error = errorMessage {
-                        Text(error)
-                            .foregroundColor(.red)
-                            .font(.system(size: 16, type: .Regular))
-                            .multilineTextAlignment(.center)
-                            .lineLimit(nil)
-                            .padding(.top, 10)
-                            .transition(.opacity)
-                    }
+                    Text(errorMessage ?? "")
+                        .foregroundColor(.red)
+                        .font(.system(size: 16, type: .Regular))
+                        .multilineTextAlignment(.center)
+                        .lineLimit(nil)
+                        .padding(.top, 10)
+                        .transition(.opacity)
                 }
                 .padding(.horizontal, 15)
                 
@@ -106,7 +108,7 @@ struct ForgotPasswordView: View {
             }
         }
         .onAppear {
-            isActive = true
+            isFocused = true
         }
         .navigationDestination(isPresented: $navigateToVerify) {
             VerifyPasswordView(email: submittedEmail)
@@ -129,11 +131,15 @@ struct ForgotPasswordView: View {
         
         submittedEmail = email
         
-        isLoading = true
+        withAnimation {
+            isLoading = true
+        }
         
         AuthenticationManager.shared.forgotPassword(email: email) { result in
             DispatchQueue.main.async {
-                isLoading = false
+                withAnimation {
+                    isLoading = false
+                }
                 
                 switch result {
                 case .success:

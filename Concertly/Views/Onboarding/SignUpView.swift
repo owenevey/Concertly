@@ -27,11 +27,11 @@ struct SignUpView: View {
         return NSPredicate(format: "SELF MATCHES %@", emailFormat).evaluate(with: email)
     }
     
-    func isValidPassword(_ password: String) -> Bool {
-        let minLengthRule = password.count >= 8
-        let uppercaseRule = password.range(of: "[A-Z]", options: .regularExpression) != nil
-        let lowercaseRule = password.range(of: "[a-z]", options: .regularExpression) != nil
-        let numberRule = password.range(of: "[0-9]", options: .regularExpression) != nil
+    var isValidPassword: Bool {
+        let minLengthRule = password2.count >= 8
+        let uppercaseRule = password2.range(of: "[A-Z]", options: .regularExpression) != nil
+        let lowercaseRule = password2.range(of: "[a-z]", options: .regularExpression) != nil
+        let numberRule = password2.range(of: "[0-9]", options: .regularExpression) != nil
         
         return minLengthRule && uppercaseRule && lowercaseRule && numberRule
     }
@@ -42,11 +42,9 @@ struct SignUpView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 15) {
-                Spacer()
-                
                 Text("Create your account")
                     .font(.system(size: 27, type: .SemiBold))
-                    .padding(.bottom, 15)
+                    .padding(.vertical, 15)
                 
                 HStack {
                     Image(systemName: "envelope")
@@ -56,7 +54,6 @@ struct SignUpView: View {
                         .textContentType(.emailAddress)
                         .keyboardType(.emailAddress)
                         .autocapitalization(.none)
-                        .disableAutocorrection(true)
                         .submitLabel(.next)
                         .font(.system(size: 17, type: .Regular))
                         .padding(.trailing)
@@ -70,6 +67,10 @@ struct SignUpView: View {
                     RoundedRectangle(cornerRadius: 15)
                         .fill(.gray1)
                         .frame(maxWidth: .infinity)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(.gray2, lineWidth: 1)
                 )
                 .onTapGesture {
                     focusedField = .email
@@ -97,6 +98,10 @@ struct SignUpView: View {
                         .fill(.gray1)
                         .frame(maxWidth: .infinity)
                 )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(.gray2, lineWidth: 1)
+                )
                 .onTapGesture {
                     focusedField = .password1
                 }
@@ -122,6 +127,10 @@ struct SignUpView: View {
                     RoundedRectangle(cornerRadius: 15)
                         .fill(.gray1)
                         .frame(maxWidth: .infinity)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(.gray2, lineWidth: 1)
                 )
                 .onTapGesture {
                     focusedField = .password2
@@ -178,7 +187,6 @@ struct SignUpView: View {
                 }
                 
                 Spacer()
-                Spacer()
                 
                 HStack {
                     Text("Have an account?")
@@ -200,6 +208,7 @@ struct SignUpView: View {
         .navigationDestination(isPresented: $navigateToVerify) {
             CodeInputView(email: email.lowercased(), password: password1)
         }
+        .ignoresSafeArea(.keyboard)
     }
     
     private func onTapSignUp() async {
@@ -228,7 +237,7 @@ struct SignUpView: View {
             return
         }
         
-        if !isValidPassword(password1) {
+        if !isValidPassword {
             withAnimation {
                 errorMessage = "Password must be at least 8 characters long, contain an uppercase and lowercase character, and a number."
             }

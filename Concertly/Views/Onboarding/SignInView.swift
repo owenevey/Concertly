@@ -28,145 +28,167 @@ struct SignInView: View {
     }
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            Color.background
-                .ignoresSafeArea()
-            
-            VStack(spacing: 15) {
-                Text("Concertly")
-                    .font(.system(size: 45, type: .SemiBold))
-                    .foregroundStyle(.accent)
-                    .padding(.bottom, 20)
+        GeometryReader { geo in
+            ZStack {
+                Color.background
+                    .ignoresSafeArea()
                 
-                HStack {
-                    Image(systemName: "envelope")
-                        .fontWeight(.semibold)
-                        .frame(width: 25)
-                    TextField("Email", text: $email)
-                        .textContentType(.emailAddress)
-                        .keyboardType(.emailAddress)
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                        .submitLabel(.next)
-                        .font(.system(size: 17, type: .Regular))
-                        .padding(.trailing)
-                        .focused($focusedField, equals: .email)
-                        .onSubmit {
-                            focusedField = .password
-                        }
-                }
-                .padding(15)
-                .background(
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.gray1)
-                        .frame(maxWidth: .infinity)
-                )
-                .onTapGesture {
-                    focusedField = .email
-                }
                 
-                HStack {
-                    Image(systemName: "lock")
-                        .fontWeight(.semibold)
-                        .frame(width: 25)
-                    SecureField("Password", text: $password)
-                        .textContentType(.password)
-                        .autocapitalization(.none)
-                        .disableAutocorrection(true)
-                        .submitLabel(.done)
-                        .font(.system(size: 17, type: .Regular))
-                        .padding(.trailing)
-                        .focused($focusedField, equals: .password)
-                        .onSubmit {
-                            focusedField = nil
-                        }
-                }
-                .padding(15)
-                .background(
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.gray1)
-                        .frame(maxWidth: .infinity)
-                )
-                .onTapGesture {
-                    focusedField = .password
-                }
-                
-                Button { Task { await onTapSignIn() } } label: {
+                VStack(spacing: 15) {
+                    Spacer()
+                    
+                    Text("Concertly")
+                        .font(.system(size: 50, type: .SemiBold))
+                        .foregroundStyle(.accent)
+                        .padding(.bottom, -15)
+                    
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    
                     HStack {
-                        HStack {
-                            if isLoading {
-                                CircleLoadingView(ringSize: 20, useWhite: true)
-                            } else {
-                                Color.clear
+                        Image(systemName: "envelope")
+                            .fontWeight(.semibold)
+                            .frame(width: 25)
+                        TextField("Email", text: $email)
+                            .textContentType(.emailAddress)
+                            .keyboardType(.emailAddress)
+                            .autocapitalization(.none)
+                            .submitLabel(.next)
+                            .font(.system(size: 17, type: .Regular))
+                            .padding(.trailing)
+                            .focused($focusedField, equals: .email)
+                            .onSubmit {
+                                focusedField = .password
                             }
-                            Spacer()
-                        }
-                        .padding(.leading, 15)
-                        .frame(width: 90, height: isLoading ? nil : 1)
-                        .transition(.opacity)
-                        
-                        Text("Sign In")
-                            .font(.system(size: 17, type: .SemiBold))
-                            .foregroundStyle(.white)
-                            .lineLimit(1)
-                            .foregroundStyle(.primary)
-                            .padding(.horizontal, 30)
-                            .padding(.vertical, 12)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                        
-                        Color.clear
-                            .padding(.trailing, 15)
-                            .frame(width: 90, height: 1)
-                        
                     }
-                    .frame(maxWidth: .infinity)
+                    .padding(15)
                     .background(
                         RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.accentColor)
+                            .fill(.gray1)
+                            .frame(maxWidth: .infinity)
                     )
-                    .contentShape(RoundedRectangle(cornerRadius: 15))
-                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(.gray2, lineWidth: 1)
+                    )
+                    .onTapGesture {
+                        focusedField = .email
+                    }
+                    
+                    HStack {
+                        Image(systemName: "lock")
+                            .fontWeight(.semibold)
+                            .frame(width: 25)
+                        SecureField("Password", text: $password)
+                            .textContentType(.password)
+                            .autocapitalization(.none)
+                            .disableAutocorrection(true)
+                            .submitLabel(.done)
+                            .font(.system(size: 17, type: .Regular))
+                            .padding(.trailing)
+                            .focused($focusedField, equals: .password)
+                            .onSubmit {
+                                focusedField = nil
+                            }
+                    }
+                    .padding(15)
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(.gray1)
+                            .frame(maxWidth: .infinity)
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(.gray2, lineWidth: 1)
+                    )
+                    .onTapGesture {
+                        focusedField = .password
+                    }
+                    
+                    Button { Task { await onTapSignIn() } } label: {
+                        HStack {
+                            HStack {
+                                if isLoading {
+                                    CircleLoadingView(ringSize: 20, useWhite: true)
+                                } else {
+                                    Color.clear
+                                }
+                                Spacer()
+                            }
+                            .padding(.leading, 15)
+                            .frame(width: 90, height: isLoading ? nil : 1)
+                            .transition(.opacity)
+                            
+                            Text("Sign In")
+                                .font(.system(size: 17, type: .SemiBold))
+                                .foregroundStyle(.white)
+                                .lineLimit(1)
+                                .foregroundStyle(.primary)
+                                .padding(.horizontal, 30)
+                                .padding(.vertical, 12)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                            
+                            Color.clear
+                                .padding(.trailing, 15)
+                                .frame(width: 90, height: 1)
+                            
+                        }
+                        .frame(maxWidth: .infinity)
+                        .background(
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(Color.accentColor)
+                        )
+                        .contentShape(RoundedRectangle(cornerRadius: 15))
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                    
+                    HStack {
+                        Spacer()
+                        NavigationLink(destination: ForgotPasswordView()) {
+                            Text("Forgot Password?")
+                        }
+                        
+                        Spacer()
+                        
+                        NavigationLink(destination: SignUpView()) {
+                            Text("Sign Up")
+                        }
+                        Spacer()
+                    }
+                    .font(.system(size: 16, type: .Medium))
+                    .foregroundStyle(.primary)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.top, 10)
                 }
-                .buttonStyle(PlainButtonStyle())
-                
-                NavigationLink(destination: ForgotPasswordView()) {
-                    Text("Forgot Password?")
-                }
-                .font(.system(size: 16, type: .Medium))
-                .foregroundStyle(.primary)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.top, 10)
-                
-                if let error = errorMessage {
-                    Text(error)
-                        .foregroundColor(.red)
-                        .font(.system(size: 16, type: .Regular))
-                        .multilineTextAlignment(.center)
-                        .lineLimit(nil)
-                        .padding(.top, 10)
-                        .transition(.opacity)
-                }
-                
-                Spacer()
-
-                ConcertlyButton(label: "Sign Up", style: .secondary) {
-                    navigateToSignUp = true
-                }
+                .padding(30)
             }
-            .padding(30)
+        }
+        .safeAreaInset(edge: .bottom) {
+            if let error = errorMessage {
+                Text(error)
+                    .foregroundColor(.red)
+                    .font(.system(size: 16, type: .Regular))
+                    .multilineTextAlignment(.center)
+                    .lineLimit(nil)
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 5)
+                    .background(Color.background)
+                    .transition(.opacity)
+            }
         }
         .onTapGesture {
             focusedField = nil
         }
+        .onAppear {
+            errorMessage = nil
+        }
         .navigationBarHidden(true)
         .disableSwipeBack(true)
-        .navigationDestination(isPresented: $navigateToSignUp) {
-            SignUpView()
-        }
         .navigationDestination(isPresented: $navigateToVerify) {
             CodeInputView(email: email.lowercased(), password: password)
         }
-        .ignoresSafeArea(.keyboard)
     }
     
     func onTapSignIn() async {
@@ -251,5 +273,7 @@ struct SignInView: View {
 }
 
 #Preview {
-    SignInView()
+    NavigationStack {
+        SignInView()
+    }
 }

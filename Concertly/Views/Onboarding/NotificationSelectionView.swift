@@ -15,13 +15,14 @@ struct NotificationSelectionView: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            Image(.sza)
+            Image(.kanyeOnPhone)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 200, height: 250)
+                .frame(width: 250, height: 300)
+                .cornerRadius(20)
                 .clipped()
-                .padding(.bottom, 30)
-            
+                .padding(.bottom, 10)
+                
             Text("Never miss out.")
                 .font(.system(size: 25, type: .SemiBold))
             
@@ -31,7 +32,7 @@ struct NotificationSelectionView: View {
                 .multilineTextAlignment(.center)
             
             ConcertlyButton(label: "Notify me") {
-                if let token = UserDefaults.standard.string(forKey: "pushToken") {
+                if UserDefaults.standard.string(forKey: "pushToken") != nil {
                     onTapDone(isNotificationsEnabled: true)
                     Task { await NotificationManager.shared.updateNewTourDateNotifications() }
                 } else {
@@ -52,6 +53,7 @@ struct NotificationSelectionView: View {
         .background(Color.background)
         .navigationBarHidden(true)
         .disableSwipeBack(true)
+        .ignoresSafeArea(.keyboard)
     }
 }
 

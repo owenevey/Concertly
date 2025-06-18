@@ -12,7 +12,7 @@ struct CodeInputView: View {
     
     @State var value: String = ""
     @State var state: TypingState = .typing
-    @FocusState var isActive
+    @FocusState var isFocused
         
     var body: some View {
         ZStack {
@@ -33,10 +33,12 @@ struct CodeInputView: View {
                             CharacterView(index)
                         }
                     }
+                    .padding(.bottom, 15)
                     .compositingGroup()
                     .background {
                         TextField("", text: $value)
-                            .focused($isActive)
+                            .focused($isFocused)
+                            .textContentType(.oneTimeCode)
                             .keyboardType(.numberPad)
                             .mask(alignment: .trailing) {
                                 Rectangle()
@@ -47,7 +49,7 @@ struct CodeInputView: View {
                     }
                     .contentShape(.rect)
                     .onTapGesture {
-                        isActive = true
+                        isFocused = true
                     }
                     .onChange(of: value) { oldValue, newValue in
                         value = String(newValue.prefix(6))
@@ -107,7 +109,6 @@ struct CodeInputView: View {
                                 }
                             }
                         }
-                        .padding(.top, 10)
                         .transition(.opacity)
                     }
                     
@@ -116,7 +117,6 @@ struct CodeInputView: View {
                             .font(.system(size: 16, type: .Regular))
                             .multilineTextAlignment(.center)
                             .lineLimit(nil)
-                            .padding(.top, 10)
                             .transition(.opacity)
                     }
                     
@@ -125,16 +125,14 @@ struct CodeInputView: View {
                             Text("Go to Sign In")
                         }
                         .font(.system(size: 16, type: .Medium))
-                        .foregroundStyle(.primary)
                         .frame(maxWidth: .infinity, alignment: .center)
-                        .padding(.top, 10)
                     }
                     
                     Spacer()
                 }
                 .padding(.horizontal, 30)
                 .onAppear {
-                    isActive = true
+                    isFocused = true
                 }
             }
         }
@@ -188,6 +186,8 @@ enum TypingState {
 }
 
 #Preview {
-    CodeInputView(email: "owenevafey@gmail.com", password: "test123!")
+    NavigationStack {
+        CodeInputView(email: "owenevafey@gmail.com", password: "test123!")
+    }
 }
 
