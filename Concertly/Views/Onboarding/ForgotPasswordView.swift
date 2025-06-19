@@ -93,6 +93,7 @@ struct ForgotPasswordView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .disabled(isLoading)
                     
                     Text(errorMessage ?? "")
                         .foregroundColor(.red)

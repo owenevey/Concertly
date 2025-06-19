@@ -124,6 +124,7 @@ struct ChooseArtistsView: View {
                         .shadow(radius: 5)
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .disabled(savePreferencesResponse.status == .loading)
                 }
             }
             .frame(maxWidth: .infinity)

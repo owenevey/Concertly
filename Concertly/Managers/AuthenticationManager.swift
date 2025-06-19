@@ -243,12 +243,11 @@ class AuthenticationManager {
             completion(.failure(NSError(domain: "UserNotLoggedIn", code: -1, userInfo: nil)))
             return
         }
-
+        
         user.delete().continueWith { task in
             if let error = task.error {
                 completion(.failure(error))
             } else {
-                
                 // Clear tokens and sign-in state
                 KeychainUtil.delete(forKey: "accessToken")
                 KeychainUtil.delete(forKey: "idToken")
@@ -266,12 +265,19 @@ class AuthenticationManager {
                 
                 CoreDataManager.shared.deleteAllSavedItems()
                 
-                completion(.success(()))
+                Task {
+                    do {
+                        try await deleteUser()
+                        completion(.success(()))
+                    } catch {
+                        completion(.failure(error))
+                    }
+                }
             }
             return nil
         }
     }
-
+    
     
 }
 

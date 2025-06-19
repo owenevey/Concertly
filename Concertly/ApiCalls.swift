@@ -250,6 +250,13 @@ func updateDeviceToken(deviceId: String, pushNotificationToken: String? = nil, i
     return response
 }
 
+func deleteUser() async throws -> ApiResponse<String> {
+    let endpoint = "\(baseUrl)/deleteUser"
+    
+    let response: ApiResponse<String> = try await fetchData(endpoint: endpoint, method: "GET")
+    return response
+}
+
 
 enum ConcertlyError: Error {
     case invalidURL

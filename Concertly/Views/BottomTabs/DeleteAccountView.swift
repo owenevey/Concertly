@@ -3,6 +3,8 @@ import SwiftUI
 struct DeleteAccountView: View {
     @Environment(\.dismiss) var dismiss
     
+    @State var isLoading = false
+    
     @State private var showHeaderBorder: Bool = false
     
     var body: some View {
@@ -26,7 +28,6 @@ struct DeleteAccountView: View {
             .background(Color.background)
             
             VStack(spacing: 20) {
-                
                 Text("Are you sure?")
                     .font(.system(size: 25, type: .SemiBold))
                     .padding(.top, 200)
@@ -36,10 +37,48 @@ struct DeleteAccountView: View {
                     .padding(.horizontal, 30)
                     .multilineTextAlignment(.center)
                 
-                ConcertlyButton(label: "Delete Account", style: .warning) {
-                    AuthenticationManager.shared.deleteAccount(completion: { _ in })
+                Button {
+                    isLoading = true
+                    AuthenticationManager.shared.deleteAccount(completion: { _ in
+                        isLoading = false
+                    })
+                } label: {
+                    HStack {
+                        HStack {
+                            if isLoading {
+                                CircleLoadingView(ringSize: 20, useWhite: true)
+                            } else {
+                                Color.clear
+                            }
+                            Spacer()
+                        }
+                        .padding(.leading, 15)
+                        .frame(width: 50, height: isLoading ? nil : 1)
+                        .transition(.opacity)
+                        
+                        Text("Delete Account")
+                            .font(.system(size: 17, type: .SemiBold))
+                            .foregroundStyle(.white)
+                            .lineLimit(1)
+                            .foregroundStyle(.primary)
+                            .padding(.horizontal, 30)
+                            .padding(.vertical, 12)
+                            .frame(alignment: .center)
+                        
+                        Color.clear
+                            .padding(.trailing, 15)
+                            .frame(width: 50, height: 1)
+                    }
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(Color.red)
+                    )
+                    .contentShape(RoundedRectangle(cornerRadius: 15))
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .frame(width: 300)
                 }
-                .frame(width: 200)
+                .buttonStyle(PlainButtonStyle())
+                .disabled(isLoading)
                 
                 Button {
                     dismiss()
@@ -48,6 +87,7 @@ struct DeleteAccountView: View {
                         .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
                 }
+                .padding(.top, 15)
                 
                 Spacer()
             }

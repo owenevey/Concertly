@@ -175,6 +175,7 @@ struct SignUpView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                 }
                 .buttonStyle(PlainButtonStyle())
+                .disabled(isLoading)
                 
                 if let error = errorMessage {
                     Text(error)

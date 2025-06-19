@@ -40,7 +40,9 @@ struct RootView: View {
         .animation(.easeInOut(duration: 0.4), value: screen)
         .onAppear {
             updateScreen()
-            Task { await fetchArtistImagesIfNeeded() }
+            if isSignedIn {
+                Task { await fetchArtistImagesIfNeeded() }
+            }
         }
         .onChange(of: isSignedIn) {
             updateScreen()

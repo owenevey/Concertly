@@ -143,6 +143,7 @@ struct SignInView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .disabled(isLoading)
                     
                     HStack {
                         Spacer()
