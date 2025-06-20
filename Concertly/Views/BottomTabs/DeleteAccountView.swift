@@ -7,6 +7,8 @@ struct DeleteAccountView: View {
     
     @State private var showHeaderBorder: Bool = false
     
+    @EnvironmentObject var router: Router
+    
     var body: some View {
         VStack(spacing: 0) {
             VStack(spacing: 0) {
@@ -40,7 +42,12 @@ struct DeleteAccountView: View {
                 Button {
                     isLoading = true
                     AuthenticationManager.shared.deleteAccount(completion: { _ in
-                        isLoading = false
+                        Task {
+                            try await deleteUser()
+                            clearLocalUserData()
+                            isLoading = false
+                            router.reset()
+                        }
                     })
                 } label: {
                     HStack {
@@ -87,7 +94,7 @@ struct DeleteAccountView: View {
                         .font(.system(size: 17, type: .Regular))
                         .foregroundStyle(.gray3)
                 }
-                .padding(.top, 15)
+                .padding(.top, 5)
                 
                 Spacer()
             }
@@ -102,5 +109,6 @@ struct DeleteAccountView: View {
 #Preview {
     NavigationStack {
         DeleteAccountView()
+            .environmentObject(Router())
     }
 }

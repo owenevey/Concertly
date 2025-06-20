@@ -248,40 +248,12 @@ class AuthenticationManager {
             if let error = task.error {
                 completion(.failure(error))
             } else {
-                // Clear tokens and sign-in state
-                KeychainUtil.delete(forKey: "accessToken")
-                KeychainUtil.delete(forKey: "idToken")
-                KeychainUtil.delete(forKey: "refreshToken")
-                UserDefaults.standard.removeObject(forKey: AppStorageKeys.email.rawValue)
-                UserDefaults.standard.removeObject(forKey: AppStorageKeys.isSignedIn.rawValue)
-                UserDefaults.standard.removeObject(forKey: AppStorageKeys.hasFinishedOnboarding.rawValue)
-                UserDefaults.standard.removeObject(forKey: AppStorageKeys.selectedNotificationPref.rawValue)
-                UserDefaults.standard.removeObject(forKey: AppStorageKeys.concertReminders.rawValue)
-                UserDefaults.standard.removeObject(forKey: AppStorageKeys.newTourDates.rawValue)
-                UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeCity.rawValue)
-                UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeLat.rawValue)
-                UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeLong.rawValue)
-                UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeAirport.rawValue)
-                
-                CoreDataManager.shared.deleteAllSavedItems()
-                
-                Task {
-                    do {
-                        try await deleteUser()
-                        completion(.success(()))
-                    } catch {
-                        completion(.failure(error))
-                    }
-                }
+                completion(.success(()))
             }
             return nil
         }
     }
-    
-    
 }
-
-
 
 func getUserData() async throws {
     let response = try await fetchUserPreferences()
@@ -310,4 +282,23 @@ func getUserData() async throws {
     }
     
     UserDefaults.standard.set(true, forKey: AppStorageKeys.hasFinishedOnboarding.rawValue)
+}
+
+
+func clearLocalUserData() {
+    KeychainUtil.delete(forKey: "accessToken")
+    KeychainUtil.delete(forKey: "idToken")
+    KeychainUtil.delete(forKey: "refreshToken")
+    UserDefaults.standard.removeObject(forKey: AppStorageKeys.email.rawValue)
+    UserDefaults.standard.removeObject(forKey: AppStorageKeys.isSignedIn.rawValue)
+    UserDefaults.standard.removeObject(forKey: AppStorageKeys.hasFinishedOnboarding.rawValue)
+    UserDefaults.standard.removeObject(forKey: AppStorageKeys.selectedNotificationPref.rawValue)
+    UserDefaults.standard.removeObject(forKey: AppStorageKeys.concertReminders.rawValue)
+    UserDefaults.standard.removeObject(forKey: AppStorageKeys.newTourDates.rawValue)
+    UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeCity.rawValue)
+    UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeLat.rawValue)
+    UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeLong.rawValue)
+    UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeAirport.rawValue)
+
+    CoreDataManager.shared.deleteAllSavedItems()
 }

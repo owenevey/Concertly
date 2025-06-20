@@ -52,7 +52,7 @@ struct SignUpView: View {
                         .frame(width: 25)
                     TextField("Email", text: $email)
                         .textContentType(.emailAddress)
-                        .keyboardType(.emailAddress)
+                        .keyboardType(.default)
                         .autocapitalization(.none)
                         .submitLabel(.next)
                         .font(.system(size: 17, type: .Regular))
@@ -213,6 +213,8 @@ struct SignUpView: View {
     }
     
     private func onTapSignUp() async {
+        email = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        
         withAnimation {
             errorMessage = nil
         }

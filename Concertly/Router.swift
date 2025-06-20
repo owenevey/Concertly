@@ -39,7 +39,6 @@ class Router: ObservableObject {
     }
     
     func popToRoot(tab: String) {
-        print("Popping to root", tab, explorePath.count)
         switch tab {
         case "Explore":
             explorePath.removeLast(explorePath.count)
@@ -78,6 +77,14 @@ class Router: ObservableObject {
                 push(concert, tab: "Saved")
             }
         }
+    }
+    
+    func reset() {
+        selectedTab = 0
+        popToRoot(tab: "Explore")
+        popToRoot(tab: "Nearby")
+        popToRoot(tab: "Saved")
+        popToRoot(tab: "Profile")
     }
 }
 

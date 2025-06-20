@@ -58,7 +58,7 @@ struct ChooseArtistsView: View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
                 VStack(spacing: 0) {
-                    Text("Select your favorite artsts")
+                    Text("Select your favorite artists")
                         .font(.system(size: 23, type: .SemiBold))
                         .foregroundStyle(.accent)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -98,7 +98,11 @@ struct ChooseArtistsView: View {
                     }
                 }
                 .safeAreaInset(edge: .bottom) {
-                    Button { Task { await onTapDone() } } label: {
+                    Button {
+                        if savePreferencesResponse.status != .loading {
+                            Task { await onTapDone() }
+                        }
+                    } label: {
                         ZStack(alignment: .leading) {
                             Text("Next")
                                 .font(.system(size: 17, type: .SemiBold))
@@ -124,7 +128,6 @@ struct ChooseArtistsView: View {
                         .shadow(radius: 5)
                     }
                     .buttonStyle(PlainButtonStyle())
-                    .disabled(savePreferencesResponse.status == .loading)
                 }
             }
             .frame(maxWidth: .infinity)

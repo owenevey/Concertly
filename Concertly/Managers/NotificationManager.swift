@@ -74,21 +74,22 @@ class NotificationManager {
         }
     }
     
-    func updateNewTourDateNotifications() async {
+    func updateNewTourDateNotifications() async -> Bool {
         let newTourDateNotifications = UserDefaults.standard.bool(forKey: AppStorageKeys.newTourDates.rawValue)
         
         do {
             let response = try await updateDeviceToken(deviceId: DeviceIdManager.getDeviceId(), isNotificationsEnabled: newTourDateNotifications)
             
             if response.status == .error {
-                throw NSError(domain: "", code: 1, userInfo: nil)
+                throw NSError(domain: "updateDeviceToken API call failed", code: 1, userInfo: nil)
             }
         }
         catch {
-            // NEED TO DO SOMETHING HERE, show snackbar
             UserDefaults.standard.set(!newTourDateNotifications, forKey: AppStorageKeys.newTourDates.rawValue)
-            print("error in updateNewTourDateNotifications")
+            return false
         }
+        
+        return true
     }
     
     func refreshNotificationPermissions() {

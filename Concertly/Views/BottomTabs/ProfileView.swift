@@ -8,13 +8,15 @@ struct ProfileView: View {
     @StateObject var nearbyViewModel: NearbyViewModel
     
     @AppStorage(AppStorageKeys.email.rawValue) private var email: String = "owenevey@gmail.com"
-    @AppStorage(AppStorageKeys.homeAirport.rawValue) private var homeAirport: String = "JFK"
-    @AppStorage(AppStorageKeys.homeCity.rawValue) private var homeCity: String = "New York, NY"
+    @AppStorage(AppStorageKeys.homeAirport.rawValue) private var homeAirport: String = ""
+    @AppStorage(AppStorageKeys.homeCity.rawValue) private var homeCity: String = ""
     @AppStorage(AppStorageKeys.theme.rawValue) private var theme: String = "Default"
     @AppStorage(AppStorageKeys.concertReminders.rawValue) private var concertReminders: Int = concertRemindersEnum.dayBefore.rawValue
     @AppStorage(AppStorageKeys.newTourDates.rawValue) private var newTourDateNotifications: Bool = true
     
     @State private var isSearchBarVisible: Bool = true
+    
+    @State var showTourDateError = false
     
     @EnvironmentObject var router: Router
     
@@ -219,15 +221,21 @@ struct ProfileView: View {
                                     
                                     Menu {
                                         Button("On") {
-                                            newTourDateNotifications = true
-                                            Task {
-                                                await NotificationManager.shared.updateNewTourDateNotifications()
+                                            if !newTourDateNotifications {
+                                                newTourDateNotifications = true
+                                                Task {
+                                                    var isSuccess = await NotificationManager.shared.updateNewTourDateNotifications()
+                                                    showTourDateError = !isSuccess
+                                                }
                                             }
                                         }
                                         Button("Off") {
-                                            newTourDateNotifications = false
-                                            Task {
-                                                await NotificationManager.shared.updateNewTourDateNotifications()
+                                            if newTourDateNotifications {
+                                                newTourDateNotifications = false
+                                                Task {
+                                                    var isSuccess = await NotificationManager.shared.updateNewTourDateNotifications()
+                                                    showTourDateError = !isSuccess
+                                                }
                                             }
                                         }
                                     } label: {
@@ -342,6 +350,13 @@ struct ProfileView: View {
                             isSearchBarVisible = true
                         }
                     }
+                }
+                
+                VStack {
+                    Spacer()
+                    SnackbarView(show: $showTourDateError, message: "Sorry, an error occurred. Please try again.")
+                        .opacity(showTourDateError ? 1 : 0)
+                        .animation(.easeInOut(duration: 0.2), value: showTourDateError)
                 }
                 
                 ExploreHeader()

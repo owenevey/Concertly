@@ -13,7 +13,6 @@ func fetchData<T: Decodable, U: Encodable>(endpoint: String, method: String = "G
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         if let body = body {
-            print("BODY", body)
             request.httpBody = try JSONEncoder().encode(body)
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
@@ -27,13 +26,7 @@ func fetchData<T: Decodable, U: Encodable>(endpoint: String, method: String = "G
         guard let httpResponse = response as? HTTPURLResponse else {
             throw ConcertlyError.invalidResponse
         }
-        
-        if let rawData = String(data: data, encoding: .utf8) {
-            print("Raw Response: \(rawData)")
-        } else {
-            print("Unable to convert data to string")
-        }
-        
+
         if httpResponse.statusCode == 401 {
             throw ConcertlyError.unauthorized
         }
