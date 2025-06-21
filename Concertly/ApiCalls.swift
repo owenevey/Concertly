@@ -3,6 +3,7 @@ import Foundation
 let baseUrl = "https://d9hepdo8p4.execute-api.us-east-1.amazonaws.com/dev"
 
 func fetchData<T: Decodable, U: Encodable>(endpoint: String, method: String = "GET", body: U? = nil, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .iso8601) async throws -> T {
+    print("Making api call")
     func makeRequest(with token: String) throws -> URLRequest {
         guard let url = URL(string: endpoint) else {
             throw ConcertlyError.invalidURL
@@ -22,6 +23,10 @@ func fetchData<T: Decodable, U: Encodable>(endpoint: String, method: String = "G
     
     func makeCall(with request: URLRequest, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy) async throws -> T {
         let (data, response) = try await URLSession.shared.data(for: request)
+        
+        if let responseBody = String(data: data, encoding: .utf8) {
+                    print("Response body: \(responseBody)")
+                }
         
         guard let httpResponse = response as? HTTPURLResponse else {
             throw ConcertlyError.invalidResponse
@@ -235,6 +240,7 @@ func fetchFollowedArtists() async throws -> ApiResponse<[SuggestedArtist]> {
 }
 
 func updateDeviceToken(deviceId: String, pushNotificationToken: String? = nil, isNotificationsEnabled: Bool? = nil) async throws -> ApiResponse<String> {
+    print("Updating token: \(pushNotificationToken ?? "nil")")
     let endpoint = "\(baseUrl)/updateToken"
     
     let request = UpdateTokenRequest(deviceId: deviceId, pushNotificationToken: pushNotificationToken, isNotificationsEnabled: isNotificationsEnabled)

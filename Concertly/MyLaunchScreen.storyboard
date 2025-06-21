@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,36 +15,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="gb2-OS-oBh">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchScreenGradient" translatesAutoresizingMaskIntoConstraints="NO" id="HUW-uU-bwP">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8TL-TO-f0S">
-                                <rect key="frame" x="121" y="351" width="150" height="150"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1qe-X9-p7f">
-                                        <rect key="frame" x="26" y="57" width="99" height="36"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="Camino">
-                                                <attributes>
-                                                    <font key="NSFont" size="28" name="Outfit-Thin_SemiBold"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
-                                        <color key="highlightedColor" name="AccentColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" name="Foreground"/>
-                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="concertlyLaunchText" translatesAutoresizingMaskIntoConstraints="NO" id="q6b-ub-4V0">
+                                <rect key="frame" x="109" y="335" width="175" height="182"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="q6b-ub-4V0" secondAttribute="height" multiplier="25:26" id="YLt-wd-qEI"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="gb2-OS-oBh" secondAttribute="bottom" id="E0d-74-V3E"/>
-                            <constraint firstItem="gb2-OS-oBh" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="IjY-qK-sLw"/>
-                            <constraint firstItem="gb2-OS-oBh" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="M65-MO-Kgd"/>
-                            <constraint firstAttribute="trailing" secondItem="gb2-OS-oBh" secondAttribute="trailing" id="d3S-O4-n4a"/>
+                            <constraint firstAttribute="trailing" secondItem="HUW-uU-bwP" secondAttribute="trailing" id="32u-wX-9Kw"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="q6b-ub-4V0" secondAttribute="bottom" constant="267" id="5pI-A0-WJR"/>
+                            <constraint firstItem="q6b-ub-4V0" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" constant="217" id="7VI-Om-0WI"/>
+                            <constraint firstItem="HUW-uU-bwP" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="9mj-Cl-cjK"/>
+                            <constraint firstItem="q6b-ub-4V0" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" constant="109" id="FaD-Gc-wxF"/>
+                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="trailing" secondItem="q6b-ub-4V0" secondAttribute="trailing" constant="109" id="W0N-9B-YPF"/>
+                            <constraint firstAttribute="bottom" secondItem="HUW-uU-bwP" secondAttribute="bottom" id="eze-1z-h37"/>
+                            <constraint firstItem="HUW-uU-bwP" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="rqM-Xe-H6E"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -55,12 +45,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="launchScreen" width="2584" height="4032"/>
-        <namedColor name="AccentColor">
-            <color red="1" green="0.62745098039215685" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="Foreground">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
+        <image name="concertlyLaunchText" width="1024" height="1024"/>
+        <image name="launchScreenGradient" width="460" height="1000"/>
     </resources>
 </document>
