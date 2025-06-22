@@ -9,64 +9,37 @@ class AuthenticationManager {
     
     private let userPool = AWSCognitoIdentityUserPool(forKey: "UserPool")
     
-    private var isRefreshing = false
-    private var refreshCompletionHandlers: [(Result<Void, Error>) -> Void] = []
+    private let refresher = TokenRefresher()
     
-    func refreshTokens() async throws {
-        if isRefreshing {
-            try await withCheckedThrowingContinuation { continuation in
-                refreshCompletionHandlers.append { result in
-                    switch result {
-                    case .success:
-                        continuation.resume(returning: ())
-                    case .failure(let error):
-                        continuation.resume(throwing: error)
-                    }
+    func refreshTokens() async throws -> String {
+            return try await refresher.refresh {
+                guard KeychainUtil.get(forKey: "refreshToken") != nil else {
+                    throw NSError(domain: "NoRefreshToken", code: -1, userInfo: nil)
                 }
-            }
-            return
-        }
-        
-        isRefreshing = true
-        print("Authentication service is refreshing tokens...")
-        do {
-            guard KeychainUtil.get(forKey: "refreshToken") != nil else {
-                throw NSError(domain: "NoRefreshToken", code: -1, userInfo: nil)
-            }
-            
-            guard let user = userPool?.currentUser() else {
-                throw NSError(domain: "UserNotLoggedIn", code: -1, userInfo: nil)
-            }
-            
-            let task = user.getSession()
-            if let session = task.result {
+
+                guard let user = self.userPool?.currentUser() else {
+                    throw NSError(domain: "UserNotLoggedIn", code: -1, userInfo: nil)
+                }
+
+                let task = user.getSession()
+                guard let session = task.result else {
+                    if let error = task.error {
+                        throw error
+                    }
+                    throw NSError(domain: "CouldNotRefreshSession", code: -1, userInfo: nil)
+                }
+
                 let accessToken = session.accessToken?.tokenString ?? ""
                 let idToken = session.idToken?.tokenString ?? ""
                 let refreshToken = session.refreshToken?.tokenString ?? ""
-                
+
                 KeychainUtil.save(accessToken, forKey: "accessToken")
                 KeychainUtil.save(idToken, forKey: "idToken")
                 KeychainUtil.save(refreshToken, forKey: "refreshToken")
-                
-                notifyRefreshCompletionHandlers(with: .success(()))
-            } else {
-                throw NSError(domain: "could not refresh session", code: -1, userInfo: nil)
+
+                return idToken
             }
-            
-        } catch {
-            notifyRefreshCompletionHandlers(with: .failure(error))
-            throw error
         }
-    }
-    
-    private func notifyRefreshCompletionHandlers(with result: Result<Void, Error>) {
-        for handler in refreshCompletionHandlers {
-            handler(result)
-        }
-        refreshCompletionHandlers.removeAll()
-        
-        isRefreshing = false
-    }
     
     func signUp(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let userPool = userPool else {
@@ -299,6 +272,6 @@ func clearLocalUserData() {
     UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeLat.rawValue)
     UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeLong.rawValue)
     UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeAirport.rawValue)
-
+    
     CoreDataManager.shared.deleteAllSavedItems()
 }

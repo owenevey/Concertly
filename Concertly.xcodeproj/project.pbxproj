@@ -55,6 +55,7 @@
 		F12AD1462E07414800647F72 /* AuthChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12AD1452E07414800647F72 /* AuthChoiceView.swift */; };
 		F12AD1482E07419100647F72 /* EnterEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12AD1472E07419100647F72 /* EnterEmailView.swift */; };
 		F12AD14A2E0744D100647F72 /* EnterPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12AD1492E0744D100647F72 /* EnterPasswordView.swift */; };
+		F12AD14C2E07B85600647F72 /* TokenRefresher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12AD14B2E07B85600647F72 /* TokenRefresher.swift */; };
 		F12B95162D375D5A00EFD489 /* VenuesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12B95152D375D5700EFD489 /* VenuesResponse.swift */; };
 		F12B95182D375E9600EFD489 /* VenueCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12B95172D375E9600EFD489 /* VenueCard.swift */; };
 		F12B951A2D37605A00EFD489 /* ErrorVenueCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12B95192D37605600EFD489 /* ErrorVenueCard.swift */; };
@@ -239,6 +240,7 @@
 		F12AD1452E07414800647F72 /* AuthChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthChoiceView.swift; sourceTree = "<group>"; };
 		F12AD1472E07419100647F72 /* EnterEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterEmailView.swift; sourceTree = "<group>"; };
 		F12AD1492E0744D100647F72 /* EnterPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPasswordView.swift; sourceTree = "<group>"; };
+		F12AD14B2E07B85600647F72 /* TokenRefresher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenRefresher.swift; sourceTree = "<group>"; };
 		F12B95152D375D5700EFD489 /* VenuesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenuesResponse.swift; sourceTree = "<group>"; };
 		F12B95172D375E9600EFD489 /* VenueCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueCard.swift; sourceTree = "<group>"; };
 		F12B95192D37605600EFD489 /* ErrorVenueCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorVenueCard.swift; sourceTree = "<group>"; };
@@ -526,6 +528,7 @@
 		F14F624E2DC91E4C008ACC06 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				F12AD14B2E07B85600647F72 /* TokenRefresher.swift */,
 				F14F624F2DC91E61008ACC06 /* DeviceIdManager.swift */,
 				F14349E62D513FEA00C63041 /* CoreDataManager.swift */,
 				F1C1450B2D6E9AFA00D63EBB /* NotificationManager.swift */,
@@ -958,6 +961,7 @@
 				F131862E2CB2E5D5003DBCC5 /* MapCard.swift in Sources */,
 				F180752B2D04FF2B00D67622 /* ErrorView.swift in Sources */,
 				F1CD3C912D2618A7004E3041 /* ErrorConcertCard.swift in Sources */,
+				F12AD14C2E07B85600647F72 /* TokenRefresher.swift in Sources */,
 				F1DAE6A02CC3849D00901914 /* ImageHeaderScrollView.swift in Sources */,
 				F11714A82D13A88D007A0052 /* HotelsViewModel.swift in Sources */,
 				F1D364AB2D6AD2540083680D /* ChooseArtistsView.swift in Sources */,
