@@ -1,7 +1,7 @@
 import SwiftUI
 import AWSCognitoIdentityProvider
 
-struct CodeInputView: View {
+struct RegisterCodeView: View {
     
     var email: String
     var password: String
@@ -121,7 +121,7 @@ struct CodeInputView: View {
                     }
                     
                     if showGoToSignIn {
-                        NavigationLink(destination: SignInView()) {
+                        NavigationLink(destination: AuthChoiceView()) {
                             Text("Go to Sign In")
                         }
                         .font(.system(size: 16, type: .Medium))
@@ -187,7 +187,7 @@ enum TypingState {
 
 #Preview {
     NavigationStack {
-        CodeInputView(email: "owenevafey@gmail.com", password: "test123!")
+        RegisterCodeView(email: "owenevafey@gmail.com", password: "test123!")
     }
 }
 

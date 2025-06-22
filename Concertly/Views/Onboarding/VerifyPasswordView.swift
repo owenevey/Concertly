@@ -77,6 +77,9 @@ struct VerifyPasswordView: View {
                         RoundedRectangle(cornerRadius: 15)
                             .stroke(.gray2, lineWidth: 1)
                     )
+                    .onTapGesture {
+                        focusedField = .code
+                    }
                     
                     HStack {
                         Image(systemName: "lock")
@@ -87,10 +90,15 @@ struct VerifyPasswordView: View {
                             .keyboardType(.default)
                             .autocapitalization(.none)
                             .disableAutocorrection(true)
-                            .submitLabel(.done)
+                            .submitLabel(.return)
                             .font(.system(size: 17, type: .Regular))
                             .padding(.trailing)
                             .focused($focusedField, equals: .newPassword)
+                            .onSubmit {
+                                Task {
+                                    await onTapSubmit()
+                                }
+                            }
                     }
                     .padding(15)
                     .background(
@@ -102,6 +110,9 @@ struct VerifyPasswordView: View {
                         RoundedRectangle(cornerRadius: 15)
                             .stroke(.gray2, lineWidth: 1)
                     )
+                    .onTapGesture {
+                        focusedField = .newPassword
+                    }
                     
                     Button { Task { await onTapSubmit() } } label: {
                         HStack {
@@ -140,6 +151,7 @@ struct VerifyPasswordView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .disabled(isLoading)
                     
                     if showResendButton {
                         ConcertlyButton(label: "Resend Code", style: .secondary) {
@@ -177,7 +189,7 @@ struct VerifyPasswordView: View {
             focusedField = .code
         }
         .navigationDestination(isPresented: $navigateToSignIn) {
-            SignInView()
+            AuthChoiceView()
         }
         .navigationBarHidden(true)
         .ignoresSafeArea(.keyboard)

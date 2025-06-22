@@ -2,94 +2,61 @@ import SwiftUI
 import AWSCognitoIdentityProvider
 import AuthenticationServices
 
-struct SignInView: View {
+struct EnterPasswordView: View {
+    
+    let email: String
+    let isLogin: Bool
     
     @AppStorage(AppStorageKeys.isSignedIn.rawValue) private var isSignedIn = false
     @AppStorage(AppStorageKeys.hasFinishedOnboarding.rawValue) private var hasFinishedOnboarding = false
     
-    @State var email: String = ""
     @State var password: String = ""
-    @State var errorMessage: String?
+    @State private var errorMessage: String? = nil
     @State var isLoading = false
     
-    @State private var navigateToSignUp = false
-    @State private var navigateToVerify = false
+    @State private var navigateToRegisterCodeView = false
     
-    @FocusState private var focusedField: Field?
+    @FocusState var isFocused
     
-    enum Field {
-        case email
-        case password
-    }
-    
-    var isValidEmail: Bool {
-        let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        return NSPredicate(format: "SELF MATCHES %@", emailFormat).evaluate(with: email)
+    var isValidPassword: Bool {
+        let minLengthRule = password.count >= 8
+        let uppercaseRule = password.range(of: "[A-Z]", options: .regularExpression) != nil
+        let lowercaseRule = password.range(of: "[a-z]", options: .regularExpression) != nil
+        let numberRule = password.range(of: "[0-9]", options: .regularExpression) != nil
+        
+        return minLengthRule && uppercaseRule && lowercaseRule && numberRule
     }
     
     var body: some View {
-        GeometryReader { geo in
-            ZStack {
-                Color.background
-                    .ignoresSafeArea()
-                
+        ZStack {
+            Color.background
+                .ignoresSafeArea()
+            
+            VStack {
+                BackButton()
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 VStack(spacing: 15) {
-                    Spacer()
-                    
-                    Text("Concertly")
-                        .font(.system(size: 50, type: .SemiBold))
-                        .foregroundStyle(.accent)
-                        .padding(.bottom, -15)
-                    
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    
-                    HStack {
-                        Image(systemName: "envelope")
-                            .fontWeight(.semibold)
-                            .frame(width: 25)
-                        TextField("Email", text: $email)
-                            .textContentType(.emailAddress)
-                            .keyboardType(.default)
-                            .autocapitalization(.none)
-                            .submitLabel(.next)
-                            .font(.system(size: 17, type: .Regular))
-                            .padding(.trailing)
-                            .focused($focusedField, equals: .email)
-                            .onSubmit {
-                                focusedField = .password
-                            }
-                    }
-                    .padding(15)
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(.gray1)
-                            .frame(maxWidth: .infinity)
-                    )
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 15)
-                            .stroke(.gray2, lineWidth: 1)
-                    )
-                    .onTapGesture {
-                        focusedField = .email
-                    }
+                    Text(isLogin ? "Enter your password" : "Create a password")
+                        .font(.system(size: 23, type: .SemiBold))
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     
                     HStack {
                         Image(systemName: "lock")
                             .fontWeight(.semibold)
                             .frame(width: 25)
-                        SecureField("Password", text: $password)
+                        TextField("Password", text: $password)
                             .textContentType(.password)
+                            .keyboardType(.default)
                             .autocapitalization(.none)
-                            .disableAutocorrection(true)
-                            .submitLabel(.done)
+                            .submitLabel(.return)
                             .font(.system(size: 17, type: .Regular))
                             .padding(.trailing)
-                            .focused($focusedField, equals: .password)
+                            .focused($isFocused)
                             .onSubmit {
-                                focusedField = nil
+                                Task {
+                                    await onSubmit()
+                                }
                             }
                     }
                     .padding(15)
@@ -103,10 +70,14 @@ struct SignInView: View {
                             .stroke(.gray2, lineWidth: 1)
                     )
                     .onTapGesture {
-                        focusedField = .password
+                        isFocused = true
                     }
                     
-                    Button { Task { await onTapSignIn() } } label: {
+                    Button {
+                        Task {
+                            await onSubmit()
+                        }
+                    } label: {
                         HStack {
                             HStack {
                                 if isLoading {
@@ -120,7 +91,7 @@ struct SignInView: View {
                             .frame(width: 90, height: isLoading ? nil : 1)
                             .transition(.opacity)
                             
-                            Text("Sign In")
+                            Text(isLogin ? "Login" : "Register")
                                 .font(.system(size: 17, type: .SemiBold))
                                 .foregroundStyle(.white)
                                 .lineLimit(1)
@@ -145,68 +116,45 @@ struct SignInView: View {
                     .buttonStyle(PlainButtonStyle())
                     .disabled(isLoading)
                     
-                    HStack {
-                        Spacer()
-                        NavigationLink(destination: ForgotPasswordView()) {
-                            Text("Forgot Password?")
-                        }
-                        
-                        Spacer()
-                        
-                        NavigationLink(destination: SignUpView()) {
-                            Text("Sign Up")
-                        }
-                        Spacer()
+                    NavigationLink(destination: ForgotPasswordView()) {
+                        Text("Forgot Password?")
                     }
                     .font(.system(size: 16, type: .Medium))
                     .foregroundStyle(.primary)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.top, 10)
+                    
+                    Text(errorMessage ?? "")
+                        .foregroundColor(.red)
+                        .font(.system(size: 16, type: .Regular))
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 5)
+                        .lineLimit(nil)
+                        .transition(.opacity)
                 }
-                .padding(30)
+                .padding(.horizontal, 15)
+                
+                Spacer()
             }
-        }
-        .safeAreaInset(edge: .bottom) {
-            if let error = errorMessage {
-                Text(error)
-                    .foregroundColor(.red)
-                    .font(.system(size: 16, type: .Regular))
-                    .multilineTextAlignment(.center)
-                    .lineLimit(nil)
-                    .padding(.horizontal, 30)
-                    .padding(.vertical, 5)
-                    .background(Color.background)
-                    .transition(.opacity)
-            }
-        }
-        .onTapGesture {
-            focusedField = nil
         }
         .onAppear {
-            errorMessage = nil
+            isFocused = true
+        }
+        .navigationDestination(isPresented: $navigateToRegisterCodeView) {
+            RegisterCodeView(email: email, password: password)
         }
         .navigationBarHidden(true)
-        .disableSwipeBack(true)
-        .navigationDestination(isPresented: $navigateToVerify) {
-            CodeInputView(email: email.lowercased(), password: password)
-        }
+        .ignoresSafeArea(.keyboard)
     }
     
-    func onTapSignIn() async {
+    func onSubmit() async {
         withAnimation {
             errorMessage = nil
         }
         
-        if (!isValidEmail) {
+        if (!isValidPassword) {
             withAnimation {
-                errorMessage = "Please enter a valid email."
-            }
-            return
-        }
-        
-        if password.isEmpty {
-            withAnimation {
-                errorMessage = "Please enter a password."
+                errorMessage = "Password must be at least 8 characters, contain uppercase letter, lowercase letter, and a number."
             }
             return
         }
@@ -215,6 +163,14 @@ struct SignInView: View {
             isLoading = true
         }
         
+        if isLogin {
+            await onTapLogin()
+        } else {
+            await onTapRegister()
+        }
+    }
+    
+    func onTapLogin() async {
         AuthenticationManager.shared.signIn(email: email, password: password) { result in
             DispatchQueue.main.async {
                 switch result {
@@ -223,17 +179,17 @@ struct SignInView: View {
                         do {
                             try await getUserData()
                             DispatchQueue.main.async {
-                                isSignedIn = true
                                 withAnimation {
                                     isLoading = false
                                 }
+                                isSignedIn = true
                             }
                         } catch {
                             DispatchQueue.main.async {
-                                errorMessage = "Failed to load user. Please try again."
                                 withAnimation {
                                     isLoading = false
                                 }
+                                errorMessage = "Failed to load user. Please try again."
                             }
                         }
                     }
@@ -255,9 +211,9 @@ struct SignInView: View {
                             case AWSCognitoIdentityProviderErrorType.expiredCode.rawValue:
                                 errorMessage = "Session expired. Please sign in again."
                             case AWSCognitoIdentityProviderErrorType.userNotConfirmed.rawValue:
-                                navigateToVerify = true
-                                AuthenticationManager.shared.resendConfirmationCode(email: email) { result in
-                                    
+                                isLoading = false
+                                navigateToRegisterCodeView = true
+                                AuthenticationManager.shared.resendConfirmationCode(email: email) { _ in
                                 }
                             default:
                                 errorMessage = "Something went wrong. Please try again."
@@ -271,10 +227,47 @@ struct SignInView: View {
             }
         }
     }
+    
+    func onTapRegister() async {
+        AuthenticationManager.shared.signUp(email: email, password: password) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success:
+                    navigateToRegisterCodeView = true
+                case .failure(let error as NSError):
+                    withAnimation {
+                        if error.domain == AWSCognitoIdentityProviderErrorDomain {
+                            switch error.code {
+                            case AWSCognitoIdentityProviderErrorType.usernameExists.rawValue:
+                                errorMessage = "That email is already registered. Please sign in."
+                            case AWSCognitoIdentityProviderErrorType.invalidPassword.rawValue:
+                                errorMessage = "Password must be at least 8 characters, contain uppercase letter, lowercase letter, and a number."
+                            case AWSCognitoIdentityProviderErrorType.invalidParameter.rawValue:
+                                errorMessage = "Invalid input. Double-check your info."
+                            case AWSCognitoIdentityProviderErrorType.limitExceeded.rawValue:
+                                errorMessage = "Too many attempts. Please wait a moment and try again."
+                            case AWSCognitoIdentityProviderErrorType.codeDeliveryFailure.rawValue:
+                                errorMessage = "Failed to send verification code. Please check your email and try again."
+                            default:
+                                errorMessage = "Something went wrong. Try again."
+                            }
+                        } else {
+                            errorMessage = "Something went wrong. Try again."
+                        }
+                    }
+                }
+                withAnimation {
+                    isLoading = false
+                }
+            }
+        }
+    }
 }
+
+
 
 #Preview {
     NavigationStack {
-        SignInView()
+        EnterPasswordView(email: "owenevey@gmail.com", isLogin: true)
     }
 }

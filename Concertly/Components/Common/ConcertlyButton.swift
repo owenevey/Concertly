@@ -1,6 +1,9 @@
 import SwiftUI
 
 struct ConcertlyButton: View {
+    
+    @Environment(\.colorScheme) var colorScheme
+    
     let label: String
     var style: ConcertlyButtonStyle = .primary
     var fitText: Bool = false
@@ -29,6 +32,13 @@ struct ConcertlyButton: View {
                         } else if style == .warning {
                             RoundedRectangle(cornerRadius: 15)
                                 .fill(Color.red)
+                        } else if style == .black {
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(.black)
+                                .overlay(
+                                        RoundedRectangle(cornerRadius: 15)
+                                            .stroke(colorScheme == .light ? .black : .white, lineWidth: 3)
+                                    )
                         }
                     }
                     
@@ -44,12 +54,13 @@ enum ConcertlyButtonStyle: String {
     case primary
     case secondary
     case warning
+    case black
 }
 
 #Preview {
-    ConcertlyButton(label: "Clear", style: .primary, fitText: true, action: {
+    ConcertlyButton(label: "Clear", style: .black, fitText: true, action: {
         try? await Task.sleep(nanoseconds: 1_000_000_000)
     })
-    .padding(40)
+    .padding(100)
     .background(Color.background)
 }

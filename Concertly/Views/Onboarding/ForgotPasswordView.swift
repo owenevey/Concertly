@@ -28,9 +28,15 @@ struct ForgotPasswordView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 VStack(spacing: 15) {
-                    Text("Enter your email address")
-                        .font(.system(size: 23, type: .SemiBold))
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    VStack(spacing: 5) {
+                        Text("Forgot Password")
+                            .font(.system(size: 23, type: .SemiBold))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Text("Enter your email address")
+                            .font(.system(size: 16, type: .Regular))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
                     
                     HStack {
                         Image(systemName: "envelope")
@@ -38,12 +44,17 @@ struct ForgotPasswordView: View {
                             .frame(width: 25)
                         TextField("Email", text: $email)
                             .textContentType(.emailAddress)
-                            .keyboardType(.emailAddress)
+                            .keyboardType(.default)
                             .autocapitalization(.none)
-                            .submitLabel(.done)
+                            .submitLabel(.return)
                             .font(.system(size: 17, type: .Regular))
                             .padding(.trailing)
                             .focused($isFocused)
+                            .onSubmit {
+                                Task {
+                                    await onTapSubmit()
+                                }
+                            }
                     }
                     .padding(15)
                     .background(
@@ -55,6 +66,9 @@ struct ForgotPasswordView: View {
                         RoundedRectangle(cornerRadius: 15)
                             .stroke(.gray2, lineWidth: 1)
                     )
+                    .onTapGesture {
+                        isFocused = true
+                    }
                     
                     Button { Task { await onTapSubmit() } } label: {
                         HStack {

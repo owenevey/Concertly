@@ -52,6 +52,9 @@
 		F11EB3662D94C9D500EAB414 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F11EB3652D94C9D500EAB414 /* GoogleService-Info.plist */; };
 		F11EB3692D94CA4600EAB414 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = F11EB3682D94CA4600EAB414 /* FirebaseAnalytics */; };
 		F11EB36C2D94D64200EAB414 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = F11EB36B2D94D64200EAB414 /* FirebaseCrashlytics */; };
+		F12AD1462E07414800647F72 /* AuthChoiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12AD1452E07414800647F72 /* AuthChoiceView.swift */; };
+		F12AD1482E07419100647F72 /* EnterEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12AD1472E07419100647F72 /* EnterEmailView.swift */; };
+		F12AD14A2E0744D100647F72 /* EnterPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12AD1492E0744D100647F72 /* EnterPasswordView.swift */; };
 		F12B95162D375D5A00EFD489 /* VenuesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12B95152D375D5700EFD489 /* VenuesResponse.swift */; };
 		F12B95182D375E9600EFD489 /* VenueCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12B95172D375E9600EFD489 /* VenueCard.swift */; };
 		F12B951A2D37605A00EFD489 /* ErrorVenueCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12B95192D37605600EFD489 /* ErrorVenueCard.swift */; };
@@ -63,9 +66,7 @@
 		F13DF2762DB467DF001A0FB3 /* KeychainUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DF2752DB467DF001A0FB3 /* KeychainUtil.swift */; };
 		F13DF2782DB48D33001A0FB3 /* UserPreferencesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DF2772DB48D33001A0FB3 /* UserPreferencesRequest.swift */; };
 		F13DF27A2DB71426001A0FB3 /* TransitionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DF2792DB7141D001A0FB3 /* TransitionExtensions.swift */; };
-		F13DF27C2DB85B28001A0FB3 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DF27B2DB85B28001A0FB3 /* SignInView.swift */; };
-		F13DF27E2DB86A87001A0FB3 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DF27D2DB86A87001A0FB3 /* SignUpView.swift */; };
-		F13DF2802DB87FB5001A0FB3 /* CodeInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DF27F2DB87FB5001A0FB3 /* CodeInputView.swift */; };
+		F13DF2802DB87FB5001A0FB3 /* RegisterCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13DF27F2DB87FB5001A0FB3 /* RegisterCodeView.swift */; };
 		F14349D42D4D791500C63041 /* NearbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14349D32D4D791100C63041 /* NearbyView.swift */; };
 		F14349D62D4DAD7000C63041 /* NearbyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14349D52D4DAD6900C63041 /* NearbyViewModel.swift */; };
 		F14349D82D4DC73700C63041 /* NearbyConcertCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14349D72D4DC73300C63041 /* NearbyConcertCard.swift */; };
@@ -235,6 +236,9 @@
 		F11714BA2D1526AB007A0052 /* HotelDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailsView.swift; sourceTree = "<group>"; };
 		F11724012D923B9400871D3A /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
 		F11EB3652D94C9D500EAB414 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F12AD1452E07414800647F72 /* AuthChoiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthChoiceView.swift; sourceTree = "<group>"; };
+		F12AD1472E07419100647F72 /* EnterEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterEmailView.swift; sourceTree = "<group>"; };
+		F12AD1492E0744D100647F72 /* EnterPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPasswordView.swift; sourceTree = "<group>"; };
 		F12B95152D375D5700EFD489 /* VenuesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenuesResponse.swift; sourceTree = "<group>"; };
 		F12B95172D375E9600EFD489 /* VenueCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueCard.swift; sourceTree = "<group>"; };
 		F12B95192D37605600EFD489 /* ErrorVenueCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorVenueCard.swift; sourceTree = "<group>"; };
@@ -246,9 +250,7 @@
 		F13DF2752DB467DF001A0FB3 /* KeychainUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainUtil.swift; sourceTree = "<group>"; };
 		F13DF2772DB48D33001A0FB3 /* UserPreferencesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferencesRequest.swift; sourceTree = "<group>"; };
 		F13DF2792DB7141D001A0FB3 /* TransitionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionExtensions.swift; sourceTree = "<group>"; };
-		F13DF27B2DB85B28001A0FB3 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
-		F13DF27D2DB86A87001A0FB3 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
-		F13DF27F2DB87FB5001A0FB3 /* CodeInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeInputView.swift; sourceTree = "<group>"; };
+		F13DF27F2DB87FB5001A0FB3 /* RegisterCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCodeView.swift; sourceTree = "<group>"; };
 		F14349D32D4D791100C63041 /* NearbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyView.swift; sourceTree = "<group>"; };
 		F14349D52D4DAD6900C63041 /* NearbyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyViewModel.swift; sourceTree = "<group>"; };
 		F14349D72D4DC73300C63041 /* NearbyConcertCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyConcertCard.swift; sourceTree = "<group>"; };
@@ -536,11 +538,12 @@
 			isa = PBXGroup;
 			children = (
 				F11611B82D6A8F5700345C31 /* LandingView.swift */,
+				F12AD1452E07414800647F72 /* AuthChoiceView.swift */,
+				F12AD1472E07419100647F72 /* EnterEmailView.swift */,
+				F12AD1492E0744D100647F72 /* EnterPasswordView.swift */,
 				F1F986742E01086D00ED17BC /* ForgotPasswordView.swift */,
 				F1F986762E0115CF00ED17BC /* VerifyPasswordView.swift */,
-				F13DF27B2DB85B28001A0FB3 /* SignInView.swift */,
-				F13DF27D2DB86A87001A0FB3 /* SignUpView.swift */,
-				F13DF27F2DB87FB5001A0FB3 /* CodeInputView.swift */,
+				F13DF27F2DB87FB5001A0FB3 /* RegisterCodeView.swift */,
 				F1D364A62D6AB2DB0083680D /* InfiniteScrollView.swift */,
 				F1D364A82D6AC6130083680D /* TitleTextRenderer.swift */,
 				F15109272D6A4E630041B794 /* ChooseCityView.swift */,
@@ -915,7 +918,7 @@
 				F1CD3CB82D2CBA0F004E3041 /* FeaturedEvent.swift in Sources */,
 				F19C72692CC7249E00390BD6 /* ConcertViewModel.swift in Sources */,
 				F1CD3C9E2D275628004E3041 /* DestinationViewModel.swift in Sources */,
-				F13DF2802DB87FB5001A0FB3 /* CodeInputView.swift in Sources */,
+				F13DF2802DB87FB5001A0FB3 /* RegisterCodeView.swift in Sources */,
 				F1F3A6472D068C1C0042F4F2 /* PriceGraph.swift in Sources */,
 				F12B951C2D37607B00EFD489 /* FallbackVenueCard.swift in Sources */,
 				F14F624D2DC7FC05008ACC06 /* UserPreferencesResponse.swift in Sources */,
@@ -932,6 +935,7 @@
 				F1F8C7002DB3F812002975B6 /* AuthenticationManager.swift in Sources */,
 				F10AA08F2D7BDEFE00FB4EB9 /* NotificationRow.swift in Sources */,
 				F1FACFF92D3B681600D53A7D /* DestinationsResponse.swift in Sources */,
+				F12AD14A2E0744D100647F72 /* EnterPasswordView.swift in Sources */,
 				F1659C052CC1E99800586212 /* FlightsResponse.swift in Sources */,
 				F1CD3CD22D323194004E3041 /* ArtistDetailsResponse.swift in Sources */,
 				F1CD3CA02D275907004E3041 /* TripViewModelProtocol.swift in Sources */,
@@ -961,7 +965,6 @@
 				F181551C2C8CEA2800E25003 /* ConcertCard.swift in Sources */,
 				F11611BF2D6A978800345C31 /* RootView.swift in Sources */,
 				F181551F2C8D5D1F00E25003 /* ConcertView.swift in Sources */,
-				F13DF27E2DB86A87001A0FB3 /* SignUpView.swift in Sources */,
 				F18C460E2CC5B30D00756472 /* TimeUtil.swift in Sources */,
 				F18075312D0568DA00D67622 /* PriceInsightsCard.swift in Sources */,
 				F19C72672CC71C5E00390BD6 /* FlightsViewModel.swift in Sources */,
@@ -1000,7 +1003,6 @@
 				F15109282D6A4E630041B794 /* ChooseCityView.swift in Sources */,
 				F1CD3C822D24CA6B004E3041 /* CitySearchViewModel.swift in Sources */,
 				F11640242C8BAD140040C95D /* GenrePills.swift in Sources */,
-				F13DF27C2DB85B28001A0FB3 /* SignInView.swift in Sources */,
 				F1611FE22D58167100D4DF10 /* SuggestedConcertsResponse.swift in Sources */,
 				F14349D82D4DC73700C63041 /* NearbyConcertCard.swift in Sources */,
 				F1F3A6492D0694E50042F4F2 /* PriceHistorySheet.swift in Sources */,
@@ -1025,12 +1027,14 @@
 				F1CD3CBC2D2CC40B004E3041 /* FeaturedEventItem.swift in Sources */,
 				F10AA08D2D7BD8FA00FB4EB9 /* NotificationsViewModel.swift in Sources */,
 				F116402E2C8C2F3E0040C95D /* DestinationCard.swift in Sources */,
+				F12AD1482E07419100647F72 /* EnterEmailView.swift in Sources */,
 				F14349E02D4EFC8800C63041 /* FallbackSavedConcertCard.swift in Sources */,
 				F1CD3CC02D2CC60C004E3041 /* ErrorFeaturedEventItem.swift in Sources */,
 				F1A718772D7E845C00B9D5B4 /* Snackbar.swift in Sources */,
 				F117149C2D1253B0007A0052 /* ConcertlyButton.swift in Sources */,
 				F11714A52D13A0E3007A0052 /* HotelsResponse.swift in Sources */,
 				F1CCE0D22CB0B96600D15696 /* ViewExtensions.swift in Sources */,
+				F12AD1462E07414800647F72 /* AuthChoiceView.swift in Sources */,
 				F17252C52D34A4DC006C3454 /* GenreViewModel.swift in Sources */,
 				F19C727D2CD0808B00390BD6 /* FilterStopsEnum.swift in Sources */,
 				F10E0C942D558F7D0091940C /* SavedViewModel.swift in Sources */,

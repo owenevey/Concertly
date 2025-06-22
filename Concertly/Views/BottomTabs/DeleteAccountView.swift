@@ -16,7 +16,7 @@ struct DeleteAccountView: View {
                     BackButton()
                     
                     Text("Delete Account")
-                        .font(.system(size: 30, type: .SemiBold))
+                        .font(.system(size: 25, type: .SemiBold))
                 }
                 .padding(.bottom, 5)
                 .frame(maxWidth: .infinity, alignment: .leading)

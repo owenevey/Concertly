@@ -22,9 +22,9 @@ struct GenreView: View {
                     
                     HStack {
                         Text(genre.title)
-                            .font(.system(size: 30, type: .SemiBold))
+                            .font(.system(size: 25, type: .SemiBold))
                         Text(genre.emoji)
-                            .font(.system(size: 25))
+                            .font(.system(size: 23))
                     }
                 }
                 .padding(.bottom, 5)
