@@ -128,6 +128,7 @@ struct ChooseArtistsView: View {
                         .shadow(radius: 5)
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .opacity(savePreferencesResponse.status == .loading ? 0.75 : 1)
                 }
             }
             .frame(maxWidth: .infinity)

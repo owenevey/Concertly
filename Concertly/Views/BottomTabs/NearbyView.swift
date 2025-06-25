@@ -140,8 +140,6 @@ struct NearbyView: View {
             }
         }
         .onChange(of: homeCity) { checkAndFetch() }
-        .onChange(of: homeLat) { checkAndFetch() }
-        .onChange(of: homeLong) { checkAndFetch() }
     }
     
     private func checkAndFetch() {

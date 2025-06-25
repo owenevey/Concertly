@@ -12,34 +12,42 @@ class AuthenticationManager {
     private let refresher = TokenRefresher()
     
     func refreshTokens() async throws -> String {
-            return try await refresher.refresh {
-                guard KeychainUtil.get(forKey: "refreshToken") != nil else {
-                    throw NSError(domain: "NoRefreshToken", code: -1, userInfo: nil)
-                }
+        return try await refresher.refresh {
+            guard KeychainUtil.get(forKey: "refreshToken") != nil else {
+                throw NSError(domain: "NoRefreshToken", code: -1)
+            }
 
-                guard let user = self.userPool?.currentUser() else {
-                    throw NSError(domain: "UserNotLoggedIn", code: -1, userInfo: nil)
-                }
+            guard let user = self.userPool?.currentUser() else {
+                throw NSError(domain: "UserNotLoggedIn", code: -1)
+            }
 
-                let task = user.getSession()
-                guard let session = task.result else {
+            return try await withCheckedThrowingContinuation { continuation in
+                user.getSession().continueWith { task in
                     if let error = task.error {
-                        throw error
+                        continuation.resume(throwing: error)
+                        return nil
                     }
-                    throw NSError(domain: "CouldNotRefreshSession", code: -1, userInfo: nil)
+
+                    guard let session = task.result else {
+                        continuation.resume(throwing: NSError(domain: "NoSession", code: -1))
+                        return nil
+                    }
+
+                    let accessToken = session.accessToken?.tokenString ?? ""
+                    let idToken = session.idToken?.tokenString ?? ""
+                    let refreshToken = session.refreshToken?.tokenString ?? ""
+
+                    KeychainUtil.save(accessToken, forKey: "accessToken")
+                    KeychainUtil.save(idToken, forKey: "idToken")
+                    KeychainUtil.save(refreshToken, forKey: "refreshToken")
+
+                    continuation.resume(returning: idToken)
+                    return nil
                 }
-
-                let accessToken = session.accessToken?.tokenString ?? ""
-                let idToken = session.idToken?.tokenString ?? ""
-                let refreshToken = session.refreshToken?.tokenString ?? ""
-
-                KeychainUtil.save(accessToken, forKey: "accessToken")
-                KeychainUtil.save(idToken, forKey: "idToken")
-                KeychainUtil.save(refreshToken, forKey: "refreshToken")
-
-                return idToken
             }
         }
+    }
+
     
     func signUp(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let userPool = userPool else {

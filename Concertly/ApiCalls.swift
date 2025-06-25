@@ -3,7 +3,6 @@ import Foundation
 let baseUrl = "https://d9hepdo8p4.execute-api.us-east-1.amazonaws.com/dev"
 
 func fetchData<T: Decodable, U: Encodable>(endpoint: String, method: String = "GET", body: U? = nil, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .iso8601) async throws -> T {
-    print("Calling \(endpoint)")
     func makeRequest(with token: String) throws -> URLRequest {
         guard let url = URL(string: endpoint) else {
             throw ConcertlyError.invalidURL
@@ -23,10 +22,6 @@ func fetchData<T: Decodable, U: Encodable>(endpoint: String, method: String = "G
     
     func makeCall(with request: URLRequest, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy) async throws -> T {
         let (data, response) = try await URLSession.shared.data(for: request)
-        
-//        if let responseBody = String(data: data, encoding: .utf8) {
-//            print("Response body: \(responseBody)")
-//        }
         
         guard let httpResponse = response as? HTTPURLResponse else {
             throw ConcertlyError.invalidResponse
@@ -53,7 +48,6 @@ func fetchData<T: Decodable, U: Encodable>(endpoint: String, method: String = "G
         let request = try makeRequest(with: token)
         return try await makeCall(with: request, dateDecodingStrategy: dateDecodingStrategy)
     } catch ConcertlyError.unauthorized {
-        print("Got 401, refreshing tokens...")
         let newToken = try await AuthenticationManager.shared.refreshTokens()
         
         let retryRequest = try makeRequest(with: newToken)

@@ -26,7 +26,7 @@ struct DestinationCard: View {
                         .lineLimit(1)
                     
                     Text(destination.shortDescription)
-                        .font(.system(size: 17, type: .Regular))
+                        .font(.system(size: 16, type: .Regular))
                         .foregroundStyle(.gray3)
                         .minimumScaleFactor(0.9)
                         .lineLimit(2, reservesSpace: true)

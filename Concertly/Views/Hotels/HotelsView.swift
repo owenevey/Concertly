@@ -35,6 +35,7 @@ struct HotelsView<T: TripViewModelProtocol>: View {
             }
         )
         .onChange(of: viewModel.selectedHotel, { handleSelectedHotelChange() })
+        .onChange(of: viewModel.location, { handleSelectedCityChange() })
         
         .sheet(isPresented: Binding<Bool>(
             get: { selectedHotel != nil },
@@ -113,6 +114,10 @@ struct HotelsView<T: TripViewModelProtocol>: View {
     private func handleSelectedHotelChange() {
         tripViewModel.hotelsPrice = viewModel.selectedHotel?.totalRate?.extractedLowest ?? -1
         dismiss()
+    }
+    
+    private func handleSelectedCityChange() {
+        tripViewModel.cityName = viewModel.location
     }
 }
 
