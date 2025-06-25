@@ -53,7 +53,7 @@ struct LandingView: View {
                             .textRenderer(TitleTextRenderer(progress: titleProgress))
                             .padding(.bottom, 12)
                         
-                        Text("Discover concerts from all over the world.\nFind affordable flights and hotels to get you there and back.")
+                        Text("Discover concerts from all over the world.\nFind affordable flights and hotels to make the trip happen.")
                             .font(.system(size: 17, type: .Regular))
                             .foregroundStyle(.white.secondary)
                             .multilineTextAlignment(.center)
