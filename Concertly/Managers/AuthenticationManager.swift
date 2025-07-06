@@ -254,6 +254,14 @@ func getUserData() async throws -> Bool {
     return true
 }
 
+func clearOnlyAuthData() {
+    KeychainUtil.delete(forKey: AppStorageKeys.accessToken.rawValue)
+    KeychainUtil.delete(forKey: AppStorageKeys.idToken.rawValue)
+    KeychainUtil.delete(forKey: AppStorageKeys.refreshToken.rawValue)
+    UserDefaults.standard.removeObject(forKey: AppStorageKeys.email.rawValue)
+    UserDefaults.standard.removeObject(forKey: AppStorageKeys.selectedNotificationPref.rawValue)
+}
+
 
 func clearLocalUserData() {
     KeychainUtil.delete(forKey: AppStorageKeys.accessToken.rawValue)

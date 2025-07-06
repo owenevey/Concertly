@@ -7,7 +7,7 @@ struct ProfileView: View {
     @StateObject var profileViewModel: ProfileViewModel
     @StateObject var nearbyViewModel: NearbyViewModel
     
-    @AppStorage(AppStorageKeys.email.rawValue) private var email: String = "owenevey@gmail.com"
+    @AppStorage(AppStorageKeys.email.rawValue) private var email: String = ""
     @AppStorage(AppStorageKeys.homeAirport.rawValue) private var homeAirport: String = ""
     @AppStorage(AppStorageKeys.homeCity.rawValue) private var homeCity: String = ""
     @AppStorage(AppStorageKeys.theme.rawValue) private var theme: String = "Default"
@@ -20,7 +20,7 @@ struct ProfileView: View {
     
     @EnvironmentObject var router: Router
     
-    @AppStorage(AppStorageKeys.authStatus.rawValue) private var authStatus = false
+    @AppStorage(AppStorageKeys.authStatus.rawValue) private var authStatus: AuthStatus = .guest
     @AppStorage(AppStorageKeys.selectedNotificationPref.rawValue) private var selectedNotificationPref = false
     
     var concertRemindersSelection: String {
@@ -218,33 +218,38 @@ struct ProfileView: View {
                                     
                                     Spacer()
                                     
-                                    Menu {
-                                        Button("On") {
-                                            if !newTourDateNotifications {
-                                                newTourDateNotifications = true
-                                                Task {
-                                                    var isSuccess = await NotificationManager.shared.updateNewTourDateNotifications()
-                                                    showTourDateError = !isSuccess
+                                    if authStatus == AuthStatus.registered {
+                                        Menu {
+                                            Button("On") {
+                                                if !newTourDateNotifications {
+                                                    newTourDateNotifications = true
+                                                    Task {
+                                                        let isSuccess = await NotificationManager.shared.updateNewTourDateNotifications()
+                                                        showTourDateError = !isSuccess
+                                                    }
                                                 }
                                             }
-                                        }
-                                        Button("Off") {
-                                            if newTourDateNotifications {
-                                                newTourDateNotifications = false
-                                                Task {
-                                                    var isSuccess = await NotificationManager.shared.updateNewTourDateNotifications()
-                                                    showTourDateError = !isSuccess
+                                            Button("Off") {
+                                                if newTourDateNotifications {
+                                                    newTourDateNotifications = false
+                                                    Task {
+                                                        let isSuccess = await NotificationManager.shared.updateNewTourDateNotifications()
+                                                        showTourDateError = !isSuccess
+                                                    }
                                                 }
                                             }
+                                        } label: {
+                                            Text(newTourDateNotifications ? "On" : "Off")
+                                                .font(.system(size: 17, type: .Regular))
+                                            Image(systemName: "chevron.right")
+                                                .font(.system(size: 13))
+                                                .fontWeight(.semibold)
                                         }
-                                    } label: {
-                                        Text(newTourDateNotifications ? "On" : "Off")
+                                        .buttonStyle(PlainButtonStyle())
+                                    } else {
+                                        Text("Login to enable")
                                             .font(.system(size: 17, type: .Regular))
-                                        Image(systemName: "chevron.right")
-                                            .font(.system(size: 13))
-                                            .fontWeight(.semibold)
                                     }
-                                    .buttonStyle(PlainButtonStyle())
                                 }
                                 .padding(.vertical, 12)
                                 .padding(.horizontal, 15)
@@ -280,7 +285,10 @@ struct ProfileView: View {
                                     
                                     Menu {
                                         Button("Confirm Sign Out") {
-                                            AuthenticationManager.shared.signOut(completion: { _ in })
+                                            AuthenticationManager.shared.signOut(completion: { _ in
+                                                authStatus = .loggedOut
+                                                router.reset()
+                                            })
                                         }
                                     } label: {
                                         HStack {
@@ -341,14 +349,14 @@ struct ProfileView: View {
                                 
                                 VStack(spacing: 0) {
                                     
-                                    ProfileRow(imageName: "person.circle.fill", name: AppStorageKeys.homeAirport.rawValue, displayName: "Login", selection: "")
+                                    ProfileRow(imageName: "person.circle.fill", name: Routes.login.rawValue, displayName: "Login", selection: "")
                                     
                                     Divider()
                                         .frame(height: 1)
                                         .overlay(.gray2)
                                         .padding(.horizontal, 15)
                                     
-                                    ProfileRow(imageName: "person.crop.circle.fill.badge.plus", name: AppStorageKeys.homeAirport.rawValue, displayName: "Register", selection: "")
+                                    ProfileRow(imageName: "person.crop.circle.fill.badge.plus", name: Routes.register.rawValue, displayName: "Register", selection: "")
                                 }
                                 .background(
                                     RoundedRectangle(cornerRadius: 10)

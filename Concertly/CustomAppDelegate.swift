@@ -39,8 +39,6 @@ class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Task {
-            UserDefaults.standard.set(true, forKey: AppStorageKeys.isPushNotificationsOn.rawValue)
-            
             let newToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
             
             let storedToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue)

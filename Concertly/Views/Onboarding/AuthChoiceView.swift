@@ -3,9 +3,7 @@ import SwiftUI
 struct AuthChoiceView: View {
     
     @AppStorage(AppStorageKeys.authStatus.rawValue) var authStatus: AuthStatus = .loggedOut
-    
-    @State var errorMessage: String?
-    
+        
     @State private var navigateToLogin = false
     @State private var navigateToRegister = false
      
@@ -41,15 +39,18 @@ struct AuthChoiceView: View {
                 VStack(spacing: 15) {
                     ConcertlyButton(label: "Login", style: .primary) {
                         navigateToLogin = true
+                        clearOnlyAuthData()
                     }
                     
                     
                     ConcertlyButton(label: "Register", style: .black) {
                         navigateToRegister = true
+                        clearOnlyAuthData()
                     }
                     
                     Button {
                         authStatus = .guest
+                        clearOnlyAuthData()
                     } label: {
                         Text("No thanks")
                             .font(.system(size: 17, type: .Regular))
@@ -67,6 +68,7 @@ struct AuthChoiceView: View {
         }
         .navigationBarHidden(true)
         .disableSwipeBack(true)
+        .ignoresSafeArea(.keyboard)
     }
 }
 

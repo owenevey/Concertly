@@ -9,6 +9,8 @@ struct ChooseArtistsView: View {
     @AppStorage(AppStorageKeys.homeLong.rawValue) private var homeLong: Double = 0
     @AppStorage(AppStorageKeys.homeAirport.rawValue) private var homeAirport = ""
     
+    @EnvironmentObject var router: Router
+    
     @FocusState private var isTextFieldFocused: Bool
     @State private var showHeaderBorder: Bool = false
     @State private var selectedArtists: Set<SuggestedArtist> = []
@@ -43,6 +45,10 @@ struct ChooseArtistsView: View {
             
             withAnimation(.easeInOut(duration: 0.2)) {
                 savePreferencesResponse = ApiResponse(status: .success)
+            }
+            
+            if authStatus == .guest {
+                router.reset()
             }
             
             authStatus = .registered
@@ -220,6 +226,7 @@ struct ChooseArtistsView: View {
 #Preview {
     NavigationStack {
         ChooseArtistsView()
+            .environmentObject(Router())
     }
 }
 

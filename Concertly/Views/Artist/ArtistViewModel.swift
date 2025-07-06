@@ -78,6 +78,13 @@ class ArtistViewModel: ObservableObject {
     }
     
     func toggleArtistFollowing() async {
+        let authStatus = UserDefaults.standard.string(forKey: AppStorageKeys.authStatus.rawValue)
+        
+        if authStatus == AuthStatus.guest.rawValue {
+            showSignInPrompt = true
+            return
+        }
+        
         let newTourDateNotifications = UserDefaults.standard.bool(forKey: AppStorageKeys.newTourDates.rawValue)
 
         if isFollowing {

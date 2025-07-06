@@ -2,19 +2,29 @@ import SwiftUI
 
 public struct SnackbarView: View {
     
-    public init(show: Binding<Bool>, message: String) {
+    public init(show: Binding<Bool>, message: String, backgroundColor: Color? = nil) {
         self._show = show
         self.message = message
+        self.backgroundColor = backgroundColor ?? .red
     }
     
     @Binding public var show: Bool
     public var message: String
+    public var backgroundColor: Color
+    
+    var image: String {
+        if message == "Sign in to follow artists." {
+            return "person.circle.fill"
+        }
+        
+        return "exclamationmark.circle.fill"
+    }
     
     public var body: some View {
         VStack {
             Spacer()
             HStack(alignment: .center, spacing: 12) {
-                Image(systemName: "exclamationmark.circle.fill")
+                Image(systemName: image)
                     .resizable()
                     .foregroundColor(.white)
                     .aspectRatio(contentMode: .fit)
@@ -29,7 +39,7 @@ public struct SnackbarView: View {
             .padding(.horizontal, 15)
             .frame(maxWidth: .infinity, minHeight: 35)
             .padding(.vertical, 10)
-            .background(.red)
+            .background(backgroundColor)
             .cornerRadius(15)
             .padding([.horizontal, .bottom], 15)
         }

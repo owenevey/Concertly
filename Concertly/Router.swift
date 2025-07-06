@@ -94,4 +94,6 @@ enum Routes: String {
     case homeCity
     case homeAirport
     case deleteAccount
+    case login
+    case register
 }

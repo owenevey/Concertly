@@ -17,6 +17,7 @@ class NotificationManager {
                     print("Notification permission error: \(error)")
                 }
                 if granted && authStatus == AuthStatus.registered.rawValue {
+                    UserDefaults.standard.set(true, forKey: AppStorageKeys.newTourDates.rawValue)
                     UIApplication.shared.registerForRemoteNotifications()
                 }
                 completion(granted)
@@ -95,13 +96,13 @@ class NotificationManager {
     }
     
     func refreshNotificationPermissions() {
-        let isPushNotificationsOn = UserDefaults.standard.bool(forKey: AppStorageKeys.isPushNotificationsOn.rawValue)
+        let isPushNotificationsAuthorized = UserDefaults.standard.bool(forKey: AppStorageKeys.isPushNotificationsAuthorized.rawValue)
         let authStatus = UserDefaults.standard.string(forKey: AppStorageKeys.authStatus.rawValue)
         
         notificationCenter.getNotificationSettings { settings in
             if settings.authorizationStatus == .authorized {
-                if !isPushNotificationsOn {
-                    UserDefaults.standard.set(true, forKey: AppStorageKeys.isPushNotificationsOn.rawValue)
+                if !isPushNotificationsAuthorized {
+                    UserDefaults.standard.set(true, forKey: AppStorageKeys.isPushNotificationsAuthorized.rawValue)
                     DispatchQueue.main.async {
                         if authStatus == AuthStatus.registered.rawValue {
                             UIApplication.shared.registerForRemoteNotifications()
@@ -109,8 +110,8 @@ class NotificationManager {
                     }
                 }
             } else {
-                if isPushNotificationsOn {
-                    UserDefaults.standard.set(false, forKey: AppStorageKeys.isPushNotificationsOn.rawValue)
+                if isPushNotificationsAuthorized {
+                    UserDefaults.standard.set(false, forKey: AppStorageKeys.isPushNotificationsAuthorized.rawValue)
                 }
             }
         }

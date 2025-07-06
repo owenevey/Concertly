@@ -5,9 +5,7 @@ struct ArtistView: View {
     var artistID: String
     
     @StateObject var viewModel: ArtistViewModel
-    
-    @State private var showError: Bool = false
-    
+        
     init(artistID: String) {
         self.artistID = artistID
         _viewModel = StateObject(wrappedValue: ArtistViewModel(artistID: artistID))
@@ -53,6 +51,13 @@ struct ArtistView: View {
                 SnackbarView(show: $viewModel.showError, message: "Sorry, an error occurred. Please try again.")
                     .opacity(viewModel.showError ? 1 : 0)
                     .animation(.easeInOut(duration: 0.2), value: viewModel.showError)
+            }
+            
+            VStack {
+                Spacer()
+                SnackbarView(show: $viewModel.showSignInPrompt, message: "Sign in to follow artists.", backgroundColor: .blue)
+                    .opacity(viewModel.showSignInPrompt ? 1 : 0)
+                    .animation(.easeInOut(duration: 0.2), value: viewModel.showSignInPrompt)
             }
         }
         .navigationBarHidden(true)

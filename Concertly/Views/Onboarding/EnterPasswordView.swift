@@ -16,6 +16,8 @@ struct EnterPasswordView: View {
     @State private var navigateToRegisterCodeView = false
     @State private var navigateToChooseArtistsView = false
     
+    @EnvironmentObject var router: Router
+    
     @FocusState var isFocused
     
     var isValidPassword: Bool {
@@ -182,13 +184,15 @@ struct EnterPasswordView: View {
                         do {
                             let hasSavedPrefs = try await getUserData()
                             
-                            DispatchQueue.main.async {
-                                withAnimation {
-                                    isLoading = false
-                                }
+                            withAnimation {
+                                isLoading = false
                             }
                             
                             if hasSavedPrefs {
+                                if authStatus == .guest {
+                                    router.reset()
+                                }
+                                
                                 authStatus = .registered
                             } else {
                                 navigateToChooseArtistsView = true
@@ -279,5 +283,6 @@ struct EnterPasswordView: View {
 #Preview {
     NavigationStack {
         EnterPasswordView(email: "owenevey@gmail.com", isLogin: true)
+            .environmentObject(Router())
     }
 }

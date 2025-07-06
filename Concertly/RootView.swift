@@ -1,12 +1,14 @@
 import SwiftUI
 
 struct RootView: View {
-    @AppStorage(AppStorageKeys.selectedNotificationPref.rawValue) private var selectedNotificationPref = false
     
     @AppStorage(AppStorageKeys.homeCity.rawValue) private var homeCity = ""
     @AppStorage(AppStorageKeys.homeAirport.rawValue) private var homeAirport = ""
     
+    @AppStorage(AppStorageKeys.selectedNotificationPref.rawValue) private var selectedNotificationPref = false
+    
     @AppStorage(AppStorageKeys.authStatus.rawValue) var authStatus: AuthStatus = .loggedOut
+    
     @AppStorage(AppStorageKeys.startingScreen.rawValue) private var startingScreenRaw: String = RootScreen.landing.rawValue
 
     @StateObject var exploreViewModel = ExploreViewModel()
@@ -14,7 +16,7 @@ struct RootView: View {
     @StateObject var savedViewModel = SavedViewModel()
     @StateObject var profileViewModel = ProfileViewModel()
 
-    @State private var screen: RootScreen = RootScreen(rawValue: UserDefaults.standard.string(forKey: "startingScreen") ?? RootScreen.landing.rawValue) ?? .landing
+    @State private var screen: RootScreen = RootScreen(rawValue: UserDefaults.standard.string(forKey: AppStorageKeys.startingScreen.rawValue) ?? RootScreen.landing.rawValue) ?? .landing
 
     var body: some View {
         ZStack {
@@ -24,8 +26,10 @@ struct RootView: View {
                     .transition(.slideInFromRight)
             case .authChoice:
                 AuthChoiceView()
+                    .transition(.slideInFromRight)
             case .notificationSelection:
                 NotificationSelectionView()
+                    .transition(.slideAndOpacity)
             case .content:
                 ContentView(
                     exploreViewModel: exploreViewModel,
@@ -49,22 +53,27 @@ struct RootView: View {
                 Task { await nearbyViewModel.getNearbyConcerts() }
             }
         }
+        .onChange(of: homeCity) {
+            updateScreen()
+        }
+        .onChange(of: homeAirport) {
+            updateScreen()
+        }
+        .onChange(of: selectedNotificationPref) {
+            updateScreen()
+        }
     }
 
     private func updateScreen() {
         switch authStatus {
             case .loggedOut:
-                if homeCity.isEmpty || homeAirport.isEmpty {
-                    screen = .landing
-                } else {
-                    screen = .authChoice
-                }
+                screen = .landing
 
             case .guest:
                 screen = selectedNotificationPref ? .content : .notificationSelection
 
             case .registered:
-                screen = .content
+                screen = selectedNotificationPref ? .content : .notificationSelection
             }
         
         startingScreenRaw = screen.rawValue // Save it

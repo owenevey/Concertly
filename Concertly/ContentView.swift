@@ -113,6 +113,10 @@ struct NavigationDestinationModifier: ViewModifier {
                         CitySearchView(location: $homeCity, title: "Home City")
                     case Routes.deleteAccount.rawValue:
                         DeleteAccountView()
+                    case Routes.register.rawValue:
+                        EnterEmailView(isLogin: false)
+                    case Routes.login.rawValue:
+                        EnterEmailView(isLogin: true)
                     default:
                         EmptyView()
                     }

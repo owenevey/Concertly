@@ -5,11 +5,12 @@ struct NotificationSelectionView: View {
     private let notificationManager = NotificationManager.shared
     
     @AppStorage(AppStorageKeys.selectedNotificationPref.rawValue) private var selectedNotificationPref = false
+    @AppStorage(AppStorageKeys.authStatus.rawValue) private var authStatus = AuthStatus.guest
     
     private func onTapDone(isNotificationsEnabled: Bool) {
         selectedNotificationPref = true
+        UserDefaults.standard.set(true, forKey: AppStorageKeys.isPushNotificationsAuthorized.rawValue)
         UserDefaults.standard.set(isNotificationsEnabled ? 1 : 0, forKey: AppStorageKeys.concertReminders.rawValue)
-        UserDefaults.standard.set(isNotificationsEnabled, forKey: AppStorageKeys.newTourDates.rawValue)
     }
     
     

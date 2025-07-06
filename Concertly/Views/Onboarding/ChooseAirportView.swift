@@ -56,7 +56,7 @@ struct ChooseAirportView: View {
                             } else {
                                 VStack(spacing: 5) {
                                     ForEach(airports, id: \.code) { airportResult in
-                                        NavigationLink(destination: EmptyView()) {
+                                        NavigationLink(destination: AuthChoiceView()) {
                                                 HStack(spacing: 20) {
                                                     Image(systemName: "airplane")
                                                         .font(.system(size: 20))
