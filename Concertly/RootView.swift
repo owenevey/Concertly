@@ -1,10 +1,13 @@
 import SwiftUI
 
 struct RootView: View {
-    @AppStorage(AppStorageKeys.isSignedIn.rawValue) private var isSignedIn = false
-    @AppStorage(AppStorageKeys.hasFinishedOnboarding.rawValue) private var hasFinishedOnboarding = false
     @AppStorage(AppStorageKeys.selectedNotificationPref.rawValue) private var selectedNotificationPref = false
-    @AppStorage("startingScreen") private var startingScreenRaw: String = RootScreen.landing.rawValue
+    
+    @AppStorage(AppStorageKeys.homeCity.rawValue) private var homeCity = ""
+    @AppStorage(AppStorageKeys.homeAirport.rawValue) private var homeAirport = ""
+    
+    @AppStorage(AppStorageKeys.authStatus.rawValue) var authStatus: AuthStatus = .loggedOut
+    @AppStorage(AppStorageKeys.startingScreen.rawValue) private var startingScreenRaw: String = RootScreen.landing.rawValue
 
     @StateObject var exploreViewModel = ExploreViewModel()
     @StateObject var nearbyViewModel = NearbyViewModel()
@@ -19,14 +22,10 @@ struct RootView: View {
             case .landing:
                 LandingView()
                     .transition(.slideInFromRight)
-            case .chooseCity:
-                NavigationStack {
-                    ChooseCityView()
-                }
-                .transition(.slideInFromRight)
+            case .authChoice:
+                AuthChoiceView()
             case .notificationSelection:
                 NotificationSelectionView()
-                    .transition(.slideAndOpacity)
             case .content:
                 ContentView(
                     exploreViewModel: exploreViewModel,
@@ -40,35 +39,34 @@ struct RootView: View {
         .animation(.easeInOut(duration: 0.4), value: screen)
         .onAppear {
             updateScreen()
-            if isSignedIn {
+            if authStatus == .registered {
                 Task { await fetchArtistImagesIfNeeded() }
             }
         }
-        .onChange(of: isSignedIn) {
+        .onChange(of: authStatus) {
             updateScreen()
-            if isSignedIn {
-                Task { await exploreViewModel.getAllData() }
-            }
-        }
-        .onChange(of: hasFinishedOnboarding) {
-            updateScreen()
-            if hasFinishedOnboarding {
+            if authStatus != .loggedOut {
                 Task { await nearbyViewModel.getNearbyConcerts() }
             }
         }
-        .onChange(of: selectedNotificationPref) { updateScreen() }
     }
 
     private func updateScreen() {
-        if !isSignedIn {
-            screen = .landing
-        } else if !hasFinishedOnboarding {
-            screen = .chooseCity
-        } else if !selectedNotificationPref {
-            screen = .notificationSelection
-        } else {
-            screen = .content
-        }
+        switch authStatus {
+            case .loggedOut:
+                if homeCity.isEmpty || homeAirport.isEmpty {
+                    screen = .landing
+                } else {
+                    screen = .authChoice
+                }
+
+            case .guest:
+                screen = selectedNotificationPref ? .content : .notificationSelection
+
+            case .registered:
+                screen = .content
+            }
+        
         startingScreenRaw = screen.rawValue // Save it
     }
     
@@ -102,12 +100,20 @@ struct RootView: View {
 
 enum RootScreen: String {
     case landing
-    case chooseCity
+    case authChoice
     case notificationSelection
     case content
+}
+
+enum AuthStatus: String {
+    case guest
+    case registered
+    case loggedOut
 }
 
 
 #Preview {
     RootView()
+        .environmentObject(Router())
+        .environmentObject(AnimationManager())
 }

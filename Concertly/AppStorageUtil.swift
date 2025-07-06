@@ -8,9 +8,7 @@ enum concertRemindersEnum: Int {
 
 enum AppStorageKeys: String {
     case email
-    case isSignedIn
     case minimumVersion
-    case hasFinishedOnboarding
     case selectedNotificationPref
     case theme
     case concertReminders
@@ -23,6 +21,11 @@ enum AppStorageKeys: String {
     case homeAirport
     case concertViewCount
     case lastCheckedImages
+    case authStatus
+    case startingScreen
+    case accessToken
+    case idToken
+    case refreshToken
 }
 
 enum ContentCategories: String {

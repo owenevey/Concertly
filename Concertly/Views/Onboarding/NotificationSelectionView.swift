@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct NotificationSelectionView: View {
-    
+        
     private let notificationManager = NotificationManager.shared
     
     @AppStorage(AppStorageKeys.selectedNotificationPref.rawValue) private var selectedNotificationPref = false
@@ -32,7 +32,7 @@ struct NotificationSelectionView: View {
                 .multilineTextAlignment(.center)
             
             ConcertlyButton(label: "Notify me") {
-                if UserDefaults.standard.string(forKey: "pushToken") != nil {
+                if UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue) != nil {
                     onTapDone(isNotificationsEnabled: true)
                     Task { await NotificationManager.shared.updateNewTourDateNotifications() }
                 } else {

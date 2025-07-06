@@ -13,6 +13,9 @@ struct VerifyPasswordView: View {
     @State var isLoading = false
     
     @State var navigateToSignIn = false
+    @State var navigateToChooseArtistsView = false
+    
+    @AppStorage(AppStorageKeys.authStatus.rawValue) var authStatus: AuthStatus = .loggedOut
     
     @FocusState private var focusedField: Field?
     
@@ -191,6 +194,9 @@ struct VerifyPasswordView: View {
         .navigationDestination(isPresented: $navigateToSignIn) {
             AuthChoiceView()
         }
+        .navigationDestination(isPresented: $navigateToChooseArtistsView) {
+            ChooseArtistsView()
+        }
         .navigationBarHidden(true)
         .ignoresSafeArea(.keyboard)
     }
@@ -226,14 +232,24 @@ struct VerifyPasswordView: View {
                             case .success:
                                 Task {
                                     do {
-                                        try await getUserData()
-                                    } catch {
+                                        let hasSavedPrefs = try await getUserData()
                                         
+                                        withAnimation {
+                                            isLoading = false
+                                        }
+                                        
+                                        if hasSavedPrefs {
+                                            authStatus = .registered
+                                        } else {
+                                            navigateToChooseArtistsView = true
+                                        }
+                                        
+                                    } catch {
+                                        withAnimation {
+                                            isLoading = false
+                                        }
+                                        navigateToSignIn = true
                                     }
-                                    withAnimation {
-                                        isLoading = false
-                                    }
-                                    UserDefaults.standard.set(true, forKey: AppStorageKeys.isSignedIn.rawValue)
                                 }
                                 
                                 

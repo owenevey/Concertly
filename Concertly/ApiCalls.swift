@@ -3,14 +3,17 @@ import Foundation
 let baseUrl = "https://d9hepdo8p4.execute-api.us-east-1.amazonaws.com/dev"
 
 func fetchData<T: Decodable, U: Encodable>(endpoint: String, method: String = "GET", body: U? = nil, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .iso8601) async throws -> T {
-    func makeRequest(with token: String) throws -> URLRequest {
+    func makeRequest() throws -> URLRequest {
         guard let url = URL(string: endpoint) else {
             throw ConcertlyError.invalidURL
         }
         
         var request = URLRequest(url: url)
         request.httpMethod = method
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        if let token = KeychainUtil.get(forKey: "idToken") {
+            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        }
         
         if let body = body {
             request.httpBody = try JSONEncoder().encode(body)
@@ -40,17 +43,13 @@ func fetchData<T: Decodable, U: Encodable>(endpoint: String, method: String = "G
         return try decoder.decode(T.self, from: data)
     }
     
-    guard let token = KeychainUtil.get(forKey: "idToken") else {
-        throw ConcertlyError.missingIdToken
-    }
-    
     do {
-        let request = try makeRequest(with: token)
+        let request = try makeRequest()
         return try await makeCall(with: request, dateDecodingStrategy: dateDecodingStrategy)
     } catch ConcertlyError.unauthorized {
-        let newToken = try await AuthenticationManager.shared.refreshTokens()
+        try await AuthenticationManager.shared.refreshTokens()
         
-        let retryRequest = try makeRequest(with: newToken)
+        let retryRequest = try makeRequest()
         return try await makeCall(with: retryRequest, dateDecodingStrategy: dateDecodingStrategy)
     }
 }

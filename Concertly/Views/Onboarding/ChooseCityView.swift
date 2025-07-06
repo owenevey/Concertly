@@ -27,7 +27,7 @@ struct ChooseCityView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
-                Text("Next, select your city")
+                Text("First, select your city")
                     .font(.system(size: 23, type: .SemiBold))
                     .foregroundStyle(.accent)
                     .frame(maxWidth: .infinity, alignment: .leading)

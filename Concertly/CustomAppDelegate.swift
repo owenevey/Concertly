@@ -31,12 +31,8 @@ class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
             userPoolConfiguration: poolConfig,
             forKey: "UserPool"
         )
-        
-        let isSignedIn = UserDefaults.standard.bool(forKey: AppStorageKeys.isSignedIn.rawValue)
-        
-        if isSignedIn {
-            NotificationManager.shared.refreshNotificationPermissions()
-        }
+                
+        NotificationManager.shared.refreshNotificationPermissions()
         
         return true
     }
@@ -45,18 +41,19 @@ class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
         Task {
             UserDefaults.standard.set(true, forKey: AppStorageKeys.isPushNotificationsOn.rawValue)
             
-            let stringifiedToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+            let newToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
             
             let storedToken = UserDefaults.standard.string(forKey: AppStorageKeys.pushNotificationToken.rawValue)
             
-            if storedToken != stringifiedToken {
-                UserDefaults.standard.set(stringifiedToken, forKey: AppStorageKeys.pushNotificationToken.rawValue)
+            if newToken != storedToken {
+                UserDefaults.standard.set(newToken, forKey: AppStorageKeys.pushNotificationToken.rawValue)
                 
-                let isSignedIn = UserDefaults.standard.bool(forKey: AppStorageKeys.isSignedIn.rawValue)
+                let authStatus = UserDefaults.standard.string(forKey: AppStorageKeys.authStatus.rawValue)
                 
-                if isSignedIn {
+                if authStatus != AuthStatus.loggedOut.rawValue {
                     do {
-                        let response = try await updateDeviceToken(deviceId: DeviceIdManager.getDeviceId(), pushNotificationToken: stringifiedToken, isNotificationsEnabled: true)
+                        let newTourDates = UserDefaults.standard.bool(forKey: AppStorageKeys.newTourDates.rawValue)
+                        let response = try await updateDeviceToken(deviceId: DeviceIdManager.getDeviceId(), pushNotificationToken: newToken, isNotificationsEnabled: newTourDates)
                         
                         if response.status == .error {
                             throw NSError(domain: "", code: 0, userInfo: nil)

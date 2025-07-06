@@ -27,19 +27,15 @@ final class ExploreViewModel: ObservableObject {
     @Published var famousVenues: [Venue] = []
     
     init() {
-        let isSignedIn = UserDefaults.standard.bool(forKey: AppStorageKeys.isSignedIn.rawValue)
-
-        if isSignedIn {
-            trendingConcerts = CoreDataManager.shared.fetchItems(for: ContentCategories.exploreTrending.rawValue, type: Concert.self)
-            popularArtists = CoreDataManager.shared.fetchItems(for: ContentCategories.explore.rawValue, type: SuggestedArtist.self)
-            popularDestinations = CoreDataManager.shared.fetchItems(type: Destination.self)
-            featuredConcert = CoreDataManager.shared.fetchItems(for: ContentCategories.exploreFeatured.rawValue, type: Concert.self).first
-            suggestedConcerts = CoreDataManager.shared.fetchItems(for: ContentCategories.exploreSuggested.rawValue, type: Concert.self)
-            famousVenues = CoreDataManager.shared.fetchItems(type: Venue.self)
-            
-            Task {
-                await getAllData()
-            }
+        trendingConcerts = CoreDataManager.shared.fetchItems(for: ContentCategories.exploreTrending.rawValue, type: Concert.self)
+        popularArtists = CoreDataManager.shared.fetchItems(for: ContentCategories.explore.rawValue, type: SuggestedArtist.self)
+        popularDestinations = CoreDataManager.shared.fetchItems(type: Destination.self)
+        featuredConcert = CoreDataManager.shared.fetchItems(for: ContentCategories.exploreFeatured.rawValue, type: Concert.self).first
+        suggestedConcerts = CoreDataManager.shared.fetchItems(for: ContentCategories.exploreSuggested.rawValue, type: Concert.self)
+        famousVenues = CoreDataManager.shared.fetchItems(type: Venue.self)
+        
+        Task {
+            await getAllData()
         }
     }
     

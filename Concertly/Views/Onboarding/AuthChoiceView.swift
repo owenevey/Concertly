@@ -2,8 +2,7 @@ import SwiftUI
 
 struct AuthChoiceView: View {
     
-    @AppStorage(AppStorageKeys.isSignedIn.rawValue) private var isSignedIn = false
-    @AppStorage(AppStorageKeys.hasFinishedOnboarding.rawValue) private var hasFinishedOnboarding = false
+    @AppStorage(AppStorageKeys.authStatus.rawValue) var authStatus: AuthStatus = .loggedOut
     
     @State var errorMessage: String?
     
@@ -16,24 +15,46 @@ struct AuthChoiceView: View {
                 .ignoresSafeArea()
             
             
-            VStack(spacing: 15) {
+            VStack(spacing: 20) {
                 Spacer()
                 
-                Text("Concertly")
-                    .font(.system(size: 50, type: .SemiBold))
-                    .foregroundStyle(.accent)
-                    .padding(.bottom, -15)
+                Image(.kanyeOnPhone)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 250, height: 300)
+                    .cornerRadius(20)
+                    .clipped()
+                    .padding(.bottom, 10)
+                
+                Text("Make it personal.")
+                    .font(.system(size: 25, type: .SemiBold))
+                
+                Text("Create an account to follow artists, get personalized suggestions, and be the first to know about new tour dates.")
+                    .font(.system(size: 17, type: .Regular))
+                    .padding(.horizontal, 30)
+                    .multilineTextAlignment(.center)
                 
                 Spacer()
                 Spacer()
                 
                 
-                ConcertlyButton(label: "Login", style: .primary) {
-                    navigateToLogin = true
-                }
-                
-                ConcertlyButton(label: "Register", style: .black) {
-                    navigateToRegister = true
+                VStack(spacing: 15) {
+                    ConcertlyButton(label: "Login", style: .primary) {
+                        navigateToLogin = true
+                    }
+                    
+                    
+                    ConcertlyButton(label: "Register", style: .black) {
+                        navigateToRegister = true
+                    }
+                    
+                    Button {
+                        authStatus = .guest
+                    } label: {
+                        Text("No thanks")
+                            .font(.system(size: 17, type: .Regular))
+                            .foregroundStyle(.gray3)
+                    }
                 }
             }
             .padding(30)

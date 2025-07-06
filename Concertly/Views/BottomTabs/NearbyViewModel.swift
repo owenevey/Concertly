@@ -10,9 +10,9 @@ final class NearbyViewModel: ObservableObject {
     var homeLong: Double = 0.0
     
     init() {
-        let isSignedIn = UserDefaults.standard.bool(forKey: AppStorageKeys.isSignedIn.rawValue)
+        let authStatus = UserDefaults.standard.string(forKey: AppStorageKeys.authStatus.rawValue)
 
-        if isSignedIn {
+        if authStatus != AuthStatus.loggedOut.rawValue {
             let upcomingConcerts = CoreDataManager.shared.fetchItems(for: ContentCategories.nearby.rawValue, type: Concert.self, sortKey: "date")
             nearbyConcerts = upcomingConcerts.filter { $0.date >= Date() }
             self.homeLat = UserDefaults.standard.double(forKey: AppStorageKeys.homeLat.rawValue)

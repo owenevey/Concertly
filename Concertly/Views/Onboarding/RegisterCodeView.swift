@@ -13,6 +13,8 @@ struct RegisterCodeView: View {
     @State var value: String = ""
     @State var state: TypingState = .typing
     @FocusState var isFocused
+    
+    @State private var navigateToChooseArtists = false
         
     var body: some View {
         ZStack {
@@ -66,7 +68,7 @@ struct RegisterCodeView: View {
                                                 DispatchQueue.main.async {
                                                     switch result {
                                                     case .success:
-                                                        UserDefaults.standard.set(true, forKey: AppStorageKeys.isSignedIn.rawValue)
+                                                        navigateToChooseArtists = true
                                                     case .failure(_):
                                                         withAnimation {
                                                             infoMessage = "Code verified, but failed to sign in."
@@ -121,7 +123,7 @@ struct RegisterCodeView: View {
                     }
                     
                     if showGoToSignIn {
-                        NavigationLink(destination: AuthChoiceView()) {
+                        NavigationLink(destination: EnterEmailView(isLogin: true)) {
                             Text("Go to Sign In")
                         }
                         .font(.system(size: 16, type: .Medium))
@@ -135,6 +137,9 @@ struct RegisterCodeView: View {
                     isFocused = true
                 }
             }
+        }
+        .navigationDestination(isPresented: $navigateToChooseArtists) {
+            ChooseArtistsView()
         }
         .navigationBarHidden(true)
         .ignoresSafeArea(.keyboard)

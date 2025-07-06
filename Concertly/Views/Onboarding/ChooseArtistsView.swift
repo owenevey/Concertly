@@ -3,7 +3,7 @@ import SmoothGradient
 
 struct ChooseArtistsView: View {
     
-    @AppStorage(AppStorageKeys.hasFinishedOnboarding.rawValue) private var hasFinishedOnboarding = false
+    @AppStorage(AppStorageKeys.authStatus.rawValue) var authStatus: AuthStatus = .loggedOut
     @AppStorage(AppStorageKeys.homeCity.rawValue) private var homeCity = ""
     @AppStorage(AppStorageKeys.homeLat.rawValue) private var homeLat: Double = 0
     @AppStorage(AppStorageKeys.homeLong.rawValue) private var homeLong: Double = 0
@@ -45,7 +45,7 @@ struct ChooseArtistsView: View {
                 savePreferencesResponse = ApiResponse(status: .success)
             }
             
-            hasFinishedOnboarding = true
+            authStatus = .registered
         } catch {
             withAnimation(.easeInOut(duration: 0.2)) {
                 savePreferencesResponse = ApiResponse(status: .error, error: error.localizedDescription)

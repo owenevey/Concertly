@@ -11,8 +11,8 @@ class AuthenticationManager {
     
     private let refresher = TokenRefresher()
     
-    func refreshTokens() async throws -> String {
-        return try await refresher.refresh {
+    func refreshTokens() async throws {
+        try await refresher.refresh {
             guard KeychainUtil.get(forKey: "refreshToken") != nil else {
                 throw NSError(domain: "NoRefreshToken", code: -1)
             }
@@ -21,7 +21,7 @@ class AuthenticationManager {
                 throw NSError(domain: "UserNotLoggedIn", code: -1)
             }
 
-            return try await withCheckedThrowingContinuation { continuation in
+            try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
                 user.getSession().continueWith { task in
                     if let error = task.error {
                         continuation.resume(throwing: error)
@@ -41,12 +41,14 @@ class AuthenticationManager {
                     KeychainUtil.save(idToken, forKey: "idToken")
                     KeychainUtil.save(refreshToken, forKey: "refreshToken")
 
-                    continuation.resume(returning: idToken)
+                    continuation.resume()
                     return nil
                 }
             }
+
         }
     }
+
 
     
     func signUp(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -118,9 +120,9 @@ class AuthenticationManager {
                 let idToken = session.idToken?.tokenString ?? ""
                 let refreshToken = session.refreshToken?.tokenString ?? ""
                 
-                KeychainUtil.save(accessToken, forKey: "accessToken")
-                KeychainUtil.save(idToken, forKey: "idToken")
-                KeychainUtil.save(refreshToken, forKey: "refreshToken")
+                KeychainUtil.save(accessToken, forKey: AppStorageKeys.accessToken.rawValue)
+                KeychainUtil.save(idToken, forKey: AppStorageKeys.idToken.rawValue)
+                KeychainUtil.save(refreshToken, forKey: AppStorageKeys.refreshToken.rawValue)
                 
                 UserDefaults.standard.set(email, forKey: AppStorageKeys.email.rawValue)
                 
@@ -147,20 +149,7 @@ class AuthenticationManager {
         let user = userPool.currentUser()
         user?.signOut()
         
-        // Clear tokens and sign-in state
-        KeychainUtil.delete(forKey: "accessToken")
-        KeychainUtil.delete(forKey: "idToken")
-        KeychainUtil.delete(forKey: "refreshToken")
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.email.rawValue)
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.isSignedIn.rawValue)
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.hasFinishedOnboarding.rawValue)
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.selectedNotificationPref.rawValue)
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.concertReminders.rawValue)
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.newTourDates.rawValue)
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeCity.rawValue)
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeLat.rawValue)
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeLong.rawValue)
-        UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeAirport.rawValue)
+        clearLocalUserData()
         
         CoreDataManager.shared.deleteAllSavedItems()
         
@@ -236,7 +225,7 @@ class AuthenticationManager {
     }
 }
 
-func getUserData() async throws {
+func getUserData() async throws -> Bool {
     let response = try await fetchUserPreferences()
     if let preferences = response.data {
         if preferences.city != nil {
@@ -246,7 +235,7 @@ func getUserData() async throws {
             UserDefaults.standard.set(preferences.airport, forKey: AppStorageKeys.homeAirport.rawValue)
         } else {
             // They haven't saved preferences
-            return
+            return false
         }
     } else {
         throw NSError(domain: "getUserData preferences failed", code: 1, userInfo: nil)
@@ -261,25 +250,25 @@ func getUserData() async throws {
     } else {
         throw NSError(domain: "getUserData artistsResponse failed", code: 1, userInfo: nil)
     }
-    
-    UserDefaults.standard.set(true, forKey: AppStorageKeys.hasFinishedOnboarding.rawValue)
+        
+    return true
 }
 
 
 func clearLocalUserData() {
-    KeychainUtil.delete(forKey: "accessToken")
-    KeychainUtil.delete(forKey: "idToken")
-    KeychainUtil.delete(forKey: "refreshToken")
+    KeychainUtil.delete(forKey: AppStorageKeys.accessToken.rawValue)
+    KeychainUtil.delete(forKey: AppStorageKeys.idToken.rawValue)
+    KeychainUtil.delete(forKey: AppStorageKeys.refreshToken.rawValue)
     UserDefaults.standard.removeObject(forKey: AppStorageKeys.email.rawValue)
-    UserDefaults.standard.removeObject(forKey: AppStorageKeys.isSignedIn.rawValue)
-    UserDefaults.standard.removeObject(forKey: AppStorageKeys.hasFinishedOnboarding.rawValue)
     UserDefaults.standard.removeObject(forKey: AppStorageKeys.selectedNotificationPref.rawValue)
+    UserDefaults.standard.removeObject(forKey: AppStorageKeys.theme.rawValue)
     UserDefaults.standard.removeObject(forKey: AppStorageKeys.concertReminders.rawValue)
     UserDefaults.standard.removeObject(forKey: AppStorageKeys.newTourDates.rawValue)
     UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeCity.rawValue)
     UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeLat.rawValue)
     UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeLong.rawValue)
     UserDefaults.standard.removeObject(forKey: AppStorageKeys.homeAirport.rawValue)
+    UserDefaults.standard.removeObject(forKey: AppStorageKeys.lastCheckedImages.rawValue)
     
     CoreDataManager.shared.deleteAllSavedItems()
 }

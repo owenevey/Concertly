@@ -9,12 +9,14 @@ class NotificationManager {
     private init() {}
     
     func requestPermission(completion: @escaping (Bool) -> Void) {
+        let authStatus = UserDefaults.standard.string(forKey: AppStorageKeys.authStatus.rawValue)
+        
         notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
             DispatchQueue.main.async {
                 if let error = error {
                     print("Notification permission error: \(error)")
                 }
-                if granted {
+                if granted && authStatus == AuthStatus.registered.rawValue {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
                 completion(granted)
@@ -94,13 +96,16 @@ class NotificationManager {
     
     func refreshNotificationPermissions() {
         let isPushNotificationsOn = UserDefaults.standard.bool(forKey: AppStorageKeys.isPushNotificationsOn.rawValue)
+        let authStatus = UserDefaults.standard.string(forKey: AppStorageKeys.authStatus.rawValue)
         
         notificationCenter.getNotificationSettings { settings in
             if settings.authorizationStatus == .authorized {
                 if !isPushNotificationsOn {
+                    UserDefaults.standard.set(true, forKey: AppStorageKeys.isPushNotificationsOn.rawValue)
                     DispatchQueue.main.async {
-                        UIApplication.shared.registerForRemoteNotifications()
-                        UserDefaults.standard.set(true, forKey: AppStorageKeys.isPushNotificationsOn.rawValue)
+                        if authStatus == AuthStatus.registered.rawValue {
+                            UIApplication.shared.registerForRemoteNotifications()
+                        }
                     }
                 }
             } else {

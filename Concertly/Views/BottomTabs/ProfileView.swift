@@ -20,8 +20,7 @@ struct ProfileView: View {
     
     @EnvironmentObject var router: Router
     
-    @AppStorage(AppStorageKeys.isSignedIn.rawValue) private var isSignedIn = false
-    @AppStorage(AppStorageKeys.hasFinishedOnboarding.rawValue) private var hasFinishedOnboarding = false
+    @AppStorage(AppStorageKeys.authStatus.rawValue) private var authStatus = false
     @AppStorage(AppStorageKeys.selectedNotificationPref.rawValue) private var selectedNotificationPref = false
     
     var concertRemindersSelection: String {
@@ -259,79 +258,104 @@ struct ProfileView: View {
                         }
                         .padding(.bottom, 20)
                         
-                        VStack {
-                            Text("Account")
-                                .font(.system(size: 20, type: .SemiBold))
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                            VStack(spacing: 0) {
+                        if authStatus == .registered {
+                            VStack {
+                                Text("Account")
+                                    .font(.system(size: 20, type: .SemiBold))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                                 
-                                Text(email)
-                                    .font(.system(size: 17, type: .Medium))
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                                    .padding(.vertical, 12)
-                                    .padding(.horizontal, 15)
-                                    .contentShape(Rectangle())
-                                
-                                Divider()
-                                    .frame(height: 1)
-                                    .overlay(.gray2)
-                                    .padding(.horizontal, 15)
-                                
-                                Menu {
-                                    Button("Confirm Sign Out") {
-                                        AuthenticationManager.shared.signOut(completion: { _ in })
+                                VStack(spacing: 0) {
+                                    
+                                    Text(email)
+                                        .font(.system(size: 17, type: .Medium))
+                                        .frame(maxWidth: .infinity, alignment: .center)
+                                        .padding(.vertical, 12)
+                                        .padding(.horizontal, 15)
+                                        .contentShape(Rectangle())
+                                    
+                                    Divider()
+                                        .frame(height: 1)
+                                        .overlay(.gray2)
+                                        .padding(.horizontal, 15)
+                                    
+                                    Menu {
+                                        Button("Confirm Sign Out") {
+                                            AuthenticationManager.shared.signOut(completion: { _ in })
+                                        }
+                                    } label: {
+                                        HStack {
+                                            Image(systemName: "rectangle.portrait.and.arrow.right.fill")
+                                                .frame(width: 22)
+                                            Text("Sign Out")
+                                                .font(.system(size: 17, type: .Regular))
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                            
+                                            Spacer()
+                                            
+                                            Image(systemName: "chevron.right")
+                                                .font(.system(size: 13))
+                                                .fontWeight(.semibold)
+                                        }
+                                        .padding(.vertical, 12)
+                                        .padding(.horizontal, 15)
+                                        .contentShape(Rectangle())
                                     }
-                                } label: {
-                                    HStack {
-                                        Image(systemName: "rectangle.portrait.and.arrow.right.fill")
-                                            .frame(width: 22)
-                                        Text("Sign Out")
-                                            .font(.system(size: 17, type: .Regular))
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                        
-                                        Spacer()
-                                        
-                                        Image(systemName: "chevron.right")
-                                            .font(.system(size: 13))
-                                            .fontWeight(.semibold)
+                                    .buttonStyle(PlainButtonStyle())
+                                    
+                                    
+                                    Divider()
+                                        .frame(height: 1)
+                                        .overlay(.gray2)
+                                        .padding(.horizontal, 15)
+                                    
+                                    NavigationLink(value: Routes.deleteAccount.rawValue) {
+                                        HStack {
+                                            Image(systemName: "trash.fill")
+                                                .frame(width: 22)
+                                            Text("Delete Account")
+                                                .font(.system(size: 17, type: .Regular))
+                                            
+                                            Spacer()
+                                            
+                                            Image(systemName: "chevron.right")
+                                                .font(.system(size: 13))
+                                                .fontWeight(.semibold)
+                                        }
+                                        .padding(.vertical, 12)
+                                        .padding(.horizontal, 15)
+                                        .contentShape(Rectangle())
                                     }
-                                    .padding(.vertical, 12)
-                                    .padding(.horizontal, 15)
-                                    .contentShape(Rectangle())
+                                    .buttonStyle(PlainButtonStyle())
                                 }
-                                .buttonStyle(PlainButtonStyle())
-                                
-                                
-                                Divider()
-                                    .frame(height: 1)
-                                    .overlay(.gray2)
-                                    .padding(.horizontal, 15)
-                                
-                                NavigationLink(value: Routes.deleteAccount.rawValue) {
-                                    HStack {
-                                        Image(systemName: "trash.fill")
-                                            .frame(width: 22)
-                                        Text("Delete Account")
-                                            .font(.system(size: 17, type: .Regular))
-                                        
-                                        Spacer()
-                                        
-                                        Image(systemName: "chevron.right")
-                                            .font(.system(size: 13))
-                                            .fontWeight(.semibold)
-                                    }
-                                    .padding(.vertical, 12)
-                                    .padding(.horizontal, 15)
-                                    .contentShape(Rectangle())
-                                }
-                                .buttonStyle(PlainButtonStyle())
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(.gray1)
+                                        .frame(maxWidth: .infinity)
+                                )
                             }
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .fill(.gray1)
-                                    .frame(maxWidth: .infinity)
-                            )
+                        } else {
+                            VStack {
+                                Text("Account")
+                                    .font(.system(size: 20, type: .SemiBold))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                VStack(spacing: 0) {
+                                    
+                                    ProfileRow(imageName: "person.circle.fill", name: AppStorageKeys.homeAirport.rawValue, displayName: "Login", selection: "")
+                                    
+                                    Divider()
+                                        .frame(height: 1)
+                                        .overlay(.gray2)
+                                        .padding(.horizontal, 15)
+                                    
+                                    ProfileRow(imageName: "person.crop.circle.fill.badge.plus", name: AppStorageKeys.homeAirport.rawValue, displayName: "Register", selection: "")
+                                }
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(.gray1)
+                                        .frame(maxWidth: .infinity)
+                                )
+                            }
                         }
                         
                         Spacer()
@@ -376,7 +400,6 @@ struct ProfileView: View {
         let name: String
         let displayName: String
         let selection: String
-        
         
         var body: some View {
             NavigationLink(value: name) {

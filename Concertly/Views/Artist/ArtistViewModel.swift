@@ -10,6 +10,7 @@ class ArtistViewModel: ObservableObject {
     @Published var nearbyConcerts: [Concert] = []
     @Published var isFollowing: Bool
     @Published var showError: Bool
+    @Published var showSignInPrompt: Bool
         
     let homeLat: Double
     let homeLong: Double
@@ -17,6 +18,7 @@ class ArtistViewModel: ObservableObject {
     init(artistID: String) {
         self.artistId = artistID
         self.showError = false
+        self.showSignInPrompt = false
         
         self.homeLat = UserDefaults.standard.double(forKey: AppStorageKeys.homeLat.rawValue)
         self.homeLong = UserDefaults.standard.double(forKey: AppStorageKeys.homeLong.rawValue)

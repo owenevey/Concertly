@@ -18,7 +18,7 @@ struct ChooseAirportView: View {
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
-                Text("Now, select your home airport")
+                Text("Next, select your home airport")
                     .font(.system(size: 23, type: .SemiBold))
                     .foregroundStyle(.accent)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -56,7 +56,7 @@ struct ChooseAirportView: View {
                             } else {
                                 VStack(spacing: 5) {
                                     ForEach(airports, id: \.code) { airportResult in
-                                        NavigationLink(destination: ChooseArtistsView()) {
+                                        NavigationLink(destination: EmptyView()) {
                                                 HStack(spacing: 20) {
                                                     Image(systemName: "airplane")
                                                         .font(.system(size: 20))

@@ -6,8 +6,12 @@ final class SavedViewModel: ObservableObject {
     @Published var savedConcerts: [Concert] = []
     
     init() {
-        Task {
-            await getSavedConcerts()
+        let authStatus = UserDefaults.standard.string(forKey: AppStorageKeys.authStatus.rawValue)
+
+        if authStatus != AuthStatus.loggedOut.rawValue {
+            Task {
+                await getSavedConcerts()
+            }
         }
     }
     

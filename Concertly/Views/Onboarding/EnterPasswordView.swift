@@ -7,14 +7,14 @@ struct EnterPasswordView: View {
     let email: String
     let isLogin: Bool
     
-    @AppStorage(AppStorageKeys.isSignedIn.rawValue) private var isSignedIn = false
-    @AppStorage(AppStorageKeys.hasFinishedOnboarding.rawValue) private var hasFinishedOnboarding = false
+    @AppStorage(AppStorageKeys.authStatus.rawValue) var authStatus: AuthStatus = .loggedOut
     
     @State var password: String = ""
     @State private var errorMessage: String? = nil
     @State var isLoading = false
     
     @State private var navigateToRegisterCodeView = false
+    @State private var navigateToChooseArtistsView = false
     
     @FocusState var isFocused
     
@@ -143,6 +143,9 @@ struct EnterPasswordView: View {
         .navigationDestination(isPresented: $navigateToRegisterCodeView) {
             RegisterCodeView(email: email, password: password)
         }
+        .navigationDestination(isPresented: $navigateToChooseArtistsView) {
+            ChooseArtistsView()
+        }
         .navigationBarHidden(true)
         .ignoresSafeArea(.keyboard)
     }
@@ -177,13 +180,20 @@ struct EnterPasswordView: View {
                 case .success(_):
                     Task {
                         do {
-                            try await getUserData()
+                            let hasSavedPrefs = try await getUserData()
+                            
                             DispatchQueue.main.async {
                                 withAnimation {
                                     isLoading = false
                                 }
-                                isSignedIn = true
                             }
+                            
+                            if hasSavedPrefs {
+                                authStatus = .registered
+                            } else {
+                                navigateToChooseArtistsView = true
+                            }
+                            
                         } catch {
                             DispatchQueue.main.async {
                                 withAnimation {

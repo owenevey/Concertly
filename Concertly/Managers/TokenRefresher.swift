@@ -1,27 +1,27 @@
 import Foundation
 
 actor TokenRefresher {
-    private var refreshTask: Task<String, Error>? = nil
+    private var refreshTask: Task<Void, Error>? = nil
 
-    func refresh(using block: @escaping () async throws -> String) async throws -> String {
+    func refresh(using block: @escaping () async throws -> Void) async throws {
         if let existingTask = refreshTask {
             return try await existingTask.value
         }
 
-        let task = Task { () throws -> String in
-            return try await block()
+        let task = Task {
+            try await block()
         }
 
         refreshTask = task
 
         do {
-            let result = try await task.value
+            try await task.value
             refreshTask = nil
-            return result
         } catch {
             refreshTask = nil
             throw error
         }
     }
 }
+
 
