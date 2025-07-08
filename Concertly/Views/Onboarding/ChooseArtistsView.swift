@@ -151,6 +151,7 @@ struct ChooseArtistsView: View {
         .background(Color.background)
         .navigationBarHidden(true)
         .disableSwipeBack(true)
+        .toolbar(.hidden, for: .tabBar)
     }
     
     private func toggleSelection(for artist: SuggestedArtist) {

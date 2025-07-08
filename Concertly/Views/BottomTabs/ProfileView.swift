@@ -348,15 +348,14 @@ struct ProfileView: View {
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
                                 VStack(spacing: 0) {
-                                    
-                                    ProfileRow(imageName: "person.circle.fill", name: Routes.login.rawValue, displayName: "Login", selection: "")
+                                    ProfileRow(imageName: "person.crop.circle.fill.badge.plus", name: Routes.register.rawValue, displayName: "Register", selection: "")
                                     
                                     Divider()
                                         .frame(height: 1)
                                         .overlay(.gray2)
                                         .padding(.horizontal, 15)
                                     
-                                    ProfileRow(imageName: "person.crop.circle.fill.badge.plus", name: Routes.register.rawValue, displayName: "Register", selection: "")
+                                    ProfileRow(imageName: "person.circle.fill", name: Routes.login.rawValue, displayName: "Login", selection: "")
                                 }
                                 .background(
                                     RoundedRectangle(cornerRadius: 10)

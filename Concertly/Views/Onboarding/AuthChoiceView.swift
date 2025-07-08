@@ -16,16 +16,14 @@ struct AuthChoiceView: View {
             VStack(spacing: 20) {
                 Spacer()
                 
-                Image(.kanyeOnPhone)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 250, height: 300)
-                    .cornerRadius(20)
-                    .clipped()
-                    .padding(.bottom, 10)
+                Image(systemName: "person.crop.circle")
+                    .font(.system(size: 90))
+                    .padding(.bottom, -10)
+                    .foregroundStyle(.accent)
                 
-                Text("Make it personal.")
-                    .font(.system(size: 25, type: .SemiBold))
+                Text("Make it personal")
+                    .font(.system(size: 30, type: .SemiBold))
+                    .foregroundStyle(.accent)
                 
                 Text("Create an account to follow artists, get personalized suggestions, and be the first to know about new tour dates.")
                     .font(.system(size: 17, type: .Regular))
@@ -37,14 +35,13 @@ struct AuthChoiceView: View {
                 
                 
                 VStack(spacing: 15) {
-                    ConcertlyButton(label: "Login", style: .primary) {
-                        navigateToLogin = true
+                    ConcertlyButton(label: "Register", style: .primary) {
+                        navigateToRegister = true
                         clearOnlyAuthData()
                     }
                     
-                    
-                    ConcertlyButton(label: "Register", style: .black) {
-                        navigateToRegister = true
+                    ConcertlyButton(label: "Login", style: .black) {
+                        navigateToLogin = true
                         clearOnlyAuthData()
                     }
                     

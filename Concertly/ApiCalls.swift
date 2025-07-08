@@ -1,6 +1,6 @@
 import Foundation
 
-let baseUrl = "https://d9hepdo8p4.execute-api.us-east-1.amazonaws.com/dev"
+let baseUrl = "https://d9hepdo8p4.execute-api.us-east-1.amazonaws.com/prod"
 
 func fetchData<T: Decodable, U: Encodable>(endpoint: String, method: String = "GET", body: U? = nil, dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .iso8601) async throws -> T {
     func makeRequest() throws -> URLRequest {

@@ -7,6 +7,8 @@ struct DeleteAccountView: View {
     
     @State private var showHeaderBorder: Bool = false
     
+    @AppStorage(AppStorageKeys.authStatus.rawValue) var authStatus: AuthStatus = .registered
+    
     @EnvironmentObject var router: Router
     
     var body: some View {
@@ -46,6 +48,7 @@ struct DeleteAccountView: View {
                             try await deleteUser()
                             clearLocalUserData()
                             isLoading = false
+                            authStatus = .loggedOut
                             router.reset()
                         }
                     })
