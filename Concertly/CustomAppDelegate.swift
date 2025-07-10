@@ -21,9 +21,9 @@ class CustomAppDelegate: NSObject, UIApplicationDelegate, ObservableObject {
         )
         
         let poolConfig = AWSCognitoIdentityUserPoolConfiguration(
-            clientId: "5bdgdkdpadaq9tumo2mu9dgp3r",
+            clientId: getSecret("COGNITO_CLIENT_ID"),
             clientSecret: nil,
-            poolId: "us-east-1_hsp6N2Iol"
+            poolId: getSecret("COGNITO_POOL_ID")
         )
         
         AWSCognitoIdentityUserPool.register(

@@ -280,3 +280,14 @@ func clearLocalUserData() {
     
     CoreDataManager.shared.deleteAllSavedItems()
 }
+
+func getSecret(_ key: String) -> String {
+    guard
+        let path = Bundle.main.path(forResource: "Secrets", ofType: "plist"),
+        let dict = NSDictionary(contentsOfFile: path),
+        let value = dict[key] as? String
+    else {
+        fatalError("Missing secret for key: \(key)")
+    }
+    return value
+}
