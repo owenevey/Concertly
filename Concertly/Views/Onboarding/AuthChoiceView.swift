@@ -1,4 +1,5 @@
 import SwiftUI
+import FirebaseAnalytics
 
 struct AuthChoiceView: View {
     
@@ -38,16 +39,28 @@ struct AuthChoiceView: View {
                     ConcertlyButton(label: "Register", style: .primary) {
                         navigateToRegister = true
                         clearOnlyAuthData()
+                        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                            AnalyticsParameterItemName: "auth_choice_register",
+                            AnalyticsParameterContentType: "cont",
+                        ])
                     }
                     
                     ConcertlyButton(label: "Login", style: .black) {
                         navigateToLogin = true
                         clearOnlyAuthData()
+                        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                            AnalyticsParameterItemName: "auth_choice_login",
+                            AnalyticsParameterContentType: "cont",
+                        ])
                     }
                     
                     Button {
                         authStatus = .guest
                         clearOnlyAuthData()
+                        Analytics.logEvent(AnalyticsEventSelectContent, parameters: [
+                            AnalyticsParameterItemName: "auth_choice_guest",
+                            AnalyticsParameterContentType: "cont",
+                        ])
                     } label: {
                         Text("No thanks")
                             .font(.system(size: 17, type: .Regular))

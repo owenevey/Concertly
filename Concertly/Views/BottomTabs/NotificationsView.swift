@@ -29,6 +29,18 @@ struct NotificationsView: View {
             
             ScrollView {
                 LazyVStack(spacing: 0) {
+                    if viewModel.notifications.isEmpty {
+                        VStack(spacing: 10) {
+                            Image(systemName: "bell")
+                                .font(.system(size: 20))
+                                .fontWeight(.semibold)
+                            
+                            Text("No notifications")
+                                .font(.system(size: 17, type: .Regular))
+                        }
+                        .frame(height: 250)
+                    }
+                    
                     ForEach(viewModel.notifications.indices, id: \.self) { index in
                         NotificationRow(notification: viewModel.notifications[index])
                         if index < viewModel.notifications.count - 1 {
