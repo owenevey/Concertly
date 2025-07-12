@@ -13,7 +13,7 @@ public struct SnackbarView: View {
     public var backgroundColor: Color
     
     var image: String {
-        if message == "Sign in to follow artists." {
+        if message == "Login to follow artists." {
             return "person.circle.fill"
         }
         

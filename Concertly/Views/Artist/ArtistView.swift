@@ -55,7 +55,7 @@ struct ArtistView: View {
             
             VStack {
                 Spacer()
-                SnackbarView(show: $viewModel.showSignInPrompt, message: "Sign in to follow artists.", backgroundColor: .blue)
+                SnackbarView(show: $viewModel.showSignInPrompt, message: "Login to follow artists.", backgroundColor: .blue)
                     .opacity(viewModel.showSignInPrompt ? 1 : 0)
                     .animation(.easeInOut(duration: 0.2), value: viewModel.showSignInPrompt)
             }

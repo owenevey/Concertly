@@ -54,7 +54,7 @@ struct ConcertlyApp: App {
                     router.handleOpenUrl(url: url)
                 }
                 .task {
-                    try? Tips.configure([.displayFrequency(.daily),
+                    try? Tips.configure([.displayFrequency(.weekly),
                                          .datastoreLocation(.applicationDefault)])
                 }
         }

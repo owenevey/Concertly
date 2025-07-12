@@ -71,7 +71,7 @@ struct RegisterCodeView: View {
                                                         navigateToChooseArtists = true
                                                     case .failure(_):
                                                         withAnimation {
-                                                            infoMessage = "Code verified, but failed to sign in."
+                                                            infoMessage = "Code verified, but failed to login."
                                                             showGoToSignIn = true
                                                         }
                                                     }
@@ -124,7 +124,7 @@ struct RegisterCodeView: View {
                     
                     if showGoToSignIn {
                         NavigationLink(destination: EnterEmailView(isLogin: true)) {
-                            Text("Go to Sign In")
+                            Text("Go to Login")
                         }
                         .font(.system(size: 16, type: .Medium))
                         .frame(maxWidth: .infinity, alignment: .center)

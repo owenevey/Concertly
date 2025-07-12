@@ -223,7 +223,7 @@ struct EnterPasswordView: View {
                             case AWSCognitoIdentityProviderErrorType.tooManyRequests.rawValue:
                                 errorMessage = "Too many requests. Please try again later."
                             case AWSCognitoIdentityProviderErrorType.expiredCode.rawValue:
-                                errorMessage = "Session expired. Please sign in again."
+                                errorMessage = "Session expired. Please login again."
                             case AWSCognitoIdentityProviderErrorType.userNotConfirmed.rawValue:
                                 isLoading = false
                                 navigateToRegisterCodeView = true
@@ -253,7 +253,7 @@ struct EnterPasswordView: View {
                         if error.domain == AWSCognitoIdentityProviderErrorDomain {
                             switch error.code {
                             case AWSCognitoIdentityProviderErrorType.usernameExists.rawValue:
-                                errorMessage = "That email is already registered. Please sign in."
+                                errorMessage = "That email is already registered. Please login."
                             case AWSCognitoIdentityProviderErrorType.invalidPassword.rawValue:
                                 errorMessage = "Password must be at least 8 characters, contain uppercase letter, lowercase letter, and a number."
                             case AWSCognitoIdentityProviderErrorType.invalidParameter.rawValue:
