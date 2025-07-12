@@ -2,6 +2,8 @@
 
 Stay on top of your favorite artists’ concerts with Concertly. Discover upcoming shows near you or explore concerts in other cities—all in one app.
 
+![AppPreview](https://raw.githubusercontent.com/owenevey/owenevey/refs/heads/main/assets/HorizontalMockup.jpg)
+
 ---
 
 ## Key Features
