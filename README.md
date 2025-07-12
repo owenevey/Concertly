@@ -24,12 +24,12 @@ Concertly integrates with:
 | :-------------- | :---------------- | :-------------------------------------------------------------------------- |
 | **External APIs** | Ticketmaster API  | Supplies concert and artist data                                           |
 |                 | SerpApi           | Fetches real-time flight and hotel information                              |
-|                 | OpenAI API        | Enables AI-powered features like personalized concert recommendations and dynamic artist biographies. |
+|                 | OpenAI API        | Enables AI-powered features like personalized concert recommendations and dynamic artist biographies  |
 |                 | Amadeus API       | Provides airport and city data                                              |
 | **AWS Services** | AWS Lambda        | Coordinates all functions and processes                                     |
 |                 | AWS API Gateway   | Manages API routing and acts as the entry point for all backend services    |
 |                 | AWS S3            | Stores application images and assets                                        |
-|                 | AWS DynamoDB      | Holds all user data, preferences, and artist information.                   |
+|                 | AWS DynamoDB      | Holds all user data, preferences, and artist information                    |
 |                 | AWS Cognito       | Responsible for auth and securing certain endpoints                         |
 |                 | AWS SNS           | Powers remote notifications and alerts for new tour date announcements      |
 |                 | AWS EventBridge   | Schedules batch lambda jobs                                                 |
